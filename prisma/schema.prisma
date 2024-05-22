@@ -1,0 +1,18 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mongodb"
+  url      = env("DATABASE_URL")
+}
+
+model UserCredential {
+  id           String @id @default(auto()) @map("_id") @db.ObjectId
+  RegisterDate String
+  email        String @unique
+  image        String
+  name         String
+  provider     String
+  role         String
+}
