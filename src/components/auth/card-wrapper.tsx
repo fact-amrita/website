@@ -28,15 +28,15 @@ export const CardWrapper = ({
 }: CardWrapperProps) => {
     return (
     <div>
-        <Card className="w-[500px] shadow-md">
-            <CardHeader>
+        <Card className="w-[500px] shadow-md" style={{backgroundColor: "rgba(255, 255, 255, 0.6)"}}>
+            <CardHeader > 
                <Header label={headerLabel}/>
             </CardHeader>
             <CardContent>
                 {children}
             </CardContent>
             {showSocial && (
-            <CardFooter >
+            <CardFooter>
                 <Social />
             </CardFooter>
             )}
