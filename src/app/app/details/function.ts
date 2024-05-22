@@ -1,7 +1,14 @@
-"use server"
+"use server";
 
 import { signOut } from "@/auth"
 
 export async function SignOutfromAll() {
-    await signOut({ redirectTo: "/app/auth/login" });
+    try {
+        await signOut({ redirectTo: "/app/auth/login" });
+    } catch (error) {
+        return {
+            error: 'Something went wrong. Please try again.'
+        }
+    }
+    
 }
