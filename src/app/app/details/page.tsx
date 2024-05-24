@@ -1,7 +1,7 @@
 import { auth } from "@/auth"
 import { Button } from "@/components/ui/button"
 
-import { SignOutfromAll } from "./function";
+import { SignOutfromAll } from "./signout";
 
 export default async function UserAvatar() {
   const session = await auth()

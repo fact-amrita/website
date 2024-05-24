@@ -8,6 +8,8 @@ import { LoginForm } from "@/components/auth/login-form";
 import { useToast } from "@/components/ui/use-toast";
 import { Toaster } from "@/components/ui/toaster";
 import { useSearchParams } from 'next/navigation';
+import { getSession } from "next-auth/react";
+import { useRouter } from "next/navigation";
 
 const font = Poppins({
   subsets: ["latin"],
@@ -18,6 +20,15 @@ export default function LoginPage() {
   const { toast } = useToast();
   const searchParams = useSearchParams();
   const errorParam = searchParams.get("error");
+  const router = useRouter();
+
+  useEffect(() => {
+    getSession().then(session => {
+      if (session) {
+        router.replace('/app/details');
+      }
+    });
+  }, [router]);
 
   useEffect(() => {
     if (errorParam) {
