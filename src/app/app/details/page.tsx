@@ -1,17 +1,15 @@
 import { auth } from "@/auth"
+import { Button } from "@/components/ui/button"
 
 import { SignOutfromAll } from "./function";
 
 export default async function UserAvatar() {
   const session = await auth()
-  if (!session) {
-    return <p>You need to be logged in to access your profile.</p>;
-  }
-  const user = session.user
-  if (!user) {
+  if (!session || !session.user) { 
     return <p>You need to be logged in to access your profile.</p>;
   }
 
+  const user = session.user;
   return (<>
     <div>
       <h1>Profile</h1>
@@ -26,7 +24,9 @@ export default async function UserAvatar() {
       <form
         action={SignOutfromAll}
       >
-        <button>Sign Out</button>
+        <Button variant="outline">
+          Sign Out
+        </Button>
       </form>
     </div>
   </>);
