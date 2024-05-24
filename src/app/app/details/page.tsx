@@ -24,9 +24,9 @@ export default async function UserAvatar() {
       <form
         action={SignOutfromAll}
       >
-        <Button variant="outline">
+        <button >
           Sign Out
-        </Button>
+        </button>
       </form>
     </div>
   </>);

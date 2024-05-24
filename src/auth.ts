@@ -65,7 +65,6 @@ export const authOptions = {
         }
         ) {
             const { session, token } = params;
-            // Include user role in the session
             session.user.role = token.user;
             return session;
         },
