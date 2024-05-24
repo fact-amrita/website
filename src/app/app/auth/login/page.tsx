@@ -1,16 +1,35 @@
-import Image from "next/image"
-import logo from "@/images/logo.png"
+"use client";
+
+import { useEffect } from "react";
+import Image from "next/image";
+import logo from "@/images/logo.png";
 import { Poppins } from "next/font/google";
 import { LoginForm } from "@/components/auth/login-form";
-import { useToast } from "@/components/ui/use-toast"
-
+import { useToast } from "@/components/ui/use-toast";
+import { Toaster } from "@/components/ui/toaster";
+import { useSearchParams } from 'next/navigation';
 
 const font = Poppins({
   subsets: ["latin"],
   weight: ["600"]
-})
+});
 
 export default function LoginPage() {
+  const { toast } = useToast();
+  const searchParams = useSearchParams();
+  const errorParam = searchParams.get("error");
+
+  useEffect(() => {
+    if (errorParam) {
+      toast({
+        variant: "destructive",
+        title: "Uh oh! Error Detected",
+        description: `${errorParam}`,
+        duration: Infinity,
+      });
+    }
+  }, [errorParam, toast]);
+
   return (
     <main className="flex h-full inset-0 bg-cover items-center justify-center bg-custom-gradient bg-custom-position">
       <div className="absolute space-y-6 text-center">
@@ -18,12 +37,13 @@ export default function LoginPage() {
           src={logo}
           alt="FACT Logo"
           width={500}
-          height={300} />
+          height={300}
+        />
         <div>
           <LoginForm />
-          {/* {errorParam && <p style={{ color: "red" }}>{errorString}</p>} */}
         </div>
       </div>
+      <Toaster />
     </main>
   );
 }
