@@ -9,7 +9,9 @@ import github from "next-auth/providers/github";
 
 export const authOptions = {
     providers: [Google, github],
-
+    pages: {
+        signIn: "/app/auth/login",
+    },
     callbacks: {
         async signIn(params: {
             user: any,
