@@ -1,15 +1,20 @@
 "use client";
 
+import { SignInwithGoogle, SignInwithGithub } from "./functions";
+import { FcGoogle } from "react-icons/fc";
+import { FaGithub } from "react-icons/fa";
 import { useEffect } from "react";
 import Image from "next/image";
 import logo from "@/images/logo.png";
 import { Poppins } from "next/font/google";
-import { LoginForm } from "@/components/auth/login-form";
 import { useToast } from "@/components/ui/use-toast";
 import { Toaster } from "@/components/ui/toaster";
 import { useSearchParams } from 'next/navigation';
 import { getSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
+import { BackgroundGradientAnimation } from "@/components/ui/background_animation";
+
+import styles from "./page.module.css";
 
 const font = Poppins({
   subsets: ["latin"],
@@ -41,8 +46,19 @@ export default function LoginPage() {
     }
   }, [errorParam, toast]);
 
+  const handleGoogleSignIn = async () => {
+    await SignInwithGoogle();
+};
+
+const handleGithubSignIn = async () => {
+    await SignInwithGithub();
+};
+
+
+
   return (
-    <main className="flex h-full inset-0 bg-cover items-center justify-center bg-custom-gradient bg-custom-position">
+    <main className="flex h-full inset-0 bg-cover items-center justify-center bg-black">
+      <BackgroundGradientAnimation />
       <div className="absolute space-y-6 text-center">
         <Image
           src={logo}
@@ -50,8 +66,26 @@ export default function LoginPage() {
           width={500}
           height={300}
         />
-        <div>
-          <LoginForm />
+        <div className={styles.card}>
+          <div className={styles.card2}>
+            <form className={styles.form}>
+              <p id={styles.heading}>Login</p>
+              <div>
+                <button className={styles.button1} style={{ display: "flex", alignItems: "center" }} onClick={handleGoogleSignIn}>
+                  <FcGoogle />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Login with Google&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                </button>
+              </div>
+              <div>
+                <button className={styles.button2} style={{ display: "flex", alignItems: "center" }} onClick={handleGithubSignIn}>
+                  <FaGithub />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Login with Github&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                </button>
+              </div>
+                  <div>
+                  </div>
+                  <div>
+                  </div>
+            </form>
+          </div>
         </div>
       </div>
       <Toaster />

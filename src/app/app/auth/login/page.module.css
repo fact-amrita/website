@@ -1,0 +1,72 @@
+.form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  padding-left: 1em; /* Adjust as needed */
+  padding-right: 1em; /* Adjust as needed */
+  padding-bottom: 0.4em;
+  background-color: #171717;
+  border-radius: 25px;
+  transition: 0.4s ease-in-out;
+}
+
+.card {
+  background-image: linear-gradient(163deg, #ff4450 0%, #4d4dff 100%);
+  border-radius: 22px;
+  transition: all 0.3s;
+}
+
+.card2 {
+  border-radius: 0;
+  transition: all 0.2s;
+}
+
+.card2:hover {
+  transform: scale(0.98);
+  border-radius: 20px;
+}
+
+.card:hover {
+  box-shadow: 0px 0px 30px 1px rgba(57, 16, 232, 0.75);
+}
+
+#heading {
+  text-align: left; /* Align the heading to the left */
+  margin: 2em 0; /* Adjust as needed */
+  color: rgb(255, 255, 255);
+  font-size: 1.2em;
+}
+
+.input-field {
+  background: none;
+  border: none;
+  outline: none;
+  width: 100%;
+  color: #d3d3d3;
+}
+
+.form .btn {
+  display: flex;
+  justify-content: flex-end; /* Align buttons to the right */
+  margin-top: 2.5em;
+}
+
+.button1,
+.button2 {
+  padding: 0.5em;
+  padding-left: 1.1em;
+  padding-right: 1.1em;
+  border-radius: 5px;
+  border: none;
+  outline: none;
+  transition: 0.4s ease-in-out;
+  background-color: #252525;
+  color: white;
+}
+
+.button1:hover,
+.button2:hover {
+  background-color: black;
+  color: white;
+}
