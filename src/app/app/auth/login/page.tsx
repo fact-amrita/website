@@ -43,6 +43,8 @@ export default function LoginPage() {
         description: `${errorParam}`,
         duration: Infinity,
       });
+      const newUrl = window.location.pathname;
+      window.history.replaceState(null, '', newUrl);
     }
   }, [errorParam, toast]);
 
