@@ -3,7 +3,7 @@
 import { SignInwithGoogle, SignInwithGithub } from "./functions";
 import { FcGoogle } from "react-icons/fc";
 import { FaGithub } from "react-icons/fa";
-import { useEffect } from "react";
+import { Suspense, useEffect } from "react";
 import Image from "next/image";
 import logo from "@/images/logo.png";
 import { Poppins } from "next/font/google";
@@ -21,7 +21,7 @@ const font = Poppins({
   weight: ["600"]
 });
 
-export default function LoginPage() {
+export default function LoginPage({ check }: { check: any }) {
   const { toast } = useToast();
   const searchParams = useSearchParams();
   const errorParam = searchParams.get("error");
@@ -59,6 +59,7 @@ const handleGithubSignIn = async () => {
 
 
   return (
+    <Suspense key={check} fallback={<div>Loading...</div>}>
     <main className="flex h-full inset-0 bg-cover items-center justify-center bg-black">
       <BackgroundGradientAnimation />
       <div className="absolute space-y-6 text-center">
@@ -92,5 +93,6 @@ const handleGithubSignIn = async () => {
       </div>
       <Toaster />
     </main>
+  </Suspense>
   );
 }
