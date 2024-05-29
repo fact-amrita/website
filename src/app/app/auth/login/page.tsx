@@ -3,7 +3,7 @@
 import { SignInwithGoogle, SignInwithGithub } from "./functions";
 import { FcGoogle } from "react-icons/fc";
 import { FaGithub } from "react-icons/fa";
-import { Suspense, useEffect } from "react";
+import { useEffect } from "react";
 import Image from "next/image";
 import logo from "@/images/logo.png";
 import { Poppins } from "next/font/google";
@@ -48,7 +48,6 @@ const handleGithubSignIn = async () => {
 
 
   return (
-    <Suspense key={check} fallback={<div>Loading...</div>}>
     <main className="flex h-full inset-0 bg-cover items-center justify-center bg-black">
       <BackgroundGradientAnimation />
       <div className="absolute space-y-6 text-center">
@@ -82,6 +81,5 @@ const handleGithubSignIn = async () => {
       </div>
       <Toaster />
     </main>
-  </Suspense>
   );
 }
