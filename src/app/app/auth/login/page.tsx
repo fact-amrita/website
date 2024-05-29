@@ -10,8 +10,6 @@ import { Poppins } from "next/font/google";
 import { useToast } from "@/components/ui/use-toast";
 import { Toaster } from "@/components/ui/toaster";
 import { useSearchParams } from 'next/navigation';
-import { getSession } from "next-auth/react";
-import { useRouter } from "next/navigation";
 import { BackgroundGradientAnimation } from "@/components/ui/background_animation";
 
 import styles from "./page.module.css";
@@ -25,15 +23,6 @@ export default function LoginPage() {
   const { toast } = useToast();
   const searchParams = useSearchParams();
   const errorParam = searchParams.get("error");
-  const router = useRouter();
-
-  useEffect(() => {
-    getSession().then(session => {
-      if (session) {
-        router.replace('/app/details');
-      }
-    });
-  }, [router]);
 
   useEffect(() => {
     if (errorParam) {
