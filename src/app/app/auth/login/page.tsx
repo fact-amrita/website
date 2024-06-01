@@ -37,16 +37,6 @@ export default function LoginPage({ check }: { check: any }) {
     }
   }, [errorParam, toast]);
 
-  const handleGoogleSignIn = async () => {
-    await SignInwithGoogle();
-};
-
-const handleGithubSignIn = async () => {
-    await SignInwithGithub();
-};
-
-
-
   return (
     <main className="flex h-full inset-0 bg-cover items-center justify-center bg-black">
       <BackgroundGradientAnimation />
@@ -59,23 +49,27 @@ const handleGithubSignIn = async () => {
         />
         <div className={styles.card}>
           <div className={styles.card2}>
-            <form className={styles.form}>
+            <div className={styles.form}>
               <p id={styles.heading}>Login</p>
               <div>
-                <button className={styles.button1} style={{ display: "flex", alignItems: "center" }} onClick={handleGoogleSignIn}>
-                  <FcGoogle />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Login with Google&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                </button>
+                <form action={SignInwithGoogle}>
+                  <button className={styles.button1} style={{ display: "flex", alignItems: "center" }}>
+                    <FcGoogle />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Login with Google&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                  </button>
+                </form>
               </div>
               <div>
-                <button className={styles.button2} style={{ display: "flex", alignItems: "center" }} onClick={handleGithubSignIn}>
-                  <FaGithub />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Login with Github&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                </button>
+                <form action={SignInwithGithub}>
+                  <button className={styles.button2} style={{ display: "flex", alignItems: "center" }}>
+                    <FaGithub />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Login with Github&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                  </button>
+                </form>
               </div>
-                  <div>
-                  </div>
-                  <div>
-                  </div>
-            </form>
+              <div>
+              </div>
+              <div>
+              </div>
+            </div>
           </div>
         </div>
       </div>
