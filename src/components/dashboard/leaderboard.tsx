@@ -1,6 +1,6 @@
+"use client";
+
 import React, { useEffect, useState } from 'react';
-// import axios from 'axios';
-// import { ChevronDownIcon, ChevronUpIcon } from '@heroicons/react/solid';
 
 interface LeaderboardEntry {
   rank: number;
@@ -10,13 +10,23 @@ interface LeaderboardEntry {
 
 const Leaderboard: React.FC = () => {
   const [entries, setEntries] = useState<LeaderboardEntry[]>([]);
-  const [showLeaderboard, setShowLeaderboard] = useState<boolean>(true);
 
   useEffect(() => {
     const fetchLeaderboard = async () => {
       try {
-        const response = await axios.get<LeaderboardEntry[]>('/api/leaderboard');
-        setEntries(response.data);
+        // Example fetching leaderboard data
+        // const response = await axios.get<LeaderboardEntry[]>('/api/leaderboard');
+        // setEntries(response.data);
+
+        // Mock data for demonstration
+        const mockEntries: LeaderboardEntry[] = [
+          { rank: 1, name: 'Alice', points: 1000 },
+          { rank: 2, name: 'Bob', points: 950 },
+          { rank: 3, name: 'Charlie', points: 900 },
+          { rank: 4, name: 'David', points: 850 },
+          { rank: 5, name: 'Eve', points: 800 },
+        ];
+        setEntries(mockEntries);
       } catch (error) {
         console.error('Error fetching leaderboard data:', error);
       }
@@ -25,44 +35,30 @@ const Leaderboard: React.FC = () => {
     fetchLeaderboard();
   }, []);
 
-  const toggleLeaderboard = () => {
-    setShowLeaderboard(!showLeaderboard);
-  };
-
   return (
-    <div className="max-w-lg mx-auto my-8">
-      <div className="bg-white shadow-md rounded-lg overflow-hidden">
-        <div
-          className="bg-gray-800 text-white p-4 flex justify-between items-center cursor-pointer"
-          onClick={toggleLeaderboard}
-        >
-          <h2 className="text-xl font-bold">Leaderboard</h2>
-          {showLeaderboard ? (
-            <ChevronUpIcon className="h-6 w-6 text-white" />
-          ) : (
-            <ChevronDownIcon className="h-6 w-6 text-white" />
-          )}
-        </div>
-        {showLeaderboard && (
-          <table className="min-w-full bg-white">
+    <div className="fixed top-0 right-0 h-full w-72 bg-indigo-800 bg-opacity-60 text-white z-50">
+      <div className="p-4">
+        <h2 className="text-xl font-bold mb-4">Leaderboard</h2>
+        <div className="px-4 py-2">
+          <table className="min-w-full table-auto">
             <thead>
               <tr>
-                <th className="py-2 px-4 bg-gray-200">Rank</th>
-                <th className="py-2 px-4 bg-gray-200">Name</th>
-                <th className="py-2 px-4 bg-gray-200">Points</th>
+                <th className="py-2 px-4 text-left">Rank</th>
+                <th className="py-2 px-4 text-left">Name</th>
+                <th className="py-2 px-4 text-left">Points</th>
               </tr>
             </thead>
             <tbody>
               {entries.map((entry) => (
-                <tr key={entry.rank} className="hover:bg-gray-100">
-                  <td className="border px-4 py-2">{entry.rank}</td>
-                  <td className="border px-4 py-2">{entry.name}</td>
-                  <td className="border px-4 py-2">{entry.points}</td>
+                <tr key={entry.rank} className="hover:bg-blue-300">
+                  <td className="px-4 py-2">{entry.rank}</td>
+                  <td className="px-4 py-2">{entry.name}</td>
+                  <td className="px-4 py-2">{entry.points}</td>
                 </tr>
               ))}
             </tbody>
           </table>
-        )}
+        </div>
       </div>
     </div>
   );

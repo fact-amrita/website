@@ -13,11 +13,11 @@ export default function DashboardPage() {
     { icon: <Image src={DashboardIcon} alt="Dashboard" />, text: 'Dashboard', active: true, alert: false },
     { icon: <Image src={TasksIcon} alt="Messages" />, text: 'Messages', active: false, alert: true },
     { icon: <Image src={LeaderboardIcon} alt="Settings" />, text: 'Settings', active: false, alert: false },
-    { icon: <Image src={ReportIssueIcon} alt="Profile" />, text: 'Profile', active: false, alert: false },
+    { icon: <Image src={ReportIssueIcon} alt="Report/Issue" />, text: 'Report/Issue', active: false, alert: false },
   ];
 
   return (
-    <div className="flex bg-black">
+    <div className="flex h-screen bg-black">
       <Sidebar>
         {sidebarItems.map((item, index) => (
           <SidebarItem
@@ -29,7 +29,8 @@ export default function DashboardPage() {
           />
         ))}
       </Sidebar>
-      <div className="flex-1">
+      
+      <div className="flex-1 overflow-y-auto">
         {/* Example content in the main area */}
         <Items />
         <Leaderboard />
