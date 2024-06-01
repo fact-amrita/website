@@ -7,10 +7,16 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
+model ExistingMembersList {
+  id    String @id @default(auto()) @map("_id") @db.ObjectId
+  Name  String
+  email String
+}
+
 model UserCredential {
   id           String @id @default(auto()) @map("_id") @db.ObjectId
   RegisterDate String
-  email        String @unique
+  email        String
   image        String
   name         String
   provider     String
