@@ -1,14 +1,11 @@
-import NextAuth from "next-auth"
-import Google from "next-auth/providers/google"
-import { PrismaClient } from "@prisma/client"
-
-const prisma = new PrismaClient()
+import NextAuth from "next-auth";
 
 import { db } from "./lib/db";
+import google from "next-auth/providers/google"
 import github from "next-auth/providers/github";
 
 export const authOptions = {
-    providers: [Google, github],
+    providers: [google, github],
     callbacks: {
         async signIn(params: {
             user: any,
