@@ -1,6 +1,7 @@
 "use client"; 
 import React, { useState, createContext, useContext, ReactNode, FC } from 'react';
 import {ChevronLast, ChevronFirst } from 'lucide-react'; // Fallback icons
+import {SignOutfromAll} from "@/lib/signout";
 
 interface SidebarContextType {
   expanded: boolean;
@@ -17,6 +18,7 @@ const Sidebar: FC<SidebarProps> = ({ children }) => {
 
   const handleLogout = () => {
     // Implement your logout logic here
+    SignOutfromAll();
     console.log('Logging out...');
   };
 
