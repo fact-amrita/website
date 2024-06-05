@@ -36,11 +36,11 @@ const Leaderboard: React.FC = () => {
   }, []);
 
   return (
-    <div className="fixed top-0 right-0 h-full w-72 bg-indigo-800 bg-opacity-60 text-white z-50">
-      <div className="p-4">
-        <h2 className="text-xl font-bold mb-4">Leaderboard</h2>
+    <div className="flex fixed top-0 right-0 h-full w-72 bg-indigo-800 bg-opacity-20 text-white z-50 justify-center">
+      <div className="p-4 justify-center">
+        <h2 className="text-xl font-bold mb-4 justify-center">Leaderboard</h2>
         <div className="px-4 py-2">
-          <table className="min-w-full table-auto">
+          <table className=" flex flex-col min-w-full table-auto">
             <thead>
               <tr>
                 <th className="py-2 px-4 text-left">Rank</th>

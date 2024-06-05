@@ -7,6 +7,7 @@ import DashboardIcon from '@/public/icons/dashboard.svg';
 import TasksIcon from '@/public/icons/tasks.svg'; 
 import LeaderboardIcon from '@/public/icons/leaderboard.svg'; 
 import ReportIssueIcon from '@/public/icons/reportissue.svg'; 
+import { BackgroundGradientAnimation } from '@/components/ui/background_animation';
 
 export default function DashboardPage() {
   const sidebarItems = [
