@@ -1,7 +1,7 @@
-"use client"; 
+"use client";
 import React, { useState, createContext, useContext, ReactNode, FC } from 'react';
-import {ChevronLast, ChevronFirst } from 'lucide-react'; // Fallback icons
-import {SignOutfromAll} from "@/lib/signout";
+import { ChevronLast, ChevronFirst } from 'lucide-react'; // Fallback icons
+import { SignOutfromAll } from "@/lib/signout";
 import Image from "next/image";
 import getTitle from "@/functions/titleget";
 import logo from "@/images/logo_black.png";
@@ -14,11 +14,11 @@ const SidebarContext = createContext<SidebarContextType | undefined>(undefined);
 
 interface SidebarProps {
   children: ReactNode;
-  user:{
+  user: {
     name: string;
     email: string;
-    role:string;
-    image:string;
+    role: string;
+    image: string;
   }
 }
 
@@ -30,56 +30,55 @@ const Sidebar: FC<SidebarProps> = ({ children, user }) => {
     SignOutfromAll();
     console.log('Logging out...');
   };
-
+  const image = user.image || "https://ui-avatars.com/api/?background=c7d2fe&color=3730a3&bold=true";
   return (
-      <aside className="fixed left-1 top-1 h-screen">
-        <nav className="h-full flex flex-col bg-white border-r shadow-md rounded-lg">
-          <div className="p-2 pb-1 flex justify-between items-center">
-            <Image
-              src={logo}
-              className={`overflow-hidden transition-all ${
-                expanded ? 'w-32' : 'w-0'
+    <aside className="fixed left-1 top-1 h-screen">
+      <nav className="h-full flex flex-col bg-white border-r shadow-md rounded-lg">
+        <div className="p-2 pb-1 flex justify-between items-center">
+          <Image
+            src={logo}
+            className={`overflow-hidden transition-all ${expanded ? 'w-32' : 'w-0'
               }`}
-              alt="Logo"
+            alt="Logo"
+          />
+          <button
+            onClick={() => setExpanded((curr) => !curr)}
+            className="p-1.5 rounded-lg bg-gray-50 hover:bg-gray-100"
+          >
+            {expanded ? <ChevronFirst /> : <ChevronLast />}
+          </button>
+        </div>
+
+        <SidebarContext.Provider value={{ expanded }}>
+          <ul className="flex-1 px-3">{children}</ul>
+        </SidebarContext.Provider>
+
+        <div className="border-t p-3">
+          <div className="flex items-center mb-3">
+            <img
+              src={user.image || "https://ui-avatars.com/api/?background=c7d2fe&color=3730a3&bold=true"}
+              alt="User Avatar"
+              className="w-10 h-10 rounded-md"
             />
-            <button
-              onClick={() => setExpanded((curr) => !curr)}
-              className="p-1.5 rounded-lg bg-gray-50 hover:bg-gray-100"
-            >
-              {expanded ? <ChevronFirst /> : <ChevronLast />}
-            </button>
-          </div>
-
-          <SidebarContext.Provider value={{ expanded }}>
-            <ul className="flex-1 px-3">{children}</ul>
-          </SidebarContext.Provider>
-
-          <div className="border-t p-3">
-            <div className="flex items-center mb-3">
-              <img
-                src={user.image}
-                alt="User Avatar"
-                className="w-10 h-10 rounded-md"
-              />
-              {expanded && (
-                <div className="flex flex-col justify-center ml-3">
-                  <h4 className="font-semibold">{user.name}</h4>
-                  <span className="text-xs text-gray-600">{user.email}</span>
-                  <span className="text-xs text-gray-600">{getTitle(user.role)}</span>
-                </div>
-              )}
-            </div>
             {expanded && (
-              <button
-                className="w-full py-2 px-4 rounded-md text-white bg-red-500 hover:bg-red-600 transition-colors"
-                onClick={handleLogout}
-              >
-                Logout
-              </button>
+              <div className="flex flex-col justify-center ml-3">
+                <h4 className="font-semibold">{user.name}</h4>
+                <span className="text-xs text-gray-600">{user.email}</span>
+                <span className="text-xs text-gray-600">{getTitle(user.role)}</span>
+              </div>
             )}
           </div>
-        </nav>
-      </aside>
+          {expanded && (
+            <button
+              className="w-full py-2 px-4 rounded-md text-white bg-red-500 hover:bg-red-600 transition-colors"
+              onClick={handleLogout}
+            >
+              Logout
+            </button>
+          )}
+        </div>
+      </nav>
+    </aside>
   );
 };
 
@@ -101,9 +100,8 @@ const SidebarItem: FC<SidebarItemProps> = ({ icon, text, active, alert = false }
 
   return (
     <li
-      className={`relative flex items-center py-2 px-3 my-1 font-medium rounded-md cursor-pointer transition-colors group ${
-        active ? 'bg-gradient-to-tr from-indigo-200 to-indigo-100 text-indigo-800' : 'hover:bg-indigo-50 text-gray-600'
-      }`}
+      className={`relative flex items-center py-2 px-3 my-1 font-medium rounded-md cursor-pointer transition-colors group ${active ? 'bg-gradient-to-tr from-indigo-200 to-indigo-100 text-indigo-800' : 'hover:bg-indigo-50 text-gray-600'
+        }`}
     >
       {icon}
       {expanded && (
@@ -111,9 +109,8 @@ const SidebarItem: FC<SidebarItemProps> = ({ icon, text, active, alert = false }
       )}
       {alert && (
         <div
-          className={`absolute right-2 w-2 h-2 rounded bg-indigo-400 ${
-            expanded ? '' : 'top-2'
-          }`}
+          className={`absolute right-2 w-2 h-2 rounded bg-indigo-400 ${expanded ? '' : 'top-2'
+            }`}
         />
       )}
       {!expanded && (
