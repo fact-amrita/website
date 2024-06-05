@@ -43,6 +43,11 @@ export default function LoginPage({ check }: { check: any }) {
       const newUrl = window.location.pathname;
       window.history.replaceState(null, '', newUrl);
     }
+
+    if(redirectParam){
+      const newUrl = window.location.pathname;
+      window.history.replaceState(null, '', newUrl);
+    }
   }, [errorParam, toast]);
 
   return (
