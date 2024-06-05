@@ -2,8 +2,9 @@
 import React, { useState, createContext, useContext, ReactNode, FC } from 'react';
 import {ChevronLast, ChevronFirst } from 'lucide-react'; // Fallback icons
 import {SignOutfromAll} from "@/lib/signout";
-
+import Image from "next/image";
 import getTitle from "@/functions/titleget";
+import logo from "@/images/logo_black.png";
 
 interface SidebarContextType {
   expanded: boolean;
@@ -34,8 +35,8 @@ const Sidebar: FC<SidebarProps> = ({ children, user }) => {
       <aside className="fixed left-1 top-1 h-screen">
         <nav className="h-full flex flex-col bg-white border-r shadow-md rounded-lg">
           <div className="p-2 pb-1 flex justify-between items-center">
-            <img
-              src="https://img.logoipsum.com/243.svg"
+            <Image
+              src={logo}
               className={`overflow-hidden transition-all ${
                 expanded ? 'w-32' : 'w-0'
               }`}
