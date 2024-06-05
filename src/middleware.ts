@@ -8,4 +8,9 @@ export default auth((req) => {
             return Response.redirect(url)
         }
     }
+
+    if (!req.auth && req.nextUrl.pathname === "/app/details") {
+        const url = req.url.replace(req.nextUrl.pathname, "/app/auth/login?error=You should be logged in to access")
+        return Response.redirect(url)
+    }
 })

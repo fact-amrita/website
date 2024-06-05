@@ -3,6 +3,8 @@ import React, { useState, createContext, useContext, ReactNode, FC } from 'react
 import {ChevronLast, ChevronFirst } from 'lucide-react'; // Fallback icons
 import {SignOutfromAll} from "@/lib/signout";
 
+import getTitle from "@/functions/titleget";
+
 interface SidebarContextType {
   expanded: boolean;
 }
@@ -11,9 +13,15 @@ const SidebarContext = createContext<SidebarContextType | undefined>(undefined);
 
 interface SidebarProps {
   children: ReactNode;
+  user:{
+    name: string;
+    email: string;
+    role:string;
+    image:string;
+  }
 }
 
-const Sidebar: FC<SidebarProps> = ({ children }) => {
+const Sidebar: FC<SidebarProps> = ({ children, user }) => {
   const [expanded, setExpanded] = useState(true);
 
   const handleLogout = () => {
@@ -48,14 +56,15 @@ const Sidebar: FC<SidebarProps> = ({ children }) => {
           <div className="border-t p-3">
             <div className="flex items-center mb-3">
               <img
-                src="https://ui-avatars.com/api/?background=c7d2fe&color=3730a3&bold=true"
+                src={user.image}
                 alt="User Avatar"
                 className="w-10 h-10 rounded-md"
               />
               {expanded && (
                 <div className="flex flex-col justify-center ml-3">
-                  <h4 className="font-semibold">John Doe</h4>
-                  <span className="text-xs text-gray-600">johndoe@gmail.com</span>
+                  <h4 className="font-semibold">{user.name}</h4>
+                  <span className="text-xs text-gray-600">{user.email}</span>
+                  <span className="text-xs text-gray-600">{getTitle(user.role)}</span>
                 </div>
               )}
             </div>
