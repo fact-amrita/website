@@ -1,7 +1,7 @@
 "use client"
 
 import { useEffect } from 'react';
-import { SignOutfromAll } from '../../signout';
+import { SignOutfromAll } from "@/lib/signout";
 
 export default function LogoutPage() {
 

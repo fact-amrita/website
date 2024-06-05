@@ -26,6 +26,8 @@ export default function LoginPage({ check }: { check: any }) {
 
   const redirectParam = searchParams.get("redirect");
 
+  const signedOutParam = searchParams.get("signedout");
+
   var redirectURL = "/app";
   if (redirectParam) {
     redirectURL = redirectParam;
@@ -44,7 +46,17 @@ export default function LoginPage({ check }: { check: any }) {
       window.history.replaceState(null, '', newUrl);
     }
 
-    if(redirectParam){
+    if (signedOutParam !== null) {
+      toast({
+        variant: "success",
+        title: "Sign Out Successful!",
+        description: "You have been successfully Signed Out."
+      })
+      const newUrl = window.location.pathname;
+      window.history.replaceState(null, '', newUrl);
+    }
+
+    if (redirectParam) {
       const newUrl = window.location.pathname;
       window.history.replaceState(null, '', newUrl);
     }
