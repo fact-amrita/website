@@ -24,6 +24,14 @@ export default function LoginPage({ check }: { check: any }) {
   const searchParams = useSearchParams();
   const errorParam = searchParams.get("error");
 
+  const redirectParam = searchParams.get("redirect");
+
+  var redirectURL = "/app";
+  if (redirectParam) {
+    redirectURL = redirectParam;
+  }
+
+
   useEffect(() => {
     if (errorParam) {
       toast({
@@ -52,14 +60,14 @@ export default function LoginPage({ check }: { check: any }) {
             <div className={styles.form}>
               <p id={styles.heading}>Login</p>
               <div>
-                <form action={SignInwithGoogle}>
+                <form action={() => { SignInwithGoogle(redirectURL) }}>
                   <button className={styles.button1} style={{ display: "flex", alignItems: "center" }}>
                     <FcGoogle />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Login with Google&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                   </button>
                 </form>
               </div>
               <div>
-                <form action={SignInwithGithub}>
+                <form action={() => { SignInwithGithub(redirectURL) }}>
                   <button className={styles.button2} style={{ display: "flex", alignItems: "center" }}>
                     <FaGithub />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Login with Github&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                   </button>
