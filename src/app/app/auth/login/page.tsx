@@ -19,20 +19,13 @@ const font = Poppins({
   weight: ["600"]
 });
 
-export default function LoginPage({ check }: { check: any }) {
+export default function LoginPage() {
   const { toast } = useToast();
   const searchParams = useSearchParams();
+
   const errorParam = searchParams.get("error");
-
-  const redirectParam = searchParams.get("redirect");
-
   const signedOutParam = searchParams.get("signedout");
-
-  var redirectURL = "/app";
-  if (redirectParam) {
-    redirectURL = redirectParam;
-  }
-
+  const redirectURL = searchParams.get("redirect") ?? "/app";
 
   useEffect(() => {
     if (errorParam) {
@@ -45,7 +38,6 @@ export default function LoginPage({ check }: { check: any }) {
       const newUrl = window.location.pathname;
       window.history.replaceState(null, '', newUrl);
     }
-
     if (signedOutParam !== null) {
       toast({
         variant: "success",
@@ -55,12 +47,11 @@ export default function LoginPage({ check }: { check: any }) {
       const newUrl = window.location.pathname;
       window.history.replaceState(null, '', newUrl);
     }
-
-    if (redirectParam) {
+    if (searchParams.get("redirect")) {
       const newUrl = window.location.pathname;
       window.history.replaceState(null, '', newUrl);
     }
-  }, [errorParam, toast]);
+  }, [errorParam, signedOutParam, searchParams, toast]);
 
   return (
     <main className="flex h-full inset-0 bg-cover items-center justify-center bg-black">
