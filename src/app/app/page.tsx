@@ -44,8 +44,7 @@ const DashboardContent = () => {
     return <p>You need to be logged in to access your profile.</p>;
   }
 
-  const userdat = session.user;
-
+  const userdat = session.user as { name: string; email: string; role: string; image: string; };
   const sidebarItems = [
     { icon: <Image src={DashboardIcon} alt="Dashboard" />, text: 'Dashboard', active: true, alert: false },
     { icon: <Image src={TasksIcon} alt="Messages" />, text: 'Messages', active: false, alert: true },
