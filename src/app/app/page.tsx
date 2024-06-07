@@ -1,4 +1,6 @@
-import React from 'react';
+'use client'; // Ensure this is the first line
+
+import React, { useEffect } from 'react';
 import { Sidebar, SidebarItem } from '@/components/dashboard/sidebar';
 import Items from '@/components/dashboard/items';
 import Leaderboard from '@/components/dashboard/leaderboard';
@@ -7,12 +9,37 @@ import DashboardIcon from '@/public/icons/dashboard.svg';
 import TasksIcon from '@/public/icons/tasks.svg';
 import LeaderboardIcon from '@/public/icons/leaderboard.svg';
 import ReportIssueIcon from '@/public/icons/reportissue.svg';
-import { SessionProvider } from "next-auth/react"
-import { auth } from "@/auth"
+import { SessionProvider, useSession } from 'next-auth/react';
 
-export default async function DashboardPage() {
+import { useToast } from "@/components/ui/use-toast";
+import { Toaster } from "@/components/ui/toaster";
+import { useSearchParams } from 'next/navigation';
 
-  const session = await auth()
+const DashboardContent = () => {
+  const { data: session, status } = useSession();
+
+  const { toast } = useToast();
+  const searchParams = useSearchParams();
+
+  const messageParam = searchParams.get("message");
+
+  useEffect(() => {
+    if (messageParam) {
+      toast({
+        variant: "default",
+        title: "Server Message",
+        description: `${messageParam}`,
+        duration: 3000,
+      });
+      const newUrl = window.location.pathname;
+      window.history.replaceState(null, '', newUrl);
+    }
+  }, [messageParam, toast]);
+
+  if (status === 'loading') {
+    return <p></p>; // Suspense content can be added here
+  }
+
   if (!session || !session.user) {
     return <p>You need to be logged in to access your profile.</p>;
   }
@@ -27,7 +54,6 @@ export default async function DashboardPage() {
   ];
 
   return (
-    <SessionProvider session={session}>
     <div className="flex h-screen bg-black">
       <Sidebar user={userdat}>
         {sidebarItems.map((item, index) => (
@@ -42,11 +68,18 @@ export default async function DashboardPage() {
       </Sidebar>
 
       <div className="flex-1 overflow-y-auto">
-        {/* Example content in the main area */}
         <Items />
         <Leaderboard />
       </div>
+      <Toaster />
     </div>
-    </SessionProvider>
   );
-}
+};
+
+const DashboardPage = () => (
+  <SessionProvider>
+    <DashboardContent />
+  </SessionProvider>
+);
+
+export default DashboardPage;
