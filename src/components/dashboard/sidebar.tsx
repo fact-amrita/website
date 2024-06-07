@@ -55,11 +55,13 @@ const Sidebar: FC<SidebarProps> = ({ children, user }) => {
 
         <div className="border-t p-3">
           <div className="flex items-center mb-3">
-            <img
-              src={user.image || "https://ui-avatars.com/api/?background=c7d2fe&color=3730a3&bold=true"}
-              alt="User Avatar"
-              className="w-10 h-10 rounded-md"
-            />
+          <Image
+            src={user.image || "https://ui-avatars.com/api/?background=c7d2fe&color=3730a3&bold=true"}
+            alt="User Avatar"
+            width={40} // Set your desired width
+            height={40} // Set your desired height
+            className="w-10 h-10 rounded-md"
+          />
             {expanded && (
               <div className="flex flex-col justify-center ml-3">
                 <h4 className="font-semibold">{user.name}</h4>
