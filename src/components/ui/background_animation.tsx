@@ -51,7 +51,7 @@ export const BackgroundGradientAnimation = ({
     document.body.style.setProperty("--fourth-color", fourthColor);
     document.body.style.setProperty("--size", size);
     document.body.style.setProperty("--blending-value", blendingValue);
-  }, []);
+  }, [blendingValue, firstColor, fourthColor, gradientBackgroundEnd, gradientBackgroundStart, secondColor, size, thirdColor]);
 
   useEffect(() => {
     function move() {
@@ -66,7 +66,7 @@ export const BackgroundGradientAnimation = ({
     }
 
     move();
-  }, [tgX, tgY]);
+  }, [curX, curY, tgX, tgY]);
 
   const [isSafari, setIsSafari] = useState(false);
   useEffect(() => {
