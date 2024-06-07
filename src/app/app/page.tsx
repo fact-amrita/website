@@ -1,4 +1,6 @@
-import React, { useState, useEffect } from 'react';
+'use client'; // Ensure this is the first line
+
+import React, { useEffect } from 'react';
 import { Sidebar, SidebarItem } from '@/components/dashboard/sidebar';
 import Items from '@/components/dashboard/items';
 import Leaderboard from '@/components/dashboard/leaderboard';
@@ -7,29 +9,35 @@ import DashboardIcon from '@/public/icons/dashboard.svg';
 import TasksIcon from '@/public/icons/tasks.svg';
 import LeaderboardIcon from '@/public/icons/leaderboard.svg';
 import ReportIssueIcon from '@/public/icons/reportissue.svg';
-import { SessionProvider } from "next-auth/react";
-import { auth } from "@/auth";
-import { Session } from 'next-auth';
+import { SessionProvider, useSession } from 'next-auth/react';
 
-export default function DashboardPage() {
-  const [session, setSession] = useState<Session | null>(null); // Define session as Session | null
+import { useToast } from "@/components/ui/use-toast";
+import { Toaster } from "@/components/ui/toaster";
+import { useSearchParams } from 'next/navigation';
+
+const DashboardContent = () => {
+  const { data: session, status } = useSession();
+
+  const { toast } = useToast();
+  const searchParams = useSearchParams();
+
+  const messageParam = searchParams.get("message");
 
   useEffect(() => {
-    const fetchSession = async () => {
-      try {
-        const sessionData = await auth();
-        setSession(sessionData);
-      } catch (error) {
-        console.error('Error fetching session:', error);
-      }
-    };
+    if (messageParam) {
+      toast({
+        variant: "default",
+        title: "Server Message",
+        description: `${messageParam}`,
+        duration: 3000,
+      });
+      const newUrl = window.location.pathname;
+      window.history.replaceState(null, '', newUrl);
+    }
+  }, [messageParam, toast]);
 
-    fetchSession();
-  }, []);
-
-  // Handle initial state and loading state
-  if (session === null) {
-    return <p>Loading...</p>; // Render a loading indicator while fetching the session
+  if (status === 'loading') {
+    return <p></p>; // Suspense content can be added here
   }
 
   if (!session || !session.user) {
@@ -46,26 +54,32 @@ export default function DashboardPage() {
   ];
 
   return (
-    <SessionProvider session={session}>
-      <div className="flex h-screen bg-black">
-        <Sidebar user={userdat}>
-          {sidebarItems.map((item, index) => (
-            <SidebarItem
-              key={index}
-              icon={item.icon}
-              text={item.text}
-              active={item.active}
-              alert={item.alert}
-            />
-          ))}
-        </Sidebar>
+    <div className="flex h-screen bg-black">
+      <Sidebar user={userdat}>
+        {sidebarItems.map((item, index) => (
+          <SidebarItem
+            key={index}
+            icon={item.icon}
+            text={item.text}
+            active={item.active}
+            alert={item.alert}
+          />
+        ))}
+      </Sidebar>
 
-        <div className="flex-1 overflow-y-auto">
-          {/* Example content in the main area */}
-          <Items />
-          <Leaderboard />
-        </div>
+      <div className="flex-1 overflow-y-auto">
+        <Items />
+        <Leaderboard />
       </div>
-    </SessionProvider>
+      <Toaster />
+    </div>
   );
-}
+};
+
+const DashboardPage = () => (
+  <SessionProvider>
+    <DashboardContent />
+  </SessionProvider>
+);
+
+export default DashboardPage;
