@@ -7,7 +7,7 @@ import DashboardIcon from '@/public/icons/dashboard.svg';
 import TasksIcon from '@/public/icons/tasks.svg';
 import LeaderboardIcon from '@/public/icons/leaderboard.svg';
 import ReportIssueIcon from '@/public/icons/reportissue.svg';
-
+import { SessionProvider } from "next-auth/react"
 import { auth } from "@/auth"
 
 export default async function DashboardPage() {
@@ -27,6 +27,7 @@ export default async function DashboardPage() {
   ];
 
   return (
+    <SessionProvider session={session}>
     <div className="flex h-screen bg-black">
       <Sidebar user={userdat}>
         {sidebarItems.map((item, index) => (
@@ -46,5 +47,6 @@ export default async function DashboardPage() {
         <Leaderboard />
       </div>
     </div>
+    </SessionProvider>
   );
 }

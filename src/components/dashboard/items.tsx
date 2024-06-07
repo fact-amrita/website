@@ -38,7 +38,7 @@ const items = [
 export function Items() {
   return (
     <div className="flex justify-center items-center min-h-screen bg-black z-50">
-      <BentoGrid className="w-7xl mx-auto md:auto-rows-[27rem]">
+      <BentoGrid className="w-4xl mx-auto md:auto-rows-[27rem]">
         {items.map((item, i) => (
           <BentoGridItem
             key={i}

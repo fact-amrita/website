@@ -11,6 +11,7 @@ import { useToast } from "@/components/ui/use-toast";
 import { Toaster } from "@/components/ui/toaster";
 import { useSearchParams } from 'next/navigation';
 import { BackgroundGradientAnimation } from "@/components/ui/background_animation";
+import { SessionProvider } from "next-auth/react";
 
 import styles from "./page.module.css";
 
