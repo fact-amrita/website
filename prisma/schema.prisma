@@ -8,16 +8,30 @@ datasource db {
 }
 
 model UserCredential {
-  id           String @id @default(auto()) @map("_id") @db.ObjectId
+  id           String  @id @default(auto()) @map("_id") @db.ObjectId
   RegisterDate String?
-  email        String @unique
+  email        String  @unique
   image        String?
   name         String
   provider     String?
   role         String?
 }
+
 model ExistingMembersList {
-  id    String @id @default(auto()) @map("_id") @db.ObjectId
+  id    String  @id @default(auto()) @map("_id") @db.ObjectId
   email String? @unique
   name  String?
+}
+
+model User {
+  id           String  @id @default(auto()) @map("_id") @db.ObjectId
+  RegisterDate String
+  email        String  @unique
+  image        String?
+  name         String
+  role         String
+  FactID       String  @unique
+  domain       String
+  phone        String?
+  birthday     String?
 }

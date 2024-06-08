@@ -1,16 +1,46 @@
 "use server"
 
-export default async function DataSave(data:any){
-    // console.log(data)
-    const DataDict={
-        "name":data["Name"],
-        "email":data["Email"],
-        "branch":data["answers"]["branchcode"]["value"][0],
-        "RollNumber":data["answers"]["rollnum"]["value"],
-        "Domain":data["answers"]["domain"]["value"][0],
-        "Birthday":data["answers"]["birthdate"]["value"],
-        "PhoneNum":data["answers"]["phonenum"]["value"]
+import { db } from "@/lib/db";
+import { promoteUser } from "@/lib/UserOperations";
+
+export default async function DataSave(dataGot: any) {
+    const DataDict = {
+        "name": dataGot["Name"],
+        "email": dataGot["Email"],
+        "image": dataGot["image"],
+        "branch": dataGot["answers"]["branchcode"]["value"][0],
+        "RollNumber": dataGot["answers"]["rollnum"]["value"],
+        "Domain": dataGot["answers"]["domain"]["value"][0],
+        "Birthday": dataGot["answers"]["birthdate"]["value"],
+        "PhoneNum": dataGot["answers"]["phonenum"]["value"]
     }
 
-    console.log(DataDict)
+    const factID = "FACT_" + DataDict["branch"] + "_" + DataDict["RollNumber"]
+
+    const IDExisting = await db.user.findUnique({
+        where: {
+            FactID: factID
+        }
+    })
+
+    if (IDExisting) {
+        console.log("ID already exists")
+        return
+    }
+
+    await db.user.create({
+        data: {
+            name: DataDict["name"],
+            email: DataDict["email"],
+            image: DataDict["image"],
+            FactID: factID,
+            domain: DataDict["Domain"],
+            birthday: DataDict["Birthday"],
+            phone: DataDict["PhoneNum"],
+            RegisterDate: new Date().toISOString(),
+            role: "member"
+        }
+    })
+
+    await promoteUser(DataDict["email"], "member")
 }

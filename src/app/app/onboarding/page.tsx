@@ -6,6 +6,8 @@ import { registerCoreBlocks } from "@quillforms/react-renderer-utils";
 import DataSave from "./saveData";
 import { SessionProvider, useSession } from 'next-auth/react';
 
+import { SignOutfromAll } from "@/lib/signout";
+
 registerCoreBlocks();
 function FormApp() {
 
@@ -130,7 +132,7 @@ function FormApp() {
                             name: "statement",
                             id: "CompletionStatement",
                             attributes: {
-                                label: "Complete onboarding ?",
+                                label: "Complete onboarding ?\n\nYou will be logged out to complete the process on our servers.",
                                 buttonText: "Complete",
                                 quotationMarks: true,
                             },
@@ -145,11 +147,12 @@ function FormApp() {
                     formData,
                     { completeForm, setIsSubmitting, goToBlock, setSubmissionErr }
                 ) => {
-                    const updatedData = { ...formData, "Name": userdat.name, "Email": userdat.email, "Role": userdat.role }
+                    const updatedData = { ...formData, "Name": userdat.name, "Email": userdat.email, "Role": userdat.role, "image": userdat.image }
                     DataSave(updatedData);
                     setTimeout(() => {
                         setIsSubmitting(false);
                         completeForm();
+                        SignOutfromAll();
                     }, 500);
                 }} applyLogic={false} />
         </div>
