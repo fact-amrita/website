@@ -3,6 +3,8 @@
 export default async function DataSave(data:any){
     // console.log(data)
     const DataDict={
+        "name":data["Name"],
+        "email":data["Email"],
         "branch":data["answers"]["branchcode"]["value"][0],
         "RollNumber":data["answers"]["rollnum"]["value"],
         "Domain":data["answers"]["domain"]["value"][0],

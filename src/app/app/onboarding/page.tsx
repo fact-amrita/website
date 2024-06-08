@@ -4,16 +4,30 @@ import { Form } from "@quillforms/renderer-core";
 import "@quillforms/renderer-core/build-style/style.css";
 import { registerCoreBlocks } from "@quillforms/react-renderer-utils";
 import DataSave from "./saveData";
+import { SessionProvider, useSession } from 'next-auth/react';
 
 registerCoreBlocks();
-export default function FormApp() {
+function FormApp() {
+
+    const { data: session, status } = useSession();
+
+    if (status === 'loading') {
+        return <p></p>; // Suspense content can be added here
+    }
+
+    if (!session || !session.user) {
+        return <p>You need to be logged in to access this page.</p>;
+    }
+
+    const userdat = session.user as { name: string; email: string; role: string; image: string; };
+
     return (
         <div style={{ width: "100%", height: "100vh" }}>
             <Form
                 formId={1}
                 formObj={{
                     messages: {
-                        "block.defaultThankYouScreen.label": "Now that you've been onboarded, you are officially a member of the club.\n\nPlease proceed to your "+'<a href="/app" style={{text-decoration:"underline"}}>dashboard</a>',
+                        "block.defaultThankYouScreen.label": "Now that you've been onboarded, you are officially a member of the club.\n\nPlease proceed to your " + '<a href="/app" style={{text-decoration:"underline"}}>dashboard</a>',
                         "label.errorAlert.range": "Please enter a correct number",
                         "label.submitBtn": "Let's Go !!!",
                     },
@@ -128,10 +142,11 @@ export default function FormApp() {
                     },
                 }}
                 onSubmit={(
-                    data,
+                    formData,
                     { completeForm, setIsSubmitting, goToBlock, setSubmissionErr }
                 ) => {
-                    DataSave(data);
+                    const updatedData = { ...formData, "Name": userdat.name, "Email": userdat.email, "Role": userdat.role }
+                    DataSave(updatedData);
                     setTimeout(() => {
                         setIsSubmitting(false);
                         completeForm();
@@ -140,3 +155,12 @@ export default function FormApp() {
         </div>
     );
 };
+
+
+export default function OnboardingPage() {
+    return (
+        <SessionProvider>
+            <FormApp />
+        </SessionProvider>
+    );
+}
