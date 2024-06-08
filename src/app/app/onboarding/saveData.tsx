@@ -42,5 +42,5 @@ export default async function DataSave(dataGot: any) {
         }
     })
 
-    await promoteUser(DataDict["email"], "member")
+    await promoteUser(DataDict["email"])
 }

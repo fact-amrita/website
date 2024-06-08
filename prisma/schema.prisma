@@ -32,6 +32,6 @@ model User {
   role         String
   FactID       String  @unique
   domain       String
-  phone        String?
+  phone        BigInt?
   birthday     String?
 }
