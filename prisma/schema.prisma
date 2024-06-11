@@ -38,12 +38,21 @@ model User {
   points       Int
 }
 
-model Tasks{
-  id           String   @id @default(auto()) @map("_id") @db.ObjectId
-  TaskId       String   @unique
-  task         String
-  points       Int
-  domain       String
-  description  String
-  deadline     String
+model Tasks {
+  id          String @id @default(auto()) @map("_id") @db.ObjectId
+  TaskId      String @unique
+  task        String
+  points      Int
+  domain      String
+  description String
+  deadline    String
+}
+
+model Tickets {
+  id         String  @id @default(auto()) @map("_id") @db.ObjectId
+  TicketId   String  @unique
+  TicketType String
+  UserId     String
+  DateTime   String
+  cleared    Boolean
 }
