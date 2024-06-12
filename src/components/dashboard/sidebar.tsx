@@ -28,7 +28,6 @@ const Sidebar: FC<SidebarProps> = ({ children, user }) => {
   const handleLogout = () => {
     // Implement your logout logic here
     SignOutfromAll();
-    console.log('Logging out...');
   };
   const image = user.image || "https://ui-avatars.com/api/?background=c7d2fe&color=3730a3&bold=true";
   return (

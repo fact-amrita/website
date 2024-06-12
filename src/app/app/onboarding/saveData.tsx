@@ -25,7 +25,6 @@ export default async function DataSave(dataGot: any) {
     })
 
     if (IDExisting) {
-        console.log("ID already exists")
         return false
     }
 

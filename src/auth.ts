@@ -12,8 +12,6 @@ export const authOptions = {
             account: any,
         }) {
             const { user, account } = params;
-            // console.log("signIn", user, account, "email of user", user.email);
-
             const userExisting = await db.userCredential.findUnique({
                 where: { email: user.email }
             })
@@ -34,7 +32,6 @@ export const authOptions = {
                             provider: account.provider,
                         },
                     });
-                    console.log("new user created");
                 } else {
                     await db.userCredential.create({
                         data: {
@@ -46,14 +43,11 @@ export const authOptions = {
                             provider: account.provider,
                         },
                     });
-                    console.log("new user created");
                 }
             } else {
                 if (userExisting?.provider !== account.provider) {
-                    console.log("Different provider error")
                     return "/app/auth/login?error=Account already exists with different provider, please login with it."
                 }
-                console.log("user already exists");
             }
 
             return true;

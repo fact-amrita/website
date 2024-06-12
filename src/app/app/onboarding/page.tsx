@@ -1,17 +1,35 @@
 "use client"
 
-import { Form } from "@quillforms/renderer-core";
-import "@quillforms/renderer-core/build-style/style.css";
-import { registerCoreBlocks } from "@quillforms/react-renderer-utils";
-import DataSave from "./saveData";
+import { useEffect, useState } from 'react';
+import { Form } from '@quillforms/renderer-core';
+import '@quillforms/renderer-core/build-style/style.css';
+import { registerCoreBlocks } from '@quillforms/react-renderer-utils';
+import DataSave from './saveData'; // Ensure correct import
 import { SessionProvider, useSession } from 'next-auth/react';
-
-import { SignOutfromAll } from "@/lib/signout";
+import { SignOutfromAll } from '@/lib/signout'; // Ensure correct import
+import { useToast } from "@/components/ui/use-toast";
+import { Toaster } from "@/components/ui/toaster";
 
 registerCoreBlocks();
-function FormApp() {
 
+function FormApp() {
+    const { toast } = useToast();
     const { data: session, status } = useSession();
+    const [error, setError] = useState("");
+
+    useEffect(() => {
+        if (error) {
+            toast({
+                variant: 'destructive',
+                title: 'Uh oh! Error Detected',
+                description: `${error}`,
+                duration: Infinity,
+                position: 'center'
+            });
+            const newUrl = window.location.pathname;
+            window.history.replaceState(null, '', newUrl);
+        }
+    }, [error, toast]);
 
     if (status === 'loading') {
         return <p></p>; // Suspense content can be added here
@@ -50,30 +68,12 @@ function FormApp() {
                                 required: true,
                                 label: "Let's start with your course branch",
                                 choices: [
-                                    {
-                                        label: "CSE",
-                                        value: "CSE",
-                                    },
-                                    {
-                                        label: "AIE",
-                                        value: "AIE",
-                                    },
-                                    {
-                                        label: "CYS",
-                                        value: "CYS",
-                                    },
-                                    {
-                                        label: "ECE",
-                                        value: "ECE",
-                                    },
-                                    {
-                                        label: "CCE",
-                                        value: "CCE",
-                                    },
-                                    {
-                                        label: "MEE",
-                                        value: "MEE",
-                                    },
+                                    { label: "CSE", value: "CSE" },
+                                    { label: "AIE", value: "AIE" },
+                                    { label: "CYS", value: "CYS" },
+                                    { label: "ECE", value: "ECE" },
+                                    { label: "CCE", value: "CCE" },
+                                    { label: "MEE", value: "MEE" },
                                 ],
                             },
                         },
@@ -99,14 +99,8 @@ function FormApp() {
                                 required: true,
                                 label: "Which domain would you like to go with ?",
                                 choices: [
-                                    {
-                                        label: "Physical Forensics",
-                                        value: "Physical",
-                                    },
-                                    {
-                                        label: "Digital Forensics",
-                                        value: "Digital",
-                                    },
+                                    { label: "Physical Forensics", value: "Physical" },
+                                    { label: "Digital Forensics", value: "Digital" },
                                 ],
                             },
                         },
@@ -143,22 +137,40 @@ function FormApp() {
                         disableNavigationArrows: false,
                     },
                 }}
-                onSubmit={(
+                onSubmit={async (
                     formData,
                     { completeForm, setIsSubmitting, goToBlock, setSubmissionErr }
                 ) => {
-                    const updatedData = { ...formData, "Name": userdat.name, "Email": userdat.email, "Role": userdat.role, "image": userdat.image }
-                    DataSave(updatedData);
-                    setTimeout(() => {
+                    setIsSubmitting(true);
+                    try {
+                        const updatedData = {
+                            ...formData,
+                            Name: userdat.name,
+                            Email: userdat.email,
+                            Role: userdat.role,
+                            image: userdat.image
+                        };
+
+                        const saveSuccess = await DataSave(updatedData);
+
+                        if (saveSuccess) {
+                            completeForm();
+                            SignOutfromAll();
+                        } else {
+                            setError("This ID already exists. Please contact the club admin by submitting a ticket for further assistance");
+                        }
+                    } catch (error) {
+                        setError("An unexpected error occurred. Please try again.");
+                    } finally {
                         setIsSubmitting(false);
-                        completeForm();
-                        SignOutfromAll();
-                    }, 500);
-                }} applyLogic={false} />
+                    }
+                }}
+                applyLogic={false}
+            />
+            <Toaster />
         </div>
     );
-};
-
+}
 
 export default function OnboardingPage() {
     return (
