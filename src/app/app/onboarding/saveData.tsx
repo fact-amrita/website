@@ -2,6 +2,7 @@
 
 import { db } from "@/lib/db";
 import { promoteUser } from "@/lib/UserOperations";
+import { SignOutfromAll } from "@/lib/signout";
 
 export default async function DataSave(dataGot: any) {
     const DataDict = {
@@ -25,7 +26,7 @@ export default async function DataSave(dataGot: any) {
 
     if (IDExisting) {
         console.log("ID already exists")
-        return
+        return false
     }
 
     await db.user.create({
@@ -44,4 +45,6 @@ export default async function DataSave(dataGot: any) {
     })
 
     await promoteUser(DataDict["email"])
+
+    return true
 }
