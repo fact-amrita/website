@@ -42,9 +42,9 @@ model Tasks {
   id          String @id @default(auto()) @map("_id") @db.ObjectId
   TaskId      String @unique
   task        String
+  description String
   points      Int
   domain      String
-  description String
   deadline    String
 }
 
