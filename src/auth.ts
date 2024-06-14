@@ -63,6 +63,16 @@ export const authOptions = {
                     where: { email: user.email },
                 });
 
+                const userData = await db.user.findUnique({
+                    where: {
+                        email: user.email
+                    }
+                })
+
+                if (userData) {
+                    token.factId = userData.FactID || "";
+                }
+
                 token.user = userExisting?.role || "newbie";
             }
             return token;
@@ -74,6 +84,9 @@ export const authOptions = {
         ) {
             const { session, token } = params;
             session.user.role = token.user;
+            if (token.factId) {
+                session.user.factId = token.factId;
+            }
             return session;
         },
     }

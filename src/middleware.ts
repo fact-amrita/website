@@ -9,13 +9,28 @@ export default auth((req) => {
         return Response.redirect(url)
     }
 
+    if (req.nextUrl.pathname === "/app/task") {
+        if (!req.auth) {
+            const url = req.url.replace(req.nextUrl.pathname, "/app/auth/login?error=You should be logged in to access")
+            return Response.redirect(url)
+        }
+
+        if (req.auth) {
+            const userdat = req.auth.user as { name: string; email: string; role: string; image: string; factId: string };
+            if (userdat.role == "newbie") {
+                const url = req.url.replace(req.nextUrl.pathname, "/app?message=Sorry, you can only access this page if you are a member")
+                return Response.redirect(url)
+            }
+        }
+    }
+
     if (req.nextUrl.pathname === "/app/onboarding") {
         if (!req.auth) {
             const url = req.url.replace(req.nextUrl.pathname, "/app/auth/login?error=You should be logged in to access")
             return Response.redirect(url)
         }
         if (req.auth && req.auth.user) {
-            const userdat = req.auth.user as { name: string; email: string; role: string; image: string; };
+            const userdat = req.auth.user as { name: string; email: string; role: string; image: string; factId: string };
             if (userdat.role !== "onboarding") {
                 const url = req.url.replace(req.nextUrl.pathname, "/app?message=You don't need to onboard again. You are already onboarded.")
                 return Response.redirect(url)
