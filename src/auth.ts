@@ -71,6 +71,7 @@ export const authOptions = {
 
                 if (userData) {
                     token.factId = userData.FactID || "";
+                    token.domain = userData.domain || "";
                 }
 
                 token.user = userExisting?.role || "newbie";
@@ -86,6 +87,7 @@ export const authOptions = {
             session.user.role = token.user;
             if (token.factId) {
                 session.user.factId = token.factId;
+                session.user.domain = token.domain;
             }
             return session;
         },
