@@ -46,6 +46,7 @@ model Tasks {
   points      Int
   domain      String
   deadline    String
+  duration    String
 }
 
 model Tickets {
