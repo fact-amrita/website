@@ -45,6 +45,7 @@ model Tasks {
   description String
   points      Int
   domain      String
+  startTime   String
   deadline    String
   duration    String
 }

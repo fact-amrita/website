@@ -1,19 +1,20 @@
+"use server"
+
 import { db } from "@/lib/db";
 import { TaskIdGen } from "@/functions/taskIdgen";
 
-export async function TaskCreate(taskName: string, taskDescription: string, points: number, domain: string, taskDeadline: string, duration: string) {
-    // generate a task id and proceed if it does not exist in the database
+export async function TaskCreate(taskName: string, taskDescription: string, pointsGiven: number, domain: string, taskStartTime: string, taskDeadline: string, duration: string) {
     let taskId = TaskIdGen();
     let task = await db.tasks.findFirst({
         where: {
-            id: taskId
+            TaskId: taskId
         }
     });
     while (task) {
         taskId = TaskIdGen();
         task = await db.tasks.findFirst({
             where: {
-                id: taskId
+                TaskId: taskId
             }
         });
     }
@@ -24,14 +25,25 @@ export async function TaskCreate(taskName: string, taskDescription: string, poin
             TaskId: taskId,
             task: taskName,
             description: taskDescription,
-            points: points,
+            points: +pointsGiven,
             domain: domain,
+            startTime: taskStartTime,
             deadline: taskDeadline,
             duration: duration
         }
     })
 
     return taskId;
+}
+
+export async function TasksGet(domain: string) {
+    const tasks = await db.tasks.findMany({
+        where: {
+            domain: domain
+        }
+    });
+
+    return tasks;
 }
 
 export async function TaskDelete(taskId: string) {

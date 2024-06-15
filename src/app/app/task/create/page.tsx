@@ -1,72 +1,123 @@
 "use client";
 
-import React from 'react';
+import React, { useState } from 'react';
 import { useForm, SubmitHandler } from 'react-hook-form';
+import { TaskCreate } from '@/lib/TaskOperations';
 
 interface FormData {
   taskTitle: string;
   description: string;
-  evaluationState: 'not_started' | 'in_progress' | 'done';
-  timeConstraints: string;
-  taskLink: string;
-  fileUpload: FileList;
+  startDate: string;
+  deadline: string;
+  Duration: number;
+  domain: "physical" | "digital" | "common";
+  points: number;
 }
 
-const TaskForm: React.FC = () => {  
+const TaskForm: React.FC = () => {
   const {
     register,
     handleSubmit,
+    watch,
     formState: { errors },
   } = useForm<FormData>();
 
-  const onSubmit: SubmitHandler<FormData> = (data) => {
+  const [result, setResult] = useState<string | null>(null);
+
+  const onSubmit: SubmitHandler<FormData> = async (data) => {
     console.log('Submitted data:', data);
+    var result = await TaskCreate(data.taskTitle, data.description, data.points, data.domain, data.startDate, data.deadline, data.Duration.toString());
+    setResult(result);
   };
 
+  const isStartDateValid = !errors.startDate;
+  const isDurationValid = !errors.Duration;
+
+
   return (
-    <div className='bg-black h-screen flex items-center justify-center'>
-      <form onSubmit={handleSubmit(onSubmit)} className='bg-white p-8 rounded shadow-md w-2/4 h-3/4'>
+    <div className='bg-black h-screen flex items-start justify-center pt-8'>
+      <form onSubmit={handleSubmit(onSubmit)} className='bg-white p-8 rounded shadow-md w-full sm:w-3/4 md:w-2/3 lg:w-1/2 xl:w-2/4'>
         <div className='mb-4'>
           <label htmlFor="taskTitle" className='block text-gray-700'>Task Title</label>
-          <input type="text" {...register('taskTitle')} id="taskTitle" className='form-input mt-1 block w-full border' />
-        </div>
-            
-        <div className='mb-4'>
-          <label htmlFor="description" className='block text-gray-700'>Description</label>
-          <textarea {...register('description')} id="description" className='form-textarea mt-1 block w-full border borderline' />
+          <input type="text" required {...register('taskTitle')} id="taskTitle" className='form-input mt-1 block w-full border' />
         </div>
 
         <div className='mb-4'>
-          <label htmlFor="evaluationState" className='block text-gray-700'>Evaluation State</label>
-          <select {...register('evaluationState')} id="evaluationState" className='form-select mt-1 block w-full'>
-            <option value="not_started">Not Started</option>
-            <option value="in_progress">In Progress</option>
-            <option value="done">Done</option>
+          <label htmlFor="description" className='block text-gray-700'>Description</label>
+          <textarea {...register('description')} required id="description" className='form-textarea mt-1 block w-full border borderline' />
+        </div>
+
+        <div className='mb-4'>
+          <label htmlFor="points" className='block text-gray-700'>Points</label>
+          <input
+            type="number"
+            {...register('points', {
+              validate: value => value > 0 || 'Points should be a positive number'
+            })}
+            id="points"
+            className={`form-input mt-1 block w-full border ${errors.points ? 'border-red-500' : ''}`}
+          />
+          {errors.points && <p className='text-red-500'>{errors.points.message}</p>}
+        </div>
+
+        <div className='mb-4'>
+          <label htmlFor="domain" className='block text-gray-700'>Domain</label>
+          <select required {...register('domain')} id="domain" className='form-select mt-1 block w-full border'>
+            <option value="">Select...</option>
+            <option value="physical">Physical</option>
+            <option value="digital">Digital</option>
+            <option value="common">Common</option>
           </select>
         </div>
 
         <div className='mb-4'>
-          <label htmlFor="timeConstraints" className='block text-gray-700'>Time Constraints</label>
-          <input type="text" {...register('timeConstraints')} id="timeConstraints" className='form-input mt-1 block w-full border' />
+          <label htmlFor="StartDate" className='block text-gray-700'>Task Start</label>
+          <input
+            type="date"
+            {...register('startDate', {
+              validate: value => new Date(value) > new Date() || 'Start date should be in the future'
+            })}
+            id="StartDate"
+            className={`form-input mt-1 block w-full border ${!isStartDateValid ? 'border-red-500' : ''}`}
+          />
+          {errors.startDate && <p className='text-red-500'>{errors.startDate.message}</p>}
         </div>
 
         <div className='mb-4'>
-          <label htmlFor="taskLink" className='block text-gray-700'>Task Link</label>
-          <input type="url" {...register('taskLink')} id="taskLink" className='form-input mt-1 block w-full border' />
+          <label htmlFor="Duration" className='block text-gray-700'>Duration (Days)</label>
+          <input
+            type="number"
+            {...register('Duration', {
+              validate: value => value > 0 || 'Duration should be a positive number'
+            })}
+            id="Duration"
+            className={`form-input mt-1 block w-full border ${!isDurationValid ? 'border-red-500' : ''}`}
+          />
+          {errors.Duration && <p className='text-red-500'>{errors.Duration.message}</p>}
         </div>
 
         <div className='mb-4'>
-          <label htmlFor="fileUpload" className='block text-gray-700'>File Upload</label>
-          <input type="file" {...register('fileUpload')} id="fileUpload" className='form-input mt-1 block w-full ' multiple />
+          <label htmlFor="Deadline" className='block text-gray-700'>Deadline</label>
+          <input
+            type="date"
+            {...register('deadline', {
+              validate: value => new Date(value) > new Date(watch('startDate')) || 'Deadline should be after the start date'
+            })}
+            id="Deadline"
+            className={`form-input mt-1 block w-full border ${errors.deadline ? 'border-red-500' : ''}`}
+          />
+          {errors.deadline && <p className='text-red-500'>{errors.deadline.message}</p>}
         </div>
+
+        {result && <p className='text-green-500'>The created task ID is {result}</p>}
+        
         <div className='flex justify-center items-center'>
-        <button className="bg-gradient-to-r from-purple-400 to-blue-500 hover:from-pink-500 hover:to-purple-600 text-white font-bold py-3 px-6 rounded-full shadow-lg transform transition-all duration-500 ease-in-out hover:scale-110 hover:brightness-110 hover:animate-pulse active:animate-bounce">
-          Submit
-        </button>
-
+          <button className="bg-gradient-to-r from-purple-400 to-blue-500 hover:from-pink-500 hover:to-purple-600 text-white font-bold py-3 px-6 rounded-full shadow-lg transform transition-all duration-500 ease-in-out hover:scale-110 hover:brightness-110 hover:animate-pulse active:animate-bounce">
+            Submit
+          </button>
         </div>
-      </form>
-    </div>
+      </form >
+    </div >
   );
 };
 
