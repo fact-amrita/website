@@ -7,7 +7,7 @@ export default auth((req) => {
         return Response.redirect(url)
     }
 
-    if (req.nextUrl.pathname === "/app/task") {
+    if (req.nextUrl.pathname === "/app/tasks") {
         if (!req.auth) {
             const url = req.url.replace(req.nextUrl.pathname, "/app/auth/login?error=You should be logged in to access")
             return Response.redirect(url)
@@ -21,7 +21,7 @@ export default auth((req) => {
         }
     }
 
-    if (req.nextUrl.pathname === "/app/task/create") {
+    if (req.nextUrl.pathname === "/app/tasks/create") {
         if (!req.auth) {
             const url = req.url.replace(req.nextUrl.pathname, "/app/auth/login?error=You should be logged in to access")
             return Response.redirect(url)
@@ -82,12 +82,12 @@ export default auth((req) => {
 //             switch (nextUrl.pathname) {
 //                 case "/app/auth/login":
 //                     return Response.redirect(url.replace(nextUrl.pathname, "/app"));
-//                 case "/app/task":
+//                 case "/app/tasks":
 //                     if (userdat.role === "newbie") {
 //                         return redirectToApp("Sorry, you can only access this page if you are a member");
 //                     }
 //                     break;
-//                 case "/app/task/create":
+//                 case "/app/tasks/create":
 //                     if (["newbie", "onboarding", "member"].includes(userdat.role)) {
 //                         return Response.redirect(new URL('/404', url));
 //                     }
