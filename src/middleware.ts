@@ -1,8 +1,6 @@
 import { auth } from "@/auth"
 
 export default auth((req) => {
-
-
     if (req.auth && req.nextUrl.pathname === "/app/auth/login") {
         const url = req.url.replace(req.nextUrl.pathname, "/app")
         // deepcode ignore OR: The redirect URL is already mentioned by the previous line and is not changable from the client side
@@ -57,49 +55,51 @@ export default auth((req) => {
 })
 
 
-
-// Plan of optimization
+// Optimized Middleware
 // import { auth } from "@/auth"
 
 // export default auth((req) => {
 //     const { auth: requestAuth, nextUrl, url } = req;
 //     const userdat = requestAuth?.user as { name: string; email: string; role: string; image: string; factId: string };
 
-//     const redirectToLogin = (message: string) => {
-//         const newUrl = url.replace(nextUrl.pathname, `/app/auth/login?error=${message}`);
-//         return Response.redirect(newUrl);
-//     }
+//     if (url.startsWith("/app")) {
 
-//     const redirectToApp = (message: string) => {
-//         const newUrl = url.replace(nextUrl.pathname, `/app?message=${message}`);
-//         return Response.redirect(newUrl);
-//     }
+//         const redirectToLogin = (message: string) => {
+//             const newUrl = url.replace(nextUrl.pathname, `/app/auth/login?error=${message}`);
+//             return Response.redirect(newUrl);
+//         }
 
-//     if (!requestAuth && nextUrl.pathname !== "/app/auth/login") {
-//         return redirectToLogin("You should be logged in to access");
-//     }
+//         const redirectToApp = (message: string) => {
+//             const newUrl = url.replace(nextUrl.pathname, `/app?message=${message}`);
+//             return Response.redirect(newUrl);
+//         }
 
-//     if (requestAuth) {
-//         switch (nextUrl.pathname) {
-//             case "/app/auth/login":
-//                 return Response.redirect(url.replace(nextUrl.pathname, "/app"));
-//             case "/app/task":
-//                 if (userdat.role === "newbie") {
-//                     return redirectToApp("Sorry, you can only access this page if you are a member");
-//                 }
-//                 break;
-//             case "/app/task/create":
-//                 if (["newbie", "onboarding", "member"].includes(userdat.role)) {
-//                     return Response.redirect(new URL('/404', url));
-//                 }
-//                 break;
-//             case "/app/onboarding":
-//                 if (userdat.role !== "onboarding") {
-//                     return redirectToApp("You don't need to onboard again. You are already onboarded.");
-//                 }
-//                 break;
-//             default:
-//                 break;
+//         if (!requestAuth && nextUrl.pathname !== "/app/auth/login") {
+//             return redirectToLogin("You should be logged in to access");
+//         }
+
+//         if (requestAuth) {
+//             switch (nextUrl.pathname) {
+//                 case "/app/auth/login":
+//                     return Response.redirect(url.replace(nextUrl.pathname, "/app"));
+//                 case "/app/task":
+//                     if (userdat.role === "newbie") {
+//                         return redirectToApp("Sorry, you can only access this page if you are a member");
+//                     }
+//                     break;
+//                 case "/app/task/create":
+//                     if (["newbie", "onboarding", "member"].includes(userdat.role)) {
+//                         return Response.redirect(new URL('/404', url));
+//                     }
+//                     break;
+//                 case "/app/onboarding":
+//                     if (userdat.role !== "onboarding") {
+//                         return redirectToApp("You don't need to onboard again. You are already onboarded.");
+//                     }
+//                     break;
+//                 default:
+//                     break;
+//             }
 //         }
 //     }
 // });
