@@ -36,6 +36,16 @@ export async function TaskCreate(taskName: string, taskDescription: string, poin
     return taskId;
 }
 
+export async function TaskGetById(taskId: string) {
+    const task = await db.tasks.findUnique({
+        where: {
+            TaskId: taskId
+        }
+    });
+
+    return task;
+}
+
 export async function TasksGet(domain: string) {
     const tasks = await db.tasks.findMany({
         where: {

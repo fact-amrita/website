@@ -1,6 +1,9 @@
 'use client';
 
 import React, { useState } from 'react';
+import { SessionProvider, useSession } from 'next-auth/react';
+
+import { TaskGetById } from "@/lib/TaskOperations";
 
 const FileUpload = () => {
   const [showButton, setShowButton] = useState(true);
@@ -29,7 +32,15 @@ const FileUpload = () => {
   );
 };
 
-const TaskPage = () => {
+function TaskPage({ TaskId }: { TaskId: string }){
+  const { data: session, status } = useSession();
+
+  console.log(TaskId)
+
+  // const taskData = await TaskGetById(TaskId);
+
+  // console.log(taskData)
+
   return (
     <div className="flex h-screen p-0 m-0">
       <div className="w-1/2 h-full bg-gray-700 flex justify-center items-center">
@@ -44,3 +55,13 @@ const TaskPage = () => {
   );
 };
 
+const TaskPageWrapper = ({ params }: { params: { id: string } }) => {
+
+  return (
+    <SessionProvider>
+      <TaskPage TaskId={params.id} />
+    </SessionProvider>
+  );
+}
+
+export default TaskPageWrapper;
