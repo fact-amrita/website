@@ -1,8 +1,8 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { SessionProvider, useSession } from 'next-auth/react';
-
+import { GetServerSideProps } from 'next';
 import { TaskGetById } from "@/lib/TaskOperations";
 
 const FileUpload = () => {
@@ -32,20 +32,47 @@ const FileUpload = () => {
   );
 };
 
-function TaskPage({ TaskId }: { TaskId: string }){
-  const { data: session, status } = useSession();
+type TaskPageProps = {
+  TaskId: string;
+};
 
+const TaskPage: React.FC<TaskPageProps> = ({ TaskId }) => {
+  const { data: session, status } = useSession();
+  const [taskData, setTaskData] = useState<any>(null);
   console.log(TaskId)
 
-  // const taskData = await TaskGetById(TaskId);
+  
+  useEffect(() => {
+    const fetchTaskData = async () => {
+      try {
+        const data = await TaskGetById(TaskId);
+        setTaskData(data);
+      } catch (error) {
+        console.error('Error fetching task data:', error);
+        // Handle error state
+      }
+    };
+    fetchTaskData();
+  }, [TaskId]);
 
-  // console.log(taskData)
+  if (!taskData) {
+    return <p>Loading...</p>;
+  }
 
   return (
     <div className="flex h-screen p-0 m-0">
       <div className="w-1/2 h-full bg-gray-700 flex justify-center items-center">
         <div className="w-3/4 h-3/4 bg-gray-500 rounded-lg flex justify-center items-center">
-          Box 1
+          <div className="flex flex-col">
+            <p>Task ID: {taskData.TaskId}</p>
+            <p>Task: {taskData.task}</p>
+            <p>Description: {taskData.description}</p>
+            <p>Points: {taskData.points}</p>
+            <p>Domain: {taskData.domain}</p>
+            <p>Start Date: {taskData.startDate}</p>
+            <p>Deadline: {taskData.deadline}</p>
+            <p>Duration: {taskData.duration}</p>
+          </div>
         </div>
       </div>
       <div className="w-1/2 h-full bg-gray-700 flex justify-center items-center">
@@ -54,6 +81,15 @@ function TaskPage({ TaskId }: { TaskId: string }){
     </div>
   );
 };
+
+export const getServerSideProps: GetServerSideProps = async ({ params }) => {
+  const TaskId = params?.id as string;
+  return {
+    props: {
+      TaskId,
+    },
+  };
+}
 
 const TaskPageWrapper = ({ params }: { params: { id: string } }) => {
 
