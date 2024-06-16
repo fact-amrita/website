@@ -2,7 +2,6 @@
 
 import React, { useEffect, useState } from 'react';
 import { SessionProvider, useSession } from 'next-auth/react';
-import { GetServerSideProps } from 'next';
 import { TaskGetById } from "@/lib/TaskOperations";
 
 const FileUpload = () => {
@@ -39,17 +38,16 @@ type TaskPageProps = {
 const TaskPage: React.FC<TaskPageProps> = ({ TaskId }) => {
   const { data: session, status } = useSession();
   const [taskData, setTaskData] = useState<any>(null);
-  console.log(TaskId)
 
-  
+
   useEffect(() => {
     const fetchTaskData = async () => {
       try {
         const data = await TaskGetById(TaskId);
+        if (!data) { setTaskData("not found"); return; }
         setTaskData(data);
       } catch (error) {
         console.error('Error fetching task data:', error);
-        // Handle error state
       }
     };
     fetchTaskData();
@@ -57,6 +55,10 @@ const TaskPage: React.FC<TaskPageProps> = ({ TaskId }) => {
 
   if (!taskData) {
     return <p>Loading...</p>;
+  }
+
+  if (taskData == "not found") {
+    return <p>Task not found</p>
   }
 
   return (
@@ -71,7 +73,7 @@ const TaskPage: React.FC<TaskPageProps> = ({ TaskId }) => {
             <p>Domain: {taskData.domain}</p>
             <p>Start Date: {taskData.startDate}</p>
             <p>Deadline: {taskData.deadline}</p>
-            <p>Duration: {taskData.duration}</p>
+            <p>Duration: {taskData.duration} Day(s)</p>
           </div>
         </div>
       </div>
@@ -81,15 +83,6 @@ const TaskPage: React.FC<TaskPageProps> = ({ TaskId }) => {
     </div>
   );
 };
-
-export const getServerSideProps: GetServerSideProps = async ({ params }) => {
-  const TaskId = params?.id as string;
-  return {
-    props: {
-      TaskId,
-    },
-  };
-}
 
 const TaskPageWrapper = ({ params }: { params: { id: string } }) => {
 
