@@ -5,6 +5,7 @@
 import React, { useState, useEffect } from 'react';
 import { GetServerSideProps } from 'next';
 import { TasksGet } from '@/lib/TaskOperations'; // Adjust import path as per your project structure
+import Link from 'next/link';
 
 interface Task {
   status: string;
@@ -56,18 +57,22 @@ const TaskListPage: React.FC<{ tasks: Task[] }> = ({ tasks }) => {
                 .filter(task => task.status === 'submitted')
                 .map((task) => (
                   <div key={task.id} className='w-1/3 p-4'>
-                    <div className='bg-gray-100 border border-gray-300 p-4 rounded-md'>
+                    <Link href={`/tasks/${task.id}`}>
+                    <a className='bg-gray-100 border border-gray-300 p-4 rounded-md'>
                       {task.title}
-                    </div>
+                    </a>
+                    </Link>
                   </div>
                 ))
             : tasks
                 .filter(task => task.status === 'pending')
                 .map((task) => (
                   <div key={task.id} className='w-1/3 p-4'>
-                    <div className='bg-gray-100 border border-gray-300 p-4 rounded-md'>
-                      {task.title}
-                    </div>
+                    <Link href={`/tasks/${task.id}`}>
+                      <a className='bg-gray-100 border border-gray-300 p-4 rounded-md'>
+                        {task.title}
+                      </a>
+                    </Link>
                   </div>
                 ))}
         </div>
