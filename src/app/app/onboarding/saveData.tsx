@@ -39,11 +39,18 @@ export default async function DataSave(dataGot: any) {
             phone: DataDict["PhoneNum"],
             RegisterDate: new Date().toISOString(),
             role: "member",
-            points:0
+            points: 0
         }
     })
 
     await promoteUser(DataDict["email"])
+
+    await db.points.create({
+        data: {
+            FactID: factID,
+            points: 0,
+        },
+    });
 
     return true
 }

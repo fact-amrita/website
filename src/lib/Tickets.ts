@@ -6,7 +6,7 @@ export async function createTicket(ticketData: any) {
             TicketId: ticketData.TicketId,
             UserId: ticketData.UserId,
             TicketType: ticketData.TicketType,
-            DateTime: new Date().toISOString(),
+            DateTime: new Date().toISOString(), 
             cleared: false
         }
     })

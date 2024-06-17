@@ -54,7 +54,31 @@ model Tickets {
   id         String  @id @default(auto()) @map("_id") @db.ObjectId
   TicketId   String  @unique
   TicketType String
-  UserId     String
+  FactID     String
   DateTime   String
   cleared    Boolean
+}
+
+model Points {
+  id             String          @id @default(auto()) @map("_id") @db.ObjectId
+  FactID         String
+  points         Int
+  completedTasks CompletedTask[]
+  pendingTasks   PendingTask[]
+}
+
+model CompletedTask {
+  id       String @id @default(auto()) @map("_id") @db.ObjectId
+  taskId   String
+  awarded  Int
+  pointsId String @db.ObjectId
+  points   Points @relation(fields: [pointsId], references: [id])
+}
+
+model PendingTask {
+  id        String   @id @default(auto()) @map("_id") @db.ObjectId
+  taskId    String
+  startTime DateTime
+  pointsId  String   @db.ObjectId
+  points    Points   @relation(fields: [pointsId], references: [id])
 }

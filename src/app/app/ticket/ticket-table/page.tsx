@@ -1,5 +1,5 @@
 // TicketTable.tsx
-
+"use client"
 import React, { useEffect, useState } from 'react';
 import { getTickets } from '@/lib/Tickets';
 
@@ -16,7 +16,10 @@ const TicketTable: React.FC = () => {
   useEffect(() => {
     async function fetchTickets() {
       try {
-        const fetchedTickets = await getTickets();
+        // const fetchedTickets = await getTickets();
+        if (!fetchedTickets) {
+          setTickets([])
+        }
         setTickets(fetchedTickets);
       } catch (error) {
         console.error('Error fetching tickets:', error);

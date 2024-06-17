@@ -49,7 +49,10 @@ export async function TaskGetById(taskId: string) {
 export async function TasksGet(domain: string) {
     const tasks = await db.tasks.findMany({
         where: {
-            domain: domain
+            OR: [
+                { domain: domain },
+                { domain: "common" }
+            ]
         }
     });
 
