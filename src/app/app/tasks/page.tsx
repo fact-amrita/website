@@ -47,17 +47,17 @@ const TaskListPage: React.FC = () => {
 
   // const tasks = 
 
-  const tasks = [
-    {
-      status: 'submitted',
-      id: 'dnqtv51t',
-      title: 'test task 2'
-    }, {
-      status: 'pending',
-      id: 'fyf19d5v',
-      title: 'test task 1'
-    }
-  ]
+  const submittedTasks=[{
+    status: 'submitted',
+    id: 'dnqtv51t',
+    title: 'test task 2'
+  }]
+
+  const pendingTasks=[{
+    status: 'pending',
+    id: 'fyf19d5v',
+    title: 'test task 1'
+  }]
 
   const handleShowSubmitted = () => {
     setShowSubmitted(true);
@@ -94,7 +94,7 @@ const TaskListPage: React.FC = () => {
         </div>
         <div className='flex flex-wrap'>
           {showSubmitted
-            ? tasks
+            ? submittedTasks
               .filter(task => task.status === 'submitted')
               .map((task) => (
                 <div key={task.id} className='w-1/3 p-4'>
@@ -103,7 +103,7 @@ const TaskListPage: React.FC = () => {
                   </Link>
                 </div>
               ))
-            : tasks
+            : pendingTasks
               .filter(task => task.status === 'pending')
               .map((task) => (
                 <div key={task.id} className='w-1/3 p-4'>
