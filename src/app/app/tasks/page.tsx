@@ -5,8 +5,8 @@
 import React, { useState, useEffect } from 'react';
 import { TasksGet } from '@/lib/TaskOperations'; // Adjust import path as per your project structure
 import Link from 'next/link';
-
 import { SessionProvider, useSession } from 'next-auth/react';
+import { getUserPendingTasks, getUserCompletedTasks } from '@/lib/UserFetch';
 
 interface Task {
   status: string;
@@ -15,57 +15,50 @@ interface Task {
 }
 
 const TaskListPage: React.FC = () => {
-  const [showSubmitted, setShowSubmitted] = useState(false);
-
+  const [tasks, setTasks] = useState<any>([]);
   const { data: session, status } = useSession();
-  // const [tasks, setTaskData] = useState<any>(null);
+  const [showSubmitted, setShowSubmitted] = useState(false);
+  const [error, setError] = useState<string | null>(null);
+
+  useEffect(() => {
+    if (status === 'authenticated' && session && session.user) {
+      const fetchTaskData = async () => {
+        try {
+          const UserDat = session.user as { name: string; email: string; role: string; image: string; factId: string; domain: string }
+          const TaskLists = await TasksGet((UserDat.domain).toLowerCase());
+          const userCompletedTasks = (await getUserCompletedTasks(UserDat.factId))[0];
+          const userPendingTasks = await getUserPendingTasks(UserDat.factId);
+          var newArr: any = []
+          userCompletedTasks.forEach(task => {
+            newArr.push({ task: "name", status: 'submitted', TaskId: task.taskId })
+          })
+          setTasks(newArr);
+          
+        } catch (error) {
+          console.error('Error fetching task data:', error);
+          setError('Failed to load tasks. Please try again later.');
+        }
+      };
+      fetchTaskData();
+    }
+  }, [status, session]);
+
+
 
   if (status === 'loading') {
-    return <p></p>;
+    return <p>Loading...</p>;
   }
 
   if (!session || !session.user) {
     return <p>You need to be logged in to access your profile.</p>;
   }
 
-  const userdat = session.user as { name: string; email: string; role: string; image: string; factId: string; domain: string; };
+  const handleShowSubmitted = () => setShowSubmitted(true);
+  const handleShowPending = () => setShowSubmitted(false);
 
-  // useEffect(() => {
-  //   const fetchTaskData = async () => {
-  //     try {
-  //       const tasksDat = await TasksGet(userdat.domain);
-  //       if (!tasksDat) { setTaskData("not found"); return; }
-  //       setTaskData(tasksDat);
-  //     } catch (error) {
-  //       console.error('Error fetching task data:', error);
-  //     }
-  //   };
-  //   fetchTaskData();
-  // });
-
-
-
-  // const tasks = 
-
-  const submittedTasks=[{
-    status: 'submitted',
-    id: 'dnqtv51t',
-    title: 'test task 2'
-  }]
-
-  const pendingTasks=[{
-    status: 'pending',
-    id: 'fyf19d5v',
-    title: 'test task 1'
-  }]
-
-  const handleShowSubmitted = () => {
-    setShowSubmitted(true);
-  };
-
-  const handleShowPending = () => {
-    setShowSubmitted(false);
-  };
+  const displayedTasks = showSubmitted
+    ? tasks.filter(task => task.status === 'submitted')
+    : tasks.filter(task => task.status === 'pending');
 
   return (
     <div className='flex flex-col h-screen'>
@@ -73,15 +66,13 @@ const TaskListPage: React.FC = () => {
       <div className='bg-gray-200 p-4 flex justify-start items-center'>
         <button
           onClick={handleShowPending}
-          className={`py-2 px-4 mr-2 text-gray-800 rounded ${!showSubmitted ? 'bg-gray-400' : ''
-            }`}
+          className={`py-2 px-4 mr-2 text-gray-800 rounded ${!showSubmitted ? 'bg-gray-400' : ''}`}
         >
           Pending Tasks
         </button>
         <button
           onClick={handleShowSubmitted}
-          className={`py-2 px-4 text-gray-800 rounded ${showSubmitted ? 'bg-gray-400' : ''
-            }`}
+          className={`py-2 px-4 text-gray-800 rounded ${showSubmitted ? 'bg-gray-400' : ''}`}
         >
           Submitted Tasks
         </button>
@@ -89,39 +80,30 @@ const TaskListPage: React.FC = () => {
 
       {/* Main content area */}
       <div className='flex-grow bg-white p-4'>
+        {error && (
+          <div className='text-red-500 text-center mb-4'>{error}</div>
+        )}
         <div className='text-center text-lg font-semibold mb-4'>
           {showSubmitted ? 'Submitted Tasks' : 'Pending Tasks'}
         </div>
         <div className='flex flex-wrap'>
-          {showSubmitted
-            ? submittedTasks
-              .filter(task => task.status === 'submitted')
-              .map((task) => (
-                <div key={task.id} className='w-1/3 p-4'>
-                  <Link href={`/app/tasks/${task.id}`} className='bg-gray-100 border border-gray-300 p-4 rounded-md'>
-                    {task.title}
-                  </Link>
-                </div>
-              ))
-            : pendingTasks
-              .filter(task => task.status === 'pending')
-              .map((task) => (
-                <div key={task.id} className='w-1/3 p-4'>
-                  <Link href={`/app/tasks/${task.id}`} className='bg-gray-100 border border-gray-300 p-4 rounded-md'>
-                    {task.title}
-                  </Link>
-                </div>
-              ))}
+          {displayedTasks.map((task) => (
+            <div key={task.id} className='w-1/3 p-4'>
+              <Link href={`/app/tasks/${task.TaskId}`} className='bg-gray-100 border border-gray-300 p-4 rounded-md'>
+                {task.task}
+              </Link>
+            </div>
+          ))}
         </div>
       </div>
     </div>
   );
 };
 
-export default function tasksPage() {
+export default function TasksPage() {
   return (
     <SessionProvider>
       <TaskListPage />
     </SessionProvider>
-  )
+  );
 }
