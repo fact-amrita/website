@@ -27,13 +27,31 @@ const TaskListPage: React.FC = () => {
           const UserDat = session.user as { name: string; email: string; role: string; image: string; factId: string; domain: string }
           const TaskLists = await TasksGet((UserDat.domain).toLowerCase());
           const userCompletedTasks = (await getUserCompletedTasks(UserDat.factId))[0];
-          const userPendingTasks = await getUserPendingTasks(UserDat.factId);
+          const userPendingTasks = (await getUserPendingTasks(UserDat.factId))[0];
           var newArr: any = []
           userCompletedTasks.forEach(task => {
-            newArr.push({ task: "name", status: 'submitted', TaskId: task.taskId })
+            var taskdata = TaskLists.find((taskdata) => taskdata.TaskId === task.taskId) as { id: string; TaskId: string; task: string; description: string; points: number; domain: string; startDate: string; deadline: string; duration: string; }
+            newArr.push({ task: taskdata?.task, status: 'submitted', TaskId: task.taskId })
+            // remove from TaskLists array
+            TaskLists.splice(TaskLists.indexOf(taskdata), 1)
           })
+
+          console.log(userPendingTasks)
+
+          if (userPendingTasks.length !== 0) {
+            userPendingTasks.forEach(task => {
+              var taskdata = TaskLists.find((taskdata) => taskdata.TaskId === task.taskId) as { id: string; TaskId: string; task: string; description: string; points: number; domain: string; startDate: string; deadline: string; duration: string; }
+              newArr.push({ task: taskdata?.task, status: 'pending', TaskId: task.taskId })
+              TaskLists.splice(TaskLists.indexOf(taskdata), 1)
+            })
+          }
+
+          TaskLists.forEach(task => {
+            newArr.push({ task: task.task, status: 'pending', TaskId: task.TaskId })
+          })
+
           setTasks(newArr);
-          
+
         } catch (error) {
           console.error('Error fetching task data:', error);
           setError('Failed to load tasks. Please try again later.');
