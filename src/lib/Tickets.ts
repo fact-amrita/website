@@ -4,7 +4,7 @@ export async function createTicket(ticketData: any) {
     const ticket = await db.tickets.create({
         data: {
             TicketId: ticketData.TicketId,
-            UserId: ticketData.UserId,
+            FactID: ticketData.UserId,
             TicketType: ticketData.TicketType,
             DateTime: new Date().toISOString(), 
             cleared: false
@@ -54,7 +54,7 @@ export async function clearTicket(ticketId: string) {
 export async function getTicketsByUserId(userId: string) {
     return await db.tickets.findMany({
         where: {
-            UserId: userId
+            FactID: userId
         }
     });
 }
