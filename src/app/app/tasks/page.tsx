@@ -29,7 +29,7 @@ const TaskListPage: React.FC = () => {
           const userCompletedTasks = (await getUserCompletedTasks(UserDat.factId))[0];
           const userPendingTasks = (await getUserPendingTasks(UserDat.factId))[0];
           var newArr: any = []
-          userCompletedTasks.forEach(task => {
+          userCompletedTasks.forEach((task: { taskId: string; }) => {
             var taskdata = TaskLists.find((taskdata) => taskdata.TaskId === task.taskId) as { id: string; TaskId: string; task: string; description: string; points: number; domain: string; startDate: string; deadline: string; duration: string; }
             newArr.push({ task: taskdata?.task, status: 'submitted', TaskId: task.taskId })
             // remove from TaskLists array
@@ -39,7 +39,7 @@ const TaskListPage: React.FC = () => {
           console.log(userPendingTasks)
 
           if (userPendingTasks.length !== 0) {
-            userPendingTasks.forEach(task => {
+            userPendingTasks.forEach((task: { taskId: string; }) => {
               var taskdata = TaskLists.find((taskdata) => taskdata.TaskId === task.taskId) as { id: string; TaskId: string; task: string; description: string; points: number; domain: string; startDate: string; deadline: string; duration: string; }
               newArr.push({ task: taskdata?.task, status: 'pending', TaskId: task.taskId })
               TaskLists.splice(TaskLists.indexOf(taskdata), 1)
@@ -75,8 +75,8 @@ const TaskListPage: React.FC = () => {
   const handleShowPending = () => setShowSubmitted(false);
 
   const displayedTasks = showSubmitted
-    ? tasks.filter(task => task.status === 'submitted')
-    : tasks.filter(task => task.status === 'pending');
+    ? tasks.filter((task: { status: string; }) => task.status === 'submitted')
+    : tasks.filter((task: { status: string; }) => task.status === 'pending');
 
   return (
     <div className='flex flex-col h-screen'>
@@ -105,7 +105,7 @@ const TaskListPage: React.FC = () => {
           {showSubmitted ? 'Submitted Tasks' : 'Pending Tasks'}
         </div>
         <div className='flex flex-wrap'>
-          {displayedTasks.map((task) => (
+          {displayedTasks.map((task: { id: React.Key | null | undefined; TaskId: any; task: string | number | bigint | boolean | React.ReactElement<any, string | React.JSXElementConstructor<any>> | Iterable<React.ReactNode> | React.ReactPortal | Promise<React.AwaitedReactNode> | null | undefined; }) => (
             <div key={task.id} className='w-1/3 p-4'>
               <Link href={`/app/tasks/${task.TaskId}`} className='bg-gray-100 border border-gray-300 p-4 rounded-md'>
                 {task.task}

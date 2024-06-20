@@ -1,6 +1,7 @@
 'use client';
 
 import React, { useState } from 'react';
+import { SessionProvider,useSession } from 'next-auth/react';
 
 interface TicketFormProps {
   initialFeedbackType?: string;
@@ -61,7 +62,7 @@ const TicketForm: React.FC<TicketFormProps> = ({
               onChange={handleMessageChange}
               placeholder="Type your message"
               rows={7}
-              className="message-textarea w-full px-7 py-11 border rounded shadow-sm focus:outline-none focus:ring focus:ring-blue-500 text-black user-select:none resize:vertical"
+              className="message-textarea resize-none w-full px-7 py-11 border rounded shadow-sm focus:outline-none focus:ring focus:ring-blue-500 text-black user-select:none resize:vertical"
             />
           </div>
           <button type="submit" className="w-full py-3 px-4 rounded bg-[#7747FF] hover:bg-white hover:text-[#7747FF] focus:text-[#7747FF] focus:bg-gray-200 text-gray-50 font-bold leading-loose transition duration-200">
@@ -73,5 +74,13 @@ const TicketForm: React.FC<TicketFormProps> = ({
   );
 };
 
-export default TicketForm;
+export default function Ticket() {
+  return (
+    <SessionProvider>
+      <TicketForm onSubmit={(formData) => {
+        console.log(formData);
+      }} />
+    </SessionProvider>
+  );
+}
 
