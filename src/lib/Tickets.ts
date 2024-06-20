@@ -27,13 +27,17 @@ export async function createTicket(ticketData: any) {
         clearanceState = false;
     }
 
+    if (!ticketData.FactID) {
+        ticketData.FactID = "Anonymous"; // temporary fix
+    }
+
     const ticket = await db.tickets.create({
         data: {
             TicketId: ticketId,
             FactID: ticketData.FactID,
             TicketType: ticketData.TicketType,
             TicketContent: ticketData.TicketContent,
-            DateTime: new Date().toISOString(),
+            DateTime: new Date().valueOf(),
             cleared: clearanceState
         }
     })

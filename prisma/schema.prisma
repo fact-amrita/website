@@ -56,7 +56,7 @@ model Tickets {
   TicketType    String
   TicketContent String
   FactID        String
-  DateTime      String
+  DateTime      BigInt
   cleared       Boolean
 }
 

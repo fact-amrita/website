@@ -8,7 +8,8 @@ interface Ticket {
   TicketType: string;
   TicketContent: string;
   FactID: string;
-  DateTime: string;
+  DateTime: bigint;
+  cleared: boolean;
 }
 
 const TicketTable: React.FC = () => {
@@ -23,6 +24,9 @@ const TicketTable: React.FC = () => {
         if (!fetchedTickets) {
           setTickets([])
         }
+
+        fetchedTickets.sort((a, b) => Number(b.DateTime) - Number(a.DateTime));
+        
         setTickets(fetchedTickets);
       } catch (error) {
         console.error('Error fetching tickets:', error);
@@ -38,7 +42,7 @@ const TicketTable: React.FC = () => {
   const closeModal = () => {
     setSelectedTicket(null);
   };
-
+  var cleared: string;
   return (
     <div className="p-4">
       <h2 className="text-2xl font-bold mb-4">Ticket List</h2>
@@ -55,6 +59,7 @@ const TicketTable: React.FC = () => {
       <table className="min-w-full divide-y divide-gray-200">
         <thead className="bg-gray-100">
           <tr>
+          <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Ticket Cleared ?</th>
             <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Ticket ID</th>
             <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Feedback Type</th>
             <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Message</th>
@@ -63,6 +68,7 @@ const TicketTable: React.FC = () => {
         <tbody className="bg-white divide-y divide-gray-200">
           {tickets.map(ticket => (
             <tr key={ticket.TicketId} onClick={() => handleTicketClick(ticket)} className="cursor-pointer hover:bg-gray-50">
+              <td className="px-6 py-4 whitespace-nowrap">{(ticket.cleared).toString()}</td>
               <td className="px-6 py-4 whitespace-nowrap">{ticket.TicketId}</td>
               <td className="px-6 py-4 whitespace-nowrap">{ticket.TicketType}</td>
               <td className="px-6 py-4 whitespace-wrap break-all">{ticket.TicketContent}</td>
@@ -80,7 +86,7 @@ const TicketTable: React.FC = () => {
             <p><strong>Feedback Type:</strong> {selectedTicket.TicketType}</p>
             <p><strong>Message:</strong> {selectedTicket.TicketContent}</p>
             <p><strong>Posted By:</strong> {selectedTicket.FactID}</p>
-            <p><strong>Posted at:</strong> {selectedTicket.DateTime}</p>
+            <p><strong>Posted at:</strong> { new Date(Number(selectedTicket.DateTime)).toLocaleString()}</p>
             <button className="mt-4 py-2 px-4 bg-gray-200 text-gray-800 rounded-md hover:bg-gray-300" onClick={closeModal}>
               Close
             </button>

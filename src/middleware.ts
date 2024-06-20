@@ -21,6 +21,15 @@ export default auth((req) => {
         }
     }
 
+    if (req.nextUrl.pathname === "/app/ticket/ticket-table") {
+        if (req.auth) {
+            const userdat = req.auth.user as { name: string; email: string; role: string; image: string; factId: string };
+            if (userdat.role !== "admin") {
+                return Response.redirect(new URL('/404', req.url));
+            }
+        }
+    }
+
     if (req.nextUrl.pathname === "/app/tasks/create") {
         if (!req.auth) {
             const url = req.url.replace(req.nextUrl.pathname, "/app/auth/login?error=You should be logged in to access")
