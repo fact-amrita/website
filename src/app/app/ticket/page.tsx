@@ -1,21 +1,33 @@
 'use client';
 
 import React, { useState } from 'react';
-import { SessionProvider,useSession } from 'next-auth/react';
+import { SessionProvider, useSession } from 'next-auth/react';
+
+import { createTicket } from '@/lib/Tickets';
 
 interface TicketFormProps {
   initialFeedbackType?: string;
   initialMessage?: string;
-  onSubmit: (formData: { feedbackType: string; message: string }) => void;
 }
 
 const TicketForm: React.FC<TicketFormProps> = ({
   initialFeedbackType = 'Feedback',
   initialMessage = '',
-  onSubmit,
 }) => {
+  const { data: session, status } = useSession();
+
   const [feedbackType, setFeedbackType] = useState(initialFeedbackType);
   const [message, setMessage] = useState(initialMessage);
+
+  if (status === 'loading') {
+    return <p></p>; // Suspense content can be added here
+  }
+
+  if (!session || !session.user) {
+    return <p>You need to be logged in to access your profile.</p>;
+  }
+
+  const userdat = session.user as { name: string; email: string; role: string; image: string; factId: string };
 
   const handleFeedbackTypeChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
     setFeedbackType(e.target.value);
@@ -27,8 +39,10 @@ const TicketForm: React.FC<TicketFormProps> = ({
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    onSubmit({ feedbackType, message });
-    // Optionally reset form state
+    // onSubmit({ feedbackType, message });
+    console.log({ feedbackType, message });
+    var ticketCreated = createTicket({ FactID: userdat.factId, TicketType: feedbackType, TicketContent: message });
+    console.log(ticketCreated);
     setFeedbackType(initialFeedbackType);
     setMessage(initialMessage);
   };
@@ -57,11 +71,11 @@ const TicketForm: React.FC<TicketFormProps> = ({
               Message:
             </label>
             <textarea
+              required={true}
               id="message"
               value={message}
               onChange={handleMessageChange}
               placeholder="Type your message"
-              rows={7}
               className="message-textarea resize-none w-full px-7 py-11 border rounded shadow-sm focus:outline-none focus:ring focus:ring-blue-500 text-black user-select:none resize:vertical"
             />
           </div>
@@ -77,9 +91,7 @@ const TicketForm: React.FC<TicketFormProps> = ({
 export default function Ticket() {
   return (
     <SessionProvider>
-      <TicketForm onSubmit={(formData) => {
-        console.log(formData);
-      }} />
+      <TicketForm />
     </SessionProvider>
   );
 }

@@ -51,12 +51,13 @@ model Tasks {
 }
 
 model Tickets {
-  id         String  @id @default(auto()) @map("_id") @db.ObjectId
-  TicketId   String  @unique
-  TicketType String
-  FactID     String
-  DateTime   String
-  cleared    Boolean
+  id            String  @id @default(auto()) @map("_id") @db.ObjectId
+  TicketId      String  @unique
+  TicketType    String
+  TicketContent String
+  FactID        String
+  DateTime      String
+  cleared       Boolean
 }
 
 model Points {

@@ -1,22 +1,25 @@
 // TicketTable.tsx
 "use client"
 import React, { useEffect, useState } from 'react';
-import { getTickets } from '@/lib/Tickets';
+import { getTicketsByType } from '@/lib/Tickets';
 
 interface Ticket {
   TicketId: string;
   TicketType: string;
-  Message: string;
+  TicketContent: string;
+  FactID: string;
+  DateTime: string;
 }
 
 const TicketTable: React.FC = () => {
   const [tickets, setTickets] = useState<Ticket[]>([]);
   const [selectedTicket, setSelectedTicket] = useState<Ticket | null>(null);
+  const [selectedType, setSelectedType] = useState<string>("");
 
   useEffect(() => {
     async function fetchTickets() {
       try {
-        // const fetchedTickets = await getTickets();
+        const fetchedTickets = await getTicketsByType(selectedType);
         if (!fetchedTickets) {
           setTickets([])
         }
@@ -26,7 +29,7 @@ const TicketTable: React.FC = () => {
       }
     }
     fetchTickets();
-  }, []);
+  }, [selectedType]);
 
   const handleTicketClick = (ticket: Ticket) => {
     setSelectedTicket(ticket);
@@ -39,6 +42,16 @@ const TicketTable: React.FC = () => {
   return (
     <div className="p-4">
       <h2 className="text-2xl font-bold mb-4">Ticket List</h2>
+      <div className="flex justify-end mb-4">
+        <select
+          className="px-4 py-2 bg-gray-200 text-gray-800 rounded-md"
+          onChange={(e) => setSelectedType(e.target.value)}
+        >
+          <option value="">All</option>
+          <option value="Feedback">Feedback</option>
+          <option value="Complaint">Complaint</option>
+        </select>
+      </div>
       <table className="min-w-full divide-y divide-gray-200">
         <thead className="bg-gray-100">
           <tr>
@@ -52,7 +65,7 @@ const TicketTable: React.FC = () => {
             <tr key={ticket.TicketId} onClick={() => handleTicketClick(ticket)} className="cursor-pointer hover:bg-gray-50">
               <td className="px-6 py-4 whitespace-nowrap">{ticket.TicketId}</td>
               <td className="px-6 py-4 whitespace-nowrap">{ticket.TicketType}</td>
-              <td className="px-6 py-4 whitespace-wrap break-all">{ticket.Message}</td>
+              <td className="px-6 py-4 whitespace-wrap break-all">{ticket.TicketContent}</td>
             </tr>
           ))}
         </tbody>
@@ -65,7 +78,9 @@ const TicketTable: React.FC = () => {
             <h2 className="text-2xl font-bold mb-4">Ticket Details</h2>
             <p><strong>Ticket ID:</strong> {selectedTicket.TicketId}</p>
             <p><strong>Feedback Type:</strong> {selectedTicket.TicketType}</p>
-            <p><strong>Message:</strong> {selectedTicket.Message}</p>
+            <p><strong>Message:</strong> {selectedTicket.TicketContent}</p>
+            <p><strong>Posted By:</strong> {selectedTicket.FactID}</p>
+            <p><strong>Posted at:</strong> {selectedTicket.DateTime}</p>
             <button className="mt-4 py-2 px-4 bg-gray-200 text-gray-800 rounded-md hover:bg-gray-300" onClick={closeModal}>
               Close
             </button>

@@ -1,27 +1,64 @@
+"use server"
+
 import { db } from '@/lib/db';
+import { TicketIdGen } from '@/functions/TicketIdgen';
 
 export async function createTicket(ticketData: any) {
+
+    let ticketId = TicketIdGen();
+    let task = await db.tickets.findFirst({
+        where: {
+            TicketId: ticketId
+        }
+    });
+    while (task) {
+        ticketId = TicketIdGen();
+        task = await db.tickets.findFirst({
+            where: {
+                TicketId: ticketId
+            }
+        });
+    }
+
+    let clearanceState: boolean;
+    if (ticketData.TicketType === "Feedback") {
+        clearanceState = true;
+    } else {
+        clearanceState = false;
+    }
+
     const ticket = await db.tickets.create({
         data: {
-            TicketId: ticketData.TicketId,
-            FactID: ticketData.UserId,
+            TicketId: ticketId,
+            FactID: ticketData.FactID,
             TicketType: ticketData.TicketType,
-            DateTime: new Date().toISOString(), 
-            cleared: false
+            TicketContent: ticketData.TicketContent,
+            DateTime: new Date().toISOString(),
+            cleared: clearanceState
         }
     })
+
+    return ticket.TicketId
 }
 
 export async function getTickets() {
-    return await db.tickets.findMany();
+    return await db.tickets.findMany({
+        orderBy: {
+            DateTime: "desc"
+        }
+    });
 }
 
 export async function getTicketsByType(ticketType: string) {
-    return await db.tickets.findMany({
-        where: {
-            TicketType: ticketType
-        }
-    });
+    if (ticketType === "Feedback" || ticketType === "Complaint") {
+        return await db.tickets.findMany({
+            where: {
+                TicketType: ticketType
+            }
+        });
+    } else {
+        return await db.tickets.findMany();
+    }
 }
 
 export async function getTicketById(ticketId: string) {

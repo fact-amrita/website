@@ -1,3 +1,5 @@
+"use server"
+
 import { db } from "@/lib/db";
 
 const roles = ["newbie", "onboarding", "member", "moderator", "president"]
