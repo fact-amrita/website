@@ -74,7 +74,7 @@ const TicketTable: React.FC = () => {
       {/* Modal or Card */}
       {selectedTicket && (
         <div className="fixed inset-0 flex items-center justify-center z-50">
-          <div className="bg-white w-full max-w-md p-6 rounded-lg shadow-lg">
+          <div className="bg-white w-full max-w-md p-6 rounded-lg shadow-lg" style={{ zIndex: 1000 }}>
             <h2 className="text-2xl font-bold mb-4">Ticket Details</h2>
             <p><strong>Ticket ID:</strong> {selectedTicket.TicketId}</p>
             <p><strong>Feedback Type:</strong> {selectedTicket.TicketType}</p>
