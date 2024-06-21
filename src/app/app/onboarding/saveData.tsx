@@ -38,8 +38,7 @@ export default async function DataSave(dataGot: any) {
             birthday: DataDict["Birthday"],
             phone: DataDict["PhoneNum"],
             RegisterDate: new Date().toISOString(),
-            role: "member",
-            points: 0
+            role: "member"
         }
     })
 

@@ -29,7 +29,8 @@ export async function TaskCreate(taskName: string, taskDescription: string, poin
             domain: domain,
             startDate: taskStartTime,
             deadline: taskDeadline,
-            duration: duration
+            duration: duration,
+            file:null
         }
     })
 

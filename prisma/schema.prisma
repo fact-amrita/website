@@ -35,13 +35,13 @@ model User {
   phone        BigInt?
   birthday     String?
   tasks        String[]
-  points       Int
 }
 
 model Tasks {
-  id          String @id @default(auto()) @map("_id") @db.ObjectId
-  TaskId      String @unique
+  id          String  @id @default(auto()) @map("_id") @db.ObjectId
+  TaskId      String  @unique
   task        String
+  file        String?
   description String
   points      Int
   domain      String
