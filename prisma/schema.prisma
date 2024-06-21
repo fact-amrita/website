@@ -34,7 +34,6 @@ model User {
   domain       String
   phone        BigInt?
   birthday     String?
-  tasks        String[]
 }
 
 model Tasks {
@@ -62,7 +61,7 @@ model Tickets {
 
 model Points {
   id             String          @id @default(auto()) @map("_id") @db.ObjectId
-  FactID         String
+  FactID         String          @unique
   points         Int
   completedTasks CompletedTask[]
   pendingTasks   PendingTask[]

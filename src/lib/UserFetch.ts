@@ -60,3 +60,32 @@ export async function getUserPendingTasks(factID: string) {
 
     return tasks.map(task => task.pendingTasks)
 }
+
+export async function getUserProfile(factID: string) {
+    const user = await db.user.findUnique({
+        where: {
+            FactID: factID
+        }
+    })
+
+    const pointsDat = await db.points.findUnique({
+        where: {
+            FactID: factID
+        }
+    })
+
+    let points: number = 0
+
+    if (!pointsDat) {
+        points = 0
+    } else {
+        points = pointsDat.points
+    }
+
+    var completedTasks = (await getUserCompletedTasks(factID))[0].length;
+
+    // user.points = pointsDat.points
+    var userDat = { points: points, TasksCount: completedTasks, ...user }
+
+    return userDat
+}

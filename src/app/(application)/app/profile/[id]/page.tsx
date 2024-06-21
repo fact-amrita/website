@@ -1,9 +1,9 @@
 "use client";
 
-import React from "react";
+import React, { useState, useEffect } from "react";
 import Image from "next/image";
 import { FaLinkedinIn, FaGithub, FaStackOverflow } from 'react-icons/fa';
-import { SessionProvider } from "next-auth/react";
+import { getUserProfile } from "@/lib/UserFetch";
 
 const skills = [
   ['JavaScript', 'Advanced'],
@@ -14,12 +14,37 @@ const skills = [
 ];
 
 const socialLinks = [
-    { href: 'https://www.linkedin.com/your-linkedin-profile', icon: FaLinkedinIn },
-    { href: 'https://github.com/your-github-username', icon: FaGithub },
-    { href: 'https://stackoverflow.com/users/your-stackoverflow-id', icon: FaStackOverflow },
+  { href: 'https://www.linkedin.com/your-linkedin-profile', icon: FaLinkedinIn },
+  { href: 'https://github.com/your-github-username', icon: FaGithub },
+  { href: 'https://stackoverflow.com/users/your-stackoverflow-id', icon: FaStackOverflow },
 ];
 
-const ProfileContent = ({ profimg, name, points, tasks, about }: { profimg: string, name: string, points: number, tasks: number, about: string }) => {
+const ProfileContent = ({ params }: { params: { id: string } }) => {
+
+  const ProfileId = params.id;
+
+  const [ProfileData, setProfileData] = useState<any>(null);
+
+  useEffect(() => {
+    const profileDataGetter = async () => {
+      try {
+        const data = await getUserProfile(ProfileId);
+        if (!data) { setProfileData("not found"); return; }
+        setProfileData(data);
+      } catch (error) {
+        console.error('Error fetching task data:', error);
+      }
+    };
+    profileDataGetter();
+  }, [ProfileId]);
+
+  if (!ProfileData) {
+    return <p>Loading...</p>;
+  }
+
+  if (ProfileData == "not found") {
+    return <p>Profile not found</p>
+  }
 
   const handleSocialLinkClick = (href: string) => {
     window.open(href, "_blank");
@@ -31,21 +56,19 @@ const ProfileContent = ({ profimg, name, points, tasks, about }: { profimg: stri
         {/* Left Section */}
         <div className="bg-blue-700 rounded-3xl flex justify-center items-center col-span-4 row-span-4 p-10 py-5">
           <div className="h-full w-full grid grid-rows-2 gap-4">
-            {/* Profile Section */}
             <div className="bg-blue-700 h-full w-full rounded-2xl flex flex-col justify-center items-center">
-              <div className="rounded-full overflow-hidden h-32 w-32">
-                <Image src={profimg} alt='profile image' layout="fill" objectFit="cover" />
+              <div className="rounded-full overflow-hidden h-16 w-16">
+                <Image src={ProfileData.image} alt='profile image' layout="responsive" width={64} height={64} />
               </div>
-              <h3 className="text-white text-xl mt-4">{name}</h3>
+              <h3 className="text-white text-xl mt-4">{ProfileData.name}</h3>
             </div>
-            {/* Work Status Section */}
             <div className="bg-blue-700 h-full w-full flex flex-col rounded-2xl justify-center items-center">
               <h1 className="text-3xl text-black">Work Status</h1>
               <div className="text-black text-2xl mt-10">
-                Points: {points}
+                Points: {ProfileData.points}
               </div>
               <div className="text-black text-2xl mt-4">
-                Tasks Done: {tasks}
+                Tasks Done: {ProfileData.TasksCount}
               </div>
             </div>
           </div>
@@ -55,7 +78,7 @@ const ProfileContent = ({ profimg, name, points, tasks, about }: { profimg: stri
         <div className="bg-blue-700 rounded-3xl flex flex-col col-span-8 row-span-2 p-10 py-5 overflow-hidden">
           <h1 className="text-xl text-white">About</h1>
           <div className="text-white text-lg">
-            {about}
+            {"Nothing here right now"}
           </div>
           <div className="flex space-x-4 mt-4">
             {socialLinks.map((link, index) => (
@@ -92,10 +115,4 @@ const ProfileContent = ({ profimg, name, points, tasks, about }: { profimg: stri
   );
 }
 
-const ProfilePage = () => {
-    <SessionProvider>
-        <ProfileContent profimg={""} name={""} points={0} tasks={0} about={""} />
-    </SessionProvider>
-}
-
-export default ProfilePage;
+export default ProfileContent;
