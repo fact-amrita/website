@@ -5,6 +5,7 @@ import { SignOutfromAll } from "@/lib/signout";
 import Image from "next/image";
 import getTitle from "@/functions/titleget";
 import logo from "@/images/logo_black.png";
+import Link from 'next/link';
 
 interface SidebarContextType {
   expanded: boolean;
@@ -32,8 +33,8 @@ const Sidebar: FC<SidebarProps> = ({ children, user }) => {
   const image = user.image || "https://ui-avatars.com/api/?background=c7d2fe&color=3730a3&bold=true";
   return (
     <aside className="fixed left-1 top-1 h-screen">
-      <nav className="h-full flex flex-col bg-white border-r shadow-md rounded-lg">
-        <div className="p-2 pb-1 flex justify-between items-center">
+      <nav className="h-full flex flex-col bg-white shadow-md rounded-lg">
+        <div className=" p-2 pb-2 flex justify-between items-center relative">
           <Image
             src={logo}
             className={`overflow-hidden transition-all ${expanded ? 'w-32' : 'w-0'
@@ -52,13 +53,13 @@ const Sidebar: FC<SidebarProps> = ({ children, user }) => {
           <ul className="flex-1 px-3">{children}</ul>
         </SidebarContext.Provider>
 
-        <div className="border-t p-3">
+        <div className="p-3">
           <div className="flex items-center mb-3">
           <Image
             src={user.image || "https://ui-avatars.com/api/?background=c7d2fe&color=3730a3&bold=true"}
             alt="User Avatar"
-            width={40} // Set your desired width
-            height={40} // Set your desired height
+            width={40} 
+            height={40} 
             className="w-10 h-10 rounded-md"
           />
             {expanded && (
@@ -71,7 +72,7 @@ const Sidebar: FC<SidebarProps> = ({ children, user }) => {
           </div>
           {expanded && (
             <button
-              className="w-full py-2 px-4 rounded-md text-white bg-red-500 hover:bg-red-600 transition-colors"
+              className="w-full py-5 px-4 rounded-md text-white bg-red-500 hover:bg-red-600 transition-colors"
               onClick={handleLogout}
             >
               Logout
@@ -84,13 +85,14 @@ const Sidebar: FC<SidebarProps> = ({ children, user }) => {
 };
 
 interface SidebarItemProps {
+  router: string; // Adding the router prop to the interface
   icon: ReactNode;
   text: string;
   active: boolean;
   alert?: boolean;
 }
 
-const SidebarItem: FC<SidebarItemProps> = ({ icon, text, active, alert = false }) => {
+const SidebarItem: FC<SidebarItemProps> = ({ icon, text, router, active, alert = false }) => {
   const context = useContext(SidebarContext);
 
   if (!context) {
@@ -100,27 +102,27 @@ const SidebarItem: FC<SidebarItemProps> = ({ icon, text, active, alert = false }
   const { expanded } = context;
 
   return (
-    <li
-      className={`relative flex items-center py-2 px-3 my-1 font-medium rounded-md cursor-pointer transition-colors group ${active ? 'bg-gradient-to-tr from-indigo-200 to-indigo-100 text-indigo-800' : 'hover:bg-indigo-50 text-gray-600'
-        }`}
-    >
-      {icon}
-      {expanded && (
-        <span className="overflow-hidden transition-all w-52 ml-3">{text}</span>
-      )}
-      {alert && (
-        <div
-          className={`absolute right-2 w-2 h-2 rounded bg-indigo-400 ${expanded ? '' : 'top-2'
-            }`}
-        />
-      )}
-      {!expanded && (
-        <div
-          className={`absolute left-full rounded-md px-2 py-1 ml-6 bg-indigo-100 text-indigo-800 text-sm invisible opacity-20 -translate-x-3 transition-all group-hover:visible group-hover:opacity-100 group-hover:translate-x-0`}
-        >
-          {text}
-        </div>
-      )}
+    <li className="relative flex items-center py-2 px-3 my-1 font-medium rounded-md cursor-pointer transition-colors group ${active ? 'bg-gradient-to-tr from-indigo-200 to-indigo-100 text-indigo-800' : 'hover:bg-indigo-50 text-gray-600'">
+      <Link href={router} legacyBehavior>
+        <a className={`flex items-center w-full ${active ? 'bg-gradient-to-tr from-indigo-200 to-indigo-100 text-indigo-800' : 'hover:bg-indigo-50 text-gray-600'}`}>
+          {icon}
+          {expanded && (
+            <span className="overflow-hidden transition-all w-45 ml-3">{text}</span>
+          )}
+          {alert && (
+            <div
+              className={`absolute right-2 w-2 h-2 rounded bg-indigo-400 ${expanded ? '' : 'top-2'}`}
+            />
+          )}
+          {!expanded && (
+            <div
+              className={`absolute left-full rounded-md px-2 py-1 ml-6 bg-indigo-100 text-indigo-800 text-sm invisible opacity-20 -translate-x-3 transition-all group-hover:visible group-hover:opacity-100 group-hover:translate-x-0`}
+            >
+              {text}
+            </div>
+          )}
+        </a>
+      </Link>
     </li>
   );
 };

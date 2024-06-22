@@ -1,5 +1,4 @@
 import React from "react";
-import dynamic from "next/dynamic";
 import { BentoGrid, BentoGridItem } from "@/components/ui/bento-grid";
 
 
@@ -37,8 +36,8 @@ const items = [
 // Main component
 export function Items() {
   return (
-    <div className="flex justify-center items-center min-h-screen bg-black z-50">
-      <BentoGrid className="w-4xl mx-auto md:auto-rows-[27rem]">
+    <div className="flex justify-center items-center min-h-screen bg-gradient-to-tr from-red-600 via-black to-blue-600 z-50">
+      <BentoGrid className="w-lg mx-auto md:auto-rows-[20rem]">
         {items.map((item, i) => (
           <BentoGridItem
             key={i}
