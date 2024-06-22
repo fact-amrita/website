@@ -63,6 +63,7 @@ model Points {
   id             String          @id @default(auto()) @map("_id") @db.ObjectId
   FactID         String          @unique
   points         Int
+  domain         String
   completedTasks CompletedTask[]
   pendingTasks   PendingTask[]
 }

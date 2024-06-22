@@ -48,6 +48,7 @@ export default async function DataSave(dataGot: any) {
         data: {
             FactID: factID,
             points: 0,
+            domain: DataDict["Domain"]
         },
     });
 

@@ -1,22 +1,54 @@
-import Image from 'next/image';
+"use client"
 
-const RanksTable = () => {
-  const leaders = [
-    { name: 'Bryan Wolf', points: 43, position: 1, image: '/path/to/image1.png' },
-    { name: 'Meghan Jessica', points: 40, position: 2, image: '/path/to/image2.png' },
-    { name: 'Alex Turner', points: 38, position: 3, image: '/path/to/image3.png' },
-    { name: 'Marsha Fisher', points: 36, position: 4, image: '/path/to/image4.png' },
-    { name: 'Juanita Cormier', points: 35, position: 5, image: '/path/to/image5.png' },
-    { name: 'You', points: 34, position: 6, image: '/path/to/image6.png' },
-    { name: 'Tamara Schmidt', points: 33, position: 7, image: '/path/to/image7.png' },
-    { name: 'Ricardo Veum', points: 32, position: 8, image: '/path/to/image8.png' },
-    { name: 'Gary Sanford', points: 31, position: 9, image: '/path/to/image9.png' },
-  ];
+import Image from 'next/image';
+import { useState, useEffect } from 'react';
+import { getLeaderboard } from '@/lib/leaderboards';
+
+const RanksTable = ({ userDomain, presentUser }: { userDomain: string, presentUser: string }) => {
+
+  const [leaders, setLeaders] = useState<any>();
+
+  useEffect(() => {
+    const LeaderboardGetter = async () => {
+      try {
+        const data = await getLeaderboard(userDomain);
+        console.log(data);
+        if (!data) { setLeaders("not found"); return; }
+        setLeaders(data);
+      } catch (error) {
+        console.error('Error fetching task data:', error);
+      }
+    };
+    LeaderboardGetter();
+  }, [userDomain]);
+
+  if (!leaders) {
+    return <p>Loading...</p>;
+  }
+
+  if (leaders == "not found") {
+    console.log("No data found");
+  }
+
+  // const leaders = [
+  //   { name: 'Bryan Wolf', points: 43, position: 1, image: '/path/to/image1.png' },
+  //   { name: 'Meghan Jessica', points: 40, position: 2, image: '/path/to/image2.png' },
+  //   { name: 'Alex Turner', points: 38, position: 3, image: '/path/to/image3.png' },
+  //   { name: 'Marsha Fisher', points: 36, position: 4, image: '/path/to/image4.png' },
+  //   { name: 'Juanita Cormier', points: 35, position: 5, image: '/path/to/image5.png' },
+  //   { name: 'You', points: 34, position: 6, image: '/path/to/image6.png' },
+  //   { name: 'Tamara Schmidt', points: 33, position: 7, image: '/path/to/image7.png' },
+  //   { name: 'Ricardo Veum', points: 32, position: 8, image: '/path/to/image8.png' },
+  //   { name: 'Ricardo Veum', points: 32, position: 8, image: '/path/to/image8.png' },
+  //   { name: 'Ricardo Veum', points: 32, position: 8, image: '/path/to/image8.png' },
+  //   { name: 'Ricardo Veum', points: 32, position: 8, image: '/path/to/image8.png' },
+  //   { name: 'Ricardo Veum', points: 32, position: 8, image: '/path/to/image8.png' },
+  // ];
 
   return (
     <div className="bg-gray-800 p-6 rounded-lg max-w-md mx-auto">
-      <h2 className="text-center text-white text-xl mb-4">RanksTable</h2>
-      <div className="bg-gray-900 p-4 rounded-lg">
+      <h2 className="text-center text-white text-xl mb-4">Leaderboard</h2>
+      <div className="bg-gray-900 p-4 rounded-lg overflow-y-auto max-h-96">
         <div className="flex justify-around mb-4">
           {leaders.slice(0, 3).map((leader, index) => (
             <div key={index} className="flex flex-col items-center">
@@ -42,7 +74,7 @@ const RanksTable = () => {
         {leaders.slice(3).map((leader, index) => (
           <div
             key={index}
-            className={`flex items-center justify-between py-2 px-4 ${leader.position === 6 ? 'bg-green-500' : 'bg-gray-700'} rounded-lg mb-2 hover:bg-green-500`}
+            className={`flex items-center justify-between py-2 px-4 ${leader.name === presentUser ? 'bg-green-500' : 'bg-gray-700'} rounded-lg mb-2 hover:bg-green-500`}
           >
             <div className="flex items-center">
               <Image
