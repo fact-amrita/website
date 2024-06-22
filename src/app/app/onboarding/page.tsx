@@ -1,12 +1,11 @@
 "use client"
 
 import { useEffect, useState } from 'react';
-import { Form } from '@quillforms/renderer-core';
+import { Form } from "@quillforms/renderer-core";
 import '@quillforms/renderer-core/build-style/style.css';
 import { registerCoreBlocks } from '@quillforms/react-renderer-utils';
 import DataSave from './saveData'; // Ensure correct import
 import { SessionProvider, useSession } from 'next-auth/react';
-import { SignOutfromAll } from '@/lib/signout'; // Ensure correct import
 import { useToast } from "@/components/ui/use-toast";
 import { Toaster } from "@/components/ui/toaster";
 
@@ -138,8 +137,8 @@ function FormApp() {
                     },
                 }}
                 onSubmit={async (
-                    formData,
-                    { completeForm, setIsSubmitting, goToBlock, setSubmissionErr }
+                    formData: any,
+                    { completeForm, setIsSubmitting, goToBlock, setSubmissionErr }: any
                 ) => {
                     setIsSubmitting(true);
                     try {
@@ -155,7 +154,10 @@ function FormApp() {
 
                         if (saveSuccess) {
                             completeForm();
-                            SignOutfromAll();
+                            // SignOutfromAll();
+                            // redirect to /app/auth/logout
+                            window.location.href = "/app/auth/logout";
+
                         } else {
                             setError("This ID already exists. Please contact the club admin by submitting a ticket for further assistance");
                         }
