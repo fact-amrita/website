@@ -55,13 +55,13 @@ const Sidebar: FC<SidebarProps> = ({ children, user }) => {
 
         <div className="p-3">
           <div className="flex items-center mb-3">
-          <Image
-            src={user.image || "https://ui-avatars.com/api/?background=c7d2fe&color=3730a3&bold=true"}
-            alt="User Avatar"
-            width={40} 
-            height={40} 
-            className="w-10 h-10 rounded-md"
-          />
+            <Image
+              src={user.image || "https://ui-avatars.com/api/?background=c7d2fe&color=3730a3&bold=true"}
+              alt="User Avatar"
+              width={40}
+              height={40}
+              className="w-10 h-10 rounded-md"
+            />
             {expanded && (
               <div className="flex flex-col justify-center ml-3">
                 <h4 className="font-semibold">{user.name}</h4>
@@ -71,12 +71,14 @@ const Sidebar: FC<SidebarProps> = ({ children, user }) => {
             )}
           </div>
           {expanded && (
-            <button
-              className="w-full py-5 px-4 rounded-md text-white bg-red-500 hover:bg-red-600 transition-colors"
-              onClick={handleLogout}
-            >
-              Logout
-            </button>
+            <Link href="/app/auth/logout">
+              <button
+                className="w-full py-5 px-4 rounded-md text-white bg-red-500 hover:bg-red-600 transition-colors"
+              >
+                Logout
+
+              </button>
+            </Link>
           )}
         </div>
       </nav>
