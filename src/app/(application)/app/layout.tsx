@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import SidebarElement from "@/components/sidebarForRoot";
 
 export default function RootLayout({
     children,
@@ -7,9 +8,9 @@ export default function RootLayout({
 }>) {
     return (
         <div>
-            <main>
+            <SidebarElement>
                 {children}
-            </main>
+            </SidebarElement>
         </div>
     );
 }

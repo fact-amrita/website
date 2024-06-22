@@ -43,35 +43,12 @@ const DashboardContent = () => {
   }
 
   const userdat = session.user as { name: string; email: string; role: string; image: string; };
-  const sidebarItems = [
-    { route: '/app', icon: <Image src={DashboardIcon} alt="Dashboard" />, text: 'Dashboard', active: true, alert: false },
-    { route: '/app/tasks', icon: <Image src={TasksIcon} alt="Messages" />, text: 'Tasks', active: false, alert: true },
-    { route: '/app/leaderboard', icon: <Image src={LeaderboardIcon} alt="Settings" />, text: 'LeaderBoard', active: false, alert: false },
-    { route: '/app/ticket', icon: <Image src={ReportIssueIcon} alt="Report/Issue" />, text: 'Report/Issue', active: false, alert: false },
-  ];
 
-
-  return (
-    <div className="bg-gradient-to-tr from-red-600 via-black to-blue-600 flex h-screen">
-      <Sidebar user={userdat}>
-        {sidebarItems.map((item, index) => (
-          <SidebarItem
-            key={index}
-            router={item.route}
-            icon={item.icon}
-            text={item.text}
-            active={item.active}
-            alert={item.alert}
-          />
-        ))}
-      </Sidebar>
-
-      <div className="flex-1 overflow-y-auto">
-        <Items />
-        <Leaderboard />
-      </div>
-      <Toaster />
-    </div>
+  return (<div>
+    <Items />
+    <Leaderboard />
+    <Toaster />
+  </div>
   );
 };
 
