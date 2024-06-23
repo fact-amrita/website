@@ -47,8 +47,15 @@ const TaskListPage: React.FC = () => {
           }
 
           TaskLists.forEach(task => {
-            newArr.push({ task: task.task, status: 'pending', TaskId: task.TaskId })
-          })
+            const deadline = new Date(task.deadline);
+            const durationDays = parseInt(task.duration);
+            const deadlinePlusDuration = new Date(deadline.setDate(deadline.getDate() - durationDays));
+            if (deadlinePlusDuration > new Date()) {
+              if (new Date(task.startDate) <= new Date()) {
+                newArr.push({ task: task.task, status: 'pending', TaskId: task.TaskId });
+              }
+            }
+          });
 
           setTasks(newArr);
 

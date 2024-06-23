@@ -24,7 +24,7 @@ const TaskForm: React.FC = () => {
 
   const [result, setResult] = useState<string | null>(null);
 
-  const onSubmit: SubmitHandler<FormData> = async (data) => {
+  const onSubmit: SubmitHandler<FormData> = async (data: FormData) => {
     console.log('Submitted data:', data);
     var result = await TaskCreate(data.taskTitle, data.description, data.points, data.domain, data.startDate, data.deadline, data.Duration.toString());
     setResult(result);
@@ -52,7 +52,7 @@ const TaskForm: React.FC = () => {
           <input
             type="number"
             {...register('points', {
-              validate: value => value > 0 || 'Points should be a positive number'
+              validate: (value: number) => value > 0 || 'Points should be a positive number'
             })}
             id="points"
             className={`form-input mt-1 block w-full border ${errors.points ? 'border-red-500' : ''}`}
@@ -75,7 +75,7 @@ const TaskForm: React.FC = () => {
           <input
             type="date"
             {...register('startDate', {
-              validate: value => new Date(value) > new Date() || 'Start date should be in the future'
+              validate: (value: string) => new Date(value) > new Date() || 'Start date should be in the future'
             })}
             id="StartDate"
             className={`form-input mt-1 block w-full border ${!isStartDateValid ? 'border-red-500' : ''}`}
@@ -88,7 +88,7 @@ const TaskForm: React.FC = () => {
           <input
             type="number"
             {...register('Duration', {
-              validate: value => value > 0 || 'Duration should be a positive number'
+              validate: (value: number) => value > 0 || 'Duration should be a positive number'
             })}
             id="Duration"
             className={`form-input mt-1 block w-full border ${!isDurationValid ? 'border-red-500' : ''}`}
@@ -101,7 +101,7 @@ const TaskForm: React.FC = () => {
           <input
             type="date"
             {...register('deadline', {
-              validate: value => new Date(value) > new Date(watch('startDate')) || 'Deadline should be after the start date'
+              validate: (value: string) => new Date(value) > new Date(watch('startDate')) || 'Deadline should be after the start date'
             })}
             id="Deadline"
             className={`form-input mt-1 block w-full border ${errors.deadline ? 'border-red-500' : ''}`}
