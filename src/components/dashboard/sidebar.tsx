@@ -25,7 +25,7 @@ interface SidebarProps {
 }
 
 const Sidebar: FC<SidebarProps> = ({ children, user }) => {
-  const [expanded, setExpanded] = useState(true);
+  const [expanded, setExpanded] = useState(false);
 
   const handleLogout = () => {
     // Implement your logout logic here
@@ -42,12 +42,12 @@ const Sidebar: FC<SidebarProps> = ({ children, user }) => {
               }`}
             alt="Logo"
           />
-          {/* <button
+          <button
             onClick={() => setExpanded((curr) => !curr)}
             className="p-1.5 rounded-lg bg-gray-50 hover:bg-gray-100"
           >
             {expanded ? <ChevronFirst /> : <ChevronLast />}
-          </button> */}
+          </button>
         </div>
 
         <SidebarContext.Provider value={{ expanded }}>
