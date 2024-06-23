@@ -31,9 +31,9 @@ const RanksTable = ({ userDomain, presentUser }: { userDomain: string, presentUs
   }
 
   return (
-    <div className="bg-gray-800 p-6 rounded-lg max-w-md mx-auto">
+    <div className="bg-gradient-to-tl from-blue-700 via-black to-red-700 p-6 rounded-lg max-w-md mx-auto">
       <h2 className="text-center text-white text-xl mb-4">Leaderboard</h2>
-      <div className="bg-gray-900 p-4 rounded-lg overflow-y-auto max-h-96">
+      <div className="bg-gradient-to-tr from-blue-700 via-black to-red-700 p-4">
         <div className="flex justify-around mb-4">
           {leaders.slice(0, 3).map((leader: any, index: any) => (
             <div key={index} className="flex flex-col items-center">
@@ -47,7 +47,6 @@ const RanksTable = ({ userDomain, presentUser }: { userDomain: string, presentUs
                 />
                 {leader.position === 1 && (
                   <span className="absolute top-0 left-0 transform -translate-y-1/2 -translate-x-1/2 bg-green-500 text-white p-1 rounded-full">
-                    👑
                   </span>
                 )}
               </div>

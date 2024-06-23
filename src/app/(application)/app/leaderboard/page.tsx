@@ -21,23 +21,29 @@ const Leaderboard = () => {
   const userdat = session.user as { name: string; domain: string; };
 
   return (
-    <div className="h-screen p-4 bg-gray-500">
+    <div className=" bg-gradient-to-tr from-blue-700 via-black to-red-700 h-screen p-4">
       <div className="grid grid-cols-6 gap-2 h-full w-full">
         <div className="col-span-3 flex items-center justify-center h-full rounded-lg">
-          <span className="text-white text-md">
-            <Tab />
-          </span>
+        <div className="flex flex-col w-full">  {/* Wrapper for inner divs */}
+          <div className="h-2/3 flex items-center justify-center">  {/* Top box (2/3 height) */}
+            <span className="text-white text-md">
+              <Tab />
+            </span>
         </div>
-        <div className="col-span-1 flex items-center justify-center h-full rounded-lg">
-          <span className="text-white text-md">
-            <TotalPoints LifeTimepts={0} SemesterPts={0} AcademicYearPts={0} />
-          </span>
+      <div className="h-1/3 flex items-center justify-center">  {/* Bottom box (1/3 height) */}
+        <div className="col-span-3 flex items-center justify-center h-full rounded-lg">
+              <span className="text-white text-md">
+                <TotalPoints LifeTimepts={0} SemesterPts={0} AcademicYearPts={0} />
+              </span>
+            </div>
+          </div>
         </div>
-        <div className="col-span-2 flex items-center justify-center h-full rounded-lg">
-          <span className="text-white text-md">
-            <RanksTable userDomain={userdat.domain} presentUser={userdat.name} />
-          </span>
-        </div>
+      </div>
+          <div className="col-span-2 flex items-center justify-center h-full rounded-lg">
+            <span className="text-white text-md">
+              <RanksTable userDomain={userdat.domain} presentUser={userdat.name} />
+            </span>
+          </div>
       </div>
     </div>
   )
