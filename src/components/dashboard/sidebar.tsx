@@ -20,6 +20,7 @@ interface SidebarProps {
     email: string;
     role: string;
     image: string;
+    factId: string;
   }
 }
 
@@ -54,6 +55,7 @@ const Sidebar: FC<SidebarProps> = ({ children, user }) => {
         </SidebarContext.Provider>
 
         <div className="p-3">
+        <Link href={`/app/profile/${user.factId}`}>
           <div className="flex items-center mb-3">
             <Image
               src={user.image || "https://ui-avatars.com/api/?background=c7d2fe&color=3730a3&bold=true"}
@@ -70,6 +72,7 @@ const Sidebar: FC<SidebarProps> = ({ children, user }) => {
               </div>
             )}
           </div>
+          </Link>
           {expanded && (
             <Link href="/app/auth/logout">
               <button

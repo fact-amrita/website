@@ -26,7 +26,7 @@ function SidebarForRoot({ children, activeRoute }: Props) {
         return <p>You need to be logged in to access your profile.</p>;
     }
 
-    const userdat = session.user as { name: string; email: string; role: string; image: string; };
+    const userdat = session.user as { name: string; email: string; role: string; image: string; factId:string};
 
     const sidebarItems = [
         { route: '/app', icon: <Image src={DashboardIcon} alt="Dashboard" />, text: 'Dashboard', active: false, alert: false },
