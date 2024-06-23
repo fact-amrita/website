@@ -11,14 +11,15 @@ import { Sidebar, SidebarItem } from '@/components/dashboard/sidebar';
 
 type Props = {
     children: React.ReactNode;
+    activeRoute: string;
 };
 
-function SidebarForRoot({ children }: Props) {
+function SidebarForRoot({ children, activeRoute }: Props) {
 
     const { data: session, status } = useSession();
 
     if (status === 'loading') {
-        return <p></p>; // Suspense content can be added here
+        return <p></p>;
     }
 
     if (!session || !session.user) {
@@ -28,7 +29,7 @@ function SidebarForRoot({ children }: Props) {
     const userdat = session.user as { name: string; email: string; role: string; image: string; };
 
     const sidebarItems = [
-        { route: '/app', icon: <Image src={DashboardIcon} alt="Dashboard" />, text: 'Dashboard', active: true, alert: false },
+        { route: '/app', icon: <Image src={DashboardIcon} alt="Dashboard" />, text: 'Dashboard', active: false, alert: false },
         { route: '/app/tasks', icon: <Image src={TasksIcon} alt="Messages" />, text: 'Tasks', active: false, alert: true },
         { route: '/app/leaderboard', icon: <Image src={LeaderboardIcon} alt="Settings" />, text: 'LeaderBoard', active: false, alert: false },
         { route: '/app/ticket', icon: <Image src={ReportIssueIcon} alt="Report/Issue" />, text: 'Report/Issue', active: false, alert: false },
@@ -43,7 +44,7 @@ function SidebarForRoot({ children }: Props) {
                         router={item.route}
                         icon={item.icon}
                         text={item.text}
-                        active={item.active}
+                        active={item.route === activeRoute}
                         alert={item.alert}
                     />
                 ))}
@@ -56,10 +57,10 @@ function SidebarForRoot({ children }: Props) {
     );
 }
 
-export default function SidebarElement({ children }: Props) {
+export default function SidebarElement({ children, activeRoute }: Props) {
     return (
         <SessionProvider>
-            <SidebarForRoot children={children} />
+            <SidebarForRoot children={children} activeRoute={activeRoute} />
         </SessionProvider>
     );
 }
