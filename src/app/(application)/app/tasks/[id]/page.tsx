@@ -2,7 +2,7 @@
 
 import React, { useEffect, useState } from 'react';
 import { SessionProvider, useSession } from 'next-auth/react';
-import { TaskGetById } from "@/lib/TaskOperations";
+import { TaskStart, TaskGetById } from "@/lib/TaskOperations";
 
 const FileUpload = () => {
   const [showButton, setShowButton] = useState(true);
@@ -52,6 +52,7 @@ const TaskPage: React.FC<TaskPageProps> = ({ TaskId }) => {
   const [timeLeft, setTimeLeft] = useState<number | null>(null);
   const [isRunning, setIsRunning] = useState<boolean>(false);
 
+
   useEffect(() => {
     const fetchTaskData = async () => {
       try {
@@ -66,9 +67,9 @@ const TaskPage: React.FC<TaskPageProps> = ({ TaskId }) => {
         const deadlineTime = new Date(data.deadline).getTime();
         const currentTime = new Date().getTime();
         const initialTimeLeft = Math.max(0, Math.floor((deadlineTime - currentTime) / 1000));
-        
+
         setTimeLeft(initialTimeLeft);
-        
+
         // Start timer automatically if there's time left
         if (initialTimeLeft > 0) {
           setIsRunning(true);
@@ -106,6 +107,26 @@ const TaskPage: React.FC<TaskPageProps> = ({ TaskId }) => {
     setIsRunning(false);
   };
 
+  if (status === 'loading') {
+    return <p></p>; // Suspense content can be added here
+  }
+
+  if (!session || !session.user) {
+    return <p>You need to be logged in to access your profile.</p>;
+  }
+
+  const UserDat = session.user as { name: string; email: string; role: string; image: string; factId: string; domain: string }
+
+  const taskStarter = async () => {
+    try {
+      const result = await TaskStart(UserDat.factId, TaskId);
+      console.log(result);
+    } catch (error) {
+      console.error('Error starting task:', error);
+    }
+  }
+
+
   const formatTime = (seconds: number) => {
     const days = Math.floor(seconds / (24 * 60 * 60));
     const hours = Math.floor((seconds % (24 * 60 * 60)) / (60 * 60));
@@ -121,7 +142,7 @@ const TaskPage: React.FC<TaskPageProps> = ({ TaskId }) => {
   return (
     <div className="flex h-screen p-0 m-0">
       <div className="w-1/2 h-full bg-gray-800 flex flex-col justify-center items-center p-4">
-      <div className="bg-gradient-to-tr from-blue-700 via-black to-red-700 rounded-md shadow-lg p-4 text-white font-mono text-lg mb-5">
+        <div className="bg-gradient-to-tr from-blue-700 via-black to-red-700 rounded-md shadow-lg p-4 text-white font-mono text-lg mb-5">
           {timeLeft !== null ? (isRunning ? formatTime(timeLeft) : 'Timer Stopped') : 'Loading...'}
         </div>
         <div className="w-3/4 h-auto bg-gray-900 rounded-lg shadow-lg p-6 border border-gray-700 mb-4">
@@ -140,6 +161,9 @@ const TaskPage: React.FC<TaskPageProps> = ({ TaskId }) => {
               disabled={isRunning}
             >
               {isRunning ? 'Running...' : 'Take Action'}
+            </button>
+            <button onClick={taskStarter}>
+              Start Task
             </button>
           </div>
         </div>

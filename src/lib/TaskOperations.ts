@@ -30,7 +30,7 @@ export async function TaskCreate(taskName: string, taskDescription: string, poin
             startDate: taskStartTime,
             deadline: taskDeadline,
             duration: duration,
-            file:null
+            file: null
         }
     })
 
@@ -77,4 +77,26 @@ export async function TaskDelete(taskId: string) {
             }
         });
     }
+}
+
+export async function TaskStart(factId: string, taskId: string) {
+    // const task = await db.tasks.findUnique({
+    //     where: {
+    //         TaskId: taskId
+    //     }
+    // });
+
+    const pointsData = await db.points.findFirst({
+        where: {
+            FactID: factId
+        }
+    });
+
+    const newPendingTask = await db.pendingTask.create({
+        data: {
+            taskId: taskId,
+            startTime: new Date().toISOString(),
+            pointsId: pointsData.id,
+        }
+    });
 }
