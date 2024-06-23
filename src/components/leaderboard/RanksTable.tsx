@@ -37,7 +37,7 @@ const RanksTable = ({ userDomain, presentUser }: { userDomain: string, presentUs
         <div className="flex justify-around mb-4">
           {leaders.slice(0, 3).map((leader: any, index: any) => (
             <div key={index} className="flex flex-col items-center">
-              <div className="relative">
+              <div className="relative" style={{margin:"40px"}}>
                 <Image
                   src={leader.image}
                   alt={leader.name}
