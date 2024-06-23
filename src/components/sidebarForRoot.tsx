@@ -30,7 +30,7 @@ function SidebarForRoot({ children, activeRoute }: Props) {
 
     const sidebarItems = [
         { route: '/app', icon: <Image src={DashboardIcon} alt="Dashboard" />, text: 'Dashboard', active: false, alert: false },
-        { route: '/app/tasks', icon: <Image src={TasksIcon} alt="Messages" />, text: 'Tasks', active: false, alert: true },
+        { route: '/app/tasks', icon: <Image src={TasksIcon} alt="Messages" />, text: 'Tasks', active: false, alert: false },
         { route: '/app/leaderboard', icon: <Image src={LeaderboardIcon} alt="Settings" />, text: 'LeaderBoard', active: false, alert: false },
         { route: '/app/ticket', icon: <Image src={ReportIssueIcon} alt="Report/Issue" />, text: 'Report/Issue', active: false, alert: false },
     ];
