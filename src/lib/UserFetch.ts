@@ -82,10 +82,18 @@ export async function getUserProfile(factID: string) {
         points = pointsDat.points
     }
 
-    var completedTasks = (await getUserCompletedTasks(factID))[0].length;
-
+    let completedTasks = 0;
+    try {
+        const userCompletedTasks = await getUserCompletedTasks(factID);
+        completedTasks = userCompletedTasks[0]?.length || 0;
+    } catch (error) {
+        completedTasks = 0;
+    }
+    var userDat
     // user.points = pointsDat.points
-    var userDat = { points: points, TasksCount: completedTasks, ...user }
+    if (user) {
+        userDat = { points: points, TasksCount: completedTasks, ...user }
+    } else { userDat = null }
 
     return userDat
 }

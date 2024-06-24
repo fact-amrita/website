@@ -2,7 +2,7 @@
 
 import React, { useState, useEffect } from "react";
 import Image from "next/image";
-import { FaLinkedinIn, FaGithub, FaStackOverflow } from 'react-icons/fa';
+import { FaLinkedinIn, FaGithub } from 'react-icons/fa';
 import { getUserProfile } from "@/lib/UserFetch";
 
 const skills = [
@@ -11,12 +11,6 @@ const skills = [
   ['HTML/CSS', 'Advanced'],
   ['Node.js', 'Intermediate'],
   ['Python', 'Intermediate']
-];
-
-const socialLinks = [
-  { href: 'https://www.linkedin.com/your-linkedin-profile', icon: FaLinkedinIn },
-  { href: 'https://github.com/your-github-username', icon: FaGithub },
-  { href: 'https://stackoverflow.com/users/your-stackoverflow-id', icon: FaStackOverflow },
 ];
 
 const ProfileContent = ({ params }: { params: { id: string } }) => {
@@ -29,7 +23,7 @@ const ProfileContent = ({ params }: { params: { id: string } }) => {
     const profileDataGetter = async () => {
       try {
         const data = await getUserProfile(ProfileId);
-        if (!data) { setProfileData("not found"); return; }
+        if (!data) {setProfileData("not found"); return; }
         setProfileData(data);
       } catch (error) {
         console.error('Error fetching task data:', error);
@@ -43,7 +37,11 @@ const ProfileContent = ({ params }: { params: { id: string } }) => {
   }
 
   if (ProfileData == "not found") {
-    return <p>Profile not found</p>
+    return (
+      <div className="flex justify-center items-center h-screen">
+        <div className="text-red-500 text-2xl">Profile not found</div>
+      </div>
+    );
   }
 
   const handleSocialLinkClick = (href: string) => {
