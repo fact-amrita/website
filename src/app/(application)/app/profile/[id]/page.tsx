@@ -53,7 +53,6 @@ const ProfileContent = ({ params }: { params: { id: string } }) => {
   return (
     <div className="h-screen w-screen flex justify-center items-center p-4">
       <div className="grid grid-cols-12 grid-rows-4 gap-4 h-full w-5/6">
-        {/* Left Section */}
         <div className="bg-blue-700 rounded-3xl flex justify-center items-center col-span-4 row-span-4 p-10 py-5">
           <div className="h-full w-full grid grid-rows-2 gap-4">
             <div className="bg-blue-700 h-full w-full rounded-2xl flex flex-col justify-center items-center">
@@ -78,14 +77,11 @@ const ProfileContent = ({ params }: { params: { id: string } }) => {
         <div className="bg-blue-700 rounded-3xl flex flex-col col-span-8 row-span-2 p-10 py-5 overflow-hidden">
           <h1 className="text-xl text-white">About</h1>
           <div className="text-white text-lg">
-            {"Nothing here right now"}
+            {ProfileData.About}
           </div>
           <div className="flex space-x-4 mt-4">
-            {socialLinks.map((link, index) => (
-              <div key={index} className="cursor-pointer text-blue-400 hover:text-blue-600" onClick={() => handleSocialLinkClick(link.href)}>
-                <link.icon /> {/* Render the icon directly */}
-              </div>
-            ))}
+            {ProfileData.githubURL && (<div className="cursor-pointer text-blue-400 hover:text-blue-600" onClick={() => handleSocialLinkClick(ProfileData.githubURL)}><FaGithub /></div>)}
+            {ProfileData.linkedInURL && (<div className="cursor-pointer text-blue-400 hover:text-blue-600" onClick={() => handleSocialLinkClick(ProfileData.linkedInURL)}><FaLinkedinIn /></div>)}
           </div>
         </div>
 

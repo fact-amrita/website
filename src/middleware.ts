@@ -14,7 +14,7 @@ export default auth((req) => {
         }
         if (req.auth) {
             const userdat = req.auth.user as { name: string; email: string; role: string; image: string; factId: string };
-            if (userdat.role == "newbie") {
+            if (userdat.role == "newbie" || userdat.role == "onboarding") {
                 const url = req.url.replace(req.nextUrl.pathname, "/app?message=Sorry, you can only access this page if you are a member")
                 return Response.redirect(url)
             }
@@ -27,6 +27,9 @@ export default auth((req) => {
             if (userdat.role !== "admin") {
                 return Response.redirect(new URL('/404', req.url));
             }
+        } else {
+            const url = req.url.replace(req.nextUrl.pathname, "/app/auth/login?error=You should be logged in to access")
+            return Response.redirect
         }
     }
 
@@ -34,8 +37,7 @@ export default auth((req) => {
         if (!req.auth) {
             const url = req.url.replace(req.nextUrl.pathname, "/app/auth/login?error=You should be logged in to access")
             return Response.redirect(url)
-        }
-        if (req.auth) {
+        } else {
             const userdat = req.auth.user as { name: string; email: string; role: string; image: string; factId: string };
             if (userdat.role == "newbie" || userdat.role == "onboarding" || userdat.role == "member") {
                 return Response.redirect(new URL('/404', req.url));
@@ -47,13 +49,14 @@ export default auth((req) => {
         if (!req.auth) {
             const url = req.url.replace(req.nextUrl.pathname, "/app/auth/login?error=You should be logged in to access")
             return Response.redirect(url)
-        }
-        if (req.auth && req.auth.user) {
+        } else if (req.auth && req.auth.user) {
             const userdat = req.auth.user as { name: string; email: string; role: string; image: string; factId: string };
             if (userdat.role !== "onboarding") {
                 const url = req.url.replace(req.nextUrl.pathname, "/app?message=You don't need to onboard again. You are already onboarded.")
                 return Response.redirect(url)
             }
+        } else {
+            return Response.redirect(new URL('/404', req.url));
         }
     }
 

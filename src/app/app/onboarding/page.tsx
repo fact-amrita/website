@@ -91,6 +91,14 @@ function FormApp() {
                             },
                         },
                         {
+                            name: "short-text",
+                            id: "about",
+                            attributes: {
+                                label: "Tell us a bit about yourself",
+                                required: true,
+                            }
+                        },
+                        {
                             name: "multiple-choice",
                             id: "domain",
                             attributes: {
@@ -110,6 +118,20 @@ function FormApp() {
                                 format: "DDMMYYYY",
                                 separator: "/",
                                 label: "When is your birthday ?",
+                            },
+                        },
+                        {
+                            name: "short-text",
+                            id: "linkedIn",
+                            attributes: {
+                                label: "What is your LinkedIn profile url ?",
+                            },
+                        },
+                        {
+                            name: "short-text",
+                            id: "github",
+                            attributes: {
+                                label: "What is your GitHub profile url ?",
                             },
                         },
                         {

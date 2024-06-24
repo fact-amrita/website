@@ -13,7 +13,10 @@ export default async function DataSave(dataGot: any) {
         "RollNumber": dataGot["answers"]["rollnum"]["value"],
         "Domain": dataGot["answers"]["domain"]["value"][0],
         "Birthday": dataGot["answers"]["birthdate"]["value"],
-        "PhoneNum": dataGot["answers"]["phonenum"]["value"]
+        "PhoneNum": dataGot["answers"]["phonenum"]["value"],
+        "LinkedIn": dataGot["answers"]["linkedIn"]["value"],
+        "github": dataGot["answers"]["github"]["value"],
+        "about": dataGot["answers"]["about"]["value"]
     }
 
     const factID = "FACT_" + DataDict["branch"] + "_" + DataDict["RollNumber"]
@@ -38,7 +41,10 @@ export default async function DataSave(dataGot: any) {
             birthday: DataDict["Birthday"],
             phone: DataDict["PhoneNum"],
             RegisterDate: new Date().toISOString(),
-            role: "member"
+            role: "member",
+            linkedInURL: DataDict["LinkedIn"],
+            githubURL: DataDict["github"],
+            About: DataDict["about"]
         }
     })
 
