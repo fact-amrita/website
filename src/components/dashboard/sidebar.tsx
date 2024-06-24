@@ -5,7 +5,7 @@ import { SignOutfromAll } from "@/lib/signout";
 import Image from "next/image";
 import getTitle from "@/functions/titleget";
 import logo from "@/images/logo_black.png";
-import Link from 'next/link';
+import Link from 'next/link'; 
 
 interface SidebarContextType {
   expanded: boolean;
@@ -107,9 +107,9 @@ const SidebarItem: FC<SidebarItemProps> = ({ icon, text, router, active, alert =
   const { expanded } = context;
 
   return (
-    <li className="relative flex items-center py-2 px-3 my-1 font-medium rounded-md cursor-pointer transition-colors group ${active ? 'bg-gradient-to-tr from-indigo-200 to-indigo-100 text-indigo-800' : 'hover:bg-indigo-50 text-gray-600'">
+    <li className="relative flex items-center py-2 px-3 my-1 font-medium rounded-md cursor-pointer transition-colors group ${active ? 'bg-gradient-to-tr from-indigo-200 to-indigo-100 text-indigo-800 rounded-md' : 'hover:bg-indigo-50 text-gray-600 rounded-md'">
       <Link href={router} legacyBehavior>
-        <a className={`flex items-center w-full ${active ? 'bg-gradient-to-tr from-indigo-200 to-indigo-100 text-indigo-800' : 'hover:bg-indigo-50 text-gray-600'}`}>
+        <a className={`flex items-center w-full ${active ? 'bg-gradient-to-tr from-indigo-200 to-indigo-100 text-indigo-800 rounded-md h-8 w-10' : 'hover:bg-indigo-50 text-gray-600 rounded-md h-8 w-10'}`}>
           {icon}
           {expanded && (
             <span className="overflow-hidden transition-all w-45 ml-3">{text}</span>
