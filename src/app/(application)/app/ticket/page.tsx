@@ -2,7 +2,8 @@
 
 import React, { useState } from 'react';
 import { SessionProvider, useSession } from 'next-auth/react';
-
+import { Toaster } from '@/components/ui/toaster';
+import { useToast } from '@/components/ui/use-toast';
 import { createTicket } from '@/lib/Tickets';
 
 interface TicketFormProps {
@@ -15,6 +16,7 @@ const TicketForm: React.FC<TicketFormProps> = ({
   initialMessage = '',
 }) => {
   const { data: session, status } = useSession();
+  const { toast } = useToast();
 
   const [feedbackType, setFeedbackType] = useState(initialFeedbackType);
   const [message, setMessage] = useState(initialMessage);
@@ -39,7 +41,6 @@ const TicketForm: React.FC<TicketFormProps> = ({
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    // onSubmit({ feedbackType, message });
     console.log({ feedbackType, message });
     var ticketCreated = createTicket({ FactID: userdat.factId, TicketType: feedbackType, TicketContent: message });
     console.log(ticketCreated);
@@ -47,9 +48,17 @@ const TicketForm: React.FC<TicketFormProps> = ({
     setMessage(initialMessage);
   };
 
+  const showtoast = async (e: React.FormEvent<HTMLFormElement>) => {
+    toast({
+      variant: 'success',
+      title: 'Success!',
+      description: 'Ticket has been Created',
+    });
+  };
+
   return (
-    <div className="ticket-form flex justify-center items-center h-screen overflow-hidden bg-white">
-      <div className="ticket-form-container w-full h-2/4 max-w-md p-4 bg-gray-100 rounded shadow-lg focus:outline-none focus:ring focus:ring-blue-700">
+    <div className="ticket-form flex justify-center items-center h-screen overflow-hidden bg-gradient-to-tr from-blue-700 via-black to-red-700">
+      <div className="ticket-form-container w-full h-2/4 max-w-md p-4 bg--gradient-to-tr from-gray-500 to-slate-500 rounded shadow-lg focus:outline-none focus:ring focus:ring-blue-700">
         <h2 className="text-3xl font-bold mb-7 text-center text-blue-500">Submit a Ticket</h2>
         <form onSubmit={handleSubmit} className="space-y-4">
           <div>
@@ -79,11 +88,15 @@ const TicketForm: React.FC<TicketFormProps> = ({
               className="message-textarea resize-none w-full px-7 py-11 border rounded shadow-sm focus:outline-none focus:ring focus:ring-blue-500 text-black user-select:none resize:vertical"
             />
           </div>
-          <button type="submit" className="w-full py-3 px-4 rounded bg-[#7747FF] hover:bg-white hover:text-[#7747FF] focus:text-[#7747FF] focus:bg-gray-200 text-gray-50 font-bold leading-loose transition duration-200">
+          <button onClick={showtoast} type="submit" className="w-full py-3 px-4 rounded bg-[#7747FF] 
+            hover:bg-white hover:text-[#7747FF] 
+            focus:text-[#7747FF] focus:bg-gray-200 text-gray-50 
+            font-bold leading-loose transition duration-200 " >
             Submit
           </button>
         </form>
       </div>
+      <Toaster />
     </div>
   );
 };

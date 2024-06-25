@@ -1,7 +1,6 @@
 "use client";
 import React, { useState, createContext, useContext, ReactNode, FC } from 'react';
 import { ChevronLast, ChevronFirst } from 'lucide-react'; // Fallback icons
-import { SignOutfromAll } from "@/lib/signout";
 import Image from "next/image";
 import getTitle from "@/functions/titleget";
 import logo from "@/images/logo_black.png";

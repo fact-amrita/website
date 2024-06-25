@@ -16,8 +16,6 @@ export const authOptions = {
                 where: { email: user.email }
             })
 
-            console.log(userExisting)
-
             if (!userExisting) {
                 console.log("User does not exist in database.")
                 const AlreadyMember = await db.existingMembersList.findUnique({

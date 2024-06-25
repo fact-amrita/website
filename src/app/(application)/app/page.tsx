@@ -1,14 +1,8 @@
 'use client'; // Ensure this is the first line
 
 import React, { useEffect } from 'react';
-import { Sidebar, SidebarItem } from '@/components/dashboard/sidebar';
 import Items from '@/components/dashboard/items';
 import Leaderboard from '@/components/dashboard/leaderboard';
-import Image from 'next/image';
-import DashboardIcon from '@/public/icons/dashboard.svg';
-import TasksIcon from '@/public/icons/tasks.svg';
-import LeaderboardIcon from '@/public/icons/leaderboard.svg';
-import ReportIssueIcon from '@/public/icons/reportissue.svg';
 import { SessionProvider, useSession } from 'next-auth/react';
 
 import { useToast } from "@/components/ui/use-toast";
