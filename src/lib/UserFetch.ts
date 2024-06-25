@@ -12,6 +12,15 @@ export async function getUserByemail(email: string) {
     return user
 }
 
+export async function getUserCredByemail(email: string) {
+    const user = await db.userCredential.findUnique({
+        where: {
+            email: email
+        }
+    })
+    return user
+}
+
 // To get a user by FactID
 export async function getUserByFactID(factID: string) {
     const user = await db.user.findUnique({

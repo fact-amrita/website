@@ -8,6 +8,7 @@ import LeaderboardIcon from '@/public/icons/leaderboard.svg';
 import ReportIssueIcon from '@/public/icons/reportissue.svg';
 import { SessionProvider, useSession } from 'next-auth/react';
 import { Sidebar, SidebarItem } from '@/components/dashboard/sidebar';
+import {roleUpdateCheck} from '@/lib/roleCheck';
 
 type Props = {
     children: React.ReactNode;
@@ -28,11 +29,13 @@ function SidebarForRoot({ children, activeRoute }: Props) {
 
     const userdat = session.user as { name: string; email: string; role: string; image: string; factId:string};
 
+    roleUpdateCheck(userdat.email, userdat.role);
+
     const sidebarItems = [
         { route: '/app', icon: <Image src={DashboardIcon} alt="Dashboard" />, text: 'Dashboard', active: false, alert: false },
         { route: '/app/tasks', icon: <Image src={TasksIcon} alt="Messages" />, text: 'Tasks', active: false, alert: false },
         { route: '/app/leaderboard', icon: <Image src={LeaderboardIcon} alt="Settings" />, text: 'LeaderBoard', active: false, alert: false },
-        { route: '/app/ticket', icon: <Image src={ReportIssueIcon} alt="Report/Issue" />, text: 'Report/Issue', active: false, alert: false },
+        { route: '/app/ticket', icon: <Image src={ReportIssueIcon} alt="Report/Feedback" />, text: 'Report/Feedback', active: false, alert: false },
     ];
 
     return (

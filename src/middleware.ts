@@ -14,6 +14,7 @@ export default auth((req) => {
         }
         if (req.auth) {
             const userdat = req.auth.user as { name: string; email: string; role: string; image: string; factId: string };
+            roleUpdateCheck(req, userdat.factId, userdat.role);
             if (userdat.role == "newbie" || userdat.role == "onboarding") {
                 const url = req.url.replace(req.nextUrl.pathname, "/app?message=Sorry, you can only access this page if you are a member")
                 return Response.redirect(url)
@@ -24,6 +25,7 @@ export default auth((req) => {
     if (req.nextUrl.pathname === "/app/ticket/ticket-table") {
         if (req.auth) {
             const userdat = req.auth.user as { name: string; email: string; role: string; image: string; factId: string };
+            roleUpdateCheck(req, userdat.factId, userdat.role);
             if (userdat.role !== "admin") {
                 return Response.redirect(new URL('/404', req.url));
             }
@@ -39,6 +41,7 @@ export default auth((req) => {
             return Response.redirect(url)
         } else {
             const userdat = req.auth.user as { name: string; email: string; role: string; image: string; factId: string };
+            roleUpdateCheck(req, userdat.factId, userdat.role);
             if (userdat.role == "newbie" || userdat.role == "onboarding" || userdat.role == "member") {
                 return Response.redirect(new URL('/404', req.url));
             }
@@ -51,6 +54,7 @@ export default auth((req) => {
             return Response.redirect(url)
         } else if (req.auth && req.auth.user) {
             const userdat = req.auth.user as { name: string; email: string; role: string; image: string; factId: string };
+            roleUpdateCheck(req, userdat.factId, userdat.role);
             if (userdat.role !== "onboarding") {
                 const url = req.url.replace(req.nextUrl.pathname, "/app?message=You don't need to onboard again. You are already onboarded.")
                 return Response.redirect(url)
