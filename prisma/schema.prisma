@@ -37,6 +37,7 @@ model User {
   linkedInURL  String?
   githubURL    String?
   About        String?
+  skills       String[]
 }
 
 model Tasks {
