@@ -14,11 +14,6 @@ const Leaderboard: React.FC = () => {
   useEffect(() => {
     const fetchLeaderboard = async () => {
       try {
-        // Example fetching leaderboard data
-        // const response = await axios.get<LeaderboardEntry[]>('/api/leaderboard');
-        // setEntries(response.data);
-
-        // Mock data for demonstration
         const mockEntries: LeaderboardEntry[] = [
           { rank: 1, name: 'Alice', points: 1000 },
           { rank: 2, name: 'Bob', points: 950 },
@@ -36,11 +31,11 @@ const Leaderboard: React.FC = () => {
   }, []);
 
   return (
-    <div className="flex fixed top-0 right-0 h-full w-60 bg-indigo-800 bg-opacity-20 text-white z-50 justify-center">
-      <div className="p-4 justify-center">
-        <h2 className="text-xl font-bold mb-4 mx-3 my-5 justify-evenly">Leaderboard</h2>
+    <div className="border-none flex fixed top-0 right-0 h-full w-80 bg-gradient-to-tr from-blue-700 via-black to-red-700 bg-opacity-100 text-white justify-center">
+      <div className="p-3 justify-center">
+        <h2 className="text-xl font-bold text-center">Leaderboard</h2>
         <div className="px-4 py-2">
-          <table className=" flex flex-col min-w-full table-auto">
+          <table className=" flex flex-col min-w-full">
             <thead>
               <tr>
                 <th className="py-2 px-4 text-left">Rank</th>

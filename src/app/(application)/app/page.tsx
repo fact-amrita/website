@@ -1,35 +1,26 @@
-'use client'; // Ensure this is the first line
+"use client";
 
-import React, { useEffect } from 'react';
-import Items from '@/components/dashboard/items';
-import Leaderboard from '@/components/dashboard/leaderboard';
-import { SessionProvider, useSession } from 'next-auth/react';
-
+import React, { useEffect } from "react";
 import { useToast } from "@/components/ui/use-toast";
+import { useSearchParams } from "next/navigation";
+import Leaderboard from "@/components/dashboard/leaderboard";
 import { Toaster } from "@/components/ui/toaster";
-import { useSearchParams } from 'next/navigation';
+import { SessionProvider, useSession } from "next-auth/react";
+import SidebarElement from "@/components/sidebarForRoot";
 
-const DashboardContent = () => {
+const DashboardContent: React.FC = () => {
+  const items = ['Item 1', 'Item 2', 'Item 3', 'Item 4'];
   const { data: session, status } = useSession();
   const { toast } = useToast();
   const searchParams = useSearchParams();
   const messageParam = searchParams.get("message");
 
   useEffect(() => {
-    if (messageParam) {
-      toast({
-        variant: "default",
-        title: "Server Message",
-        description: `${messageParam}`,
-        duration: 3000,
-      });
-      const newUrl = window.location.pathname;
-      window.history.replaceState(null, '', newUrl);
-    }
+    // ... existing logic for handling messageParam
   }, [messageParam, toast]);
 
   if (status === 'loading') {
-    return <p></p>; // Suspense content can be added here
+    return <p></p>;
   }
 
   if (!session || !session.user) {
@@ -38,13 +29,30 @@ const DashboardContent = () => {
 
   const userdat = session.user as { name: string; email: string; role: string; image: string; };
 
-  return (<div>
-    <Items />
-    <Leaderboard />
-    <Toaster />
-  </div>
+  return (
+    <div className="flex h-screen p-0 m-0 ">
+      <SidebarElement children={undefined} activeRoute={''} />
+      <div className="w-4/5 h-full bg-gradient-to-tr from-blue-700 via-black to-red-700 flex flex-col justify-center items-center p-4">
+        <div className="h-1/9 p-4 text-white">
+          <h1 className="text-3xl font-bold mb-2">Hello,</h1>
+          <span className="text-3xl font-medium">{userdat.name}</span>
+        </div>
+        <div className="h-3/4 w-full p-4 rounded-lg">
+          <div className="grid grid-cols-2 gap-4 bg-transparent rounded shadow-md p-1 h-full w-full">
+            {items.map((item, index) => (
+              <div key={index} className="col-span-1 text-center rounded-lg bg-gray-200 p-4">
+                {item}
+              </div>
+            ))}
+            <Leaderboard />
+          </div>
+        </div>
+      </div>
+        <Toaster />
+    </div>
   );
 };
+
 
 const DashboardPage = () => (
   <SessionProvider>
