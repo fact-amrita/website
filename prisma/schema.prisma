@@ -37,7 +37,11 @@ model User {
   linkedInURL  String?
   githubURL    String?
   About        String?
-  skills       String[]
+  ReactExp     String?
+  NodeExp      String?
+  HTMLCSSExp   String?
+  PythonExp    String?
+  JSExp        String?
 }
 
 model Tasks {
