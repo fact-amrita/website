@@ -27,11 +27,6 @@ interface SidebarProps {
 const Sidebar: FC<SidebarProps> = ({ children, user }) => {
   const [expanded, setExpanded] = useState(false);
 
-  const handleLogout = () => {
-    // Implement your logout logic here
-    SignOutfromAll();
-  };
-  const image = user.image || "https://ui-avatars.com/api/?background=c7d2fe&color=3730a3&bold=true";
   return (
     <aside className="fixed left-1 top-1 h-screen">
       <nav className="h-full flex flex-col bg-white shadow-md rounded-lg">
@@ -90,7 +85,7 @@ const Sidebar: FC<SidebarProps> = ({ children, user }) => {
 };
 
 interface SidebarItemProps {
-  router: string; // Adding the router prop to the interface
+  router: string; 
   icon: ReactNode;
   text: string;
   active: boolean;
