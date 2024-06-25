@@ -36,7 +36,7 @@ model User {
   birthday     String?
   linkedInURL  String?
   githubURL    String?
-  About        String
+  About        String?
 }
 
 model Tasks {
