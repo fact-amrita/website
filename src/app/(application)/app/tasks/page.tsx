@@ -4,6 +4,15 @@ import React, { useState, useEffect } from 'react';
 import { TasksGet } from '@/lib/TaskOperations';
 import { SessionProvider, useSession } from 'next-auth/react';
 import { getUserPendingTasks, getUserCompletedTasks } from '@/lib/UserFetch';
+import Link from 'next/link';
+
+interface CompletedTask {
+  tasknum: number;
+  taskname: string;
+  awarded: number;
+  points: number;
+  status: "Submitted" | "Reviewing" | "Reviewed";
+}
 
 interface Task {
   status: string;
@@ -20,7 +29,7 @@ interface LeaderboardEntry {
 
 const TaskListPage: React.FC = () => {
   const [pendingTasks, setPendingTasks] = useState<Task[]>([]);
-  const [submittedTasks, setSubmittedTasks] = useState<Task[]>([]);
+  const [submittedTasks, setSubmittedTasks] = useState<CompletedTask[]>([]);
   const { data: session, status } = useSession();
   const [error, setError] = useState<string | null>(null);
 
@@ -32,17 +41,21 @@ const TaskListPage: React.FC = () => {
           const TaskLists = await TasksGet((UserDat.domain).toLowerCase());
           const userCompletedTasks = await getUserCompletedTasks(UserDat.factId);
           const userPendingTasks = await getUserPendingTasks(UserDat.factId);
-          
-          const pendingArr: Task[] = [];
-          const submittedArr: Task[] = [];
 
+          const pendingArr: Task[] = [];
+          const submittedArr: CompletedTask[] = [];
+          var tasknumber = 1;
           userCompletedTasks[0].forEach((task: { taskId: string }) => {
             const taskdata = TaskLists.find((taskdata) => taskdata.TaskId === task.taskId);
             if (taskdata) {
-              submittedArr.push({ task: taskdata.task, status: 'submitted', TaskId: task.taskId });
+              console.log(task);
+              submittedArr.push({ tasknum: tasknumber, taskname: taskdata.task, awarded: task.awarded || 0, points: taskdata.points, status: task.status });
               TaskLists.splice(TaskLists.indexOf(taskdata), 1);
+              tasknumber += 1;
             }
           });
+
+          setSubmittedTasks(submittedArr);
 
           if (userPendingTasks[0].length !== 0) {
             userPendingTasks[0].forEach((task: { taskId: string }) => {
@@ -64,7 +77,6 @@ const TaskListPage: React.FC = () => {
           });
 
           setPendingTasks(pendingArr);
-          setSubmittedTasks(submittedArr);
         } catch (error) {
           console.error('Error fetching task data:', error);
           setError('Failed to load tasks. Please try again later.');
@@ -89,10 +101,12 @@ const TaskListPage: React.FC = () => {
           <h2 className="text-xl font-bold mb-4 text-center">Pending Tasks</h2>
           {pendingTasks.length > 0 ? (
             pendingTasks.map((task) => (
-              <div key={task.TaskId} className="mb-2 p-4 border border-gray-300">
-                <h3 className="font-bold">{task.task}</h3>
-                <p>Status: {task.status}</p>
-              </div>
+              <Link href={`/app/tasks/${task.TaskId}`}>
+                <div key={task.TaskId} className="mb-2 p-4 border border-gray-300">
+                  <h3 className="font-bold">{task.task}</h3>
+                  <p>Status: {task.status}</p>
+                </div>
+              </Link>
             ))
           ) : (
             <p>No pending tasks to display.</p>
@@ -106,16 +120,18 @@ const TaskListPage: React.FC = () => {
                 <th className="py-2 px-4 text-left">num</th>
                 <th className="py-2 px-4 text-left">taskanme</th>
                 <th className="py-2 px-4 text-left">Points</th>
-                <th className="py-2 px-4 text-left">submission</th>
+                <th className="py-2 px-4 text-left">Awarded</th>
+                <th className="py-2 px-4 text-left">Status</th>
               </tr>
             </thead>
             <tbody>
-              {entries.map((entry: any) => (
+              {submittedTasks.map((entry: any) => (
                 <tr key={entry.rank} className="hover:bg-blue-300">
-                  <td className="px-4 py-2">{entry.num}</td>
+                  <td className="px-4 py-2">{entry.tasknum}</td>
                   <td className="px-4 py-2">{entry.taskname}</td>
                   <td className="px-4 py-2">{entry.points}</td>
-                  <td className="px-4 py-2">{entry.submit}</td>
+                  <td className="px-4 py-2">{entry.awarded}</td>
+                  <td className="px-4 py-2">{entry.status}</td>
                 </tr>
               ))}
             </tbody>
