@@ -33,6 +33,13 @@ export default auth((req) => {
         }
     }
 
+    if (req.nextUrl.pathname === "/app/profile/undefined") {
+        if (req.auth) {
+            const url = req.url.replace(req.nextUrl.pathname, "/app?message=This user does not exist.")
+            return Response.redirect(url)
+        }
+    }
+
     if (req.nextUrl.pathname === "/app/tasks/create") {
         if (!req.auth) {
             const url = req.url.replace(req.nextUrl.pathname, "/app/auth/login?error=You should be logged in to access")

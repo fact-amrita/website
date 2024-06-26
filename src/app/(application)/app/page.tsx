@@ -15,7 +15,16 @@ const DashboardContent: React.FC = () => {
   const messageParam = searchParams.get("message");
 
   useEffect(() => {
-    // ... existing logic for handling messageParam
+    if (messageParam) {
+      toast({
+        variant: "default",
+        title: "Server Message",
+        description: `${messageParam}`,
+        duration: 3000,
+      });
+      const newUrl = window.location.pathname;
+      window.history.replaceState(null, '', newUrl);
+    }
   }, [messageParam, toast]);
 
   if (status === 'loading') {
@@ -46,7 +55,7 @@ const DashboardContent: React.FC = () => {
           </div>
         </div>
       </div>
-        <Toaster />
+      <Toaster />
     </div>
   );
 };

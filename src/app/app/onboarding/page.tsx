@@ -30,7 +30,7 @@ function FormApp() {
         }
     }, [error, toast]);
 
-    const skills = useFieldAnswer("skills");
+    const skills: string[] = useFieldAnswer("skills") as string[];
     if (status === 'loading') {
         return <p></p>; // Suspense content can be added here
     }
@@ -160,7 +160,7 @@ function FormApp() {
                                     ],
                                 }
                             }
-                        ]:[]),
+                        ] : []),
                         ...(skills?.includes("Python") ? [
                             {
                                 name: "dropdown",
@@ -175,7 +175,7 @@ function FormApp() {
                                     ],
                                 }
                             }
-                        ]:[]),
+                        ] : []),
                         ...(skills?.includes("Node.js") ? [
                             {
                                 name: "dropdown",
@@ -190,7 +190,7 @@ function FormApp() {
                                     ],
                                 }
                             }
-                        ]:[]),
+                        ] : []),
                         ...(skills?.includes("HTML/CSS") ? [
                             {
                                 name: "dropdown",
@@ -205,7 +205,7 @@ function FormApp() {
                                     ],
                                 }
                             }
-                        ]:[]),
+                        ] : []),
                         {
                             name: "date",
                             id: "birthdate",
