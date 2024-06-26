@@ -5,13 +5,13 @@ import Image from "next/image";
 import { FaLinkedinIn, FaGithub } from 'react-icons/fa';
 import { getUserProfile } from "@/lib/UserFetch";
 
-const skills = [
-  ['JavaScript', 'Advanced'],
-  ['React', 'Intermediate'],
-  ['HTML/CSS', 'Advanced'],
-  ['Node.js', 'Intermediate'],
-  ['Python', 'Intermediate']
-];
+// const skills = [
+//   ['JavaScript', 'Advanced'],
+//   ['React', 'Intermediate'],
+//   ['HTML/CSS', 'Advanced'],
+//   ['Node.js', 'Intermediate'],
+//   ['Python', 'Intermediate']
+// ];
 
 const ProfileContent = ({ params }: { params: { id: string } }) => {
 
@@ -23,7 +23,7 @@ const ProfileContent = ({ params }: { params: { id: string } }) => {
     const profileDataGetter = async () => {
       try {
         const data = await getUserProfile(ProfileId);
-        if (!data) {setProfileData("not found"); return; }
+        if (!data) { setProfileData("not found"); return; }
         setProfileData(data);
       } catch (error) {
         console.error('Error fetching task data:', error);
@@ -43,6 +43,14 @@ const ProfileContent = ({ params }: { params: { id: string } }) => {
       </div>
     );
   }
+
+  const skills = [
+    ['JavaScript', ProfileData.JSExp],
+    ['React', ProfileData.ReactExp],
+    ['HTML/CSS', ProfileData.HTMLCSSExp],
+    ['Node.js', ProfileData.NodeExp],
+    ['Python', ProfileData.PythonExp]
+  ];
 
   const handleSocialLinkClick = (href: string) => {
     window.open(href, "_blank");
@@ -90,10 +98,12 @@ const ProfileContent = ({ params }: { params: { id: string } }) => {
           </p>
           <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
             {skills.map((skill, index) => (
-              <div key={index} className="bg-gradient-to-tr from-blue-500 to-red-500 rounded-lg p-4 shadow-lg text-center">
-                <div className="text-indigo-800 font-bold">{skill[0]}</div>
-                <div className="text-gray-900">{skill[1]}</div>
-              </div>
+              skill[1] && (
+                <div key={index} className="bg-gradient-to-tr from-blue-500 to-red-500 rounded-lg p-4 shadow-lg text-center">
+                  <div className="text-indigo-800 font-bold">{skill[0]}</div>
+                  <div className="text-gray-900">{skill[1]}</div>
+                </div>
+              )
             ))}
           </div>
         </div>

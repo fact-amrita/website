@@ -1,7 +1,7 @@
 "use client"
 
 import { useEffect, useState } from 'react';
-import { Form } from "@quillforms/renderer-core";
+import { Form, useFieldAnswer } from "@quillforms/renderer-core";
 import '@quillforms/renderer-core/build-style/style.css';
 import { registerCoreBlocks } from '@quillforms/react-renderer-utils';
 import DataSave from './saveData'; // Ensure correct import
@@ -30,6 +30,7 @@ function FormApp() {
         }
     }, [error, toast]);
 
+    const skills = useFieldAnswer("skills");
     if (status === 'loading') {
         return <p></p>; // Suspense content can be added here
     }
@@ -39,6 +40,7 @@ function FormApp() {
     }
 
     const userdat = session.user as { name: string; email: string; role: string; image: string; };
+
 
     return (
         <div style={{ width: "100%", height: "100vh" }}>
@@ -112,6 +114,99 @@ function FormApp() {
                             },
                         },
                         {
+                            name: "multiple-choice",
+                            id: "skills",
+                            attributes: {
+                                classnames: "first-block",
+                                required: true,
+                                label: "Which skills do you know ?",
+                                choices: [
+                                    { label: "React", value: "React" },
+                                    { label: "JavaScript", value: "JavaScript" },
+                                    { label: "Python", value: "Python" },
+                                    { label: "Node.js", value: "Node.js" },
+                                    { label: "HTML/CSS", value: "HTML/CSS" },
+                                    { label: "None", value: "None" }
+                                ],
+                                "multiple": true,
+                            },
+                        },
+                        ...(skills?.includes("React") ? [
+                            {
+                                name: "dropdown",
+                                id: "reactexp",
+                                attributes: {
+                                    label: "How good are you in React ?",
+                                    required: true,
+                                    choices: [
+                                        { label: "Beginner", value: "Beginner" },
+                                        { label: "Intermediate", value: "Intermediate" },
+                                        { label: "Expert", value: "Expert" },
+                                    ],
+                                }
+                            }
+                        ] : []),
+                        ...(skills?.includes("JavaScript") ? [
+                            {
+                                name: "dropdown",
+                                id: "jsexp",
+                                attributes: {
+                                    label: "How good are you in JavaScript ?",
+                                    required: true,
+                                    choices: [
+                                        { label: "Beginner", value: "Beginner" },
+                                        { label: "Intermediate", value: "Intermediate" },
+                                        { label: "Expert", value: "Expert" },
+                                    ],
+                                }
+                            }
+                        ]:[]),
+                        ...(skills?.includes("Python") ? [
+                            {
+                                name: "dropdown",
+                                id: "pyexp",
+                                attributes: {
+                                    label: "How good are you in Python ?",
+                                    required: true,
+                                    choices: [
+                                        { label: "Beginner", value: "Beginner" },
+                                        { label: "Intermediate", value: "Intermediate" },
+                                        { label: "Expert", value: "Expert" },
+                                    ],
+                                }
+                            }
+                        ]:[]),
+                        ...(skills?.includes("Node.js") ? [
+                            {
+                                name: "dropdown",
+                                id: "njsexp",
+                                attributes: {
+                                    label: "How good are you in Node.js ?",
+                                    required: true,
+                                    choices: [
+                                        { label: "Beginner", value: "Beginner" },
+                                        { label: "Intermediate", value: "Intermediate" },
+                                        { label: "Expert", value: "Expert" },
+                                    ],
+                                }
+                            }
+                        ]:[]),
+                        ...(skills?.includes("HTML/CSS") ? [
+                            {
+                                name: "dropdown",
+                                id: "htmlcssexp",
+                                attributes: {
+                                    label: "How good are you in HTML/CSS ?",
+                                    required: true,
+                                    choices: [
+                                        { label: "Beginner", value: "Beginner" },
+                                        { label: "Intermediate", value: "Intermediate" },
+                                        { label: "Expert", value: "Expert" },
+                                    ],
+                                }
+                            }
+                        ]:[]),
+                        {
                             name: "date",
                             id: "birthdate",
                             attributes: {
@@ -172,14 +267,13 @@ function FormApp() {
                             image: userdat.image
                         };
 
+                        console.log(formData)
+
                         const saveSuccess = await DataSave(updatedData);
 
                         if (saveSuccess) {
                             completeForm();
-                            // SignOutfromAll();
-                            // redirect to /app/auth/logout
                             window.location.href = "/app/auth/logout";
-
                         } else {
                             setError("This ID already exists. Please contact the club admin by submitting a ticket for further assistance");
                         }
