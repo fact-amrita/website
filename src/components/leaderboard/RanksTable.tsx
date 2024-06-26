@@ -31,7 +31,7 @@ const RanksTable = ({ userDomain, presentUser }: { userDomain: string, presentUs
   }
 
   return (
-    <div className="bg-gradient-to-tl from-blue-700 via-black to-red-700 p-6 rounded-lg max-w-md mx-auto">
+    <div className="bg-gradient-to-tr from-blue-700 via-black to-red-700 p-6 rounded-lg max-w-md mx-auto">
       <h2 className="text-center text-white text-xl mb-4">Leaderboard</h2>
       <div className="bg-gradient-to-tr from-blue-700 via-black to-red-700 p-4">
         <div className="flex justify-around mb-4">

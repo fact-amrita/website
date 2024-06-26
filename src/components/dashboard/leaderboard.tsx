@@ -31,8 +31,8 @@ const Leaderboard: React.FC = () => {
   }, []);
 
   return (
-    <div className="border-none flex fixed top-0 right-0 mx-10 h-full w-80 bg-gradient-to-tr from-blue-700 via-black to-red-700 bg-opacity-100 text-white justify-center">
-      <div className="p-3 justify-center items-center mt-4">
+    <div className="border-none flex fixed top-0 right-0 mx-0 h-full bg-gradient-to-tr from-blue-700 via-black to-red-700 bg-opacity-100 text-white justify-center" style={{"width": "70"}}>
+      <div className="p-3 justify-center items-center">
         <h2 className="text-3xl font-bold text-center">Leaderboard</h2>
           <table className=" flex flex-col w-full justify-center items-center">
             <thead>

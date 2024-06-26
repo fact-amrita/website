@@ -90,7 +90,7 @@ const ProfileContent = ({ params }: { params: { id: string } }) => {
           </p>
           <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
             {skills.map((skill, index) => (
-              <div key={index} className="bg-gradient-to-tl from-blue-500 to-red-500 rounded-lg p-4 shadow-lg text-center">
+              <div key={index} className="bg-gradient-to-tr from-blue-500 to-red-500 rounded-lg p-4 shadow-lg text-center">
                 <div className="text-indigo-800 font-bold">{skill[0]}</div>
                 <div className="text-gray-900">{skill[1]}</div>
               </div>

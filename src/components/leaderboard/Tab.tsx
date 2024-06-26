@@ -46,19 +46,19 @@ const TabbedComponent: React.FC = () => {
       <div className="flex justify-around mb-4">
         <button
           onClick={() => setActiveTab('lifetime')}
-          className={`px-4 py-2 border rounded-lg ${activeTab === 'lifetime' ? 'bg-gradient-to-tl from-blue-700 via-black to-red-700' : 'bg-gray-700'}`}
+          className={`px-4 py-2 border rounded-lg ${activeTab === 'lifetime' ? 'bg-gradient-to-tr from-blue-700 via-black to-red-700' : 'bg-gray-700'}`}
         >
           Lifetime
         </button>
         <button
           onClick={() => setActiveTab('semester')}
-          className={`px-4 py-2 border rounded-lg ${activeTab === 'semester' ? 'bg-gradient-to-tl from-blue-700 via-black to-red-700' : 'bg-gray-700'}`}
+          className={`px-4 py-2 border rounded-lg ${activeTab === 'semester' ? 'bg-gradient-to-tr from-blue-700 via-black to-red-700' : 'bg-gray-700'}`}
         >
           Semester
         </button>
         <button
           onClick={() => setActiveTab('academicYear')}
-          className={`px-4 py-2 border rounded-lg ${activeTab === 'academicYear' ? 'bg-gradient-to-tl from-blue-700 via-black to-red-700' : 'bg-gray-700'}`}
+          className={`px-4 py-2 border rounded-lg ${activeTab === 'academicYear' ? 'bg-gradient-to-tr from-blue-700 via-black to-red-700' : 'bg-gray-700'}`}
         >
           Academic Year
         </button>

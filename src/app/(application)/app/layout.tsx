@@ -11,12 +11,12 @@ export default function RootLayout({
 }: Readonly<{
     children: React.ReactNode;
 }>) {
-    const currentRoute = usePathname(); // Access the current route
+    const currentRoute = usePathname(); 
     const [expanded, setExpanded] = useState(false);
 
     const containerStyle = {
-        marginLeft: expanded ? "10.9%" : "2.6%",
-        transition: "margin-left 0.3s ease" // Add this line for smooth transition
+        marginLeft: expanded ? "10.9%" : "3.4%",
+        transition: "margin-left 0.1s ease" 
     };
 
     return (
