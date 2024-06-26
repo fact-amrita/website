@@ -8,14 +8,17 @@ import LeaderboardIcon from '@/public/icons/leaderboard.svg';
 import ReportIssueIcon from '@/public/icons/reportissue.svg';
 import { SessionProvider, useSession } from 'next-auth/react';
 import { Sidebar, SidebarItem } from '@/components/dashboard/sidebar';
-import {roleUpdateCheck} from '@/lib/roleCheck';
+import { roleUpdateCheck } from '@/lib/roleCheck';
 
-type Props = {
+interface Props {
     children: React.ReactNode;
     activeRoute: string;
-};
+    expanded: boolean;
+    setExpanded: (expanded: boolean) => void;
+}
 
-function SidebarForRoot({ children, activeRoute }: Props) {
+
+function SidebarForRoot({ children, activeRoute, expanded, setExpanded }: Props) {
 
     const { data: session, status } = useSession();
 
@@ -27,7 +30,7 @@ function SidebarForRoot({ children, activeRoute }: Props) {
         return <p>You need to be logged in to access your profile.</p>;
     }
 
-    const userdat = session.user as { name: string; email: string; role: string; image: string; factId:string};
+    const userdat = session.user as { name: string; email: string; role: string; image: string; factId: string };
 
     roleUpdateCheck(userdat.email, userdat.role);
 
@@ -40,7 +43,7 @@ function SidebarForRoot({ children, activeRoute }: Props) {
 
     return (
         <div className="bg-gradient-to-tr from-red-600 via-black to-blue-600 flex h-screen">
-            <Sidebar user={userdat}>
+            <Sidebar user={userdat} expanded={expanded} setExpanded={setExpanded}>
                 {sidebarItems.map((item, index) => (
                     <SidebarItem
                         key={index}
@@ -60,10 +63,10 @@ function SidebarForRoot({ children, activeRoute }: Props) {
     );
 }
 
-export default function SidebarElement({ children, activeRoute }: Props) {
+export default function SidebarElement({ children, activeRoute, expanded, setExpanded }: Props) {
     return (
         <SessionProvider>
-            <SidebarForRoot children={children} activeRoute={activeRoute} />
+            <SidebarForRoot children={children} activeRoute={activeRoute} expanded={expanded} setExpanded={setExpanded} />
         </SessionProvider>
     );
 }

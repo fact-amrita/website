@@ -21,10 +21,11 @@ interface SidebarProps {
     image: string;
     factId: string;
   }
+  expanded: boolean;
+  setExpanded: (expanded: boolean) => void;
 }
 
-const Sidebar: FC<SidebarProps> = ({ children, user }) => {
-  const [expanded, setExpanded] = useState(false);
+const Sidebar: FC<SidebarProps> = ({ children, user, expanded, setExpanded }) => {
 
   return (
     <aside className="fixed left-1 top-1 h-screen">
@@ -37,7 +38,7 @@ const Sidebar: FC<SidebarProps> = ({ children, user }) => {
             alt="Logo"
           />
           <button
-            onClick={() => setExpanded((curr) => !curr)}
+            onClick={() => setExpanded(!expanded)}
             className="p-1.5 rounded-lg bg-gray-50 hover:bg-gray-100"
           >
             {expanded ? <ChevronFirst /> : <ChevronLast />}

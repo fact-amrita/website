@@ -6,7 +6,6 @@ import { useSearchParams } from "next/navigation";
 import Leaderboard from "@/components/dashboard/leaderboard";
 import { Toaster } from "@/components/ui/toaster";
 import { SessionProvider, useSession } from "next-auth/react";
-import SidebarElement from "@/components/sidebarForRoot";
 
 const DashboardContent: React.FC = () => {
   const items = ['Item 1', 'Item 2', 'Item 3', 'Item 4'];
@@ -31,7 +30,6 @@ const DashboardContent: React.FC = () => {
 
   return (
     <div className="flex h-screen p-0 m-0 ">
-      <SidebarElement children={undefined} activeRoute={''} />
       <div className="w-4/5 h-full bg-gradient-to-tr from-blue-700 via-black to-red-700 flex flex-col justify-center items-center p-4">
         <div className="h-1/9 p-4 text-white">
           <h1 className="text-3xl font-bold mb-2">Hello,</h1>
