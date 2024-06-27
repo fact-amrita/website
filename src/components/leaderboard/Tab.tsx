@@ -1,3 +1,5 @@
+"use client";
+
 import React, { useState } from 'react';
 
 interface TableData {
@@ -29,8 +31,10 @@ const TabbedComponent: React.FC = () => {
     // Add more data as needed
   ];
 
+  const MAX_ROWS = 10;
+
   const renderTableRows = (data: TableData[]) => {
-    return data.map((row, index) => (
+    const rows = data.map((row, index) => (
       <tr key={index}>
         <td className="border px-4 py-2 text-black">{row.number}</td>
         <td className="border px-4 py-2 text-black">{row.description}</td>
@@ -39,6 +43,21 @@ const TabbedComponent: React.FC = () => {
         <td className="border px-4 py-2 text-black">{row.points}</td>
       </tr>
     ));
+
+    // Add empty rows if necessary to reach MAX_ROWS
+    for (let i = rows.length; i < MAX_ROWS; i++) {
+      rows.push(
+        <tr key={i}>
+          <td className="border px-4 py-2 text-black">-</td>
+          <td className="border px-4 py-2 text-black">-</td>
+          <td className="border px-4 py-2 text-black">-</td>
+          <td className="border px-4 py-2 text-black">-</td>
+          <td className="border px-4 py-2 text-black">-</td>
+        </tr>
+      );
+    }
+
+    return rows;
   };
 
   return (
@@ -64,26 +83,27 @@ const TabbedComponent: React.FC = () => {
         </button>
       </div>
       <div className="flex justify-center">
-        <table className="min-w-full bg-white border-collapse border border-gray-200">
-          <thead>
-            <tr>
-              <th className="border px-4 py-2 text-black">Number</th>
-              <th className="border px-4 py-2 text-black">Description</th>
-              <th className="border px-4 py-2 text-black">Date</th>
-              <th className="border px-4 py-2 text-black">Time</th>
-              <th className="border px-4 py-2 text-black">Points</th>
-            </tr>
-          </thead>
-          <tbody>
-            {activeTab === 'lifetime' && renderTableRows(lifetimeData)}
-            {activeTab === 'semester' && renderTableRows(semesterData)}
-            {activeTab === 'academicYear' && renderTableRows(academicYearData)}
-          </tbody>
-        </table>
+        <div className="overflow-x-auto">
+          <table className="min-w-full bg-white border-collapse border border-gray-200">
+            <thead>
+              <tr>
+                <th className="border px-4 py-2 text-black">Number</th>
+                <th className="border px-4 py-2 text-black">Description</th>
+                <th className="border px-4 py-2 text-black">Date</th>
+                <th className="border px-4 py-2 text-black">Time</th>
+                <th className="border px-4 py-2 text-black">Points</th>
+              </tr>
+            </thead>
+            <tbody>
+              {activeTab === 'lifetime' && renderTableRows(lifetimeData)}
+              {activeTab === 'semester' && renderTableRows(semesterData)}
+              {activeTab === 'academicYear' && renderTableRows(academicYearData)}
+            </tbody>
+          </table>
+        </div>
       </div>
     </div>
   );
 };
 
 export default TabbedComponent;
-
