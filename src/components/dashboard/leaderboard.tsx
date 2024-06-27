@@ -31,29 +31,31 @@ const Leaderboard: React.FC = () => {
   }, []);
 
   return (
-    <div className="border-none flex fixed top-0 right-0 mx-0 h-full bg-gradient-to-tr from-blue-700 via-black to-red-700 bg-opacity-100 text-white justify-center" style={{"width": "70"}}>
-      <div className="p-3 justify-center items-center">
-        <h2 className="text-3xl font-bold text-center">Leaderboard</h2>
-          <table className=" flex flex-col w-full justify-center items-center">
+    <div className="fixed top-0 right-0 h-full bg-gradient-to-tr from-blue-700 via-black to-red-700 text-white flex justify-center items-center sm:w-1/2 md:w-1/3 lg:w-1/4 xl:w-1/5">
+      <div className="p-3 w-full">
+        <h2 className="text-2xl md:text-3xl font-bold text-center mb-4">Leaderboard</h2>
+        <div className="overflow-x-auto">
+          <table className="table-auto w-full">
             <thead>
               <tr>
-                <th className="py-2 px-4 text-left text-2xl">Rank</th>
-                <th className="py-2 px-4 text-left text-2xl">Name</th>
-                <th className="py-2 px-4 text-left text-2xl">Points</th>
+                <th className="py-2 px-4 text-left text-lg md:text-xl">Rank</th>
+                <th className="py-2 px-4 text-left text-lg md:text-xl">Name</th>
+                <th className="py-2 px-4 text-left text-lg md:text-xl">Points</th>
               </tr>
             </thead>
             <tbody>
               {entries.map((entry) => (
                 <tr key={entry.rank} className="hover:bg-blue-800">
-                  <td className="px-4 py-2 text-2xl">{entry.rank}</td>
-                  <td className="px-4 py-2 text-2xl">{entry.name}</td>
-                  <td className="px-4 py-2 text-2xl">{entry.points}</td>
+                  <td className="px-4 py-2 text-lg md:text-xl">{entry.rank}</td>
+                  <td className="px-4 py-2 text-lg md:text-xl">{entry.name}</td>
+                  <td className="px-4 py-2 text-lg md:text-xl">{entry.points}</td>
                 </tr>
               ))}
             </tbody>
           </table>
         </div>
       </div>
+    </div>
   );
 };
 
