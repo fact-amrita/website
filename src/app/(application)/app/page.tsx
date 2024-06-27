@@ -38,14 +38,14 @@ const DashboardContent: React.FC = () => {
   const userdat = session.user as { name: string; email: string; role: string; image: string; };
 
   return (
-    <div className="flex h-screen p-0 m-0 mr-5">
-      <div className="h-full lg:w-full bg-gradient-to-tr from-blue-700 via-black to-red-700 flex flex-col justify-center items-center p-4">
-        <div className="h-1/9 p-0 text-white">
-          <h1 className="text-3xl font-bold mb-2">Hello,</h1>
-          <span className="text-3xl font-medium">{userdat.name}</span>
+    <div className="flex h-screen p-0 m-0 lg:flex-row flex-col">
+      <div className="h-full w-full lg:w-4/5 bg-gradient-to-tr from-blue-700 via-black to-red-700 flex flex-col justify-center items-center p-4">
+        <div className="h-auto lg:h-1/9 text-white text-center lg:text-left mb-4 lg:mb-0">
+          <h1 className="text-2xl lg:text-3xl font-bold mb-2">Hello,</h1>
+          <span className="text-2xl lg:text-3xl font-medium">{userdat.name}</span>
         </div>
-        <div className="h-3/4 w-4/5 p-1 rounded-lg">
-          <div className="grid grid-cols-2 gap-2 bg-transparent rounded shadow-md p-1 h-full w-full ml-[-100px] my-5">
+        <div className="h-auto lg:h-3/4 w-full lg:w-4/5 p-1 rounded-lg flex flex-col lg:flex-row items-center lg:items-start">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-2 bg-transparent rounded shadow-md p-1 w-full">
             {items.map((item, index) => (
               <div key={index} className="col-span-1 text-center rounded-lg bg-gray-200 p-4">
                 {item}
@@ -59,7 +59,6 @@ const DashboardContent: React.FC = () => {
     </div>
   );
 };
-
 
 const DashboardPage = () => (
   <SessionProvider>

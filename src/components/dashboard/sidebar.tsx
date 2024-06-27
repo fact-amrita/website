@@ -28,12 +28,12 @@ interface SidebarProps {
 const Sidebar: FC<SidebarProps> = ({ children, user, expanded, setExpanded }) => {
 
   return (
-    <aside className="fixed left-1 top-1 h-screen">
-      <nav className="h-full flex flex-col bg-white shadow-md rounded-lg">
-        <div className=" p-2 pb-2 flex justify-between items-center relative">
+    <aside className="fixed left-0 top-0 h-screen w-16 sm:w-20 md:w-64 transition-all duration-300 ease-in-out">
+      <nav className="h-full flex flex-col bg-white shadow-md rounded-lg overflow-hidden">
+        <div className="p-2 pb-2 flex justify-between items-center relative">
           <Image
             src={logo}
-            className={`overflow-hidden transition-all ${expanded ? 'w-32' : 'w-0'
+            className={`transition-all ${expanded ? 'w-32' : 'w-0'
               }`}
             alt="Logo"
           />
@@ -50,23 +50,23 @@ const Sidebar: FC<SidebarProps> = ({ children, user, expanded, setExpanded }) =>
         </SidebarContext.Provider>
 
         <div className="p-3">
-        <Link href={`/app/profile/${user.factId}`}>
-          <div className="flex items-center mb-3">
-            <Image
-              src={user.image || "https://ui-avatars.com/api/?background=c7d2fe&color=3730a3&bold=true"}
-              alt="User Avatar"
-              width={40}
-              height={40}
-              className="w-10 h-10 rounded-md"
-            />
-            {expanded && (
-              <div className="flex flex-col justify-center ml-3">
-                <h4 className="font-semibold">{user.name}</h4>
-                <span className="text-xs text-gray-600">{user.email}</span>
-                <span className="text-xs text-gray-600">{getTitle(user.role)}</span>
-              </div>
-            )}
-          </div>
+          <Link href={`/app/profile/${user.factId}`}>
+            <div className="flex items-center mb-3">
+              <Image
+                src={user.image || "https://ui-avatars.com/api/?background=c7d2fe&color=3730a3&bold=true"}
+                alt="User Avatar"
+                width={40}
+                height={40}
+                className="w-10 h-10 rounded-md"
+              />
+              {expanded && (
+                <div className="flex flex-col justify-center ml-3">
+                  <h4 className="font-semibold">{user.name}</h4>
+                  <span className="text-xs text-gray-600">{user.email}</span>
+                  <span className="text-xs text-gray-600">{getTitle(user.role)}</span>
+                </div>
+              )}
+            </div>
           </Link>
           {expanded && (
             <Link href="/app/auth/logout">
@@ -74,7 +74,6 @@ const Sidebar: FC<SidebarProps> = ({ children, user, expanded, setExpanded }) =>
                 className="w-full py-2 px-4 rounded-md text-white bg-red-500 hover:bg-red-600 transition-colors"
               >
                 Logout
-
               </button>
             </Link>
           )}
@@ -102,9 +101,9 @@ const SidebarItem: FC<SidebarItemProps> = ({ icon, text, router, active, alert =
   const { expanded } = context;
 
   return (
-    <li className="relative flex items-center py-2 px-3 my-1 font-medium rounded-md cursor-pointer transition-colors group ${active ? 'bg-gradient-to-tr from-indigo-200 to-indigo-100 text-indigo-800 rounded-md' : 'hover:bg-indigo-50 text-gray-600 rounded-md'">
-      <Link href={router} legacyBehavior>
-        <a className={`flex items-center w-full ${active ? 'bg-gradient-to-tr from-indigo-200 to-indigo-100 text-indigo-800 rounded-md h-8 w-10' : 'hover:bg-indigo-50 text-gray-600 rounded-md h-8 w-10'}`}>
+    <li className={`relative flex items-center py-2 px-3 my-1 font-medium rounded-md cursor-pointer transition-colors group ${active ? 'bg-gradient-to-tr from-indigo-200 to-indigo-100 text-indigo-800' : 'hover:bg-indigo-50 text-gray-600'}`}>
+      <Link href={router}>
+        <a className="flex items-center w-full">
           {icon}
           {expanded && (
             <span className="overflow-hidden transition-all w-45 ml-3">{text}</span>
@@ -116,7 +115,7 @@ const SidebarItem: FC<SidebarItemProps> = ({ icon, text, router, active, alert =
           )}
           {!expanded && (
             <div
-              className={`absolute left-full rounded-md px-2 py-1 ml-6 bg-indigo-100 text-indigo-800 text-sm invisible opacity-20 -translate-x-3 transition-all group-hover:visible group-hover:opacity-100 group-hover:translate-x-0`}
+              className="absolute left-full rounded-md px-2 py-1 ml-6 bg-indigo-100 text-indigo-800 text-sm invisible opacity-20 -translate-x-3 transition-all group-hover:visible group-hover:opacity-100 group-hover:translate-x-0"
             >
               {text}
             </div>
