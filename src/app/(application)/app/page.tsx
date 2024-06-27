@@ -1,7 +1,8 @@
 "use client";
 
 import React, { useEffect } from "react";
-import { useToast } from "@/components/ui/use-toast";
+import { useToast,} from "@/components/ui/use-toast";
+import { ToastAction } from "@/components/ui/toast";
 import { useSearchParams } from "next/navigation";
 import Leaderboard from "@/components/dashboard/leaderboard";
 import { Toaster } from "@/components/ui/toaster";
@@ -26,6 +27,25 @@ const DashboardContent: React.FC = () => {
       window.history.replaceState(null, '', newUrl);
     }
   }, [messageParam, toast]);
+
+  useEffect(() => {
+    if (session?.user) {
+      const userdat = session.user as { name: string; email: string; role: string; image: string; };
+      if (userdat.role === 'onboarding') {
+        toast({
+          variant: "success",
+          title: "Onboarding Required",
+          description: "You need to complete the onboarding process.",
+          duration: 10000,
+          action: (
+            <ToastAction altText="Onboarding Page" onClick={() => window.location.href = '/app/onboarding'}>
+              Let's Go
+            </ToastAction>
+          ),
+        });
+      }
+    }
+  }, [session?.user, toast]);
 
   if (status === 'loading') {
     return <p></p>;
