@@ -10,11 +10,12 @@ interface Result {
   image: string;
   role: string;
   FactID: string;
+  Title: string | null;
 }
 
 const App: React.FC = () => {
 
-  const [results, setResults] = useState<Result>([]);
+  const [results, setResults] = useState<Result[]>([]);
 
   const handleSearch = async (event: React.ChangeEvent<HTMLInputElement>) => {
     const searchResults = await usersFind(event.target.value);
