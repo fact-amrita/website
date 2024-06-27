@@ -106,3 +106,26 @@ export async function getUserProfile(factID: string) {
 
     return userDat
 }
+
+export async function usersFind(searchquery: string) {
+    const users = await db.user.findMany({
+        where: {
+            OR: [
+                {
+                    name: {
+                        contains: searchquery,
+                        mode: "insensitive"
+                    }
+                },
+                {
+                    FactID: {
+                        contains: searchquery,
+                        mode: "insensitive"
+                    }
+                }
+            ]
+        }
+    });
+
+    return users
+}
