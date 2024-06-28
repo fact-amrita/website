@@ -1,7 +1,7 @@
 // TicketTable.tsx
 "use client"
 import React, { useEffect, useState } from 'react';
-import { getTicketsByType } from '@/lib/Tickets';
+import { getTicketsByType, deleteTicket, clearTicket } from '@/lib/Tickets';
 
 interface Ticket {
   TicketId: string;
@@ -89,6 +89,12 @@ const TicketTable: React.FC = () => {
             <p><strong>Posted at:</strong> { new Date(Number(selectedTicket.DateTime)).toLocaleString()}</p>
             <button className="mt-4 py-2 px-4 bg-gray-200 text-gray-800 rounded-md hover:bg-gray-300" onClick={closeModal}>
               Close
+            </button>
+            <button className="mt-4 ml-2 py-2 px-4 bg-green-200 text-gray-800 rounded-md hover:bg-green-300" onClick={async ()=>{await clearTicket(selectedTicket.TicketId);closeModal();window.location.reload();}}>
+              Clear Ticket
+            </button>
+            <button className="mt-4 ml-2 py-2 px-4 bg-red-500 text-gray-800 rounded-md hover:bg-red-600" onClick={async ()=>{await deleteTicket(selectedTicket.TicketId);closeModal();window.location.reload();}}>
+              Delete Ticket
             </button>
           </div>
           <div className="fixed inset-0 bg-gray-800 opacity-50"></div>

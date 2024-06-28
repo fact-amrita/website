@@ -65,22 +65,6 @@ export async function getTicketsByType(ticketType: string) {
     }
 }
 
-export async function getTicketById(ticketId: string) {
-    return await db.tickets.findUnique({
-        where: {
-            TicketId: ticketId
-        }
-    });
-}
-
-export async function getTicketsByClearanceStatus(cleared: boolean) {
-    return await db.tickets.findMany({
-        where: {
-            cleared: cleared
-        }
-    });
-}
-
 export async function clearTicket(ticketId: string) {
     return await db.tickets.update({
         where: {
@@ -92,10 +76,10 @@ export async function clearTicket(ticketId: string) {
     });
 }
 
-export async function getTicketsByUserId(userId: string) {
-    return await db.tickets.findMany({
-        where: {
-            FactID: userId
+export async function deleteTicket(ticketId:string){
+    return await db.tickets.delete({
+        where:{
+            TicketId: ticketId
         }
     });
 }

@@ -28,8 +28,8 @@ interface SidebarProps {
 const Sidebar: FC<SidebarProps> = ({ children, user, expanded, setExpanded }) => {
 
   return (
-    <aside className="fixed left-0 top-0 h-screen w-16 sm:w-20 md:w-64 transition-all duration-300 ease-in-out">
-      <nav className="h-full flex flex-col bg-white shadow-md rounded-lg overflow-hidden">
+    <aside className={`fixed left-0 top-0 h-screen sm:w-20 w-16 transition-all duration-300 ease-in-out ${expanded ? 'md:w-64' : ''}`}>
+      <nav className="h-full flex flex-col bg-white shadow-md rounded-r-lg overflow-hidden">
         <div className="p-2 pb-2 flex justify-between items-center relative">
           <Image
             src={logo}
@@ -103,7 +103,7 @@ const SidebarItem: FC<SidebarItemProps> = ({ icon, text, router, active, alert =
   return (
     <li className={`relative flex items-center py-2 px-3 my-1 font-medium rounded-md cursor-pointer transition-colors group ${active ? 'bg-gradient-to-tr from-indigo-200 to-indigo-100 text-indigo-800' : 'hover:bg-indigo-50 text-gray-600'}`}>
       <Link href={router}>
-        <a className="flex items-center w-full">
+        <div className="flex items-center w-full">
           {icon}
           {expanded && (
             <span className="overflow-hidden transition-all w-45 ml-3">{text}</span>
@@ -120,7 +120,7 @@ const SidebarItem: FC<SidebarItemProps> = ({ icon, text, router, active, alert =
               {text}
             </div>
           )}
-        </a>
+        </div>
       </Link>
     </li>
   );
