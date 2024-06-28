@@ -49,7 +49,7 @@ model Tasks {
   id          String  @id @default(auto()) @map("_id") @db.ObjectId
   TaskId      String  @unique
   task        String
-  file        String?
+  fileKey     String?
   description String
   points      Int
   domain      String

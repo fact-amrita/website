@@ -12,9 +12,11 @@ interface FormData {
   Duration: number;
   domain: "physical" | "digital" | "common";
   points: number;
+  file: File;
 }
 
 const TaskForm: React.FC = () => {
+
   const {
     register,
     handleSubmit,
@@ -22,12 +24,52 @@ const TaskForm: React.FC = () => {
     formState: { errors },
   } = useForm<FormData>();
 
+  const [file, setFile] = useState<File | null>(null);
   const [result, setResult] = useState<string | null>(null);
+  const [message, setMessage] = useState<string>('');
+
+  const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    if (e.target.files) {
+      setFile(e.target.files[0]);
+    }
+  };
 
   const onSubmit: SubmitHandler<FormData> = async (data: FormData) => {
-    console.log('Submitted data:', data);
-    var result = await TaskCreate(data.taskTitle, data.description, data.points, data.domain, data.startDate, data.deadline, data.Duration.toString());
-    setResult(result);
+
+    const formData = new FormData();
+    if (file) {
+      formData.append('file', file as File);
+    }
+    formData.append('taskTitle', data.taskTitle);
+    formData.append('description', data.description);
+    formData.append('startDate', data.startDate);
+    formData.append('deadline', data.deadline);
+    formData.append('Duration', data.Duration.toString());
+    formData.append('domain', data.domain);
+    formData.append('points', data.points.toString());
+
+    try {
+      const response = await fetch('/api/upload', {
+        method: 'POST',
+        body: formData,
+      });
+      console.log(response);
+      if (response.ok) {
+        const data = await response.json();
+        console.log(data);
+        setMessage(data.message);
+        // setMessage('File uploaded successfully!');
+      } else {
+        setMessage('Some error occured.');
+      }
+    } catch (error) {
+      console.error('Error uploading file:', error);
+      setMessage('Error uploading file.');
+    }
+
+    // console.log('Submitted data:', data);
+    // var result = await TaskCreate(data.taskTitle, data.description, data.points, data.domain, data.startDate, data.deadline, data.Duration.toString());
+    // setResult(result);
   };
 
   const isStartDateValid = !errors.startDate;
@@ -109,8 +151,11 @@ const TaskForm: React.FC = () => {
           {errors.deadline && <p className='text-red-500'>{errors.deadline.message}</p>}
         </div>
 
+        <input type="file" name="TaskFile" onChange={handleFileChange} />
+
         {result && <p className='text-green-500'>The created task ID is {result}</p>}
-        
+        {message && <p>{message}</p>}
+
         <div className='flex justify-center items-center'>
           <button className="bg-gradient-to-r from-purple-400 to-blue-500 hover:from-pink-500 hover:to-purple-600 text-white font-bold py-3 px-6 rounded-full shadow-lg transform transition-all duration-500 ease-in-out hover:scale-110 hover:brightness-110 hover:animate-pulse active:animate-bounce">
             Submit
