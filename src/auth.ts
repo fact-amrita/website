@@ -17,13 +17,11 @@ export const authOptions = {
             })
 
             if (!userExisting) {
-                console.log("User does not exist in database.")
                 const AlreadyMember = await db.existingMembersList.findUnique({
                     where: { email: user.email }
                 })
 
                 if (AlreadyMember) {
-                    console.log("User is already a member, updating role to onboarding.")
                     await db.userCredential.create({
                         data: {
                             email: user.email,
@@ -35,7 +33,6 @@ export const authOptions = {
                         },
                     });
                 } else {
-                    console.log("User Created in database.");
                     await db.userCredential.create({
                         data: {
                             email: user.email,
@@ -49,7 +46,6 @@ export const authOptions = {
                 }
             } else {
                 if (userExisting?.provider !== account.provider) {
-                    console.log("Account already exists with different provider, please login with it.");
                     return "/app/auth/login?error=Account already exists with different provider, please login with it."
                 }
             }
