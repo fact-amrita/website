@@ -80,7 +80,7 @@ const ProfileContent = ({ params }: { params: { id: string } }) => {
         </div>
 
         {/* About Section */}
-        <div className="bg-blue-600  rounded-3xl flex flex-col col-span-8 row-span-2 p-10 py-5 overflow-hidden">
+        <div className="bg-gradient-to-tr from-blue-500 to-red-500 rounded-3xl flex flex-col col-span-8 row-span-2 p-10 py-5 overflow-hidden">
           <h1 className="text-xl text-white">About</h1>
           <div className="text-white text-lg">
             {ProfileData.About}
@@ -92,14 +92,14 @@ const ProfileContent = ({ params }: { params: { id: string } }) => {
         </div>
 
         {/* Skills Section */}
-        <div className="bg-blue-600  rounded-3xl flex flex-col justify-center items-center col-span-8 row-span-2 p-10 py-5">
-          <p className="text-white text-xl font-bold mb-4">
+        <div className="bg-gradient-to-tr from-blue-500 to-red-500 rounded-3xl flex flex-col justify-center items-center col-span-8 row-span-2 p-10 py-5 mb-4">
+          <p className="text-white text-xl font-bold mb-4 ">
             Skills
           </p>
           <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
             {skills.map((skill, index) => (
               skill[1] && (
-                <div key={index} className="bg-gradient-to-tr from-blue-500 to-red-500 rounded-lg p-4 shadow-lg text-center">
+                <div key={index} className="bg-gradient-to-tr from-blue-500 to-red-500 rounded-lg p-4 shadow-xl text-center">
                   <div className="text-indigo-800 font-bold">{skill[0]}</div>
                   <div className="text-gray-900">{skill[1]}</div>
                 </div>
@@ -109,7 +109,7 @@ const ProfileContent = ({ params }: { params: { id: string } }) => {
         </div>
       </div>
 
-      <div className="grid grid-cols-1 h-full w-1/6 bg-blue-600  rounded-3xl py-5 p-10 ml-4 gap-y-5">
+      <div className="grid grid-cols-1 h-full w-1/6 bg-blue-600  rounded-3xl py-5 p-10 ml-4 gap-y-5 mb-8">
         <div className="text-white justify-center items-center rounded-lg p-4">
           Achievement
         </div>

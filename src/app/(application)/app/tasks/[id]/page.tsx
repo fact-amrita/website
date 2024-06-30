@@ -112,7 +112,27 @@ const TaskPage: React.FC<TaskPageProps> = ({ TaskId }) => {
   }
 
   if (!session || !session.user) {
-    return <p>You need to be logged in to access your profile.</p>;
+    return (
+      <div className="flex justify-center items-center h-screen">
+        <div className="text-red-500 text-2xl">You need to be logged in to access your profile.</div>
+      </div>
+    );
+  }
+
+  if (!taskData) {
+    return (
+      <div className="flex justify-center items-center h-screen">
+        <div className="text-red-500 text-2xl">Task not found</div>
+      </div>
+    );
+  }
+
+  if (taskData?.startDate && new Date(taskData.startDate) > new Date()) {
+    return (
+      <div className="flex justify-center items-center h-screen">
+        <div className="text-red-500 text-2xl">Task has not been started yet</div>
+      </div>
+    );
   }
 
   const UserDat = session.user as { name: string; email: string; role: string; image: string; factId: string; domain: string }
