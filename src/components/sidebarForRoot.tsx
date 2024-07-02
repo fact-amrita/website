@@ -6,6 +6,7 @@ import DashboardIcon from '@/public/icons/dashboard.svg';
 import TasksIcon from '@/public/icons/tasks.svg';
 import LeaderboardIcon from '@/public/icons/leaderboard.svg';
 import ReportIssueIcon from '@/public/icons/reportissue.svg';
+import SearchIcon from '@/public/icons/search.svg';
 import { SessionProvider, useSession } from 'next-auth/react';
 import { Sidebar, SidebarItem } from '@/components/dashboard/sidebar';
 import { roleUpdateCheck } from '@/lib/roleCheck';
@@ -36,8 +37,9 @@ function SidebarForRoot({ children, activeRoute, expanded, setExpanded }: Props)
 
     const sidebarItems = [
         { route: '/app', icon: <Image src={DashboardIcon} alt="Dashboard" />, text: 'Dashboard', active: false, alert: false },
-        { route: '/app/tasks', icon: <Image src={TasksIcon} alt="Messages" />, text: 'Tasks', active: false, alert: false },
-        { route: '/app/leaderboard', icon: <Image src={LeaderboardIcon} alt="Settings" />, text: 'LeaderBoard', active: false, alert: false },
+        { route: '/app/tasks', icon: <Image src={TasksIcon} alt="Tasks" />, text: 'Tasks', active: false, alert: false },
+        { route: '/app/leaderboard', icon: <Image src={LeaderboardIcon} alt="Leaderboard" />, text: 'LeaderBoard', active: false, alert: false },
+        { route: '/app/profile', icon: <Image src={SearchIcon} alt="Search Users" />, text: 'Directory', active: false, alert: false },
         { route: '/app/ticket', icon: <Image src={ReportIssueIcon} alt="Report/Feedback" />, text: 'Report/Feedback', active: false, alert: false },
     ];
 

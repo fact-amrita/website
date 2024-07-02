@@ -135,6 +135,14 @@ const TaskPage: React.FC<TaskPageProps> = ({ TaskId }) => {
     );
   }
 
+  if (taskData?.deadline && new Date(taskData.deadline) < new Date()) {
+    return (
+      <div className="flex justify-center items-center h-screen">
+        <div className="text-red-500 text-2xl">Task has been ended</div>
+      </div>
+    );
+  }
+
   const UserDat = session.user as { name: string; email: string; role: string; image: string; factId: string; domain: string }
 
   const taskStarter = async () => {
