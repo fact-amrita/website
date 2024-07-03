@@ -56,18 +56,21 @@ const DashboardContent: React.FC = () => {
   }
 
   const userdat = session.user as { name: string; email: string; role: string; image: string; };
+  const colSpans = [2, 3, 3, 2];
+  
+  
 
   return (
     <div className="flex h-screen p-0 m-0 lg:flex-row flex-col">
       <div className="h-full w-full lg:w-4/5 bg-gradient-to-tr from-blue-700 via-black to-red-700 flex flex-col justify-center items-center p-4">
-        <div className="h-auto lg:h-1/9 text-white text-center lg:text-left mb-4 lg:mb-0">
-          <h1 className="text-2xl lg:text-3xl font-bold mb-2">Hello,</h1>
-          <span className="text-2xl lg:text-3xl font-medium">{userdat.name}</span>
-        </div>
+        <div className="h-auto lg:h-1/9 text-white text-left lg:text-left mb-4 lg:mb-0">
+          <h1 className="text-xl lg:text-2xl font-bold mb-6 ">Hello, {userdat.name}</h1>
+          <h1 className="text-xl lg:text-2xl font-bold mb-6 ">Welcome to the FACT Club</h1>
+        </div>  
         <div className="h-auto lg:h-3/4 w-full lg:w-4/5 p-1 rounded-lg flex flex-col lg:flex-row items-center lg:items-start">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-2 bg-transparent rounded shadow-md p-1 w-full">
+          <div className="grid grid-cols-1 lg:grid-cols-5 gap-2 bg-transparent rounded shadow-md p-1 w-full h-full">
             {items.map((item, index) => (
-              <div key={index} className="col-span-1 text-center rounded-lg bg-gray-200 p-4">
+              <div key={index} className={`col-span-${colSpans  [index % colSpans.length]} text-center  rounded-lg bg-gray-200 p-5`}>
                 {item}
               </div>
             ))}
