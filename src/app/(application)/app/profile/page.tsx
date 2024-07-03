@@ -2,12 +2,12 @@
 
 import React, { useState, useEffect } from 'react';
 import { usersFind } from "@/lib/UserFetch";
+import styles from './page.module.css';
 
-// Interface for photo data
 interface Result {
   id: string;
   name: string;
-  image: string;
+  image: string | null;
   role: string;
   FactID: string;
   Title: string | null;
@@ -27,14 +27,14 @@ const App: React.FC = () => {
   }
 
   return (
-    <div className="container mx-auto mt-8">
+    <div className="container mx-20 mt-8">
       <h1 className="text-3xl font-bold mb-4 text-white">FACT Directory Search</h1>
       <div className="mb-4 content-center items-center place-items-center">
         <input
           type="text"
           placeholder="Search by name or ID"
           onChange={handleSearch}
-          className="px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+          className={styles.input}
         />
       </div>
       <div className="grid grid-cols-4 gap-4 p-4">

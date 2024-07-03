@@ -45,7 +45,9 @@ const TaskListPage: React.FC = () => {
           const pendingArr: Task[] = [];
           const submittedArr: CompletedTask[] = [];
           var tasknumber = 1;
-          userCompletedTasks[0].forEach((task: { taskId: string }) => {
+          userCompletedTasks[0].forEach((task: {
+            awarded: number; taskId: string 
+}) => {
             const taskdata = TaskLists.find((taskdata) => taskdata.TaskId === task.taskId);
             if (taskdata) {
               console.log(task);

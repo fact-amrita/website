@@ -3,33 +3,7 @@
 import React, { useEffect, useState } from 'react';
 import { SessionProvider, useSession } from 'next-auth/react';
 import { TaskStart, TaskGetById } from "@/lib/TaskOperations";
-
-const FileUpload = () => {
-  const [showButton, setShowButton] = useState(true);
-
-  const handleFileUpload = () => {
-    console.log('File uploaded!');
-  };
-
-  const toggleDisplay = () => {
-    setShowButton(!showButton);
-  };
-
-  return (
-    <div className="w-full h-full bg-gray-700 flex justify-center items-center">
-      <div className="w-3/4 h-3/4 bg-gray-500 rounded-lg flex flex-col justify-center items-center">
-        {showButton ? (
-          <button onClick={handleFileUpload} className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
-            Upload File
-          </button>
-        ) : (
-          <p className="text-gray-500">File upload is not needed.</p>
-        )}
-        <button onClick={toggleDisplay} className="mt-4">Toggle Display</button>
-      </div>
-    </div>
-  );
-};
+import FileUpload from '@/components/tasks/fileupload';
 
 type TaskPageProps = {
   TaskId: string;
@@ -40,10 +14,9 @@ type TaskData = {
   task: string;
   description: string;
   points: number;
-  domain: string;
   startDate: string;
   deadline: string;
-  duration: number;
+  duration: string;
 };
 
 const TaskPage: React.FC<TaskPageProps> = ({ TaskId }) => {
@@ -86,12 +59,15 @@ const TaskPage: React.FC<TaskPageProps> = ({ TaskId }) => {
     if (isRunning && timeLeft !== null && timeLeft > 0) {
       timer = setInterval(() => {
         setTimeLeft((prevTime) => {
-          const newTimeLeft = prevTime - 1;
-          if (newTimeLeft <= 0) {
-            setIsRunning(false);
-            clearInterval(timer);
+          if (prevTime !== null) {
+            const newTimeLeft = prevTime - 1;
+            if (newTimeLeft <= 0) {
+              setIsRunning(false);
+              clearInterval(timer);
+            }
+            return newTimeLeft;
           }
-          return newTimeLeft;
+          return null;
         });
       }, 1000);
     }
@@ -168,20 +144,20 @@ const TaskPage: React.FC<TaskPageProps> = ({ TaskId }) => {
   }
 
   return (
-    <div className="flex h-screen p-0 m-0">
+    <div className="flex h-screen p-0 m-10">
       <div className="w-1/2 h-full bg-gray-800 flex flex-col justify-center items-center p-4">
         <div className="bg-gradient-to-tr from-blue-700 via-black to-red-700 rounded-md shadow-lg p-4 text-white font-mono text-lg mb-5">
           {timeLeft !== null ? (isRunning ? formatTime(timeLeft) : 'Timer Stopped') : 'Loading...'}
         </div>
         <div className="w-3/4 h-auto bg-gray-900 rounded-lg shadow-lg p-6 border border-gray-700 mb-4">
           <div className="flex flex-col space-y-4">
-            <p className="text-green-500 font-semibold text-lg">Task ID: <span className="font-normal">{taskData.TaskId}</span></p>
-            <p className="text-green-500 font-semibold text-lg">Task: <span className="font-normal">{taskData.task}</span></p>
+            <p className="text-green-500 font-semibold text-4xl text-center mb-4">{taskData.task}</p>
             <p className="text-green-500 font-semibold text-lg">Description: <span className="font-normal">{taskData.description}</span></p>
             <p className="text-green-500 font-semibold text-lg">Points: <span className="font-normal">{taskData.points}</span></p>
-            <p className="text-green-500 font-semibold text-lg">Domain: <span className="font-normal">{taskData.domain}</span></p>
-            <p className="text-green-500 font-semibold text-lg">Start Date: <span className="font-normal">{taskData.startDate}</span></p>
-            <p className="text-green-500 font-semibold text-lg">Deadline: <span className="font-normal">{taskData.deadline}</span></p>
+            <div className='flex space-x-6 mr-0'>
+              <p className="text-green-500 font-semibold text-lg">Start Date: <span className="font-normal">{taskData.startDate}</span></p>
+              <p className="text-green-500 font-semibold text-lg">End Date: <span className="font-normal">{taskData.deadline}</span></p>
+            </div>
             <p className="text-green-500 font-semibold text-lg">Duration: <span className="font-normal">{taskData.duration} Day(s)</span></p>
             <button
               className={`bg-gradient-to-tr from-blue-700 via-black to-red-700 text-white font-semibold py-2 px-4 rounded ${isRunning ? 'opacity-50 cursor-not-allowed' : 'hover:bg-blue-600'}`}
@@ -190,7 +166,7 @@ const TaskPage: React.FC<TaskPageProps> = ({ TaskId }) => {
             >
               {isRunning ? 'Running...' : 'Take Action'}
             </button>
-            <button onClick={taskStarter}>
+            <button onClick={taskStarter} className='text-blue-700'>
               Start Task
             </button>
           </div>
@@ -198,7 +174,7 @@ const TaskPage: React.FC<TaskPageProps> = ({ TaskId }) => {
       </div>
 
       <div className="w-1/2 h-full bg-gray-700 flex justify-center items-center">
-        <FileUpload />
+        <FileUpload/>
       </div>
     </div>
   );
