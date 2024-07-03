@@ -60,7 +60,7 @@ const TicketTable: React.FC = () => {
         <thead className="bg-gray-100">
           <tr>
           <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Ticket Cleared ?</th>
-            <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Ticket ID</th>
+            <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">FactID</th>
             <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Feedback Type</th>
             <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Message</th>
           </tr>
@@ -69,7 +69,7 @@ const TicketTable: React.FC = () => {
           {tickets.map(ticket => (
             <tr key={ticket.TicketId} onClick={() => handleTicketClick(ticket)} className="cursor-pointer hover:bg-gray-50">
               <td className="px-6 py-4 whitespace-nowrap">{(ticket.cleared).toString()}</td>
-              <td className="px-6 py-4 whitespace-nowrap">{ticket.TicketId}</td>
+              <td className="px-6 py-4 whitespace-nowrap">{ticket.FactID}</td>
               <td className="px-6 py-4 whitespace-nowrap">{ticket.TicketType}</td>
               <td className="px-6 py-4 whitespace-wrap break-all">{ticket.TicketContent}</td>
             </tr>
