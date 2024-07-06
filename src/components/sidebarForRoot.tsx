@@ -32,9 +32,8 @@ function SidebarForRoot({ children, activeRoute, expanded, setExpanded }: Props)
     }
 
     const userdat = session.user as { name: string; email: string; role: string; image: string; factId: string };
-
     roleUpdateCheck(userdat.email, userdat.role);
-
+    localStorage.setItem('factId', userdat.factId);
     const sidebarItems = [
         { route: '/app', icon: <Image src={DashboardIcon} alt="Dashboard" />, text: 'Dashboard', active: false, alert: false },
         { route: '/app/tasks', icon: <Image src={TasksIcon} alt="Tasks" />, text: 'Tasks', active: false, alert: false },

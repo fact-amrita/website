@@ -80,12 +80,6 @@ export async function TaskDelete(taskId: string) {
 }
 
 export async function TaskStart(factId: string, taskId: string) {
-    // const task = await db.tasks.findUnique({
-    //     where: {
-    //         TaskId: taskId
-    //     }
-    // });
-
     const pointsData = await db.points.findFirst({
         where: {
             FactID: factId
@@ -95,8 +89,21 @@ export async function TaskStart(factId: string, taskId: string) {
     const newPendingTask = await db.pendingTask.create({
         data: {
             taskId: taskId,
+            FactID: factId,
             startTime: new Date().toISOString(),
             pointsId: pointsData.id,
         }
     });
+}
+
+export async function isTaskPending(factId: string, taskId: string) {
+    const pointsData = await db.points.findUnique({
+        where: {
+            FactID: factId,
+        },
+        include: {
+            pendingTasks: true
+        }
+    });
+    return pointsData?.pendingTasks.find((task) => task.taskId === taskId);
 }

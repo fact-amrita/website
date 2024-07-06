@@ -46,8 +46,8 @@ const TaskListPage: React.FC = () => {
           const submittedArr: CompletedTask[] = [];
           var tasknumber = 1;
           userCompletedTasks[0].forEach((task: {
-            awarded: number; taskId: string 
-}) => {
+            awarded: number; taskId: string
+          }) => {
             const taskdata = TaskLists.find((taskdata) => taskdata.TaskId === task.taskId);
             if (taskdata) {
               console.log(task);
@@ -72,8 +72,7 @@ const TaskListPage: React.FC = () => {
           TaskLists.forEach((task) => {
             const deadline = new Date(task.deadline);
             const durationDays = parseInt(task.duration);
-            const deadlinePlusDuration = new Date(deadline.setDate(deadline.getDate() - durationDays + 1));
-            if (deadlinePlusDuration > new Date() && new Date(task.startDate) <= new Date()) {
+            if (new Date(task.startDate) <= new Date()) {
               pendingArr.push({ task: task.task, status: 'pending', TaskId: task.TaskId });
             }
           });

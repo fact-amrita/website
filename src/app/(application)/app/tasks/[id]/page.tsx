@@ -4,6 +4,7 @@ import React, { useEffect, useState } from 'react';
 import { SessionProvider, useSession } from 'next-auth/react';
 import { TaskStart, TaskGetById } from "@/lib/TaskOperations";
 import FileUpload from '@/components/tasks/fileupload';
+import { isTaskPending } from '@/lib/TaskOperations';
 
 type TaskPageProps = {
   TaskId: string;
@@ -24,6 +25,9 @@ const TaskPage: React.FC<TaskPageProps> = ({ TaskId }) => {
   const [taskData, setTaskData] = useState<TaskData | null>(null);
   const [timeLeft, setTimeLeft] = useState<number | null>(null);
   const [isRunning, setIsRunning] = useState<boolean>(false);
+  const [userdata, setUserDat] = useState<any>(null);
+
+  const factId = localStorage.getItem('factId');
 
 
   useEffect(() => {
@@ -36,16 +40,21 @@ const TaskPage: React.FC<TaskPageProps> = ({ TaskId }) => {
         }
         setTaskData(data);
 
-        // Calculate time left only once when task data is fetched
-        const deadlineTime = new Date(data.deadline).getTime();
-        const currentTime = new Date().getTime();
-        const initialTimeLeft = Math.max(0, Math.floor((deadlineTime - currentTime) / 1000));
+        const pendingTaskCheck = factId ? await isTaskPending(factId, TaskId) : null;
 
-        setTimeLeft(initialTimeLeft);
+        if (pendingTaskCheck) {
+          const startTime = new Date(pendingTaskCheck.startTime);
+          const duration = data.duration;
+          const endtime = new Date(startTime.getTime() + Number(duration) * 24 * 60 * 60 * 1000);
+          const currentTime = new Date().getTime();
+          const timefromduration = Math.max(0, Math.floor((endtime.getTime() - currentTime) / 1000));
+          const timefromdeadline = Math.max(0, Math.floor((new Date(data.deadline).getTime() - currentTime) / 1000));
 
-        // Start timer automatically if there's time left
-        if (initialTimeLeft > 0) {
-          setIsRunning(true);
+          const initialTimeLeft = Math.min(timefromduration, timefromdeadline);
+          setTimeLeft(initialTimeLeft);
+          if (initialTimeLeft > 0) {
+            setIsRunning(true);
+          }
         }
       } catch (error) {
         console.error('Error fetching task data:', error);
@@ -124,7 +133,7 @@ const TaskPage: React.FC<TaskPageProps> = ({ TaskId }) => {
   const taskStarter = async () => {
     try {
       const result = await TaskStart(UserDat.factId, TaskId);
-      console.log(result);
+      window.location.reload();
     } catch (error) {
       console.error('Error starting task:', error);
     }
@@ -146,9 +155,10 @@ const TaskPage: React.FC<TaskPageProps> = ({ TaskId }) => {
   return (
     <div className="flex h-screen p-0 m-10">
       <div className="w-1/2 h-full bg-gray-800 flex flex-col justify-center items-center p-4">
-        <div className="bg-gradient-to-tr from-blue-700 via-black to-red-700 rounded-md shadow-lg p-4 text-white font-mono text-lg mb-5">
-          {timeLeft !== null ? (isRunning ? formatTime(timeLeft) : 'Timer Stopped') : 'Loading...'}
-        </div>
+        {timeLeft && (
+          <div className="bg-gradient-to-tr from-blue-700 via-black to-red-700 rounded-md shadow-lg p-4 text-white font-mono text-lg mb-5">
+            {timeLeft !== null ? (isRunning ? formatTime(timeLeft) : 'Timer Stopped') : 'Loading...'}
+          </div>)}
         <div className="w-3/4 h-auto bg-gray-900 rounded-lg shadow-lg p-6 border border-gray-700 mb-4">
           <div className="flex flex-col space-y-4">
             <p className="text-green-500 font-semibold text-4xl text-center mb-4">{taskData.task}</p>
@@ -166,15 +176,15 @@ const TaskPage: React.FC<TaskPageProps> = ({ TaskId }) => {
             >
               {isRunning ? 'Running...' : 'Take Action'}
             </button>
-            <button onClick={taskStarter} className='text-blue-700'>
+            {!timeLeft && (<button onClick={taskStarter} className='text-blue-700'>
               Start Task
-            </button>
+            </button>)}
           </div>
         </div>
       </div>
 
       <div className="w-1/2 h-full bg-gray-700 flex justify-center items-center">
-        <FileUpload/>
+        {timeLeft && <FileUpload />}
       </div>
     </div>
   );
