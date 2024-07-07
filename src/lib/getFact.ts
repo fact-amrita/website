@@ -1,6 +1,5 @@
 "use server"
 
-import fs from 'fs';
 import facts from "@/public/data.json";
 
 export async function getFact() {
