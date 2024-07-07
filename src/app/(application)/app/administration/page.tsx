@@ -1,29 +1,24 @@
 import React from 'react';
-import { useRouter } from 'next/router';
-
+import { SessionProvider, useSession } from "next-auth/react";
+import exp from 'constants';
 
 const AdminPage = () => {
-  const router = useRouter();
-
-  const handleNavigate = (route: string) => {
-    router.push(route);
-  };
   return (
     <div className="flex min-h-screen bg-gray-100">
       <div className="w-1/4 bg-white p-8 shadow-lg">
         <h1 className="text-2xl font-bold mb-8">Admin Panel</h1>
         <div className="space-y-4">
           <button className="w-full p-4 bg-blue-500 text-white rounded-lg hover:bg-blue-700 transition duration-300">
-            Create an Announcement
+            Button 1
           </button>
-          <button className="w-full p-4 bg-green-500 text-white rounded-lg hover:bg-green-700 transition duration-300" onClick={() => handleNavigate('/app/administration/factcreate')}>
-            Create Daily Dose of Fact
+          <button className="w-full p-4 bg-green-500 text-white rounded-lg hover:bg-green-700 transition duration-300">
+            Button 2
           </button>
           <button className="w-full p-4 bg-red-500 text-white rounded-lg hover:bg-red-700 transition duration-300">
-            Create Events
+            Button 3
           </button>
           <button className="w-full p-4 bg-yellow-500 text-white rounded-lg hover:bg-yellow-700 transition duration-300">
-            Create Important Date on Calendar
+            Button 4
           </button>
         </div>
       </div>
