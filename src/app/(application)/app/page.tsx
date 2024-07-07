@@ -9,7 +9,6 @@ import { Toaster } from "@/components/ui/toaster";
 import { SessionProvider, useSession } from "next-auth/react";
 
 const DashboardContent: React.FC = () => {
-  const items = ['Item 1', 'Item 2', 'Item 3', 'Item 4'];
   const { data: session, status } = useSession();
   const { toast } = useToast();
   const searchParams = useSearchParams();
@@ -67,15 +66,22 @@ const DashboardContent: React.FC = () => {
           <h1 className="text-xl lg:text-2xl font-bold mb-6 ">Hello, {userdat.name}</h1>
           <h1 className="text-xl lg:text-2xl font-bold mb-6 ">Welcome to the FACT Club</h1>
         </div>  
-        <div className="h-auto lg:h-3/4 w-full lg:w-4/5 p-1 rounded-lg flex flex-col lg:flex-row items-center lg:items-start">
-          <div className="grid grid-cols-1 lg:grid-cols-5 gap-2 bg-transparent rounded shadow-md p-1 w-full h-full">
-            {items.map((item, index) => (
-              <div key={index} className={`col-span-${colSpans  [index % colSpans.length]} text-center  rounded-lg bg-gray-200 p-5`}>
-                {item}
-              </div>
-            ))}
-            <Leaderboard />
+        <div className="h-full w-4/5  ">
+          <div className="grid grid-cols-7 gap-2 bg-transparent rounded shadow-md w-full h-full">
+          <div className="col-span-3 bg-gray-200 p-4 rounded shadow-md">
+            Content for item 1
           </div>
+          <div className="col-span-4 bg-gray-300 p-4 rounded shadow-md">
+            Content for item 2 (wider)
+          </div>
+          <div className="col-span-4 bg-gray-400 p-4 rounded shadow-md">
+            Content for item 3 (responsive)
+          </div>
+          <div className="col-span-3 bg-gray-400 p-4 rounded shadow-md">
+            Content for item 3 (responsive)
+          </div>
+          </div>
+          <Leaderboard />
         </div>
       </div>
       <Toaster />
