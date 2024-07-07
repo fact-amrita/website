@@ -7,6 +7,7 @@ import TasksIcon from '@/public/icons/tasks.svg';
 import LeaderboardIcon from '@/public/icons/leaderboard.svg';
 import ReportIssueIcon from '@/public/icons/reportissue.svg';
 import SearchIcon from '@/public/icons/search.svg';
+import AdminIcon from '@/public/icons/admin.svg';
 import { SessionProvider, useSession } from 'next-auth/react';
 import { Sidebar, SidebarItem } from '@/components/dashboard/sidebar';
 import { roleUpdateCheck } from '@/lib/roleCheck';
@@ -18,9 +19,7 @@ interface Props {
     setExpanded: (expanded: boolean) => void;
 }
 
-
 function SidebarForRoot({ children, activeRoute, expanded, setExpanded }: Props) {
-
     const { data: session, status } = useSession();
 
     if (status === 'loading') {
@@ -41,6 +40,10 @@ function SidebarForRoot({ children, activeRoute, expanded, setExpanded }: Props)
         { route: '/app/profile', icon: <Image src={SearchIcon} alt="Search Users" />, text: 'Directory', active: false, alert: false },
         { route: '/app/ticket', icon: <Image src={ReportIssueIcon} alt="Report/Feedback" />, text: 'Report/Feedback', active: false, alert: false },
     ];
+
+    if (userdat.role === 'admin') {
+        sidebarItems.push({ route: '/app/administration', icon: <Image src={AdminIcon} alt="Administration" className='w-5' />, text: 'Administration', active: false, alert: false });
+    }
 
     return (
         <div className="bg-gradient-to-tr from-red-600 via-black to-blue-600 flex h-screen">
