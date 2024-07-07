@@ -36,7 +36,9 @@ function FormApp() {
     }
 
     if (!session || !session.user) {
-        return <p>You need to be logged in to access this page.</p>;
+        return <div className="flex justify-center items-center h-screen">
+            <div className="text-red-500 text-2xl">You need to be logged in to access your profile.</div>
+        </div>;
     }
 
     const userdat = session.user as { name: string; email: string; role: string; image: string; };
