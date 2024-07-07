@@ -20,12 +20,16 @@ const LeaderboardPage = () => {
   const userdat = session.user as { name: string; domain: string; };
 
   return (
-    <div className="h-full bg-gradient-to-tr from-blue-700 via-black to-red-700 flex flex-col ">
-      <Tab />
-      <div className="w-full md:w-1/2 flex flex-col md:flex-row justify-center mt-4">
-        <TotalPoints LifeTimepts={0} SemesterPts={0} AcademicYearPts={0} />
-        <RanksTable userDomain={userdat.domain} presentUser={userdat.name} />
-      </div>
+    <div className="grid grid-cols-8 grid-rows-1 bg-transparent rounded shadow-lg w-full h-full ml-18 ">
+     <div className="col-span-5 row-span-1 ml-20 mt-4">
+        <Tab />
+     </div>
+     <div className="col-span-3 row-span-1 mr-0 mt-2" >
+     <RanksTable userDomain={userdat.domain} presentUser={userdat.name} />
+     </div>
+     <div className="col-span-5 row-span-3 ml-20">
+     <TotalPoints LifeTimepts={0} SemesterPts={0} AcademicYearPts={0} />
+     </div>
     </div>
   );
 };
