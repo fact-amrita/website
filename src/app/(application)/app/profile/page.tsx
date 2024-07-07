@@ -3,6 +3,7 @@
 import React, { useState, useEffect } from 'react';
 import { usersFind } from "@/lib/UserFetch";
 import styles from './page.module.css';
+import Image from 'next/image';
 
 interface Result {
   id: string;
@@ -44,7 +45,7 @@ const App: React.FC = () => {
             <div className="text-center">
               <table>
                 <tr>
-                  <td><img src={result.image} alt={result.name} className="w-10 rounded-full mb-2" /></td>
+                  <td><Image src={result.image ?? ''} alt={result.name} className="w-10 rounded-full mb-2" /></td>
                   <td style={{ width: "75%" }}>
                     <div style={{ marginLeft: "20px" }}>
                       {result.role !== "member" && <div>{result.Title}</div>}

@@ -61,7 +61,7 @@ const TaskPage: React.FC<TaskPageProps> = ({ TaskId }) => {
       }
     };
     fetchTaskData();
-  }, [TaskId]);
+  }, [TaskId, factId]);
 
   useEffect(() => {
     let timer: NodeJS.Timeout;

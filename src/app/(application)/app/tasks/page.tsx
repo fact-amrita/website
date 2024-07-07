@@ -11,7 +11,6 @@ interface CompletedTask {
   taskname: string;
   awarded: number;
   points: number;
-  status: "Submitted" | "Reviewing" | "Reviewed";
 }
 
 interface Task {
@@ -51,7 +50,7 @@ const TaskListPage: React.FC = () => {
             const taskdata = TaskLists.find((taskdata) => taskdata.TaskId === task.taskId);
             if (taskdata) {
               console.log(task);
-              submittedArr.push({ tasknum: tasknumber, taskname: taskdata.task, awarded: task.awarded || 0, points: taskdata.points, status: task.status });
+              submittedArr.push({ tasknum: tasknumber, taskname: taskdata.task, awarded: task.awarded || 0, points: taskdata.points });
               TaskLists.splice(TaskLists.indexOf(taskdata), 1);
               tasknumber += 1;
             }
@@ -102,8 +101,8 @@ const TaskListPage: React.FC = () => {
           <h2 className="text-xl font-bold mb-4 text-center">Pending Tasks</h2>
           {pendingTasks.length > 0 ? (
             pendingTasks.map((task) => (
-              <Link href={`/app/tasks/${task.TaskId}`}>
-                <div key={task.TaskId} className="mb-2 p-4 border border-gray-300">
+              <Link key={task.TaskId} href={`/app/tasks/${task.TaskId}`}>
+                <div className="mb-2 p-4 border border-gray-300">
                   <h3 className="font-bold">{task.task}</h3>
                   <p>Status: {task.status}</p>
                 </div>
@@ -126,8 +125,8 @@ const TaskListPage: React.FC = () => {
               </tr>
             </thead>
             <tbody>
-              {submittedTasks.map((entry: any) => (
-                <tr key={entry.rank} className="hover:bg-blue-300">
+              {submittedTasks.map((entry: any, index: number) => (
+                <tr key={index} className="hover:bg-blue-300">
                   <td className="px-4 py-2">{entry.tasknum}</td>
                   <td className="px-4 py-2">{entry.taskname}</td>
                   <td className="px-4 py-2">{entry.points}</td>

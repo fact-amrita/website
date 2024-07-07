@@ -10,7 +10,7 @@ const CrimeScene404 = () => {
         Case Status: Page Not Found
       </h1>
       <p className="text-lg text-gray-700 text-center mt-4">
-        Looks like you've stumbled upon a dead end! The page you requested seems to<br/>
+        Looks like you`&apos;`ve stumbled upon a dead end! The page you requested seems to<br/>
         have vanished without a trace. But fear not, Detective! Our forensics team<br/>
         is on the case.
       </p>

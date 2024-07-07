@@ -85,7 +85,7 @@ export async function TaskStart(factId: string, taskId: string) {
             FactID: factId
         }
     });
-
+    if (!pointsData) return null;
     const newPendingTask = await db.pendingTask.create({
         data: {
             taskId: taskId,
@@ -94,6 +94,7 @@ export async function TaskStart(factId: string, taskId: string) {
             pointsId: pointsData.id,
         }
     });
+
 }
 
 export async function isTaskPending(factId: string, taskId: string) {

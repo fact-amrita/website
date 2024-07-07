@@ -67,7 +67,9 @@ function SidebarForRoot({ children, activeRoute, expanded, setExpanded }: Props)
 export default function SidebarElement({ children, activeRoute, expanded, setExpanded }: Props) {
     return (
         <SessionProvider>
-            <SidebarForRoot children={children} activeRoute={activeRoute} expanded={expanded} setExpanded={setExpanded} />
+            <SidebarForRoot activeRoute={activeRoute} expanded={expanded} setExpanded={setExpanded}>
+                {children}
+            </SidebarForRoot>
         </SessionProvider>
     );
 }
