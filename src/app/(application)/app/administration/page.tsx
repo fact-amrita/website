@@ -1,9 +1,22 @@
 "use client"
 
 import React from 'react';
-
+import { SessionProvider, useSession } from 'next-auth/react';
 
 const AdminPage = () => {
+
+  const { data: session, status } = useSession();
+
+  if (status === 'loading') {
+    return <p>Loading...</p>;
+  }
+
+  if (!session || !session.user) {
+    return <p>You need to be logged in to access your profile.</p>;
+  }
+
+  const userdat = session.user as { name: string; email: string; role: string; image: string; };
+
   return (
     <div className="flex min-h-screen bg-gray-100">
       <div className="w-1/4 bg-white p-8 shadow-lg">
@@ -12,13 +25,13 @@ const AdminPage = () => {
           <button className="w-full p-4 bg-blue-500 text-white rounded-lg hover:bg-blue-700 transition duration-300">
             Create an Announcement
           </button>
-          <button className="w-full p-4 bg-green-500 text-white rounded-lg hover:bg-green-700 transition duration-300" onClick={() => window.location.href='/app/administration/factcreate'}>
-            Create Daily Dose of Fact
-          </button>
+          {(userdat.role) == "admin" && (<button className="w-full p-4 bg-green-500 text-white rounded-lg hover:bg-green-700 transition duration-300" onClick={() => window.location.href = '/app/ticket/ticket-table'}>
+            Review Tickets
+          </button>)}
           <button className="w-full p-4 bg-red-500 text-white rounded-lg hover:bg-red-700 transition duration-300">
             Create Events
           </button>
-          <button className="w-full p-4 bg-orange-500 text-white rounded-lg hover:bg-orange-700 transition duration-300" onClick={() => window.location.href='/app/tasks/create'}>
+          <button className="w-full p-4 bg-orange-500 text-white rounded-lg hover:bg-orange-700 transition duration-300" onClick={() => window.location.href = '/app/tasks/create'}>
             Create New Task
           </button>
           <button className="w-full p-4 bg-yellow-500 text-white rounded-lg hover:bg-yellow-700 transition duration-300">
@@ -32,7 +45,7 @@ const AdminPage = () => {
             This
           </div>
           <div className="animate-spin bg-green-500 p-4 rounded-full text-white mb-4">
-            is 
+            is
           </div>
           <div className="animate-pulse bg-red-500 p-4 rounded-full text-white mb-4">
             admin
@@ -46,4 +59,10 @@ const AdminPage = () => {
   );
 };
 
-export default AdminPage;
+export default function AdminPageWithSession() {
+  return (
+    <SessionProvider>
+      <AdminPage />
+    </SessionProvider>
+  );
+}

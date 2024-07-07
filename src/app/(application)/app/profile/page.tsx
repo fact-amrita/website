@@ -1,9 +1,10 @@
 "use client"
 
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { usersFind } from "@/lib/UserFetch";
 import styles from './page.module.css';
 import Image from 'next/image';
+import Link from 'next/link';
 
 interface Result {
   id: string;
@@ -41,22 +42,24 @@ const App: React.FC = () => {
       </div>
       <div className="grid grid-cols-4 gap-4 p-4">
         {results.map(result => (
-          <div key={result.id} className={`border border-gray-300 p-4 rounded-tr-3xl rounded-bl-3xl bg-white ${result.FactID === window.localStorage.getItem('factId') ? 'shadow-slate-600 shadow-md hover:shadow-yellow-600' : ''}`}>
-            <div className="text-center">
-              <table>
-                <tr>
-                  <td><Image src={result.image ?? ''} alt={result.name} className="w-10 rounded-full mb-2" /></td>
-                  <td style={{ width: "75%" }}>
-                    <div style={{ marginLeft: "20px" }}>
-                      {result.role !== "member" && <div>{result.Title}</div>}
-                      <div>{result.name}</div>
-                      <div>ID: {result.FactID}</div>
-                    </div>
-                  </td>
-                </tr>
-              </table>
+          <Link href={`/app/profile/${result.FactID}`}>
+            <div key={result.id} className={`border border-gray-300 p-4 rounded-tr-3xl rounded-bl-3xl bg-white ${result.FactID === window.localStorage.getItem('factId') ? 'shadow-slate-600 shadow-md hover:shadow-yellow-600' : ''}`}>
+              <div className="text-center">
+                <table>
+                  <tr>
+                    <td><Image src={result.image ?? ''} alt={result.name} width={70} height={70} className="w-10 rounded-full mb-2" /></td>
+                    <td style={{ width: "75%" }}>
+                      <div style={{ marginLeft: "20px" }}>
+                        {result.role !== "member" && <div>{result.Title}</div>}
+                        <div>{result.name}</div>
+                        <div>ID: {result.FactID}</div>
+                      </div>
+                    </td>
+                  </tr>
+                </table>
+              </div>
             </div>
-          </div>
+          </Link>
         ))}
       </div>
     </div>
