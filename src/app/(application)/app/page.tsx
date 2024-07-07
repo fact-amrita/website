@@ -1,18 +1,20 @@
 "use client";
 
-import React, { useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { useToast,} from "@/components/ui/use-toast";
 import { ToastAction } from "@/components/ui/toast";
 import { useSearchParams } from "next/navigation";
 import Leaderboard from "@/components/dashboard/leaderboard";
 import { Toaster } from "@/components/ui/toaster";
 import { SessionProvider, useSession } from "next-auth/react";
+import FactPage from "@/components/dashboard/member/factpage";
 
 const DashboardContent: React.FC = () => {
   const { data: session, status } = useSession();
   const { toast } = useToast();
   const searchParams = useSearchParams();
   const messageParam = searchParams.get("message");
+  const [facts, setFacts] = useState<Record<number, string>>({});
 
   useEffect(() => {
     if (messageParam) {
@@ -26,6 +28,17 @@ const DashboardContent: React.FC = () => {
       window.history.replaceState(null, '', newUrl);
     }
   }, [messageParam, toast]);
+
+  useEffect(() => {
+  
+    const fetchFacts = async () => {
+      const response = await fetch('/api/facts');
+      const data = await response.json();
+      setFacts(data);
+    };
+
+    fetchFacts();
+  }, []);
 
   useEffect(() => {
     if (session?.user) {
@@ -55,7 +68,6 @@ const DashboardContent: React.FC = () => {
   }
 
   const userdat = session.user as { name: string; email: string; role: string; image: string; };
-  const colSpans = [2, 3, 3, 2];
   
   
 
@@ -69,7 +81,7 @@ const DashboardContent: React.FC = () => {
         <div className="h-full w-4/5  ">
           <div className="grid grid-cols-7 gap-2 bg-transparent rounded shadow-md w-full h-full">
           <div className="col-span-3 bg-gray-200 p-4 rounded shadow-md">
-            Content for item 1
+          <FactPage facts={facts} />
           </div>
           <div className="col-span-4 bg-gray-300 p-4 rounded shadow-md">
             Content for item 2 (wider)

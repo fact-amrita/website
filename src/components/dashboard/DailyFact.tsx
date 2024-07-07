@@ -12,14 +12,14 @@ const DailyFact: FC<DailyFactProps> = ({ onDayChange, initialData = {} }) => {
   const [inputs, setInputs] = useState<Record<number, string>>(initialData);
 
   const handleEdit = (day: number, value: string) => {
-    setInputs({ ...inputs, [day]: value });
-    onDayChange(inputs); // Pass updated data to admin function
+    const updatedInputs = { ...inputs, [day]: value };
+    setInputs(updatedInputs);
+    onDayChange(updatedInputs); 
   };
 
   const handleNextDay = () => {
     if (currentDay < 10) {
       setCurrentDay(currentDay + 1);
-      setInputs({}); // Reset inputs for new day
     }
   };
 
@@ -27,10 +27,9 @@ const DailyFact: FC<DailyFactProps> = ({ onDayChange, initialData = {} }) => {
     <div className="day-input">
       <span>Day {currentDay}</span>
       <input
-        type="number"
+        type="text"
         value={inputs[currentDay] || ''}
         onChange={(event) => handleEdit(currentDay, event.target.value)}
-        disabled={!(currentDay in inputs)} // Disable if day has no value
       />
       <button onClick={() => handleEdit(currentDay, inputs[currentDay] || '')}>
         {currentDay in inputs ? 'Close' : 'Edit'}
