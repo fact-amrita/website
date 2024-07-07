@@ -1,4 +1,5 @@
-// pages/admin.tsx
+"use client"
+
 import { useState } from 'react';
 
   const [facts, setFacts] = useState<Record<number, string>>({});

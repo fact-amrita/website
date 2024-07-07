@@ -1,13 +1,9 @@
+"use client"
+
 import React from 'react';
-import { useRouter } from 'next/router';
 
 
 const AdminPage = () => {
-  const router = useRouter();
-
-  const handleNavigate = (route: string) => {
-    router.push(route);
-  };
   return (
     <div className="flex min-h-screen bg-gray-100">
       <div className="w-1/4 bg-white p-8 shadow-lg">
@@ -16,11 +12,14 @@ const AdminPage = () => {
           <button className="w-full p-4 bg-blue-500 text-white rounded-lg hover:bg-blue-700 transition duration-300">
             Create an Announcement
           </button>
-          <button className="w-full p-4 bg-green-500 text-white rounded-lg hover:bg-green-700 transition duration-300" onClick={() => handleNavigate('/app/administration/factcreate')}>
+          <button className="w-full p-4 bg-green-500 text-white rounded-lg hover:bg-green-700 transition duration-300" onClick={() => window.location.href='/app/administration/factcreate'}>
             Create Daily Dose of Fact
           </button>
           <button className="w-full p-4 bg-red-500 text-white rounded-lg hover:bg-red-700 transition duration-300">
             Create Events
+          </button>
+          <button className="w-full p-4 bg-orange-500 text-white rounded-lg hover:bg-orange-700 transition duration-300" onClick={() => window.location.href='/app/tasks/create'}>
+            Create New Task
           </button>
           <button className="w-full p-4 bg-yellow-500 text-white rounded-lg hover:bg-yellow-700 transition duration-300">
             Create Important Date on Calendar
