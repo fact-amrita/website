@@ -35,16 +35,25 @@ const App: React.FC = () => {
           placeholder="Search by name or ID"
           onChange={handleSearch}
           className={styles.input}
+          style={{ color: 'white' }}
         />
       </div>
       <div className="grid grid-cols-4 gap-4 p-4">
         {results.map(result => (
-          <div key={result.id} className="border border-gray-300 p-4 rounded-lg bg-white">
+          <div key={result.id} className={`border border-gray-300 p-4 rounded-tr-3xl rounded-bl-3xl bg-white ${result.FactID === window.localStorage.getItem('factId') ? 'shadow-slate-600 shadow-md hover:shadow-yellow-600' : ''}`}>
             <div className="text-center">
-              <img src={result.image} alt={result.name} className="w-10 rounded-full mb-2" />
-              {result.role !== "member" && <div>{result.Title}</div>}
-              <div>{result.name}</div>
-              <div>ID: {result.FactID}</div>
+              <table>
+                <tr>
+                  <td><img src={result.image} alt={result.name} className="w-10 rounded-full mb-2" /></td>
+                  <td style={{ width: "75%" }}>
+                    <div style={{ marginLeft: "20px" }}>
+                      {result.role !== "member" && <div>{result.Title}</div>}
+                      <div>{result.name}</div>
+                      <div>ID: {result.FactID}</div>
+                    </div>
+                  </td>
+                </tr>
+              </table>
             </div>
           </div>
         ))}
