@@ -7,6 +7,7 @@ import { useSearchParams } from "next/navigation";
 import Leaderboard from "@/components/dashboard/leaderboard";
 import { Toaster } from "@/components/ui/toaster";
 import { SessionProvider, useSession } from "next-auth/react";
+import { getFact } from "@/lib/getFact";
 
 const DashboardContent: React.FC = () => {
   const { data: session, status } = useSession();
@@ -47,6 +48,12 @@ const DashboardContent: React.FC = () => {
     }
   }, [session?.user, toast]);
 
+  useEffect(() => {
+    getFact().then((fact) => {
+      setFact(fact);
+    });
+  })
+
 
   if (status === 'loading') {
     return <p>Loading...</p>;
@@ -64,7 +71,7 @@ const DashboardContent: React.FC = () => {
         <div className="h-auto lg:h-1/9 text-white text-left lg:text-left mb-4 lg:mb-0">
           <h1 className="text-xl lg:text-2xl font-bold mb-6">Hello, {userdat.name}</h1>
           <h1 className="text-xl lg:text-2xl font-bold mb-6">Welcome to the FACT Club</h1>
-        </div>  
+        </div>
         <div className="h-full w-4/5">
           <div className="grid grid-cols-7 gap-2 bg-transparent rounded shadow-md w-full h-full">
             <div className="col-span-3 bg-gray-200 p-4 rounded shadow-md">
