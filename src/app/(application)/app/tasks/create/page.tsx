@@ -47,6 +47,7 @@ const TaskForm: React.FC = () => {
     formData.append('Duration', data.Duration.toString());
     formData.append('domain', data.domain);
     formData.append('points', data.points.toString());
+    formData.append("creator", window.localStorage.getItem("factId") as string);
 
     try {
       const response = await fetch('/api/upload', {
