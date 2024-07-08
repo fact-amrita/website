@@ -1,6 +1,6 @@
 "use client"
 
-import React , {useState} from 'react';
+import React, { useState } from 'react';
 import { SessionProvider, useSession } from 'next-auth/react';
 
 const AdminPage = () => {
@@ -25,7 +25,7 @@ const AdminPage = () => {
       <div className="w-1/4 bg-white p-8 shadow-lg">
         <h1 className="text-2xl font-bold mb-8">Admin Panel</h1>
         <div className="space-y-4">
-          <button className="w-full p-4 bg-blue-500 text-white rounded-lg hover:bg-blue-700 transition duration-300">
+          <button className="w-full p-4 bg-blue-500 text-white rounded-lg hover:bg-blue-700 transition duration-300" onClick={() => window.location.href = '/app/administration/createannouncement'}>
             Create an Announcement
           </button>
           {(userdat.role) == "admin" && (<button className="w-full p-4 bg-green-500 text-white rounded-lg hover:bg-green-700 transition duration-300" onClick={() => window.location.href = '/app/ticket/ticket-table'}>
