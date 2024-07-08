@@ -76,9 +76,9 @@ const DashboardContent: React.FC = () => {
         </div>
         <div className="h-full w-4/5">
           <div className="grid grid-cols-7 gap-2 bg-transparent rounded shadow-md w-full h-full">
-            <div className="col-span-3 bg-gray-200 p-4 rounded shadow-md">
-              <h2>Fact for the day</h2>
-              <p>{fact}</p>
+            <div className="col-span-3 p-4 rounded shadow-xl bg-gradient-to-r from-blue-600 to-red-600">
+              <h1 className="text-3xl text-red-900">Fact for the day</h1>
+              <p className="text-2xl text-blue-950">{fact}</p>
             </div>
             <div className="col-span-4 bg-gray-300 p-4 rounded shadow-md">
               Content for item 2 (wider)
