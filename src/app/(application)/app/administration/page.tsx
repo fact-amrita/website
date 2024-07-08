@@ -1,11 +1,12 @@
 "use client"
 
-import React from 'react';
+import React , {useState} from 'react';
 import { SessionProvider, useSession } from 'next-auth/react';
 
 const AdminPage = () => {
 
   const { data: session, status } = useSession();
+  const [announcements, setAnnouncements] = useState([]);
 
   if (status === 'loading') {
     return <p>Loading...</p>;
