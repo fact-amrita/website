@@ -94,3 +94,18 @@ model PendingTask {
   pointsId  String   @db.ObjectId
   points    Points   @relation(fields: [pointsId], references: [id])
 }
+
+model Announcements {
+  id           String @id @default(auto()) @map("_id") @db.ObjectId
+  Announcement String
+  Visiblefrom  String
+  VisibleTill  String
+}
+
+model Timeline{
+  id          String @id @default(auto()) @map("_id") @db.ObjectId
+  Date        String
+  Title       String
+  description String?
+  link        String?
+}

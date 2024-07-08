@@ -1,25 +1,39 @@
 "use client";
 
-import { useState, ChangeEvent } from 'react';
+import { useState, ChangeEvent, useEffect } from 'react';
+import { getTimelines, addToTimeline, deleteTimeline } from "@/lib/AdminOps";
 
 interface Event {
-  id: number;
-  text: string;
+  id: string;
+  Title: string;
+  Date: string;
 }
 
 const Timeline = () => {
+
   const [events, setEvents] = useState<Event[]>([]);
   const [input, setInput] = useState<string>('');
 
-  const addEvent = () => {
+  const addEvent = async () => {
     if (input.trim()) {
-      setEvents([...events, { id: Date.now(), text: input.trim() }]);
+      const timelines = await addToTimeline(input.trim(), new Date().toISOString());
+      setEvents(timelines);
       setInput('');
     }
   };
 
-  const deleteEvent = (id: number) => {
-    setEvents(events.filter(event => event.id !== id));
+  useEffect(() => {
+    const fetchEvents = async () => {
+      const timelines = await getTimelines();
+      setEvents(timelines);
+    };
+
+    fetchEvents();
+  }, []);
+
+  const deleteEvent = async (id: string) => {
+    const timelines = await deleteTimeline(id);
+    setEvents(timelines);
   };
 
   const handleInputChange = (e: ChangeEvent<HTMLInputElement>) => {
@@ -47,8 +61,8 @@ const Timeline = () => {
         </div>
         <ul>
           {events.map(event => (
-            <li key={event.id} className="mb-2 flex justify-between items-center">
-              <span>{event.text}</span>
+            <li className="mb-2 flex justify-between items-center">
+              <span>{event.Title}</span>
               <button
                 onClick={() => deleteEvent(event.id)}
                 className="bg-red-500 text-white p-1 rounded"

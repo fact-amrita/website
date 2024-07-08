@@ -6,6 +6,7 @@ import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 import Button from '@/components/ui/Button';
 import ErrorBoundary from "@/components/errorboundary";
+import {createAnnouncement} from '@/lib/AdminOps';
 
 const CreateAnnouncementForm: React.FC = () => {
   const [visibleFromDate, setVisibleFromDate] = useState<Date | null>(null);
@@ -13,16 +14,19 @@ const CreateAnnouncementForm: React.FC = () => {
   const [description, setDescription] = useState('');
   const router = useRouter();
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    router.push({
-      pathname: '/anotherpage',
-      query: {
-        visibleFromDate: visibleFromDate?.toISOString(),
-        visibleToDate: visibleToDate?.toISOString(),
-        description,
-      },
-    } as unknown as string);
+    if (!visibleFromDate || !visibleToDate || !description) {
+      alert('Please fill in all fields');
+      return;
+    }
+    const announcement = await createAnnouncement(visibleFromDate.toISOString(), visibleToDate.toISOString(), description);
+
+    if (!announcement) {
+      alert('Failed to create announcement');
+    } else {
+      router.push('/app/administration');
+    }
   };
 
   return (
