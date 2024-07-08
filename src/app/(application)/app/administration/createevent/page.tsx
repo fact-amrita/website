@@ -5,6 +5,7 @@ import { useRouter } from 'next/router';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 import Button from '@/components/ui/Button';
+import ErrorBoundary from '@/components/errorboundary';
 
 const CreateEventForm: React.FC = () => {
   const [visibleFromDate, setVisibleFromDate] = useState<Date | null>(null);
@@ -27,6 +28,7 @@ const CreateEventForm: React.FC = () => {
   };
 
   return (
+    <ErrorBoundary>
     <div className='flex flex-col items-center bg-black min-h-screen'>
       <h1 className='text-center text-white bg-blue-600 mb-4 p-4'>Create Event</h1>
       <form onSubmit={handleSubmit} className='flex flex-col items-center'>
@@ -68,6 +70,7 @@ const CreateEventForm: React.FC = () => {
         <Button type='submit'>Submit</Button>
       </form>
     </div>
+    </ErrorBoundary>
   );
 };
 

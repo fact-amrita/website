@@ -99,7 +99,7 @@ const TaskListPage: React.FC = () => {
   return (
     <div className="flex justify-center items-center min-h-screen p-4">
       <div className="grid grid-cols-2 gap-4 w-full h-screen ">
-        <div className="border rounded-lg mb-10 border-gray-300 p-4 bg-slate-600 shadow-md ">
+        <div className="border rounded-lg mb-10 border-gray-300 p-4 bg-slate-600 shadow-md ml-3">
           <h2 className="text-xl font-bold mb-4 text-center">Pending Tasks</h2>
           {pendingTasks.length > 0 ? (
             pendingTasks.map((task) => (
