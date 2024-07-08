@@ -69,7 +69,7 @@ const Sidebar: FC<SidebarProps> = ({ children, user, expanded, setExpanded }) =>
             </div>
           </Link>
           {expanded && (
-            <Link href="/app/auth/logout">
+            <Link href="/app/logout">
               <button
                 className="w-full py-2 px-4 rounded-md text-white bg-red-500 hover:bg-red-600 transition-colors"
               >

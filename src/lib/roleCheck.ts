@@ -5,7 +5,7 @@ export async function roleUpdateCheck(factId: string, role: string) {
     const user = await getUserCredByemail(factId);
     if (user) {
         if (user.role !== role) {
-            window.location.href = '/app/auth/logout';
+            window.location.href = '/app/logout';
         }
     }
 }

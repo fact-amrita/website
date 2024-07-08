@@ -275,7 +275,7 @@ function FormApp() {
 
                         if (saveSuccess) {
                             completeForm();
-                            window.location.href = "/app/auth/logout";
+                            window.location.href = "/app/logout";
                         } else {
                             setError("This ID already exists. Please contact the club admin by submitting a ticket for further assistance");
                         }

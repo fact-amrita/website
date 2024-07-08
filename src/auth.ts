@@ -46,7 +46,7 @@ export const authOptions = {
                 }
             } else {
                 if (userExisting?.provider !== account.provider) {
-                    return "/app/auth/login?error=Account already exists with different provider, please login with it."
+                    return "/app/login?error=Account already exists with different provider, please login with it."
                 }
             }
 

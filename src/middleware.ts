@@ -1,7 +1,7 @@
 import { auth } from "@/auth"
 
 export default auth((req) => {
-    if (req.auth && req.nextUrl.pathname === "/app/auth/login") {
+    if (req.auth && req.nextUrl.pathname === "/app/login") {
         const url = req.url.replace(req.nextUrl.pathname, "/app")
         // deepcode ignore OR: The redirect URL is already mentioned by the previous line and is not changable from the client side
         return Response.redirect(url)
@@ -9,7 +9,7 @@ export default auth((req) => {
 
     if (req.nextUrl.pathname === "/app/tasks") {
         if (!req.auth) {
-            const url = req.url.replace(req.nextUrl.pathname, "/app/auth/login?error=You should be logged in to access")
+            const url = req.url.replace(req.nextUrl.pathname, "/app/login?error=You should be logged in to access")
             return Response.redirect(url)
         }
         if (req.auth) {
@@ -28,7 +28,7 @@ export default auth((req) => {
                 return Response.redirect(new URL('/404', req.url));
             }
         } else {
-            const url = req.url.replace(req.nextUrl.pathname, "/app/auth/login?error=You should be logged in to access")
+            const url = req.url.replace(req.nextUrl.pathname, "/app/login?error=You should be logged in to access")
             return Response.redirect
         }
     }
@@ -42,7 +42,7 @@ export default auth((req) => {
 
     if (req.nextUrl.pathname === "/app/tasks/create") {
         if (!req.auth) {
-            const url = req.url.replace(req.nextUrl.pathname, "/app/auth/login?error=You should be logged in to access")
+            const url = req.url.replace(req.nextUrl.pathname, "/app/login?error=You should be logged in to access")
             return Response.redirect(url)
         } else {
             const userdat = req.auth.user as { name: string; email: string; role: string; image: string; factId: string };
@@ -54,7 +54,7 @@ export default auth((req) => {
 
     if (req.nextUrl.pathname === "/app/onboarding") {
         if (!req.auth) {
-            const url = req.url.replace(req.nextUrl.pathname, "/app/auth/login?error=You should be logged in to access")
+            const url = req.url.replace(req.nextUrl.pathname, "/app/login?error=You should be logged in to access")
             return Response.redirect(url)
         } else if (req.auth && req.auth.user) {
             const userdat = req.auth.user as { name: string; email: string; role: string; image: string; factId: string };
@@ -68,7 +68,7 @@ export default auth((req) => {
     }
 
     if (!req.auth && req.nextUrl.pathname === "/app") {
-        const url = req.url.replace(req.nextUrl.pathname, "/app/auth/login?error=You should be logged in to access")
+        const url = req.url.replace(req.nextUrl.pathname, "/app/login?error=You should be logged in to access")
         return Response.redirect(url)
     }
 })
@@ -84,7 +84,7 @@ export default auth((req) => {
 //     if (url.startsWith("/app")) {
 
 //         const redirectToLogin = (message: string) => {
-//             const newUrl = url.replace(nextUrl.pathname, `/app/auth/login?error=${message}`);
+//             const newUrl = url.replace(nextUrl.pathname, `/app/login?error=${message}`);
 //             return Response.redirect(newUrl);
 //         }
 
@@ -93,13 +93,13 @@ export default auth((req) => {
 //             return Response.redirect(newUrl);
 //         }
 
-//         if (!requestAuth && nextUrl.pathname !== "/app/auth/login") {
+//         if (!requestAuth && nextUrl.pathname !== "/app/login") {
 //             return redirectToLogin("You should be logged in to access");
 //         }
 
 //         if (requestAuth) {
 //             switch (nextUrl.pathname) {
-//                 case "/app/auth/login":
+//                 case "/app/login":
 //                     return Response.redirect(url.replace(nextUrl.pathname, "/app"));
 //                 case "/app/tasks":
 //                     if (userdat.role === "newbie") {

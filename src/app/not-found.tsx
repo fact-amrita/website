@@ -32,7 +32,7 @@ const CrimeScene404 = () => {
             Go to Homepage
           </Link>
           <Link
-            href="/app/auth/logout"
+            href="/app/logout"
             className="px-4 py-2 mt-4 text-white bg-red-500 rounded-md hover:bg-red-700"
           >
             Log Out
