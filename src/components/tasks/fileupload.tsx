@@ -1,7 +1,13 @@
 import React, { useState, useRef } from 'react';
 import { FaUpload } from "react-icons/fa";
 
-const FileUpload: React.FC = () => {
+interface FileUploadProps {
+  taskid?: string;
+  factid?: string;
+  onUpload?: (file: File, taskid: string, factid: string) => void;
+}
+
+const FileUpload: React.FC = (taskid, factid) => {
   const [file, setFile] = useState<File | null>(null);
   const [isDraggingOver, setIsDraggingOver] = useState(false);
   const fileInputRef = useRef<HTMLInputElement>(null);
@@ -25,6 +31,47 @@ const FileUpload: React.FC = () => {
   const handleFileSelect = (e: React.ChangeEvent<HTMLInputElement>) => {
     const selectedFile = e.target.files![0];
     setFile(selectedFile);
+  };
+
+  const handleUpload = async () => {
+    if (!file) {
+      console.error('No file selected for upload.');
+      return;
+    }
+
+    const formData = new FormData(); // Use FormData for multipart file uploads
+    formData.append('file', file); // Add the file to the FormData
+
+    // Add taskid and factid if provided (optional)
+    if (taskid) {
+      formData.append('taskid', taskid);
+    }
+    if (factid) {
+      formData.append('factid', factid);
+    }
+
+    try {
+      // Send the FormData to your server using fetch or a library like Axios
+      const response = await fetch('/api/upload', {
+        method: 'POST',
+        body: formData,
+      });
+
+      if (!response.ok) {
+        throw new Error('Upload failed');
+      }
+
+      // Handle successful upload (e.g., display success message)
+      console.log('File uploaded successfully!');
+      if (onUpload) {
+        onUpload(file, taskid, factid); // Call the provided callback function
+      }
+    } catch (error) {
+      console.error('Upload error:', error);
+      // Handle upload errors (e.g., display error message)
+    } finally {
+      setFile(null); // Clear the selected file after upload
+    }
   };
 
 
@@ -80,6 +127,10 @@ const FileUpload: React.FC = () => {
           <p className="mt-2">{file.name}</p>
         </div>
       )}
+
+        <button className='text-blue-700 mt-6' onClick={handleUpload}>
+          Submit
+        </button>
     </div>
   );
 };

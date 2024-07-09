@@ -5,7 +5,6 @@ import { SessionProvider, useSession } from 'next-auth/react';
 import { TaskStart, TaskGetById } from "@/lib/TaskOperations";
 import FileUpload from '@/components/tasks/fileupload';
 import { isTaskPending } from '@/lib/TaskOperations';
-import Button from '@/components/ui/Button';
 
 type TaskPageProps = {
   TaskId: string;
@@ -27,9 +26,10 @@ const TaskPage: React.FC<TaskPageProps> = ({ TaskId }) => {
   const [timeLeft, setTimeLeft] = useState<number | null>(null);
   const [isRunning, setIsRunning] = useState<boolean>(false);
   const [userdata, setUserDat] = useState<any>(null);
+  const [taskid, setTaskid] = useState(TaskId);
+  const [factId, setFactId] = useState(localStorage.getItem('factId'));
 
-  const factId = localStorage.getItem('factId');
-
+  
 
   useEffect(() => {
     const fetchTaskData = async () => {
@@ -185,10 +185,7 @@ const TaskPage: React.FC<TaskPageProps> = ({ TaskId }) => {
       </div>
 
       <div className="w-1/2 h-full bg-gray-700 flex justify-center items-center">
-        {timeLeft && <FileUpload />}
-        <button className='text-blue-700 mt-10'>
-          Submit
-        </button>
+        {timeLeft && <FileUpload taskid={taskid} factid={factId} onUpload={handleUpload} />}
       </div>
     </div>
   );
