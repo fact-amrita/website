@@ -8,6 +8,8 @@ import Leaderboard from "@/components/dashboard/leaderboard";
 import { Toaster } from "@/components/ui/toaster";
 import { SessionProvider, useSession } from "next-auth/react";
 import { getFact } from "@/lib/getFact";
+import { getAnnouncements } from "@/lib/AdminOps";
+
 
 const DashboardContent: React.FC = () => {
   const { data: session, status } = useSession();
@@ -15,6 +17,7 @@ const DashboardContent: React.FC = () => {
   const searchParams = useSearchParams();
   const messageParam = searchParams.get("message");
   const [fact, setFact] = useState('No entry for today.');
+  const [announcements, setAnnouncements] = useState<{ id: string; Announcement: string; Visiblefrom: string; VisibleTill: string; }[]>([]);
 
   useEffect(() => {
     if (messageParam) {
@@ -54,6 +57,21 @@ const DashboardContent: React.FC = () => {
     });
   })
 
+  useEffect(() => {
+    const fetchAnnouncements = async () => {
+      try {
+        const response = await getAnnouncements();// Replace '/api/announcements' with your actual API endpoint
+        setAnnouncements(response);
+      } catch (error) {
+        console.error('Error fetching announcements:', error);
+      }
+    };
+
+    fetchAnnouncements();
+  }, []);
+
+
+
 
   if (status === 'loading') {
     return <p>Loading...</p>;
@@ -81,7 +99,12 @@ const DashboardContent: React.FC = () => {
               <p className="text-2xl text-blue-950">{fact}</p>
             </div>
             <div className="col-span-4 bg-gray-300 p-4 rounded shadow-md">
-              Annoucements
+            {announcements.map((announcement) => (
+              <div key={announcement.id}>
+                <h2>{announcement.Announcement}</h2>
+                <p>Date: {announcement.Visiblefrom}</p>
+              </div>
+            ))}
             </div>
             <div className="col-span-4 bg-gray-400 p-4 rounded shadow-md">
               Events

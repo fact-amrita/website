@@ -186,12 +186,12 @@ const TaskListPage: React.FC = () => {
         </div>
       )}
 
-      {userRole === "member" && (
+      {userRole === "admin" && (
         <div className="grid grid-cols-1 gap-4">
           {TaskLists.map((task: TaskListPage, index: number) => (
             <button
               key={index}
-              className="border rounded-lg p-4 bg-gray-100 shadow-md"
+              className="border rounded-lg p-4 bg-white shadow-md"
             >
               <h3 className="font-bold">{task.task}</h3>
             </button>
