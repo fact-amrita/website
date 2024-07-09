@@ -203,7 +203,7 @@ const TaskPage: React.FC<TaskPageProps> = ({ TaskId }) => {
               {isRunning ? 'Running...' : 'Take Action'}
             </button>
 
-            {taskData.fileKey && (
+            {(timeLeft && taskData.fileKey) && (
               <button
                 className="bg-gradient-to-tr from-blue-700 via-black to-red-700 text-white font-semibold py-2 px-4 rounded hover:bg-blue-600"
                 onClick={gettingFile}
@@ -219,7 +219,7 @@ const TaskPage: React.FC<TaskPageProps> = ({ TaskId }) => {
       </div>
 
       <div className="w-1/2 h-full bg-gray-700 flex justify-center items-center">
-        {timeLeft && <FileUpload taskid={TaskId} factid={factId} />}
+        {timeLeft && <FileUpload taskid={TaskId} factid={factId ?? ''} />}
       </div>
     </div>
   );

@@ -109,3 +109,12 @@ export async function isTaskPending(factId: string, taskId: string) {
     });
     return pointsData?.pendingTasks.find((task) => task.taskId === taskId);
 }
+
+export async function getAllCompletedTasks(taskId: string) {
+    const completedTasks = await db.completedTask.findMany({
+        where: {
+            taskId: taskId
+        }
+    });
+    return completedTasks;
+}
