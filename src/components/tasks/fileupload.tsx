@@ -4,10 +4,9 @@ import { FaUpload } from "react-icons/fa";
 interface FileUploadProps {
   taskid?: string;
   factid?: string;
-  onUpload?: (file: File, taskid: string, factid: string) => void;
 }
 
-const FileUpload: React.FC = (taskid, factid) => {
+const FileUpload: React.FC<FileUploadProps> = (data) => {
   const [file, setFile] = useState<File | null>(null);
   const [isDraggingOver, setIsDraggingOver] = useState(false);
   const fileInputRef = useRef<HTMLInputElement>(null);
@@ -35,37 +34,29 @@ const FileUpload: React.FC = (taskid, factid) => {
 
   const handleUpload = async () => {
     if (!file) {
-      console.error('No file selected for upload.');
+      alert('No file selected for upload.');
       return;
     }
 
     const formData = new FormData(); // Use FormData for multipart file uploads
     formData.append('file', file); // Add the file to the FormData
 
-    // Add taskid and factid if provided (optional)
-    if (taskid) {
-      formData.append('taskid', taskid);
-    }
-    if (factid) {
-      formData.append('factid', factid);
-    }
-
+    if (!data.factid || !data.taskid) alert('No factid or taskid');
     try {
       // Send the FormData to your server using fetch or a library like Axios
-      const response = await fetch('/api/upload', {
+      const response = await fetch(`/api/upload/${data.factid}/${data.taskid}`, {
         method: 'POST',
-        body: formData,
+        body: formData, 
       });
 
       if (!response.ok) {
         throw new Error('Upload failed');
       }
 
+      alert((await response.json()).message);
+
       // Handle successful upload (e.g., display success message)
       console.log('File uploaded successfully!');
-      if (onUpload) {
-        onUpload(file, taskid, factid); // Call the provided callback function
-      }
     } catch (error) {
       console.error('Upload error:', error);
       // Handle upload errors (e.g., display error message)
@@ -81,15 +72,14 @@ const FileUpload: React.FC = (taskid, factid) => {
         type="file"
         onChange={handleFileSelect}
         ref={fileInputRef}
-        className="hidden" 
+        className="hidden"
       />
       <div
         onDrop={handleDrop}
         onDragOver={handleDragOver}
         onDragLeave={handleDragLeave}
-        className={`relative flex flex-col justify-center items-center h-60 w-80 border-2 border-dashed rounded-lg ${
-          file || isDraggingOver ? 'border-green-500 ' : 'border-red-500 '
-        }`}
+        className={`relative flex flex-col justify-center items-center h-60 w-80 border-2 border-dashed rounded-lg ${file || isDraggingOver ? 'border-green-500 ' : 'border-red-500 '
+          }`}
       >
         <div className="text-center">
           {file ? (
@@ -111,12 +101,12 @@ const FileUpload: React.FC = (taskid, factid) => {
               <div className="truncate">{file.name}</div>
             </div>
           ) : (
-                
-            <div className="text-blue-500" style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', textAlign: 'center'}}>
-                <FaUpload className="w-8 h-8 text-blue-400 mb-4" />
-                Drag and drop a file here or click to browse
+
+            <div className="text-blue-500" style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', textAlign: 'center' }}>
+              <FaUpload className="w-8 h-8 text-blue-400 mb-4" />
+              Drag and drop a file here or click to browse
             </div>
-        
+
 
           )}
         </div>
@@ -128,9 +118,9 @@ const FileUpload: React.FC = (taskid, factid) => {
         </div>
       )}
 
-        <button className='text-blue-700 mt-6' onClick={handleUpload}>
-          Submit
-        </button>
+      <button className='text-blue-700 mt-6' onClick={handleUpload}>
+        Submit
+      </button>
     </div>
   );
 };

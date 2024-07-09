@@ -18,6 +18,7 @@ type TaskData = {
   startDate: string;
   deadline: string;
   duration: string;
+  fileKey: string | null;
 };
 
 const TaskPage: React.FC<TaskPageProps> = ({ TaskId }) => {
@@ -29,7 +30,7 @@ const TaskPage: React.FC<TaskPageProps> = ({ TaskId }) => {
   const [taskid, setTaskid] = useState(TaskId);
   const [factId, setFactId] = useState(localStorage.getItem('factId'));
 
-  
+
 
   useEffect(() => {
     const fetchTaskData = async () => {
@@ -140,6 +141,30 @@ const TaskPage: React.FC<TaskPageProps> = ({ TaskId }) => {
     }
   }
 
+  const gettingFile = async () => {
+    const formData = new FormData();
+    if (taskData.fileKey !== null) {
+      formData.append('filekey', taskData.fileKey);
+    }
+
+    try {
+      const response = await fetch('/api/getFile', {
+        method: 'POST',
+        body: formData
+      });
+
+      if (response.ok) {
+        const fileBlob = await response.blob();
+        const fileUrl = URL.createObjectURL(fileBlob);
+        window.open(fileUrl);
+      } else {
+        console.error('Error getting file:', response.status);
+      }
+    } catch (error) {
+      console.error('Error getting file:', error);
+    }
+
+  }
 
   const formatTime = (seconds: number) => {
     const days = Math.floor(seconds / (24 * 60 * 60));
@@ -177,6 +202,15 @@ const TaskPage: React.FC<TaskPageProps> = ({ TaskId }) => {
             >
               {isRunning ? 'Running...' : 'Take Action'}
             </button>
+
+            {taskData.fileKey && (
+              <button
+                className="bg-gradient-to-tr from-blue-700 via-black to-red-700 text-white font-semibold py-2 px-4 rounded hover:bg-blue-600"
+                onClick={gettingFile}
+              >
+                Download File
+              </button>
+            )}
             {!timeLeft && (<button onClick={taskStarter} className='text-blue-700'>
               Start Task
             </button>)}
@@ -185,7 +219,7 @@ const TaskPage: React.FC<TaskPageProps> = ({ TaskId }) => {
       </div>
 
       <div className="w-1/2 h-full bg-gray-700 flex justify-center items-center">
-        {timeLeft && <FileUpload taskid={taskid} factid={factId} onUpload={handleUpload} />}
+        {timeLeft && <FileUpload taskid={TaskId} factid={factId} />}
       </div>
     </div>
   );
