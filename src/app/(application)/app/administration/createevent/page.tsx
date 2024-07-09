@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState } from 'react';
-import { useRouter } from 'next/router';
+import { useRouter } from 'next/navigation';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 import Button from '@/components/ui/Button';
@@ -16,60 +16,56 @@ const CreateEventForm: React.FC = () => {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    router.push({
-      pathname: '/anotherpage',
-      query: {
-        visibleFromDate: visibleFromDate?.toISOString(),
-        visibleToDate: visibleToDate?.toISOString(),
-        description,
-        link,
-      },
-    });
-  };
+    router.push('/app/administration')};
 
   return (
     <ErrorBoundary>
-    <div className='flex flex-col items-center bg-black min-h-screen'>
-      <h1 className='text-center text-white bg-blue-600 mb-4 p-4'>Create Event</h1>
-      <form onSubmit={handleSubmit} className='flex flex-col items-center'>
-        <label className='text-white mb-2'>
-          Visible from Date:
-          <DatePicker
-            selected={visibleFromDate}
-            onChange={(date: Date | null) => setVisibleFromDate(date)}
-            dateFormat='yyyy/MM/dd'
-            className='w-1/3 p-2 mb-4'
-          />
-        </label>
-        <label className='text-white mb-2'>
-          Visible to Date:
-          <DatePicker
-            selected={visibleToDate}
-            onChange={(date: Date | null) => setVisibleToDate(date)}
-            dateFormat='yyyy/MM/dd'
-            className='w-1/3 p-2 mb-4'
-          />
-        </label>
-        <label className='text-white mb-2'>
-          Description:
-          <textarea
-            value={description}
-            onChange={(e) => setDescription(e.target.value)}
-            className='w-1/3 p-2 mb-4'
-          />
-        </label>
-        <label className='text-white mb-2'>
-          Link:
-          <input
-            type='text'
-            value={link}
-            onChange={(e) => setLink(e.target.value)}
-            className='w-1/3 p-2 mb-4'
-          />
-        </label>
-        <Button type='submit'>Submit</Button>
-      </form>
-    </div>
+      <div className="flex items-center justify-center min-h-screen bg-gradient-to-tr from-blue-500 via-black to-red-500">
+        <div className="bg-transparent p-8 rounded-lg shadow-2xl w-full max-w-lg">
+          <h1 className="text-2xl text-center text-white mb-4">Create Event</h1>
+          <form onSubmit={handleSubmit} className="space-y-4">
+            <div className="flex flex-col">
+              <label htmlFor="visibleFromDate" className="text-white mb-1">Visible from Date:</label>
+              <DatePicker
+                id="visibleFromDate"
+                selected={visibleFromDate}
+                onChange={(date: Date | null) => setVisibleFromDate(date)}
+                dateFormat="yyyy/MM/dd"
+                className="w-full p-2 bg-gray-200 text-white border border-gray-300 rounded"
+              />
+            </div>
+            <div className="flex flex-col">
+              <label htmlFor="visibleToDate" className="text-white mb-1">Visible to Date:</label>
+              <DatePicker
+                id="visibleToDate"
+                selected={visibleToDate}
+                onChange={(date: Date | null) => setVisibleToDate(date)}
+                dateFormat="yyyy/MM/dd"
+                className="w-full p-2 bg-gray-200 text-white border border-gray-300 rounded"
+              />
+            </div>
+            <div className="flex flex-col">
+              <label htmlFor="description" className="text-white mb-1">Description:</label>
+              <textarea
+                id="description"
+                value={description}
+                onChange={(e) => setDescription(e.target.value)}
+                className="w-full p-2 h-40 bg-gray-200 text-white border border-gray-300 rounded resize-none"
+              />
+            </div>
+            <div className="flex flex-col">
+              <label htmlFor="visibleFromDate" className="text-white mb-1">Link:</label>
+              <input
+                id="link"
+                type="url"
+                value={link}
+                onChange={(e) => setLink(e.target.value)}
+                className="w-full p-2 bg-gray-200 text-white border border-gray-300 rounded" />
+            </div>
+            <Button type="submit">Submit</Button>
+          </form>
+        </div>
+      </div>
     </ErrorBoundary>
   );
 };

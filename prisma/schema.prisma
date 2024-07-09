@@ -56,7 +56,6 @@ model Tasks {
   startDate   String
   deadline    String
   duration    String
-  creator     String
 }
 
 model Tickets {
@@ -103,8 +102,8 @@ model Announcements {
   VisibleTill  String
 }
 
-model Timeline {
-  id          String  @id @default(auto()) @map("_id") @db.ObjectId
+model Timeline{
+  id          String @id @default(auto()) @map("_id") @db.ObjectId
   Date        String
   Title       String
   description String?

@@ -81,13 +81,13 @@ const DashboardContent: React.FC = () => {
               <p className="text-2xl text-blue-950">{fact}</p>
             </div>
             <div className="col-span-4 bg-gray-300 p-4 rounded shadow-md">
-              Content for item 2 (wider)
+              Annoucements
             </div>
             <div className="col-span-4 bg-gray-400 p-4 rounded shadow-md">
-              Content for item 3 (responsive)
+              Events
             </div>
             <div className="col-span-3 bg-gray-400 p-4 rounded shadow-md">
-              Content for item 3 (responsive)
+              Timeline
             </div>
           </div>
           <Leaderboard />

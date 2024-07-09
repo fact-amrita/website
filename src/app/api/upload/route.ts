@@ -67,11 +67,10 @@ const runMiddleware = (req: NextApiRequest, res: NextApiResponse, fn: Function) 
 // Export a named handler for the POST method
 export async function POST(req: NextRequest) {
 
+  // if (!req.headers.get('Authorization') || req.headers.get('Authorization') !== process.env.NEXT_PUBLIC_API_ENDPOINT_KEY) {
 
   const formData = new FormData();
   const data = await req.formData();
-  const creator = data.get('creator') as string;
-  // if (creator!=undefined) {
 
   const taskTitle = data.get('taskTitle') as string;
   const description = data.get('description') as string;
@@ -88,12 +87,9 @@ export async function POST(req: NextRequest) {
 
     const buffer = await file.arrayBuffer();
 
-    const filenameArray = (file.name).split('.');
-    const filename = taskTitle + '.' + filenameArray[filenameArray.length - 1];
-
     const params = {
       Bucket: process.env.CLOUDFLARE_R2_BUCKET_NAME as string,
-      Key: `tasks/${filename}`,
+      Key: `tasks/${file.name}`,
       Body: Buffer.from(buffer),
       ContentType: file.type,
     };
@@ -102,6 +98,7 @@ export async function POST(req: NextRequest) {
 
     try {
       const data = await s3Client.send(command);
+      console.log(data);
     } catch (err) {
       console.error(err);
     }
@@ -109,7 +106,7 @@ export async function POST(req: NextRequest) {
     console.log(key);
   }
 
-  var result = await TaskCreate(taskTitle, description, parseInt(points), domain, startDate, deadline, Duration, creator, key);
+  var result = await TaskCreate(taskTitle, description, parseInt(points), domain, startDate, deadline, Duration, key);
 
   return NextResponse.json({ message: `Task successfully created with ID ${result}` });
   // } else {
@@ -118,8 +115,8 @@ export async function POST(req: NextRequest) {
 }
 
 // Disable the default body parser
-// export const config = {
-//   api: {
-//     bodyParser: false,
-//   },
-// };
+export const config = {
+  api: {
+    bodyParser: false,
+  },
+};
