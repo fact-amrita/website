@@ -32,9 +32,21 @@ const FileUpload: React.FC<FileUploadProps> = (data) => {
     setFile(selectedFile);
   };
 
+  const truncateFilename = (filename: string, maxWords = 3) => {
+    const words = filename.split(' ');
+    return words.length > maxWords
+      ? `${words.slice(0, maxWords).join(' ')}...`
+      : filename;
+  };
+
   const handleUpload = async () => {
     if (!file) {
       alert('No file selected for upload.');
+      return;
+    }
+
+    if (file.size > 5 * 1024 * 1024) { 
+      alert('File size exceeds the maximum limit of 5MB.');
       return;
     }
 
@@ -98,7 +110,7 @@ const FileUpload: React.FC<FileUploadProps> = (data) => {
                   d="M12 6v6m0 0v6m0-6h6m-6 0H6"
                 />
               </svg>
-              <div className="truncate">{file.name}</div>
+              <div className="truncate">{truncateFilename(file.name)}</div>
             </div>
           ) : (
 
