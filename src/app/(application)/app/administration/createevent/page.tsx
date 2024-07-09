@@ -6,6 +6,7 @@ import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 import Button from '@/components/ui/Button';
 import ErrorBoundary from '@/components/errorboundary';
+import { createEvent } from '@/lib/AdminOps';
 
 const CreateEventForm: React.FC = () => {
   const [visibleFromDate, setVisibleFromDate] = useState<Date | null>(null);
@@ -14,9 +15,16 @@ const CreateEventForm: React.FC = () => {
   const [link, setLink] = useState('');
   const router = useRouter();
 
+
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    router.push('/app/administration')};
+    if (!visibleFromDate || !visibleToDate || !description || !link) {
+      alert('Please fill in all fields');
+      return;
+    }
+    createEvent(description, visibleFromDate.toString(), visibleToDate.toString(), link);
+    router.push('/app/administration')
+  };
 
   return (
     <ErrorBoundary>

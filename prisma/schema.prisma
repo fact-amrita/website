@@ -111,3 +111,10 @@ model Timeline {
   link        String?
 }
 
+model Events {
+  id          String @id @default(auto()) @map("_id") @db.ObjectId
+  Description String
+  Link        String
+  Visiblefrom String
+  VisibleTill String
+}

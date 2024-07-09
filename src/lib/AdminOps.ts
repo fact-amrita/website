@@ -25,6 +25,8 @@ export async function getAnnouncements() {
             }
         }
     })
+
+    return announcements;
 }
 
 export async function getTimelines() {
@@ -53,4 +55,30 @@ export async function deleteTimeline(id: string) {
 
     const timelines = await db.timeline.findMany();
     return timelines;
+}
+
+export async function createEvent(description: string, visibleFromDate: string, visibleToDate: string, link: string) {
+    await db.events.create({
+        data: {
+            Description: description,
+            Visiblefrom: visibleFromDate,
+            VisibleTill: visibleToDate,
+            Link: link,
+        },
+    });
+}
+
+export async function getEvents() {
+    const events = await db.events.findMany({
+        where: {
+            Visiblefrom: {
+                lte: (new Date()).toString()
+            },
+            VisibleTill: {
+                gte: (new Date()).toString()
+            }
+        }
+    });
+
+    return events;
 }
