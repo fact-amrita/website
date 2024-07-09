@@ -14,6 +14,19 @@ export async function createAnnouncement(visibleFromDate: string, visibleToDate:
     return announcement;
 }
 
+export async function getAnnouncements() {
+    const announcements = await db.announcements.findMany({
+        where: {
+            Visiblefrom: {
+                lte: (new Date()).toString()
+            },
+            VisibleTill: {
+                gte: (new Date()).toString()
+            }
+        }
+    })
+}
+
 export async function getTimelines() {
     const timelines = await db.timeline.findMany();
     return timelines;
