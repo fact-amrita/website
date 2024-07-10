@@ -4,7 +4,7 @@ import React, { useEffect, useState } from 'react';
 import { SessionProvider, useSession } from 'next-auth/react';
 import { TaskStart, TaskGetById } from "@/lib/TaskOperations";
 import FileUpload from '@/components/tasks/fileupload';
-import { isTaskPending } from '@/lib/TaskOperations';
+import { isTaskPending, isTaskCompleted } from '@/lib/TaskOperations';
 
 type TaskPageProps = {
   TaskId: string;
@@ -29,6 +29,7 @@ const TaskPage: React.FC<TaskPageProps> = ({ TaskId }) => {
   const [userdata, setUserDat] = useState<any>(null);
   const [taskid, setTaskid] = useState(TaskId);
   const [factId, setFactId] = useState(localStorage.getItem('factId'));
+  const [taskCompleted, setTaskCompleted] = useState<boolean>(false);
 
 
 
@@ -43,6 +44,11 @@ const TaskPage: React.FC<TaskPageProps> = ({ TaskId }) => {
         setTaskData(data);
 
         const pendingTaskCheck = factId ? await isTaskPending(factId, TaskId) : null;
+        const completedTaskCheck = factId ? await isTaskCompleted(factId, TaskId) : null;
+
+        if (completedTaskCheck) {
+          setTaskCompleted(true);
+        }
 
         if (pendingTaskCheck) {
           const startTime = new Date(pendingTaskCheck.startTime);
@@ -110,6 +116,14 @@ const TaskPage: React.FC<TaskPageProps> = ({ TaskId }) => {
     return (
       <div className="flex justify-center items-center h-screen">
         <div className="text-red-500 text-2xl">Task not found</div>
+      </div>
+    );
+  }
+
+  if (taskCompleted) {
+    return (
+      <div className="flex justify-center items-center h-screen">
+        <div className="text-red-500 text-2xl">This Task has already been submitted</div>
       </div>
     );
   }

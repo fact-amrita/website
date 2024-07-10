@@ -79,12 +79,15 @@ model Points {
 }
 
 model CompletedTask {
-  id       String @id @default(auto()) @map("_id") @db.ObjectId
-  taskId   String
-  awarded  Int
-  status   String
-  pointsId String @db.ObjectId
-  points   Points @relation(fields: [pointsId], references: [id])
+  id           String  @id @default(auto()) @map("_id") @db.ObjectId
+  taskId       String
+  FactID       String
+  completeTime String
+  Filekey      String?
+  awarded      Int?
+  status       String
+  pointsId     String  @db.ObjectId
+  points       Points  @relation(fields: [pointsId], references: [id])
 }
 
 model PendingTask {

@@ -110,6 +110,18 @@ export async function isTaskPending(factId: string, taskId: string) {
     return pointsData?.pendingTasks.find((task) => task.taskId === taskId);
 }
 
+export async function isTaskCompleted(factId: string, taskId: string) {
+    const pointsData = await db.points.findUnique({
+        where: {
+            FactID: factId,
+        },
+        include: {
+            completedTasks: true
+        }
+    });
+    return pointsData?.completedTasks.find((task) => task.taskId === taskId);
+}
+
 export async function getAllCompletedTasks(taskId: string) {
     const completedTasks = await db.completedTask.findMany({
         where: {
@@ -117,4 +129,39 @@ export async function getAllCompletedTasks(taskId: string) {
         }
     });
     return completedTasks;
+}
+
+export async function markTaskasComplete(factId: string, taskId: string, filekey?: string) {
+    const pendingTask = await db.pendingTask.findFirst({
+        where: {
+            taskId: taskId,
+            FactID: factId
+        }
+    });
+
+    if (!pendingTask) return null;
+
+    await db.pendingTask.delete({
+        where: {
+            id: pendingTask.id
+        }
+    });
+
+
+    const pointsData = await db.points.findFirst({
+        where: {
+            FactID: factId
+        }
+    });
+    if (!pointsData) return null;
+    await db.completedTask.create({
+        data: {
+            taskId: taskId,
+            FactID: factId,
+            completeTime: new Date().toISOString(),
+            pointsId: pointsData.id,
+            status: "pending",
+            Filekey: filekey || null
+        }
+    });
 }

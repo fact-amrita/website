@@ -11,6 +11,7 @@ interface CompletedTask {
   taskname: string;
   awarded: number;
   points: number;
+  status: string;
 }
 
 interface Task {
@@ -73,12 +74,15 @@ const TaskListPage: React.FC = () => {
           return taskData ? {
             tasknum: index + 1,
             taskname: taskData.task,
-            awarded: task.awarded,
+            awarded: task.awarded || 0,
             points: taskData.points,
+            status: task.status
           } : null;
         }).filter((task): task is CompletedTask => task !== null);
 
         setSubmittedTasks(finalCompletedArr);
+
+        console.log(submittedTasks)
 
         const remainingTasks = fetchedTaskLists.filter((task) => {
           const pendingTask = pendingTasksList.find((t) => t.taskId === task.TaskId);

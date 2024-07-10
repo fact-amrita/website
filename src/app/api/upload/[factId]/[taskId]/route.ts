@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { S3Client, PutObjectCommand, GetObjectCommand } from "@aws-sdk/client-s3";
+import { S3Client, PutObjectCommand } from "@aws-sdk/client-s3";
+import { markTaskasComplete } from "@/lib/TaskOperations";
 
 const s3Client = new S3Client({
     endpoint: `https://${process.env.CLOUDFLARE_ACCOUNT_ID}.r2.cloudflarestorage.com`,
@@ -36,6 +37,9 @@ export async function POST(req: NextRequest, { params }: { params: { factId: str
 
     try {
         const data = await s3Client.send(command);
+
+        await markTaskasComplete(factId, taskId, `${factId}/${filename}`);
+
         return NextResponse.json({ message: 'File uploaded', success: true });
     } catch (err) {
         console.log(err);
