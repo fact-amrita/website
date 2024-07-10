@@ -53,7 +53,11 @@ const DashboardContent: React.FC = () => {
 
   useEffect(() => {
     getFact().then((fact) => {
-      setFact(fact);
+      if (fact !== "") {
+        setFact(fact);
+      } else {
+        setFact('No entry for today.');
+      }
     });
   })
 
@@ -99,12 +103,12 @@ const DashboardContent: React.FC = () => {
               <p className="text-2xl text-blue-950">{fact}</p>
             </div>
             <div className="col-span-4 bg-gray-300 p-4 rounded shadow-md">
-            {announcements.map((announcement) => (
-              <div key={announcement.id}>
-                <h2>{announcement.Announcement}</h2>
-                <p>Date: {announcement.Visiblefrom}</p>
-              </div>
-            ))}
+              {announcements.map((announcement) => (
+                <div key={announcement.id}>
+                  <h2>{announcement.Announcement}</h2>
+                  <p>Date: {announcement.Visiblefrom}</p>
+                </div>
+              ))}
             </div>
             <div className="col-span-4 bg-gray-400 p-4 rounded shadow-md">
               Events

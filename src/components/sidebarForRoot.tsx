@@ -43,7 +43,7 @@ function SidebarForRoot({ children, activeRoute, expanded, setExpanded }: Props)
         { route: '/app/ticket', icon: <Image src={ReportIssueIcon} alt="Report/Feedback" />, text: 'Report/Feedback', active: false, alert: false },
     ];
 
-    if (userdat.role === 'admin') {
+    if (userdat.role === 'admin' || userdat.role === 'moderator' || userdat.role === 'president') {
         sidebarItems.push({ route: '/app/administration', icon: <Image src={AdminIcon} alt="Administration" className='w-5' />, text: 'Administration', active: false, alert: false });
     }
 

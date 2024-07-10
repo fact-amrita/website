@@ -6,7 +6,7 @@ import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 import Button from '@/components/ui/Button';
 import ErrorBoundary from "@/components/errorboundary";
-import {createAnnouncement} from '@/lib/AdminOps';
+import { createAnnouncement } from '@/lib/AdminOps';
 
 const CreateAnnouncementForm: React.FC = () => {
   const [visibleFromDate, setVisibleFromDate] = useState<Date | null>(null);
@@ -35,14 +35,14 @@ const CreateAnnouncementForm: React.FC = () => {
         <div className="bg-transparent p-8 rounded-lg shadow-2xl w-full max-w-lg">
           <h1 className="text-2xl text-center text-white mb-4">Create Announcement</h1>
           <form onSubmit={handleSubmit} className="space-y-4">
-            <div className="flex flex-col">
+            <div className="flex flex-col" style={{ color: "black" }}>
               <label htmlFor="visibleFromDate" className="text-white mb-1">Visible from Date:</label>
               <DatePicker
                 id="visibleFromDate"
                 selected={visibleFromDate}
                 onChange={(date: Date | null) => setVisibleFromDate(date)}
                 dateFormat="yyyy/MM/dd"
-                className="w-full p-2 bg-gray-200 text-white border border-gray-300 rounded"
+                className="w-full p-2 bg-gray-200 border border-gray-300 rounded text-black"
               />
             </div>
             <div className="flex flex-col">
@@ -52,7 +52,7 @@ const CreateAnnouncementForm: React.FC = () => {
                 selected={visibleToDate}
                 onChange={(date: Date | null) => setVisibleToDate(date)}
                 dateFormat="yyyy/MM/dd"
-                className="w-full p-2 bg-gray-200 text-white border border-gray-300 rounded"
+                className="w-full p-2 bg-gray-200 border border-gray-300 rounded text-black"
               />
             </div>
             <div className="flex flex-col">
@@ -61,7 +61,7 @@ const CreateAnnouncementForm: React.FC = () => {
                 id="description"
                 value={description}
                 onChange={(e) => setDescription(e.target.value)}
-                className="w-full p-2 h-40 bg-gray-200 text-white border border-gray-300 rounded resize-none"
+                className="text-black w-full p-2 h-40 bg-gray-200 border border-gray-300 rounded resize-none"
               />
             </div>
             <Button type="submit">Submit</Button>
