@@ -28,7 +28,7 @@ interface SidebarProps {
 const Sidebar: FC<SidebarProps> = ({ children, user, expanded, setExpanded }) => {
 
   return (
-    <aside className={`fixed left-0 top-0 h-screen sm:w-20 w-16 transition-all duration-300 ease-in-out ${expanded ? 'md:w-64' : ''}`}>
+    <aside className={`fixed left-0 top-0 h-screen sm:w-16 w-12 transition-all duration-300 ease-in-out ${expanded ? 'md:w-52' : ''}`}>
       <nav className="h-full flex flex-col bg-white shadow-md rounded-r-lg overflow-hidden">
         <div className="p-2 pb-2 flex justify-between items-center relative">
           <Image
@@ -62,7 +62,7 @@ const Sidebar: FC<SidebarProps> = ({ children, user, expanded, setExpanded }) =>
               {expanded && (
                 <div className="flex flex-col justify-center ml-3">
                   <h4 className="font-semibold">{user.name}</h4>
-                  <span className="text-xs text-gray-600">{user.email}</span>
+                  {/* <span className="text-xs text-gray-600">{user.email}</span> */}
                   <span className="text-xs text-gray-600">{getTitle(user.role)}</span>
                 </div>
               )}
@@ -101,7 +101,7 @@ const SidebarItem: FC<SidebarItemProps> = ({ icon, text, router, active, alert =
   const { expanded } = context;
 
   return (
-    <li className={`relative flex items-center py-2 px-3 my-1 font-medium rounded-md cursor-pointer transition-colors group ${active ? 'bg-gradient-to-tr from-indigo-200 to-indigo-100 text-indigo-800' : 'hover:bg-indigo-50 text-gray-600'}`}>
+    <li className={`relative flex items-center py-2 px-2 my-1 font-medium rounded-md cursor-pointer transition-colors group ${active ? 'bg-gradient-to-tr from-indigo-200 to-indigo-100 text-indigo-800' : 'hover:bg-indigo-50 text-gray-600'}`}>
       <Link href={router}>
         <div className="flex items-center w-full">
           {icon}

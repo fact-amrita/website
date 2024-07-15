@@ -30,7 +30,7 @@ const App: React.FC = () => {
 
   return (
     <div className="container mx-20 mt-8">
-      <h1 className="text-3xl font-bold mb-4 text-white">FACT Directory Search</h1>
+      <h1 className="text-3xl font-bold mb-4 text-white">FACT Profile Search</h1>
       <div className="mb-4 content-center items-center place-items-center">
         <input
           type="text"

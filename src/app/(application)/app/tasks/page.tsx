@@ -82,8 +82,6 @@ const TaskListPage: React.FC = () => {
 
         setSubmittedTasks(finalCompletedArr);
 
-        console.log(submittedTasks)
-
         const remainingTasks = fetchedTaskLists.filter((task) => {
           const pendingTask = pendingTasksList.find((t) => t.taskId === task.TaskId);
           const completedTask = completedTasksList.find((t) => t.taskId === task.TaskId);
@@ -97,75 +95,79 @@ const TaskListPage: React.FC = () => {
   }, [status, session]);
 
   return (
-    <div>
+    <div className="h-screen bg-gradient-to-r from-blue-500 via-red-500 to-purple-500 p-4 flex flex-col lg:flex-row px-12 md:px-16">
       {userRole === "member" && (
-        <div className="flex justify-center items-center min-h-screen p-4">
-          <div className="grid grid-cols-2 gap-4 w-full h-screen">
-            <div className="border rounded-lg mb-10 border-gray-300 p-4 bg-slate-600 shadow-md ml-3">
-              <h2 className="text-xl font-bold mb-4 text-center">
-                Pending Tasks
-              </h2>
-              {pendingTasks.map((task) => (
-                <Link key={task.TaskId} href={`/app/tasks/${task.TaskId}`}>
-                  <div className="mb-2 p-4 border border-gray-300">
-                    <h3 className="font-bold">{task.task}</h3>
-                    <p>Status: {task.status}</p>
-                  </div>
-                </Link>
-              ))}
-              {remainingTasks.map((task) => (
-                <Link key={task.TaskId} href={`/app/tasks/${task.TaskId}`}>
-                  <div className="mb-2 p-4 border border-gray-300">
-                    <h3 className="font-bold">{task.task}</h3>
-                    <p>Status: {task.status}</p>
-                  </div>
-                </Link>
-              ))}
-              {(pendingTasks.length + remainingTasks.length) === 0 && (
-                <p className="text-center">No tasks available</p>
-              )}
-            </div>
-            <div className="border rounded-lg border-gray-300 p-4 mb-10 bg-slate-600 shadow-md">
-              <h2 className="text-xl font-bold mb-4 text-center">
-                Submitted Tasks
-              </h2>
-              <table className="flex flex-col min-w-full">
-                <thead>
-                  <tr>
-                    <th className="py-2 px-4 text-left">num</th>
-                    <th className="py-2 px-4 text-left">taskname</th>
-                    <th className="py-2 px-4 text-left">Points</th>
-                    <th className="py-2 px-4 text-left">Awarded</th>
-                    <th className="py-2 px-4 text-left">Status</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {submittedTasks.map((entry: any, index: number) => (
-                    <tr key={index} className="hover:bg-blue-300">
-                      <td className="px-4 py-2">{entry.tasknum}</td>
-                      <td className="px-4 py-2">{entry.taskname}</td>
-                      <td className="px-4 py-2">{entry.points}</td>
-                      <td className="px-4 py-2">{entry.awarded}</td>
-                      <td className="px-4 py-2">{entry.status}</td>
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
-            </div>
+        <div className="lg:w-1/2 flex-1 border rounded-lg mb-10 border-gray-300 p-4 bg-slate-600 shadow-md">
+          <h2 className="text-xl font-bold mb-4 text-center text-white">
+            Pending Tasks
+          </h2>
+          <div className="grid grid-cols-1 lg:grid-cols-3 gap-4">
+            {pendingTasks.map((task) => (
+              <Link key={task.TaskId} href={`/app/tasks/${task.TaskId}`}>
+                <div className="mb-2 p-4 border border-gray-300 bg-white">
+                  <h3 className="font-bold">{task.task}</h3>
+                  <p>Status: {task.status}</p>
+                </div>
+              </Link>
+            ))}
+            {remainingTasks.map((task) => (
+              <Link key={task.TaskId} href={`/app/tasks/${task.TaskId}`}>
+                <div className="mb-2 p-4 border border-gray-300 bg-white">
+                  <h3 className="font-bold">{task.task}</h3>
+                  <p>Status: {task.status}</p>
+                </div>
+              </Link>
+            ))}
+            {(pendingTasks.length + remainingTasks.length) === 0 && (
+              <p className="text-center text-white">No tasks available</p>
+            )}
           </div>
         </div>
       )}
-
+      <div className="lg:w-1/2 flex-1 border rounded-lg border-gray-300 p-4 mb-10 bg-slate-600 shadow-md">
+        <h2 className="text-xl font-bold mb-4 text-center text-white">
+          Submitted Tasks
+        </h2>
+        <div className="overflow-x-auto">
+          <table className="min-w-full bg-white">
+            <thead>
+              <tr className="bg-gray-200">
+                <th className="py-2 px-4 text-left">No.</th>
+                <th className="py-2 px-4 text-left">Task Name</th>
+                <th className="py-2 px-4 text-left">Points</th>
+                <th className="py-2 px-4 text-left">Awarded</th>
+                <th className="py-2 px-4 text-left">Status</th>
+              </tr>
+            </thead>
+            <tbody>
+              {submittedTasks.map((entry: CompletedTask, index: number) => (
+                <tr key={index} className="hover:bg-blue-200">
+                  <td className="px-4 py-2">{entry.tasknum}</td>
+                  <td className="px-4 py-2">{entry.taskname}</td>
+                  <td className="px-4 py-2">{entry.points}</td>
+                  <td className="px-4 py-2">{entry.awarded}</td>
+                  <td className="px-4 py-2">{entry.status}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+        {submittedTasks.length === 0 && (
+          <p className="text-center text-white">No tasks submitted yet</p>
+        )}
+      </div>
       {(userRole === "moderator" || userRole === "president") && (
-        <div className="grid grid-cols-1 gap-4">
-          {TaskLists.map((task: TaskListPage, index: number) => (
-            <button
-              key={index}
-              className="border rounded-lg p-4 bg-white shadow-md"
-            >
-              <h3 className="font-bold">{task.task}</h3>
-            </button>
-          ))}
+        <div className="lg:w-1/2 flex-1 border rounded-lg p-4 bg-slate-600 shadow-md">
+          <div className="grid grid-cols-1 gap-4">
+            {TaskLists.map((task: TaskListPage, index: number) => (
+              <button
+                key={index}
+                className="border rounded-lg p-4 bg-white shadow-md w-full"
+              >
+                <h3 className="font-bold">{task.task}</h3>
+              </button>
+            ))}
+          </div>
         </div>
       )}
     </div>
