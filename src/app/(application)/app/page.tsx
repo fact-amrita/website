@@ -88,7 +88,10 @@ const DashboardContent: React.FC = () => {
     );
   }
 
-  const userdat = session.user as { name: string; email: string; role: string; image: string };
+  const userdat = session.user as { name: string; email: string; role: string; image: string; domain: string };
+  if (userdat.domain === undefined) {
+    userdat.domain = "";
+  }
 
   const items = [
     {
@@ -131,7 +134,7 @@ const DashboardContent: React.FC = () => {
         </div>
         <div className="h-full w-4/5">
           <HoverEffect items={items} />
-          <Leaderboard />
+          <Leaderboard domain={userdat.domain} />
         </div>
       </div>
       <Toaster />

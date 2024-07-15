@@ -82,12 +82,16 @@ const TaskListPage: React.FC = () => {
 
         setSubmittedTasks(finalCompletedArr);
 
-        const remainingTasks = fetchedTaskLists.filter((task) => {
-          const pendingTask = pendingTasksList.find((t) => t.taskId === task.TaskId);
+        var remainingTasks = fetchedTaskLists.filter((task) => {
+          const pendingTask = pendingTasksList.find((t) => (t.taskId === task.TaskId));
           const completedTask = completedTasksList.find((t) => t.taskId === task.TaskId);
           return !pendingTask && !completedTask;
         }).map(task => ({ ...task, status: "Available" }));
-
+        const today = new Date();
+        remainingTasks = remainingTasks.filter(task => {
+          const deadline = new Date(task.deadline);
+          return deadline >= today;
+        });
         setRemainingTasks(remainingTasks);
       }
     };

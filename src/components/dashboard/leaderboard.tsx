@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useEffect, useState } from "react";
+import { getLeaderboard } from "@/lib/leaderboards";
 
 interface LeaderboardEntry {
   rank: number;
@@ -8,7 +9,11 @@ interface LeaderboardEntry {
   points: number;
 }
 
-const Leaderboard: React.FC = () => {
+interface LeaderBoardInterface {
+  domain: string;
+}
+
+const Leaderboard: React.FC<LeaderBoardInterface> = (domain) => {
   const [entries, setEntries] = useState<LeaderboardEntry[]>([]);
 
   useEffect(() => {
@@ -26,7 +31,14 @@ const Leaderboard: React.FC = () => {
           { rank: 9, name: "Ivy", points: 600 },
           { rank: 10, name: "Jack", points: 550 },
         ];
-        setEntries(mockEntries);
+        const leaderboardData = await getLeaderboard(domain.domain);
+
+        const leaderboardDataWithRank = leaderboardData.map((entry, index) => ({
+          ...entry,
+          rank: index + 1,
+        }));
+
+        setEntries(leaderboardDataWithRank);
       } catch (error) {
         console.error("Error fetching leaderboard data:", error);
       }
