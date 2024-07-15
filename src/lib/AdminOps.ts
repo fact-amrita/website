@@ -15,22 +15,26 @@ export async function createAnnouncement(visibleFromDate: string, visibleToDate:
 }
 
 export async function getAnnouncements() {
-    const announcements = await db.announcements.findMany({
-        where: {
-            Visiblefrom: {
-                lte: (new Date()).toString()
-            },
-            VisibleTill: {
-                gte: (new Date()).toString()
-            }
-        }
-    })
-
+    var announcements = await db.announcements.findMany()
+    announcements = announcements.filter((announcement) => {
+        const visibleFrom = new Date(announcement.Visiblefrom);
+        const visibleTill = new Date(announcement.VisibleTill);
+        const currentDate = new Date();
+        return visibleFrom <= currentDate && currentDate <= visibleTill;
+    });
     return announcements;
 }
 
 export async function getTimelines() {
-    const timelines = await db.timeline.findMany();
+    var timelines = await db.timeline.findMany();
+
+    // timelines = timelines.filter((timelines) => {
+    //     const visibleFrom = new Date(timelines.Visiblefrom);
+    //     const visibleTill = new Date(timelines.VisibleTill);
+    //     const currentDate = new Date();
+    //     return visibleFrom <= currentDate && currentDate <= visibleTill;
+    // });
+
     return timelines;
 }
 
@@ -69,16 +73,12 @@ export async function createEvent(description: string, visibleFromDate: string, 
 }
 
 export async function getEvents() {
-    const events = await db.events.findMany({
-        where: {
-            Visiblefrom: {
-                lte: (new Date()).toString()
-            },
-            VisibleTill: {
-                gte: (new Date()).toString()
-            }
-        }
+    var events = await db.events.findMany();
+    events = events.filter((event) => {
+        const visibleFrom = new Date(event.Visiblefrom);
+        const visibleTill = new Date(event.VisibleTill);
+        const currentDate = new Date();
+        return visibleFrom <= currentDate && currentDate <= visibleTill;
     });
-
     return events;
 }

@@ -10,5 +10,17 @@
   {
     "date": "2024-07-08",
     "text": "This fact will be displayed on July 8th."
+  },
+  {
+    "date": "2024-07-09",
+    "text": "This fact will be displayed on July 9th."
+  },
+  {
+    "date": "2024-07-15",
+    "text": "This fact will be displayed on July 15th."
+  },
+  {
+    "date": "2024-07-16",
+    "text": "This fact will be displayed on July 16th."
   }
 ]

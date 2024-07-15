@@ -9,7 +9,6 @@ export const HoverEffect = ({
 }: {
   items: {
     title: string;
-    link: string;
     content: JSX.Element;
     span: number;
   }[];
@@ -20,9 +19,7 @@ export const HoverEffect = ({
   return (
     <div className={cn("grid grid-cols-1 md:grid-cols-12 gap-0 py-10", className)}>
       {items.map((item, idx) => (
-        <Link
-          href={item.link}
-          key={item.link}
+        <div
           className={cn(
             "relative group block p-4 h-full w-full",
             `col-span-${item.span}`
@@ -54,7 +51,7 @@ export const HoverEffect = ({
             )}
           >
             <div className="relative z-50">
-              <div className="p-7">
+              <div className="p-1">
                 <h4 className="text-zinc-100 font-bold tracking-wide mt-4">
                   {item.title}
                 </h4>
@@ -64,7 +61,7 @@ export const HoverEffect = ({
               </div>
             </div>
           </div>
-        </Link>
+        </div>
       ))}
     </div>
   );

@@ -66,7 +66,7 @@ const DashboardContent: React.FC = () => {
   useEffect(() => {
     const fetchAnnouncements = async () => {
       try {
-        const response = await getAnnouncements(); // Replace '/api/announcements' with your actual API endpoint
+        const response = await getAnnouncements();
         setAnnouncements(response);
       } catch (error) {
         console.error("Error fetching announcements:", error);
@@ -93,13 +93,11 @@ const DashboardContent: React.FC = () => {
   const items = [
     {
       title: "Fact for the day",
-      link: "#",
       content: <p className="text-2xl text-blue-950">{fact}</p>,
       span: 4,
     },
     {
       title: "Announcements",
-      link: "#",
       content: (
         <div>
           {announcements.map((announcement) => (
@@ -114,13 +112,11 @@ const DashboardContent: React.FC = () => {
     },
     {
       title: "Events",
-      link: "#",
       content: <p>Events content goes here</p>,
       span: 8,
     },
     {
       title: "Timeline",
-      link: "#",
       content: <p>Timeline content goes here</p>,
       span: 4,
     },
