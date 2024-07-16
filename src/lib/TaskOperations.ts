@@ -165,3 +165,73 @@ export async function markTaskasComplete(factId: string, taskId: string, filekey
         }
     });
 }
+
+export async function TaskSubmitted(taskId: string) {
+    const completedTasks = await db.completedTask.findMany({
+        where: {
+            taskId: taskId
+        }
+    });
+
+    return completedTasks;
+}
+
+export async function markTaskasValidating(taskId: string, factId: string) {
+    const completedTask = await db.completedTask.findFirst({
+        where: {
+            taskId: taskId,
+            FactID: factId
+        }
+    });
+
+    if (!completedTask) return null;
+
+    await db.completedTask.update({
+        where: {
+            id: completedTask.id
+        },
+        data: {
+            status: "validating"
+        }
+    });
+}
+
+export async function AwardMarks(taskId: string, factId: string, points: number) {
+    const completedTask = await db.completedTask.findFirst({
+        where: {
+            taskId: taskId,
+            FactID: factId
+        }
+    });
+
+    if (!completedTask) return null;
+
+    await db.completedTask.update({
+        where: {
+            id: completedTask.id
+        },
+        data: {
+            status: "completed",
+            awarded: points
+        }
+    });
+
+    const pointsData = await db.points.findFirst({
+        where: {
+            FactID: factId
+        }
+    });
+
+    if (!pointsData) return null;
+
+    await db.points.update({
+        where: {
+            id: pointsData.id
+        },
+        data: {
+            points: {
+                increment: points
+            }
+        }
+    });
+}
