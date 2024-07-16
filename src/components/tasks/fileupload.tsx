@@ -9,6 +9,7 @@ interface FileUploadProps {
 const FileUpload: React.FC<FileUploadProps> = (data) => {
   const [file, setFile] = useState<File | null>(null);
   const [isDraggingOver, setIsDraggingOver] = useState(false);
+  const [uploadProgress, setUploadProgress] = useState<number>(0);
   const fileInputRef = useRef<HTMLInputElement>(null);
 
   const handleDragOver = (e: React.DragEvent<HTMLDivElement>) => {
@@ -45,21 +46,40 @@ const FileUpload: React.FC<FileUploadProps> = (data) => {
       return;
     }
 
-    if (file.size > 5 * 1024 * 1024) { 
+    if (file.size > 5 * 1024 * 1024) {
       alert('File size exceeds the maximum limit of 5MB.');
       return;
     }
 
-    const formData = new FormData(); // Use FormData for multipart file uploads
-    formData.append('file', file); // Add the file to the FormData
+    const formData = new FormData();
+    formData.append('file', file);
 
     if (!data.factid || !data.taskid) alert('No factid or taskid');
+
     try {
-      // Send the FormData to your server using fetch or a library like Axios
       const response = await fetch(`/api/upload/${data.factid}/${data.taskid}`, {
         method: 'POST',
-        body: formData, 
+        body: formData,
       });
+
+      const reader = response.body?.getReader();
+      const contentLength = response.headers.get('Content-Length');
+
+      if (reader && contentLength) {
+        const totalLength = parseInt(contentLength, 10);
+        let receivedLength = 0;
+        const chunks = [];
+
+        while (true) {
+          const { done, value } = await reader.read();
+          if (done) {
+            break;
+          }
+          chunks.push(value);
+          receivedLength += value.length;
+          setUploadProgress((receivedLength / totalLength) * 100);
+        }
+      }
 
       if (!response.ok) {
         throw new Error('Upload failed');
@@ -67,16 +87,14 @@ const FileUpload: React.FC<FileUploadProps> = (data) => {
 
       alert((await response.json()).message);
 
-      // Handle successful upload (e.g., display success message)
       console.log('File uploaded successfully!');
+      window.location.reload();
     } catch (error) {
       console.error('Upload error:', error);
-      // Handle upload errors (e.g., display error message)
     } finally {
-      setFile(null); // Clear the selected file after upload
+      setFile(null);
     }
   };
-
 
   return (
     <div className="App p-8">
@@ -90,6 +108,7 @@ const FileUpload: React.FC<FileUploadProps> = (data) => {
         onDrop={handleDrop}
         onDragOver={handleDragOver}
         onDragLeave={handleDragLeave}
+        onClick={() => fileInputRef.current?.click()}
         className={`relative flex flex-col justify-center items-center h-60 w-80 border-2 border-dashed rounded-lg ${file || isDraggingOver ? 'border-green-500 ' : 'border-red-500 '
           }`}
       >
@@ -118,8 +137,6 @@ const FileUpload: React.FC<FileUploadProps> = (data) => {
               <FaUpload className="w-8 h-8 text-blue-400 mb-4" />
               Drag and drop a file here or click to browse
             </div>
-
-
           )}
         </div>
       </div>
@@ -130,9 +147,31 @@ const FileUpload: React.FC<FileUploadProps> = (data) => {
         </div>
       )}
 
-      <button className='text-blue-700 mt-6' onClick={handleUpload}>
-        Submit
-      </button>
+      {file && (
+        <button className='text-blue-700 mt-6' onClick={handleUpload}>
+          Submit
+        </button>
+      )}
+
+      {/* button to clear the uploaded data */}
+
+      {file && (
+        <button
+          className="text-red-700 mt-6"
+          style={{ marginLeft: '10px' }}
+          onClick={() => setFile(null)}
+        >
+          Clear
+        </button>
+      )}
+
+      {uploadProgress > 0 && (
+        <div className="mt-4">
+          <h2 className="text-xl font-bold">Upload Progress</h2>
+          <progress value={uploadProgress} max="100" />
+          <p>{Math.round(uploadProgress)}%</p>
+        </div>
+      )}
     </div>
   );
 };

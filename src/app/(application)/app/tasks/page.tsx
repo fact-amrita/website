@@ -92,6 +92,10 @@ const TaskListPage: React.FC = () => {
           const deadline = new Date(task.deadline);
           return deadline >= today;
         });
+        remainingTasks = remainingTasks.filter(task => {
+          const startDate = new Date(task.startDate);
+          return startDate <= today;
+        });
         setRemainingTasks(remainingTasks);
       }
     };

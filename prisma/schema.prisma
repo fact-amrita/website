@@ -56,7 +56,7 @@ model Tasks {
   startDate   String
   deadline    String
   duration    String
-  creator     String
+  creator     String?
 }
 
 model Tickets {
