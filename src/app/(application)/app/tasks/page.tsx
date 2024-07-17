@@ -39,6 +39,7 @@ const TaskListPage: React.FC = () => {
   const [submittedTasks, setSubmittedTasks] = useState<CompletedTask[]>([]);
   const [remainingTasks, setRemainingTasks] = useState<Task[]>([]);
   const [userRole, setUserRole] = useState<string | null>(null);
+  const [userDomain, setuserDomain] = useState<string | null>(null);
   const { data: session, status } = useSession();
   const [TaskLists, setTaskLists] = useState<TaskListPage[]>([]);
 
@@ -54,6 +55,7 @@ const TaskListPage: React.FC = () => {
           domain: string;
         };
         setUserRole(UserDat.role);
+        setuserDomain(UserDat.domain.toLowerCase());
 
         const fetchedTaskLists = await TasksGet(UserDat.domain.toLowerCase());
         setTaskLists(fetchedTaskLists);
@@ -167,7 +169,7 @@ const TaskListPage: React.FC = () => {
           </div>
         </>)}
       {(userRole === "moderator" || userRole === "president") && (
-        <TaskValidation />
+        <TaskValidation domain={userDomain || ""} />
       )}
     </div>
   );

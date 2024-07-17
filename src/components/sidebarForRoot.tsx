@@ -47,7 +47,7 @@ function SidebarForRoot({ children, activeRoute, expanded, setExpanded }: Props)
     }
 
     if (userdat.role === 'member' || userdat.role === 'moderator' || userdat.role === 'president') {
-        sidebarItems.push({ route: '/app/tasks', icon: <Image src={TasksIcon} alt="Tasks" />, text: 'Tasks', active: false, alert: false });
+        sidebarItems.splice(1, 0, { route: '/app/tasks', icon: <Image src={TasksIcon} alt="Tasks" />, text: 'Tasks', active: false, alert: false });
     }
 
     return (

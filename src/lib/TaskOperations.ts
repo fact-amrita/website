@@ -166,21 +166,20 @@ export async function markTaskasComplete(factId: string, taskId: string, filekey
     });
 }
 
-export async function TaskSubmitted(taskId: string) {
-    const completedTasks = await db.completedTask.findMany({
+export async function TasksSubmitted(taskId: string) {
+    var completedTasks = await db.completedTask.findMany({
         where: {
             taskId: taskId
         }
     });
-
     return completedTasks;
 }
 
-export async function markTaskasValidating(taskId: string, factId: string) {
+export async function markTaskasValidating(factId: string, taskId: string) {
     const completedTask = await db.completedTask.findFirst({
         where: {
             taskId: taskId,
-            factID: factId
+            FactID: factId
         }
     });
 
@@ -194,6 +193,22 @@ export async function markTaskasValidating(taskId: string, factId: string) {
             status: "validating"
         }
     });
+}
+
+export async function isTaskValidating(factId: string, taskId: string) {
+    const pointsData = await db.points.findUnique({
+        where: {
+            FactID: factId,
+        },
+        include: {
+            completedTasks: true
+        }
+    });
+    if (pointsData?.completedTasks.find((task) => task.taskId === taskId && task.status === "validating")) {
+        return true;
+    } else {
+        return false;
+    }
 }
 
 export async function AwardMarks(taskId: string, factId: string, points: number) {
