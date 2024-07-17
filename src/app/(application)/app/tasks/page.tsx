@@ -5,6 +5,7 @@ import { TasksGet } from "@/lib/TaskOperations";
 import { SessionProvider, useSession } from "next-auth/react";
 import { getUserPendingTasks, getUserCompletedTasks } from "@/lib/UserFetch";
 import Link from "next/link";
+import TaskValidation from "@/components/tasks/TaskValidation";
 
 interface CompletedTask {
   tasknum: number;
@@ -166,18 +167,7 @@ const TaskListPage: React.FC = () => {
           </div>
         </>)}
       {(userRole === "moderator" || userRole === "president") && (
-        <div className="lg:w-1/2 flex-1 border rounded-lg p-4 bg-slate-600 shadow-md">
-          <div className="grid grid-cols-1 gap-4">
-            {TaskLists.map((task: TaskListPage, index: number) => (
-              <button
-                key={index}
-                className="border rounded-lg p-4 bg-white shadow-md w-full"
-              >
-                <h3 className="font-bold">{task.task}</h3>
-              </button>
-            ))}
-          </div>
-        </div>
+        <TaskValidation />
       )}
     </div>
   );

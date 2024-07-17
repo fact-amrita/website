@@ -37,7 +37,6 @@ function SidebarForRoot({ children, activeRoute, expanded, setExpanded }: Props)
     localStorage.setItem('factId', userdat.factId);
     const sidebarItems = [
         { route: '/app', icon: <Image src={DashboardIcon} alt="Dashboard" />, text: 'Dashboard', active: false, alert: false },
-        { route: '/app/tasks', icon: <Image src={TasksIcon} alt="Tasks" />, text: 'Tasks', active: false, alert: false },
         { route: '/app/leaderboard', icon: <Image src={LeaderboardIcon} alt="Leaderboard" />, text: 'LeaderBoard', active: false, alert: false },
         { route: '/app/profile', icon: <Image src={SearchIcon} alt="Search Users" />, text: 'Directory', active: false, alert: false },
         { route: '/app/ticket', icon: <Image src={ReportIssueIcon} alt="Report/Feedback" />, text: 'Report/Feedback', active: false, alert: false },
@@ -45,6 +44,10 @@ function SidebarForRoot({ children, activeRoute, expanded, setExpanded }: Props)
 
     if (userdat.role === 'admin' || userdat.role === 'moderator' || userdat.role === 'president') {
         sidebarItems.push({ route: '/app/administration', icon: <Image src={AdminIcon} alt="Administration" className='w-5' />, text: 'Administration', active: false, alert: false });
+    }
+
+    if (userdat.role === 'member' || userdat.role === 'moderator' || userdat.role === 'president') {
+        sidebarItems.push({ route: '/app/tasks', icon: <Image src={TasksIcon} alt="Tasks" />, text: 'Tasks', active: false, alert: false });
     }
 
     return (

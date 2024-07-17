@@ -180,7 +180,7 @@ export async function markTaskasValidating(taskId: string, factId: string) {
     const completedTask = await db.completedTask.findFirst({
         where: {
             taskId: taskId,
-            FactID: factId
+            factID: factId
         }
     });
 
