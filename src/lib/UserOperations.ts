@@ -47,3 +47,7 @@ export async function demoteUser(email: string) {
         }
     })
 }
+
+export async function updateProfile(factId:string){
+    
+}

@@ -25,50 +25,47 @@ const UserProfileEdit: React.FC = () => {
 
   return (
     <div className='justify-center items-center'>
-        <div className="max-w-md mx-auto bg-white p-8 mt-10 shadow-lg rounded-lg">
+      <div className="max-w-md mx-auto bg-white p-8 mt-10 shadow-lg rounded-lg">
         <h2 className="text-2xl font-bold mb-4">Edit User Profile</h2>
         <form onSubmit={handleSubmit}>
-            <div className="mb-4">
+          <div className="mb-4">
             <label className="block text-gray-700"> Name</label>
-            <p className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md bg-gray-100">
-                {formData.Name}
-            </p>
             <input
-                type="hidden"
-                name="Name"
-                value={formData.Name}
+              className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md bg-gray-100"
+              type="text"
+              name="Name"
+              value={formData.Name}
+              onChange={handleChange}
             />
-            </div>
-            <div className="mb-4">
-            <label className="block text-gray-700"> LinkedIn Profile</label>
-            <p className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md bg-gray-100">
-                {formData.LinkedinProfile}
-            </p>
+          </div>
+          <div className="mb-4">
+            <label className="block text-gray-700"> LinkedIn Profile URL</label>
             <input
-                type="hidden"
-                name="LinkedinProfile"
-                value={formData.LinkedinProfile}
+              className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md bg-gray-100"
+              type="text"
+              name="LinkedinProfile"
+              value={formData.LinkedinProfile}
+              onChange={handleChange}
             />
-            </div>
-            <div className="mb-4">
-            <label className="block text-gray-700">GitHub Profile</label>
-            <p className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md bg-gray-100">
-                {formData.GithubProfile}
-            </p>
+          </div>
+          <div className="mb-4">
+            <label className="block text-gray-700">GitHub Profile URL</label>
             <input
-                type="hidden"
-                name="GithubProfile"
-                value={formData.GithubProfile}
+              className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md bg-gray-100"
+              type="text"
+              name="GithubProfile"
+              value={formData.GithubProfile}
+              onChange={handleChange}
             />
-            </div>
-            <button
+          </div>
+          <button
             type="submit"
             className="w-full bg-indigo-500 text-white py-2 px-4 rounded-md hover:bg-indigo-600 transition duration-200"
-            >
+          >
             Save Changes
-            </button>
+          </button>
         </form>
-        </div>
+      </div>
     </div>
   );
 };
