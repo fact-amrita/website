@@ -10,9 +10,7 @@ import { SessionProvider, useSession } from "next-auth/react";
 import { getFact } from "@/lib/getFact";
 import { getAnnouncements, getEvents, getTimelines } from "@/lib/AdminOps";
 import { HoverEffect } from "@/components/dashboard/HoverEffect";
-import TimelineComponent from "@/components/dashboard/member/timeline";
 import Link from "next/link";
-
 
 const DashboardContent: React.FC = () => {
   const { data: session, status } = useSession();
@@ -26,8 +24,7 @@ const DashboardContent: React.FC = () => {
   const [events, setEvents] = useState<
     { visibleFrom: string | number | Date; visibleTill: string | number | Date; event: string; link: string }[]
   >([]);
-  const [timelineData, setTimelineData] = useState<{ date: string; title: string; }[]>([]);
-
+  const [timelineData, setTimelineData] = useState<{ date: string; title: string }[]>([]);
 
   useEffect(() => {
     if (messageParam) {
@@ -89,13 +86,12 @@ const DashboardContent: React.FC = () => {
       try {
         const response = await getTimelines();
         const formattedData = response.map((item) => ({
-          date: new Date(item.Date).toLocaleDateString('en-IN'),
+          date: new Date(item.Date).toLocaleDateString("en-IN"),
           title: item.Title,
         }));
-        console.log(formattedData);
         setTimelineData(formattedData);
       } catch (error) {
-        console.error('Error fetching timeline data:', error);
+        console.error("Error fetching timeline data:", error);
       }
     };
 
@@ -106,22 +102,20 @@ const DashboardContent: React.FC = () => {
     const fetchEventData = async () => {
       try {
         const response = await getEvents();
-        const formattedData: { visibleFrom: string | number | Date; visibleTill: string | number | Date; event: string; link: string; }[] = response.map((item) => ({
+        const formattedData: { visibleFrom: string | number | Date; visibleTill: string | number | Date; event: string; link: string }[] = response.map((item) => ({
           visibleFrom: item.Visiblefrom,
           visibleTill: item.VisibleTill,
           event: item.Description,
-          link: item.Link
+          link: item.Link,
         }));
-        console.log(formattedData);
         setEvents(formattedData);
       } catch (error) {
-        console.error('Error fetching timeline data:', error);
+        console.error("Error fetching timeline data:", error);
       }
     };
 
     fetchEventData();
   }, []);
-
 
   if (status === "loading") {
     return <p>Loading...</p>;
@@ -162,16 +156,24 @@ const DashboardContent: React.FC = () => {
     },
     {
       title: "Events",
-      content: <div>
-        {events.length != 0 ? (events.map((event) => (
-          <div key={event.event}>
-            <h2>{event.event}</h2>
-            {event.link && <p>Link: <Link href={event.link}>{event.link}</Link></p>}
-          </div>
-        ))
-        ) : <div>No events to show</div>
-        }
-      </div>,
+      content: (
+        <div>
+          {events.length !== 0 ? (
+            events.map((event) => (
+              <div key={event.event}>
+                <h2>{event.event}</h2>
+                {event.link && (
+                  <p>
+                    Link: <Link href={event.link}>{event.link}</Link>
+                  </p>
+                )}
+              </div>
+            ))
+          ) : (
+            <div>No events to show</div>
+          )}
+        </div>
+      ),
       span: 8,
     },
     {
@@ -191,13 +193,13 @@ const DashboardContent: React.FC = () => {
   ];
 
   return (
-    <div className="flex h-screen p-0 m-0 lg:flex-row flex-col">
+    <div className="flex flex-col lg:flex-row h-screen p-0 m-0">
       <div className="h-full w-full lg:w-4/5 bg-gradient-to-tr from-blue-700 via-gray-500 to-red-700 flex flex-col justify-center items-center p-4">
-        <div className="h-auto lg:h-1/9 text-white text-left lg:text-left mb-4 lg:mb-0">
+        <div className="text-white text-center lg:text-left mb-4 lg:mb-0">
           <h1 className="text-xl lg:text-2xl font-bold mb-6 mt-2">Hello, {userdat.name}</h1>
           <h1 className="text-xl lg:text-2xl font-bold mb-6">Welcome to the FACT Club</h1>
         </div>
-        <div className="h-full w-4/5">
+        <div className="w-full lg:w-4/5">
           <HoverEffect items={items} />
           <Leaderboard domain={userdat.domain} />
         </div>

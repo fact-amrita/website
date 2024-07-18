@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useState, ChangeEvent, FormEvent } from 'react';
+import { useSession, SessionProvider } from 'next-auth/react';
 
 const UserProfileEdit: React.FC = () => {
   const [formData, setFormData] = useState({
@@ -19,8 +20,7 @@ const UserProfileEdit: React.FC = () => {
 
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    // Add your form submission logic here, e.g., call an API to update user profile
-    console.log(formData); // For demonstration, logging the form data
+    console.log(formData); 
   };
 
   return (
@@ -70,4 +70,10 @@ const UserProfileEdit: React.FC = () => {
   );
 };
 
-export default UserProfileEdit;
+export default function UserProfileEditSession() {
+  return (
+    <SessionProvider>
+      <UserProfileEdit />
+    </SessionProvider>
+  );
+}
