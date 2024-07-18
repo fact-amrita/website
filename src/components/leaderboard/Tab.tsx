@@ -6,27 +6,53 @@ interface TableData {
   number: number;
   description: string;
   date: string;
-  time: string;
+  time?: string;
   points: number;
 }
 
-const TabbedComponent: React.FC = () => {
+interface Task {
+  id: string;
+  taskId: string;
+  FactID: string;
+  completeTime: string;
+  Filekey: string | null;
+  awarded: number | null;
+  status: string;
+  pointsId: string;
+};
+
+interface Component {
+  LifetimeList: any;
+  YearList:any
+}
+
+const TabbedComponent: React.FC<Component> = ({ LifetimeList, YearList }) => {
   const [activeTab, setActiveTab] = useState<string>('lifetime');
 
-  const lifetimeData: TableData[] = [
-    { number: 1, description: 'Assignment Points', date: '2024-01-01', time: '10:00 AM', points: 100 },
-    { number: 2, description: 'Task Points', date: '2024-02-01', time: '11:00 AM', points: 90 },
-  ];
+  const lifetimeData: TableData[] = [];
+  LifetimeList.forEach(async (task: any, index: any) => {
+    lifetimeData.push({
+      number: index + 1,
+      description: task.task,
+      date: task.completeTime,
+      points: task.awarded || 0
+    });
+  });
 
   const semesterData: TableData[] = [
     { number: 3, description: 'Forum Points', date: '2024-03-01', time: '12:00 PM', points: 80 },
     { number: 4, description: 'Penalty Points', date: '2024-04-01', time: '01:00 PM', points: 70 },
   ];
 
-  const academicYearData: TableData[] = [
-    { number: 5, description: 'Competition Points', date: '2024-05-01', time: '02:00 PM', points: 60 },
-    { number: 6, description: 'Overdue Points', date: '2024-06-01', time: '03:00 PM', points: 50 },
-  ];
+  const academicYearData: TableData[] = [];
+  YearList.forEach(async (task: any, index: any) => {
+    academicYearData.push({
+      number: index + 1,
+      description: task.task,
+      date: task.completeTime,
+      points: task.awarded || 0
+    });
+  });
 
   const MAX_ROWS = 10;
 
@@ -35,8 +61,7 @@ const TabbedComponent: React.FC = () => {
       <tr key={index}>
         <td className="border px-4 py-2 text-black">{row.number}</td>
         <td className="border px-4 py-2 text-black">{row.description}</td>
-        <td className="border px-4 py-2 text-black">{row.date}</td>
-        <td className="border px-4 py-2 text-black">{row.time}</td>
+        <td className="border px-4 py-2 text-black">{new Date('2024-07-10T12:54:58.923Z').toLocaleDateString('en-GB').replace(/\//g, '-')}</td>
         <td className="border px-4 py-2 text-black">{row.points}</td>
       </tr>
     ));
@@ -45,11 +70,10 @@ const TabbedComponent: React.FC = () => {
     for (let i = rows.length; i < MAX_ROWS; i++) {
       rows.push(
         <tr key={i}>
-          <td className="border px-4 py-2 text-black">-</td>
-          <td className="border px-4 py-2 text-black">-</td>
-          <td className="border px-4 py-2 text-black">-</td>
-          <td className="border px-4 py-2 text-black">-</td>
-          <td className="border px-4 py-2 text-black">-</td>
+          <td className="border px-4 py-2 text-black">ㅤ</td>
+          <td className="border px-4 py-2 text-black">ㅤ</td>
+          <td className="border px-4 py-2 text-black">ㅤ</td>
+          <td className="border px-4 py-2 text-black">ㅤ</td>
         </tr>
       );
     }
@@ -87,7 +111,6 @@ const TabbedComponent: React.FC = () => {
                 <th className="border px-4 py-2 text-black">Number</th>
                 <th className="border px-4 py-2 text-black">Description</th>
                 <th className="border px-4 py-2 text-black">Date</th>
-                <th className="border px-4 py-2 text-black">Time</th>
                 <th className="border px-4 py-2 text-black">Points</th>
               </tr>
             </thead>

@@ -227,7 +227,8 @@ export async function AwardMarks(taskId: string, factId: string, points: number)
         },
         data: {
             status: "completed",
-            awarded: points
+            awarded: points,
+            submissionYear: new Date().getFullYear().toString()
         }
     });
 
@@ -249,4 +250,36 @@ export async function AwardMarks(taskId: string, factId: string, points: number)
             }
         }
     });
+}
+
+// Leaderboard calls
+
+export async function getLifetimePoints(factId: string) {
+    const output = await db.completedTask.findMany({ where: { FactID: factId, status: 'completed' } });
+
+    var points = 0;
+    const list = await Promise.all(output.map(async (task) => {
+        const taskData = await db.tasks.findUnique({ where: { TaskId: task.taskId } });
+        points += task.awarded || 0;
+        return {
+            ...task,
+            task: taskData?.task || ""
+        }
+    }));
+    return { list, points };
+}
+
+export async function getYearPoints(factId: string) {
+    const output = await db.completedTask.findMany({ where: { FactID: factId, status: 'completed', submissionYear: new Date().getFullYear().toString() } });
+
+    var yearpoints = 0;
+    const yearlist = await Promise.all(output.map(async (task) => {
+        const taskData = await db.tasks.findUnique({ where: { TaskId: task.taskId } });
+        yearpoints += task.awarded || 0;
+        return {
+            ...task,
+            task: taskData?.task || ""
+        }
+    }));
+    return { yearlist, yearpoints };
 }
