@@ -32,6 +32,7 @@ model User {
   role         String
   FactID       String  @unique
   domain       String
+  semester     String?
   phone        BigInt?
   birthday     String?
   linkedInURL  String?
@@ -79,16 +80,17 @@ model Points {
 }
 
 model CompletedTask {
-  id             String  @id @default(auto()) @map("_id") @db.ObjectId
-  taskId         String
-  FactID         String
-  completeTime   String
-  Filekey        String?
-  awarded        Int?
-  status         String
-  submissionYear String?
-  pointsId       String  @db.ObjectId
-  points         Points  @relation(fields: [pointsId], references: [id])
+  id                 String  @id @default(auto()) @map("_id") @db.ObjectId
+  taskId             String
+  FactID             String
+  completeTime       String
+  Filekey            String?
+  awarded            Int?
+  status             String
+  submissionYear     String?
+  submissionSemester String?
+  pointsId           String  @db.ObjectId
+  points             Points  @relation(fields: [pointsId], references: [id])
 }
 
 model PendingTask {

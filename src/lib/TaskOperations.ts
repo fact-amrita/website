@@ -219,6 +219,14 @@ export async function AwardMarks(taskId: string, factId: string, points: number)
         }
     });
 
+    const userData = await db.user.findUnique({
+        where: {
+            FactID: factId
+        }
+    });
+
+    const semester = userData?.semester || "0";
+
     if (!completedTask) return null;
 
     await db.completedTask.update({
@@ -228,7 +236,8 @@ export async function AwardMarks(taskId: string, factId: string, points: number)
         data: {
             status: "completed",
             awarded: points,
-            submissionYear: new Date().getFullYear().toString()
+            submissionYear: new Date().getFullYear().toString(),
+            submissionSemester: semester
         }
     });
 
@@ -282,4 +291,25 @@ export async function getYearPoints(factId: string) {
         }
     }));
     return { yearlist, yearpoints };
+}
+
+export async function getSemesterPoints(factId: string) {
+    const userdata = await db.user.findUnique({
+        where: {
+            FactID: factId
+        }
+    });
+    const semester = userdata?.semester || "0";
+    const output = await db.completedTask.findMany({ where: { FactID: factId, status: 'completed', submissionSemester: semester } });
+
+    var sempoints = 0;
+    const semlist = await Promise.all(output.map(async (task) => {
+        const taskData = await db.tasks.findUnique({ where: { TaskId: task.taskId } });
+        sempoints += task.awarded || 0;
+        return {
+            ...task,
+            task: taskData?.task || ""
+        }
+    }));
+    return { semlist, sempoints };
 }

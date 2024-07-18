@@ -19,18 +19,6 @@ const Leaderboard: React.FC<LeaderBoardInterface> = (domain) => {
   useEffect(() => {
     const fetchLeaderboard = async () => {
       try {
-        const mockEntries: LeaderboardEntry[] = [
-          { rank: 1, name: "Alice", points: 1000 },
-          { rank: 2, name: "Bob", points: 950 },
-          { rank: 3, name: "Charlie", points: 900 },
-          { rank: 4, name: "David", points: 850 },
-          { rank: 5, name: "Eve", points: 800 },
-          { rank: 6, name: "Frank", points: 750 },
-          { rank: 7, name: "Grace", points: 700 },
-          { rank: 8, name: "Hank", points: 650 },
-          { rank: 9, name: "Ivy", points: 600 },
-          { rank: 10, name: "Jack", points: 550 },
-        ];
         const leaderboardData = await getLeaderboard(domain.domain);
 
         const leaderboardDataWithRank = leaderboardData.map((entry, index) => ({

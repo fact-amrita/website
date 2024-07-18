@@ -2,7 +2,7 @@
 
 import { db } from "@/lib/db";
 import { promoteUser } from "@/lib/UserOperations";
-import { SignOutfromAll } from "@/lib/signout";
+import { classifySemester } from "@/functions/semesterClassifier"
 
 export default async function DataSave(dataGot: any) {
 
@@ -26,6 +26,8 @@ export default async function DataSave(dataGot: any) {
     }
 
     const factID = "FACT_" + DataDict["branch"] + "_" + DataDict["RollNumber"]
+
+    const semester = classifySemester(DataDict["RollNumber"]);
 
     const IDExisting = await db.user.findUnique({
         where: {
@@ -56,6 +58,7 @@ export default async function DataSave(dataGot: any) {
             HTMLCSSExp: DataDict["htmlcssexp"],
             PythonExp: DataDict["pyexp"],
             JSExp: DataDict["jsexp"],
+            semester: semester
         }
     })
 

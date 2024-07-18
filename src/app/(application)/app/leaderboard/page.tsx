@@ -5,7 +5,7 @@ import Tab from "@/components/leaderboard/Tab";
 import RanksTable from "@/components/leaderboard/RanksTable";
 import TotalPoints from "@/components/leaderboard/totalpoints";
 import { useSession, SessionProvider } from "next-auth/react";
-import { getLifetimePoints, getYearPoints } from "@/lib/TaskOperations";
+import { getLifetimePoints, getYearPoints, getSemesterPoints } from "@/lib/TaskOperations";
 
 const LeaderboardPage = () => {
   const { data: session, status } = useSession();
@@ -15,6 +15,9 @@ const LeaderboardPage = () => {
 
   const [YearList, setYearList] = useState<any>([]);
   const [YearPoints, setYearPoints] = useState(0);
+
+  const [SemList, setSemList] = useState<any>([]);
+  const [SemPoints, setSemPoints] = useState(0);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -26,6 +29,10 @@ const LeaderboardPage = () => {
         const { yearlist, yearpoints } = await getYearPoints(window.localStorage.getItem('factId') || '');
         setYearList(yearlist);
         setYearPoints(yearpoints);
+
+        const { semlist, sempoints } = await getSemesterPoints(window.localStorage.getItem('factId') || '');
+        setSemList(semlist);
+        setSemPoints(sempoints);
       } catch (e) {
         console.error(e);
       }
@@ -48,13 +55,13 @@ const LeaderboardPage = () => {
   return (
     <div className="grid grid-cols-8 grid-rows-1 bg-transparent rounded shadow-lg w-full h-full ml-18 ">
       <div className="col-span-5 row-span-1 ml-20 mt-4">
-        <Tab LifetimeList={LifetimeList} YearList={YearList} />
+        <Tab LifetimeList={LifetimeList} YearList={YearList} SemList={SemList} />
       </div>
       <div className="col-span-3 row-span-1 mr-0 mt-2" >
         <RanksTable userDomain={userdat.domain} presentUser={userdat.name} />
       </div>
       <div className="col-span-5 row-span-3 ml-20">
-        <TotalPoints LifeTimepts={totalpoints} SemesterPts={0} AcademicYearPts={YearPoints} />
+        <TotalPoints LifeTimepts={totalpoints} SemesterPts={SemPoints} AcademicYearPts={YearPoints} />
       </div>
     </div>
   );

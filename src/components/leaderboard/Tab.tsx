@@ -23,10 +23,11 @@ interface Task {
 
 interface Component {
   LifetimeList: any;
-  YearList:any
+  YearList: any;
+  SemList: any
 }
 
-const TabbedComponent: React.FC<Component> = ({ LifetimeList, YearList }) => {
+const TabbedComponent: React.FC<Component> = ({ LifetimeList, YearList, SemList }) => {
   const [activeTab, setActiveTab] = useState<string>('lifetime');
 
   const lifetimeData: TableData[] = [];
@@ -39,10 +40,15 @@ const TabbedComponent: React.FC<Component> = ({ LifetimeList, YearList }) => {
     });
   });
 
-  const semesterData: TableData[] = [
-    { number: 3, description: 'Forum Points', date: '2024-03-01', time: '12:00 PM', points: 80 },
-    { number: 4, description: 'Penalty Points', date: '2024-04-01', time: '01:00 PM', points: 70 },
-  ];
+  const semesterData: TableData[] = [];
+  SemList.forEach(async (task: any, index: any) => {
+    semesterData.push({
+      number: index + 1,
+      description: task.task,
+      date: task.completeTime,
+      points: task.awarded || 0
+    });
+  });
 
   const academicYearData: TableData[] = [];
   YearList.forEach(async (task: any, index: any) => {
