@@ -4,9 +4,12 @@ import React, { useState, ChangeEvent, FormEvent, useEffect } from 'react';
 import { useSession, SessionProvider } from 'next-auth/react';
 import { getUserByFactID } from "@/lib/UserFetch";
 import { updateProfile } from "@/lib/UserOperations";
+import Swal from 'sweetalert2'
+import withReactContent from 'sweetalert2-react-content'
 
 const UserProfileEdit: React.FC = () => {
   const { data: session, status } = useSession();
+  const MySwal = withReactContent(Swal)
 
   const [formData, setFormData] = useState({
     Name: '',
@@ -47,9 +50,17 @@ const UserProfileEdit: React.FC = () => {
     }
     const output = await updateProfile(factId, formData.Name, formData.GithubProfile, formData.LinkedinProfile);
     if (output) {
-      alert('Profile updated successfully');
+      MySwal.fire({
+        title: "Successful!",
+        text: "Profile Updated Successfully",
+        icon: "success"
+      });
     } else {
-      alert('Error updating profile');
+      MySwal.fire({
+        title: "Failed !",
+        text: "Profile Update Failed",
+        icon: "error"
+      });
     }
   };
 

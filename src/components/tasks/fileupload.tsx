@@ -1,5 +1,7 @@
 import React, { useState, useRef } from 'react';
 import { FaUpload } from "react-icons/fa";
+import Swal from 'sweetalert2'
+import withReactContent from 'sweetalert2-react-content'
 
 interface FileUploadProps {
   taskid?: string;
@@ -11,6 +13,7 @@ const FileUpload: React.FC<FileUploadProps> = (data) => {
   const [isDraggingOver, setIsDraggingOver] = useState(false);
   const [uploadProgress, setUploadProgress] = useState<number>(0);
   const fileInputRef = useRef<HTMLInputElement>(null);
+  const MySwal = withReactContent(Swal)
 
   const handleDragOver = (e: React.DragEvent<HTMLDivElement>) => {
     e.preventDefault();
@@ -42,19 +45,33 @@ const FileUpload: React.FC<FileUploadProps> = (data) => {
 
   const handleUpload = async () => {
     if (!file) {
-      alert('No file selected for upload.');
+      MySwal.fire({
+        title: "Failed !",
+        text: "No file selected for upload.",
+        icon: "error"
+      });
       return;
     }
 
     if (file.size > 5 * 1024 * 1024) {
-      alert('File size exceeds the maximum limit of 5MB.');
+      MySwal.fire({
+        title: "Failed !",
+        text: "File size exceeds the maximum limit of 5MB.",
+        icon: "error"
+      });
       return;
     }
 
     const formData = new FormData();
     formData.append('file', file);
 
-    if (!data.factid || !data.taskid) alert('No factid or taskid');
+    if (!data.factid || !data.taskid) {
+      MySwal.fire({
+        title: "Failed !",
+        text: "No factid or taskid",
+        icon: "error"
+      });
+    };
 
     try {
       const response = await fetch(`/api/upload/${data.factid}/${data.taskid}`, {

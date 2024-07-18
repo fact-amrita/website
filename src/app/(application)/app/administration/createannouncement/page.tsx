@@ -7,8 +7,11 @@ import 'react-datepicker/dist/react-datepicker.css';
 import Button from '@/components/ui/Button';
 import ErrorBoundary from "@/components/errorboundary";
 import { createAnnouncement } from '@/lib/AdminOps';
+import Swal from 'sweetalert2'
+import withReactContent from 'sweetalert2-react-content'
 
 const CreateAnnouncementForm: React.FC = () => {
+  const MySwal = withReactContent(Swal)
   const [visibleFromDate, setVisibleFromDate] = useState<Date | null>(null);
   const [visibleToDate, setVisibleToDate] = useState<Date | null>(null);
   const [description, setDescription] = useState('');
@@ -17,13 +20,21 @@ const CreateAnnouncementForm: React.FC = () => {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!visibleFromDate || !visibleToDate || !description) {
-      alert('Please fill in all fields');
+      MySwal.fire({
+        title: "Failed !",
+        text: "Please fill in all fields",
+        icon: "error"
+      });
       return;
     }
     const announcement = await createAnnouncement(visibleFromDate.toISOString(), visibleToDate.toISOString(), description);
 
     if (!announcement) {
-      alert('Failed to create announcement');
+      MySwal.fire({
+        title: "Failed !",
+        text: "Failed to create announcement",
+        icon: "error"
+      });
     } else {
       router.push('/app/administration');
     }

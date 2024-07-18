@@ -7,6 +7,8 @@ import 'react-datepicker/dist/react-datepicker.css';
 import Button from '@/components/ui/Button';
 import ErrorBoundary from '@/components/errorboundary';
 import { createEvent } from '@/lib/AdminOps';
+import Swal from 'sweetalert2'
+import withReactContent from 'sweetalert2-react-content'
 
 const CreateEventForm: React.FC = () => {
   const [visibleFromDate, setVisibleFromDate] = useState<Date | null>(null);
@@ -14,12 +16,17 @@ const CreateEventForm: React.FC = () => {
   const [description, setDescription] = useState('');
   const [link, setLink] = useState('');
   const router = useRouter();
+  const MySwal = withReactContent(Swal)
 
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     if (!visibleFromDate || !visibleToDate || !description ) {
-      alert('Please fill in all fields');
+      MySwal.fire({
+        title: "Failed !",
+        text: "Please fill in all fields",
+        icon: "error"
+      });
       return;
     }
     createEvent(description, visibleFromDate.toString(), visibleToDate.toString(), link);
