@@ -8,7 +8,7 @@ import Leaderboard from "@/components/dashboard/leaderboard";
 import { Toaster } from "@/components/ui/toaster";
 import { SessionProvider, useSession } from "next-auth/react";
 import { getFact } from "@/lib/getFact";
-import { getAnnouncements, getEvents } from "@/lib/AdminOps";
+import { getAnnouncements, getEvents, getTimelines } from "@/lib/AdminOps";
 import { HoverEffect } from "@/components/dashboard/HoverEffect"; 
 import TimelineComponent from "@/components/dashboard/member/timeline";
 
@@ -25,6 +25,7 @@ const DashboardContent: React.FC = () => {
   const [events, setEvents] = useState<
   { visibleFrom: string | number | Date; visibleTill: string | number | Date; event: string; }[]
   >([]);
+  const [timelineData, setTimelineData] = useState<{ date: string; title: string; }[]>([]);
 
 
   useEffect(() => {
@@ -80,6 +81,24 @@ const DashboardContent: React.FC = () => {
     };
 
     fetchAnnouncements();
+  }, []);
+
+  useEffect(() => {
+    const fetchTimelineData = async () => {
+      try {
+        const response = await getTimelines();
+        const formattedData = response.map((item) => ({
+          date: new Date(item.Date).toLocaleDateString('en-IN'),
+          title: item.Title,
+        }));
+        console.log(formattedData);
+        setTimelineData(formattedData);
+      } catch (error) {
+        console.error('Error fetching timeline data:', error);
+      }
+    };
+
+    fetchTimelineData();
   }, []);
 
   useEffect(() => {
@@ -145,7 +164,16 @@ const DashboardContent: React.FC = () => {
     },
     {
       title: "Timeline",
-      content: <TimelineComponent />,
+      content: (
+        <div>
+          {timelineData.map((item, index) => (
+            <div key={index} className="flex justify-between mb-2">
+              <p className="mr-3">{item.date}</p>
+              <p>{item.title}</p>
+            </div>
+          ))}
+        </div>
+      ),
       span: 4,
     },
   ];
