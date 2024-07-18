@@ -1,14 +1,35 @@
 "use client";
 
-import React, { useState, ChangeEvent, FormEvent } from 'react';
+import React, { useState, ChangeEvent, FormEvent, useEffect } from 'react';
 import { useSession, SessionProvider } from 'next-auth/react';
+import { getUserByFactID } from "@/lib/UserFetch";
+import { updateProfile } from "@/lib/UserOperations";
 
 const UserProfileEdit: React.FC = () => {
+  const { data: session, status } = useSession();
+
   const [formData, setFormData] = useState({
-    Name: 'John Doe',
-    LinkedinProfile: 'https://www.linkedin.com/in/johnnydoe',
-    GithubProfile: 'https://github.com/johnnydoe',
+    Name: '',
+    LinkedinProfile: '',
+    GithubProfile: '',
   });
+
+  useEffect(() => {
+    const fetchingData = async () => {
+      const factId = window.localStorage.getItem('factId');
+      if (factId) {
+        const userData = await getUserByFactID(factId);
+        if (userData) {
+          setFormData({
+            Name: userData.name,
+            LinkedinProfile: userData.linkedInURL || '',
+            GithubProfile: userData.githubURL || '',
+          });
+        }
+      }
+    }
+    fetchingData();
+  }, []);
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
@@ -18,10 +39,39 @@ const UserProfileEdit: React.FC = () => {
     });
   };
 
-  const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    console.log(formData); 
+    const factId = window.localStorage.getItem('factId');
+    if (!factId) {
+      return;
+    }
+    const output = await updateProfile(factId, formData.Name, formData.GithubProfile, formData.LinkedinProfile);
+    if (output) {
+      alert('Profile updated successfully');
+    } else {
+      alert('Error updating profile');
+    }
   };
+
+  if (status === "loading") {
+    return <p>Loading...</p>;
+  }
+
+  if (!session || !session.user) {
+    return (
+      <div className="flex justify-center items-center h-screen">
+        <div className="text-red-500 text-2xl">You need to be logged in to access your profile.</div>
+      </div>
+    );
+  }
+  const userdat = session.user as { name: string; email: string; role: string; image: string; domain: string; factId: string; };
+  if (!userdat.factId) {
+    return (
+      <div className="flex justify-center items-center h-screen">
+        <div className="text-red-500 text-2xl">You do not have a profile with us.</div>
+      </div>
+    );
+  }
 
   return (
     <div className='justify-center items-center'>

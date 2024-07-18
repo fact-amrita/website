@@ -48,6 +48,20 @@ export async function demoteUser(email: string) {
     })
 }
 
-export async function updateProfile(factId:string){
-    
+export async function updateProfile(factId: string, Name: string, githubURL: string, linkedInURL: string) {
+    try {
+        await db.user.update({
+            where: {
+                FactID: factId
+            },
+            data: {
+                name: Name,
+                githubURL: githubURL,
+                linkedInURL: linkedInURL
+            }
+        })
+    } catch (e) {
+        return false
+    }
+    return true;
 }
