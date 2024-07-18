@@ -3,7 +3,7 @@ import React, { useState, createContext, useContext, ReactNode, FC } from 'react
 import { ChevronLast, ChevronFirst } from 'lucide-react'; // Fallback icons
 import Image from "next/image";
 import getTitle from "@/functions/titleget";
-import logo from "@/images/logo_black.png";
+import logo from "@/public/images/logo_black.png";
 import Link from 'next/link'; 
 
 interface SidebarContextType {

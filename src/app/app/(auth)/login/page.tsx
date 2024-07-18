@@ -5,7 +5,7 @@ import { FcGoogle } from "react-icons/fc";
 import { FaGithub } from "react-icons/fa";
 import { useEffect } from "react";
 import Image from "next/image";
-import logo from "@/images/logo.png";
+import logo from "@/public/images/logo.png";
 import { Poppins } from "next/font/google";
 import { useToast } from "@/components/ui/use-toast";
 import { Toaster } from "@/components/ui/toaster";

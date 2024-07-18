@@ -88,8 +88,8 @@ const TabbedComponent: React.FC<Component> = ({ LifetimeList, YearList, SemList 
   };
 
   return (
-    <div className="p-4 w-full">
-      <div className="flex justify-between mb-4 w-full">
+    <div className="p-4 w-full overflow-hidden">
+      <div className="flex justify-between mb-1 w-full">
         <button
           onClick={() => setActiveTab('lifetime')}
           className={`px-4 py-2 border rounded-lg ${activeTab === 'lifetime' ? 'bg-gradient-to-tr from-blue-700 via-black to-red-700 text-white' : 'bg-gray-700'}`}

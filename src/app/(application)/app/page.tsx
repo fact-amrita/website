@@ -124,7 +124,7 @@ const DashboardContent: React.FC = () => {
   if (!session || !session.user) {
     return (
       <div className="flex justify-center items-center h-screen">
-        <div className="text-red-500 text-2xl">You need to be logged in to access your profile.</div>
+        <div className="text-white text-3xl">You need to be logged in to access your profile.</div>
       </div>
     );
   }
@@ -193,13 +193,13 @@ const DashboardContent: React.FC = () => {
   ];
 
   return (
-    <div className="flex flex-col lg:flex-row h-screen p-0 m-0">
+    <div className="flex flex-col lg:flex-row h-screen p-0 m-0 overflow-clip">
       <div className="h-full w-full lg:w-4/5 bg-gradient-to-tr from-blue-700 via-gray-500 to-red-700 flex flex-col justify-center items-center p-4">
         <div className="text-white text-center lg:text-left mb-4 lg:mb-0">
           <h1 className="text-xl lg:text-2xl font-bold mb-6 mt-2">Hello, {userdat.name}</h1>
           <h1 className="text-xl lg:text-2xl font-bold mb-6">Welcome to the FACT Club</h1>
         </div>
-        <div className="w-full lg:w-4/5">
+        <div className="w-full lg:w-4/5 overflow-y-clip">
           <HoverEffect items={items} />
           <Leaderboard domain={userdat.domain} />
         </div>
