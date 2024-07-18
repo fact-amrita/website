@@ -65,10 +65,10 @@ const TabbedComponent: React.FC<Component> = ({ LifetimeList, YearList, SemList 
   const renderTableRows = (data: TableData[]) => {
     const rows = data.map((row, index) => (
       <tr key={index}>
-        <td className="border px-4 py-2 text-black">{row.number}</td>
-        <td className="border px-4 py-2 text-black">{row.description}</td>
-        <td className="border px-4 py-2 text-black">{new Date('2024-07-10T12:54:58.923Z').toLocaleDateString('en-GB').replace(/\//g, '-')}</td>
-        <td className="border px-4 py-2 text-black">{row.points}</td>
+        <td className="border border-black px-4 py-2 text-black">{row.number}</td>
+        <td className="border border-black px-4 py-2 text-black">{row.description}</td>
+        <td className="border border-black px-4 py-2 text-black">{new Date('2024-07-10T12:54:58.923Z').toLocaleDateString('en-GB').replace(/\//g, '-')}</td>
+        <td className="border border-black px-4 py-2 text-black">{row.points}</td>
       </tr>
     ));
 
@@ -76,10 +76,10 @@ const TabbedComponent: React.FC<Component> = ({ LifetimeList, YearList, SemList 
     for (let i = rows.length; i < MAX_ROWS; i++) {
       rows.push(
         <tr key={i}>
-          <td className="border px-4 py-2 text-black">ㅤ</td>
-          <td className="border px-4 py-2 text-black">ㅤ</td>
-          <td className="border px-4 py-2 text-black">ㅤ</td>
-          <td className="border px-4 py-2 text-black">ㅤ</td>
+          <td className="border border-black px-4 py-2 text-black">ㅤ</td>
+          <td className="border border-black px-4 py-2 text-black">ㅤ</td>
+          <td className="border border-black px-4 py-2 text-black">ㅤ</td>
+          <td className="border border-black px-4 py-2 text-black">ㅤ</td>
         </tr>
       );
     }
@@ -88,36 +88,36 @@ const TabbedComponent: React.FC<Component> = ({ LifetimeList, YearList, SemList 
   };
 
   return (
-    <div className="p-4 w-full  ">
+    <div className="p-4 w-full">
       <div className="flex justify-between mb-4 w-full">
         <button
           onClick={() => setActiveTab('lifetime')}
-          className={`px-4 py-2 border rounded-lg ${activeTab === 'lifetime' ? 'bg-gradient-to-tr from-blue-700 via-black to-red-700' : 'bg-gray-700'}`}
+          className={`px-4 py-2 border rounded-lg ${activeTab === 'lifetime' ? 'bg-gradient-to-tr from-blue-700 via-black to-red-700 text-white' : 'bg-gray-700'}`}
         >
           Lifetime
         </button>
         <button
           onClick={() => setActiveTab('semester')}
-          className={`px-4 py-2 border rounded-lg ${activeTab === 'semester' ? 'bg-gradient-to-tr from-blue-700 via-black to-red-700' : 'bg-gray-700'}`}
+          className={`px-4 py-2 border rounded-lg ${activeTab === 'semester' ? 'bg-gradient-to-tr from-blue-700 via-black to-red-700 text-white' : 'bg-gray-700'}`}
         >
           Semester
         </button>
         <button
           onClick={() => setActiveTab('academicYear')}
-          className={`px-4 py-2 border rounded-lg ${activeTab === 'academicYear' ? 'bg-gradient-to-tr from-blue-700 via-black to-red-700' : 'bg-gray-700'}`}
+          className={`px-4 py-2 border rounded-lg ${activeTab === 'academicYear' ? 'bg-gradient-to-tr from-blue-700 via-black to-red-700 text-white' : 'bg-gray-700'}`}
         >
           Academic Year
         </button>
       </div>
       <div className="flex justify-center">
         <div className="overflow-x-auto w-full">
-          <table className="w-full bg-white border-collapse border border-gray-200">
+          <table className="w-full bg-slate-200 border-collapse border border-black">
             <thead>
               <tr>
-                <th className="border px-4 py-2 text-black">Number</th>
-                <th className="border px-4 py-2 text-black">Description</th>
-                <th className="border px-4 py-2 text-black">Date</th>
-                <th className="border px-4 py-2 text-black">Points</th>
+                <th className="border border-black px-4 py-2 text-black">Number</th>
+                <th className="border border-black px-4 py-2 text-black">Description</th>
+                <th className="border border-black px-4 py-2 text-black">Date</th>
+                <th className="border border-black px-4 py-2 text-black">Points</th>
               </tr>
             </thead>
             <tbody>
