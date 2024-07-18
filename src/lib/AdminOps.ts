@@ -82,3 +82,31 @@ export async function getEvents() {
     });
     return events;
 }
+
+export async function changeSemester(year: string, semester: string) {
+    const users = await db.user.findMany();
+
+    const filteredUsers = users.filter((user) => {
+        const factId = user.FactID;
+        return factId.split("_")[2].slice(0, 2) == year;
+    });
+
+    try {
+        for (const user of filteredUsers) {
+            await db.user.update({
+                where: {
+                    id: user.id,
+                },
+                data: {
+                    semester,
+                },
+            });
+        }
+    }
+    catch (e) {
+        console.log(e);
+        return false;
+    }
+
+    return true;
+}
