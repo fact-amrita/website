@@ -10,15 +10,16 @@ interface Event {
 }
 
 const Timeline = () => {
-
   const [events, setEvents] = useState<Event[]>([]);
-  const [input, setInput] = useState<string>('');
+  const [title, setTitle] = useState<string>('');
+  const [date, setDate] = useState<string>('');
 
   const addEvent = async () => {
-    if (input.trim()) {
-      const timelines = await addToTimeline(input.trim(), new Date().toISOString());
+    if (title.trim() && date.trim()) {
+      const timelines = await addToTimeline(title.trim(), date.trim());
       setEvents(timelines);
-      setInput('');
+      setTitle('');
+      setDate('');
     }
   };
 
@@ -36,33 +37,43 @@ const Timeline = () => {
     setEvents(timelines);
   };
 
-  const handleInputChange = (e: ChangeEvent<HTMLInputElement>) => {
-    setInput(e.target.value);
+  const handleTitleChange = (e: ChangeEvent<HTMLInputElement>) => {
+    setTitle(e.target.value);
+  };
+
+  const handleDateChange = (e: ChangeEvent<HTMLInputElement>) => {
+    setDate(e.target.value);
   };
 
   return (
     <div className="min-h-screen bg-gradient-to-r from-red-200 via-purple-300 to-sky-300 p-4">
       <div className="max-w-4xl mx-auto bg-white rounded-lg shadow-lg p-6">
         <h1 className="text-2xl font-bold mb-4">Timeline</h1>
-        <div className="flex mb-4">
+        <div className="flex flex-col mb-4 space-y-2">
           <input
             type="text"
-            value={input}
-            onChange={handleInputChange}
+            value={title}
+            onChange={handleTitleChange}
             className="border rounded p-2 flex-grow"
             placeholder="Add new event"
           />
+          <input
+            type="date"
+            value={date}
+            onChange={handleDateChange}
+            className="border rounded p-2 flex-grow"
+          />
           <button
             onClick={addEvent}
-            className="ml-2 bg-blue-500 text-white p-2 rounded"
+            className="bg-blue-500 text-white p-2 rounded mt-2"
           >
             Add
           </button>
         </div>
         <ul>
           {events.map(event => (
-            <li className="mb-2 flex justify-between items-center">
-              <span>{event.Title}</span>
+            <li key={event.id} className="mb-2 flex justify-between items-center">
+              <span>{event.Date} - {event.Title}</span>
               <button
                 onClick={() => deleteEvent(event.id)}
                 className="bg-red-500 text-white p-1 rounded"
