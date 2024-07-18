@@ -46,9 +46,9 @@ const AdminPage = () => {
           <button className="w-full p-4 bg-yellow-500 text-white rounded-lg hover:bg-yellow-700 transition duration-300" onClick={() => handleNavigation('/app/administration/addtimeline')}>
             Add Important dates to Calendar
           </button>
-          <button className="w-full p-4 bg-purple-500 text-white rounded-lg hover:bg-purple-700 transition duration-300" onClick={() => handleNavigation('/app/administration/changesemester')}>
+          {(userdat.role) == "admin" && (<button className="w-full p-4 bg-purple-500 text-white rounded-lg hover:bg-purple-700 transition duration-300" onClick={() => handleNavigation('/app/administration/changesemester')}>
             Change semester
-          </button>
+          </button>)}
         </div>
       </div>
       <div className="flex-1 flex items-center justify-center">

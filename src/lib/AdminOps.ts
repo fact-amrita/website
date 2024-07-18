@@ -27,14 +27,6 @@ export async function getAnnouncements() {
 
 export async function getTimelines() {
     var timelines = await db.timeline.findMany();
-
-    // timelines = timelines.filter((timelines) => {
-    //     const visibleFrom = new Date(timelines.Visiblefrom);
-    //     const visibleTill = new Date(timelines.VisibleTill);
-    //     const currentDate = new Date();
-    //     return visibleFrom <= currentDate && currentDate <= visibleTill;
-    // });
-
     return timelines;
 }
 

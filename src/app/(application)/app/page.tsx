@@ -9,8 +9,9 @@ import { Toaster } from "@/components/ui/toaster";
 import { SessionProvider, useSession } from "next-auth/react";
 import { getFact } from "@/lib/getFact";
 import { getAnnouncements, getEvents, getTimelines } from "@/lib/AdminOps";
-import { HoverEffect } from "@/components/dashboard/HoverEffect"; 
+import { HoverEffect } from "@/components/dashboard/HoverEffect";
 import TimelineComponent from "@/components/dashboard/member/timeline";
+import Link from "next/link";
 
 
 const DashboardContent: React.FC = () => {
@@ -23,7 +24,7 @@ const DashboardContent: React.FC = () => {
     { id: string; Announcement: string; Visiblefrom: string; VisibleTill: string }[]
   >([]);
   const [events, setEvents] = useState<
-  { visibleFrom: string | number | Date; visibleTill: string | number | Date; event: string; }[]
+    { visibleFrom: string | number | Date; visibleTill: string | number | Date; event: string; link: string }[]
   >([]);
   const [timelineData, setTimelineData] = useState<{ date: string; title: string; }[]>([]);
 
@@ -105,11 +106,13 @@ const DashboardContent: React.FC = () => {
     const fetchEventData = async () => {
       try {
         const response = await getEvents();
-        const formattedData: { visibleFrom: string | number | Date; visibleTill: string | number | Date; event: string; }[] = response.map((item) => ({
+        const formattedData: { visibleFrom: string | number | Date; visibleTill: string | number | Date; event: string; link: string; }[] = response.map((item) => ({
           visibleFrom: item.Visiblefrom,
           visibleTill: item.VisibleTill,
-          event: item.event,
+          event: item.Description,
+          link: item.Link
         }));
+        console.log(formattedData);
         setEvents(formattedData);
       } catch (error) {
         console.error('Error fetching timeline data:', error);
@@ -159,7 +162,16 @@ const DashboardContent: React.FC = () => {
     },
     {
       title: "Events",
-      content: <p>Events content goes here</p>,
+      content: <div>
+        {events.length != 0 ? (events.map((event) => (
+          <div key={event.event}>
+            <h2>{event.event}</h2>
+            {event.link && <p>Link: <Link href={event.link}>{event.link}</Link></p>}
+          </div>
+        ))
+        ) : <div>No events to show</div>
+        }
+      </div>,
       span: 8,
     },
     {

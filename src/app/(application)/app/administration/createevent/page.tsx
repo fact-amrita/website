@@ -18,7 +18,7 @@ const CreateEventForm: React.FC = () => {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    if (!visibleFromDate || !visibleToDate || !description || !link) {
+    if (!visibleFromDate || !visibleToDate || !description ) {
       alert('Please fill in all fields');
       return;
     }
