@@ -8,8 +8,10 @@ import Leaderboard from "@/components/dashboard/leaderboard";
 import { Toaster } from "@/components/ui/toaster";
 import { SessionProvider, useSession } from "next-auth/react";
 import { getFact } from "@/lib/getFact";
-import { getAnnouncements } from "@/lib/AdminOps";
-import { HoverEffect } from "@/components/dashboard/HoverEffect"; // Adjust the import path as needed
+import { getAnnouncements, getEvents } from "@/lib/AdminOps";
+import { HoverEffect } from "@/components/dashboard/HoverEffect"; 
+import TimelineComponent from "@/components/dashboard/member/timeline";
+
 
 const DashboardContent: React.FC = () => {
   const { data: session, status } = useSession();
@@ -20,6 +22,10 @@ const DashboardContent: React.FC = () => {
   const [announcements, setAnnouncements] = useState<
     { id: string; Announcement: string; Visiblefrom: string; VisibleTill: string }[]
   >([]);
+  const [events, setEvents] = useState<
+  { visibleFrom: string | number | Date; visibleTill: string | number | Date; event: string; }[]
+  >([]);
+
 
   useEffect(() => {
     if (messageParam) {
@@ -76,6 +82,25 @@ const DashboardContent: React.FC = () => {
     fetchAnnouncements();
   }, []);
 
+  useEffect(() => {
+    const fetchEventData = async () => {
+      try {
+        const response = await getEvents();
+        const formattedData: { visibleFrom: string | number | Date; visibleTill: string | number | Date; event: string; }[] = response.map((item) => ({
+          visibleFrom: item.Visiblefrom,
+          visibleTill: item.VisibleTill,
+          event: item.event,
+        }));
+        setEvents(formattedData);
+      } catch (error) {
+        console.error('Error fetching timeline data:', error);
+      }
+    };
+
+    fetchEventData();
+  }, []);
+
+
   if (status === "loading") {
     return <p>Loading...</p>;
   }
@@ -120,7 +145,7 @@ const DashboardContent: React.FC = () => {
     },
     {
       title: "Timeline",
-      content: <p>Timeline content goes here</p>,
+      content: <TimelineComponent />,
       span: 4,
     },
   ];
