@@ -28,7 +28,7 @@ const TaskValidation: React.FC<TaskValidationProps> = ({ domain }) => {
   useEffect(() => {
     const fetchTaskData = async () => {
       var fetchedTaskLists = await TasksGet(domain);
-      fetchedTaskLists = fetchedTaskLists.filter((task: any) => new Date(task.deadline) <= new Date());
+      fetchedTaskLists = fetchedTaskLists.filter((task: any) => new Date(task.startDate) <= new Date());
       setTaskLists(fetchedTaskLists);
     };
     fetchTaskData();

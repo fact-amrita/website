@@ -49,7 +49,7 @@ export async function TaskGetById(taskId: string) {
 }
 
 export async function TasksGet(domain: string) {
-    const tasks = await db.tasks.findMany({
+    var tasks = await db.tasks.findMany({
         where: {
             OR: [
                 { domain: domain },
@@ -57,6 +57,8 @@ export async function TasksGet(domain: string) {
             ]
         }
     });
+
+    tasks = tasks.sort((a, b) => new Date(b.startDate).getTime() - new Date(a.startDate).getTime());
 
     return tasks;
 }
