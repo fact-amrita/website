@@ -196,7 +196,7 @@ const DashboardContent: React.FC = () => {
     <div className="flex flex-col lg:flex-row h-screen p-0 m-0 overflow-clip">
       <div className="h-full w-full lg:w-4/5 bg-gradient-to-tr from-blue-700 via-gray-500 to-red-700 flex flex-col justify-center items-center p-4">
         <div className="text-white text-center lg:text-left mb-4 lg:mb-0">
-          <h1 className="text-xl lg:text-2xl font-bold mb-3 mt-3">Hello, {userdat.name}</h1>
+          <h1 className="text-xl lg:text-2xl font-bold mb-3 mt-5">Hello, {userdat.name}</h1>
           <h1 className="text-xl lg:text-2xl font-bold mb-3">Welcome to the FACT Club</h1>
         </div>
         <div className="w-full lg:w-4/5 overflow-y-clip">

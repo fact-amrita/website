@@ -38,20 +38,20 @@ const Leaderboard: React.FC<LeaderBoardInterface> = ({ domain }) => {
   return (
     <div className="fixed top-0 mt-0 right-0 h-full bg-gradient-to-tr from-blue-700 via-black to-red-700 text-white flex justify-center items-center w-full sm:w-1/2 md:w-1/3 lg:w-1/4 xl:w-1/5">
       <div className="p-3 w-full overflow-hidden mb-6">
-        <h2 className="text-lg sm:text-xl md:text-2xl lg:text-3xl xl:text-4xl font-bold text-center mb-4">
+        <h2 className="text-lg sm:text-xl md:text-2xl lg:text-3xl xl:text-3xl font-bold text-center mb-4">
           Leaderboard
         </h2>
         <div className="overflow-x-auto">
           <table className="table-auto w-full">
             <thead>
               <tr>
-                <th className="py-2 px-3 text-left text-sm sm:text-sm md:text-sm lg:text-md xl:text-lg">
+                <th className="py-2 px-3 text-left text-sm sm:text-sm md:text-sm lg:text-sm xl:text-md">
                   Rank
                 </th>
-                <th className="py-2 px-3 text-left text-sm sm:text-sm md:text-sm lg:text-md xl:text-lg">
+                <th className="py-2 px-3 text-left text-sm sm:text-sm md:text-sm lg:text-sm xl:text-md">
                   Name
                 </th>
-                <th className="py-2 px-3 text-left text-sm sm:text-sm md:text-sm lg:text-md xl:text-lg">
+                <th className="py-2 px-3 text-left text-sm sm:text-sm md:text-sm lg:text-sm xl:text-md">
                   Points
                 </th>
               </tr>
@@ -81,13 +81,13 @@ const Leaderboard: React.FC<LeaderBoardInterface> = ({ domain }) => {
 
                 return (
                   <tr key={entry.rank} className={`transition duration-200 ${hoverColor}`}>
-                    <td className="px-4 py-2 text-sm sm:text-sm md:text-sm lg:text-md xl:text-lg">
+                    <td className="px-4 py-2 text-sm sm:text-sm md:text-sm lg:text-sm xl:text-md">
                       {emoji} {entry.rank}
                     </td>
-                    <td className="px-4 py-2 text-sm sm:text-sm md:text-sm lg:text-md xl:text-lg">
+                    <td className="px-4 py-2 text-sm sm:text-sm md:text-sm lg:text-sm xl:text-md">
                       {entry.name}
                     </td>
-                    <td className="px-4 py-2 text-sm sm:text-sm md:text-sm lg:text-md xl:text-lg">
+                    <td className="px-4 py-2 text-sm sm:text-sm md:text-sm lg:text-sm xl:text-md">
                       {entry.points}
                     </td>
                   </tr>

@@ -1,4 +1,4 @@
-"use client"
+"use client";
 
 
 import React, { useEffect, useState } from 'react';
@@ -46,7 +46,7 @@ const TicketTable: React.FC = () => {
 
   return (
     <div className="p-4 sm:p-6 lg:p-8">
-      <h2 className="text-xl sm:text-2xl lg:text-3xl font-bold mb-4 text-zinc-50">Ticket List</h2>
+      <h2 className="text-xl sm:text-2xl lg:text-3xl ml-4 sm:ml-8 md:ml-6 font-bold mb-4 text-zinc-50">Ticket List</h2>
       <div className="flex justify-end mb-4">
         <select
           className="px-3 py-1 bg-gray-200 text-gray-800 rounded-md"
@@ -57,23 +57,23 @@ const TicketTable: React.FC = () => {
           <option value="Complaint">Complaint</option>
         </select>
       </div>
-      <div className="overflow-x-auto">
-        <table className="min-w-full divide-y divide-gray-200 text-sm">
+      <div className="overflow-x-auto flex justify-center">
+        <table className="max-w-4xl w-full text-xs border-collapse border border-gray-200">
           <thead className="bg-gray-100">
             <tr>
-              <th scope="col" className="px-3 py-1 text-left font-medium text-gray-500 uppercase tracking-wider">Ticket Cleared?</th>
-              <th scope="col" className="px-3 py-1 text-left font-medium text-gray-500 uppercase tracking-wider">FactID</th>
-              <th scope="col" className="px-3 py-1 text-left font-medium text-gray-500 uppercase tracking-wider">Feedback Type</th>
-              <th scope="col" className="px-3 py-1 text-left font-medium text-gray-500 uppercase tracking-wider">Message</th>
+              <th scope="col" className="px-2 py-1 text-left font-medium text-gray-500 uppercase tracking-wider border-t border-gray-200">Ticket Cleared?</th>
+              <th scope="col" className="px-2 py-1 text-left font-medium text-gray-500 uppercase tracking-wider border-t border-gray-200">FactID</th>
+              <th scope="col" className="px-2 py-1 text-left font-medium text-gray-500 uppercase tracking-wider border-t border-gray-200">Feedback Type</th>
+              <th scope="col" className="px-2 py-1 text-left font-medium text-gray-500 uppercase tracking-wider border-t border-gray-200">Message</th>
             </tr>
           </thead>
-          <tbody className="bg-white divide-y divide-gray-200">
+          <tbody className="bg-white">
             {tickets.map(ticket => (
-              <tr key={ticket.TicketId} onClick={() => handleTicketClick(ticket)} className="cursor-pointer hover:bg-gray-50">
-                <td className="px-3 py-1 whitespace-nowrap">{ticket.cleared.toString()}</td>
-                <td className="px-3 py-1 whitespace-nowrap">{ticket.FactID}</td>
-                <td className="px-3 py-1 whitespace-nowrap">{ticket.TicketType}</td>
-                <td className="px-3 py-1 whitespace-wrap break-all">{ticket.TicketContent.length > 15 ? `${ticket.TicketContent.substring(0, 15)}...` : ticket.TicketContent}</td>
+              <tr key={ticket.TicketId} onClick={() => handleTicketClick(ticket)} className="cursor-pointer hover:bg-gray-50 border-t border-gray-200">
+                <td className="px-2 py-1 whitespace-nowrap border-t border-gray-200">{ticket.cleared.toString()}</td>
+                <td className="px-2 py-1 whitespace-nowrap border-t border-gray-200">{ticket.FactID}</td>
+                <td className="px-2 py-1 whitespace-nowrap border-t border-gray-200">{ticket.TicketType}</td>
+                <td className="px-2 py-1 whitespace-wrap break-all border-t border-gray-200">{ticket.TicketContent.length > 15 ? `${ticket.TicketContent.substring(0, 15)}...` : ticket.TicketContent}</td>
               </tr>
             ))}
           </tbody>
