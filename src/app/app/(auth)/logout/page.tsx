@@ -27,9 +27,6 @@ export default function LogoutPage() {
           />
           <h1 className="text-2xl font-semibold mb-2">You have signed out</h1>
           <p className="text-gray-600 mb-6">We hope to see you again soon.</p>
-          <button className="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700">
-            Sign in again
-          </button>
         </div>
       </div>
     );
