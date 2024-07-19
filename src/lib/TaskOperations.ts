@@ -213,6 +213,22 @@ export async function isTaskValidating(factId: string, taskId: string) {
     }
 }
 
+export async function isTaskComplete(factId: string, taskId: string) {
+    const pointsData = await db.points.findUnique({
+        where: {
+            FactID: factId,
+        },
+        include: {
+            completedTasks: true
+        }
+    });
+    if (pointsData?.completedTasks.find((task) => task.taskId === taskId && task.status === "completed")) {
+        return true;
+    } else {
+        return false;
+    }
+}
+
 export async function AwardMarks(taskId: string, factId: string, points: number) {
     const completedTask = await db.completedTask.findFirst({
         where: {

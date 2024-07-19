@@ -10,7 +10,7 @@ import {
   DrawerTitle,
   DrawerTrigger,
 } from "@/components/ui/drawer";
-import { TasksGet, TasksSubmitted, isTaskValidating, markTaskasValidating, AwardMarks } from "@/lib/TaskOperations";
+import { TasksGet, TasksSubmitted, isTaskValidating, markTaskasValidating, AwardMarks, isTaskComplete } from "@/lib/TaskOperations";
 
 interface TaskValidationProps {
   domain: string;
@@ -19,6 +19,7 @@ interface TaskValidationProps {
 const TaskValidation: React.FC<TaskValidationProps> = ({ domain }) => {
   const [selectedTaskIndex, setSelectedTaskIndex] = useState<number | null>(null);
   const [isValidationStarted, setIsValidationStarted] = useState<boolean>(false);
+  const [isCompleted, setIsCompleted] = useState<boolean>(false);
   const [TaskLists, setTaskLists] = useState<any[]>([]);
   const [submittedTasksList, setSubmittedTasksList] = useState<any[]>([]);
   const [taskData, settaskData] = useState<any>(null);
@@ -46,6 +47,8 @@ const TaskValidation: React.FC<TaskValidationProps> = ({ domain }) => {
     setSelectedPerson(entry);
     const validationStatus = await isTaskValidating(entry.FactID, entry.taskId);
     setIsValidationStarted(validationStatus);
+    const completionStatus = await isTaskComplete(entry.FactID, entry.taskId);
+    setIsCompleted(completionStatus);
   };
 
   const startValidation = async (factId: string, taskId: string) => {
@@ -136,35 +139,39 @@ const TaskValidation: React.FC<TaskValidationProps> = ({ domain }) => {
             <DrawerDescription>Evaluate the selected person's submission.</DrawerDescription>
           </DrawerHeader>
           <div className="p-4">
-            {!isValidationStarted ? (
-              <button
-                className="bg-blue-500 text-white p-2 rounded mb-4"
-                onClick={() => {
-                  startValidation(selectedPerson.FactID, selectedPerson.taskId);
-                }}
-              >
-                Start Validation
-              </button>
-            ) : (
-              <>
-                {selectedPerson && (<h3 className="font-bold text-black">Evaluating submission of {selectedPerson.FactID}</h3>)}
-                <button className="bg-blue-500 text-white p-2 rounded mb-4" onClick={() => { downloadFile(taskData.fileKey) }} >Download Question File</button>
-                <br />
-                <button className="bg-blue-500 text-white p-2 rounded mb-4" onClick={() => { downloadFile(selectedPerson.Filekey) }} >Download Submitted File</button>
-                <div className="mt-4">
-                  <label className="block font-bold mb-2">Enter Points: (Maximum: {taskData.points})</label>
-                  <input
-                    type="number"
-                    className="border rounded p-2 w-full"
-                    placeholder="Enter points"
-                    min="0"
-                    max={taskData.points}
-                    value={points}
-                    onChange={(e) => { if ((e.target.value <= taskData.points) && (e.target.value >= "0")) setPoints(parseInt(e.target.value)) }}
-                  />
-                </div>
-              </>
-            )}
+            {!isCompleted ? (
+              (!isValidationStarted ? (
+                <button
+                  className="bg-blue-500 text-white p-2 rounded mb-4"
+                  onClick={() => {
+                    startValidation(selectedPerson.FactID, selectedPerson.taskId);
+                  }}
+                >
+                  Start Validation
+                </button>
+              ) : (
+                <>
+                  {selectedPerson && (<h3 className="font-bold text-black">Evaluating submission of {selectedPerson.FactID}</h3>)}
+                  <button className="bg-blue-500 text-white p-2 rounded mb-4" onClick={() => { downloadFile(taskData.fileKey) }} >Download Question File</button>
+                  <br />
+                  <button className="bg-blue-500 text-white p-2 rounded mb-4" onClick={() => { downloadFile(selectedPerson.Filekey) }} >Download Submitted File</button>
+                  <div className="mt-4">
+                    <label className="block font-bold mb-2">Enter Points: (Maximum: {taskData.points})</label>
+                    <input
+                      type="number"
+                      className="border rounded p-2 w-full"
+                      placeholder="Enter points"
+                      min="0"
+                      max={taskData.points}
+                      value={points}
+                      onChange={(e) => { if ((e.target.value <= taskData.points) && (e.target.value >= "0")) setPoints(parseInt(e.target.value)) }}
+                    />
+                  </div>
+                </>
+              ))) : (
+              <h3 className="text-red-500">Task is already completed</h3>
+            )
+            }
           </div>
           <DrawerFooter>
             <Button onClick={

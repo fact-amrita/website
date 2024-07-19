@@ -144,12 +144,12 @@ const DashboardContent: React.FC = () => {
       title: "Announcements",
       content: (
         <div>
-          {announcements.map((announcement) => (
+          {announcements.length != 0 ? (announcements.map((announcement) => (
             <div key={announcement.id}>
               <h2>{announcement.Announcement}</h2>
               <p>Date: {announcement.Visiblefrom}</p>
             </div>
-          ))}
+          ))) : <div>No announcements to show</div>}
         </div>
       ),
       span: 8,

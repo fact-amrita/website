@@ -37,20 +37,21 @@ const AdminPage = () => {
           >
             Create an Announcement
           </button>
+          <button
+            className="w-full p-8 sm:p-6 md:p-6 bg-green-500 text-white rounded-lg hover:bg-green-700 transition duration-300"
+            onClick={() => handleNavigation('/app/administration/createevent')}
+          >
+            Create Events
+          </button>
+
           {userdat.role === "admin" && (
             <button
-              className="w-full p-8 sm:p-6 md:p-6 bg-green-500 text-white rounded-lg hover:bg-green-700 transition duration-300"
-              onClick={() => handleNavigation('/app/administration/createevent')}
+              className="w-full p-8 sm:p-6 md:p-6 bg-red-500 text-white rounded-lg hover:bg-red-700 transition duration-300"
+              onClick={() => handleNavigation('/app/ticket/ticket-table')}
             >
-              Create Events
+              Review Tickets
             </button>
           )}
-          <button
-            className="w-full p-8 sm:p-6 md:p-6 bg-red-500 text-white rounded-lg hover:bg-red-700 transition duration-300"
-            onClick={() => handleNavigation('/app/ticket/ticket-table')}
-          >
-            Review Tickets
-          </button>
           <button
             className="w-full p-8 sm:p-6 md:p-6 bg-orange-500 text-white rounded-lg hover:bg-orange-700 transition duration-300"
             onClick={() => window.location.href = '/app/tasks/create'}
