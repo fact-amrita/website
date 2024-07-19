@@ -13,13 +13,13 @@ interface LeaderBoardInterface {
   domain: string;
 }
 
-const Leaderboard: React.FC<LeaderBoardInterface> = (domain) => {
+const Leaderboard: React.FC<LeaderBoardInterface> = ({ domain }) => {
   const [entries, setEntries] = useState<LeaderboardEntry[]>([]);
 
   useEffect(() => {
     const fetchLeaderboard = async () => {
       try {
-        const leaderboardData = await getLeaderboard(domain.domain);
+        const leaderboardData = await getLeaderboard(domain);
 
         const leaderboardDataWithRank = leaderboardData.map((entry, index) => ({
           ...entry,
@@ -33,7 +33,7 @@ const Leaderboard: React.FC<LeaderBoardInterface> = (domain) => {
     };
 
     fetchLeaderboard();
-  }, []);
+  }, [domain]);
 
   return (
     <div className="fixed top-0 mt-0 right-0 h-full bg-gradient-to-tr from-blue-700 via-black to-red-700 text-white flex justify-center items-center w-full sm:w-1/2 md:w-1/3 lg:w-1/4 xl:w-1/5">
@@ -59,16 +59,20 @@ const Leaderboard: React.FC<LeaderBoardInterface> = (domain) => {
             <tbody>
               {entries.map((entry) => {
                 let hoverColor = "";
+                let emoji = "";
 
                 switch (entry.rank) {
                   case 1:
                     hoverColor = "hover:bg-yellow-500";
+                    emoji = "🥇";
                     break;
                   case 2:
                     hoverColor = "hover:bg-gray-400";
+                    emoji = "🥈";
                     break;
                   case 3:
                     hoverColor = "hover:bg-yellow-700";
+                    emoji = "🥉";
                     break;
                   default:
                     hoverColor = "hover:bg-blue-800";
@@ -78,7 +82,7 @@ const Leaderboard: React.FC<LeaderBoardInterface> = (domain) => {
                 return (
                   <tr key={entry.rank} className={`transition duration-200 ${hoverColor}`}>
                     <td className="px-4 py-2 text-sm sm:text-sm md:text-sm lg:text-md xl:text-lg">
-                      {entry.rank}
+                      {emoji} {entry.rank}
                     </td>
                     <td className="px-4 py-2 text-sm sm:text-sm md:text-sm lg:text-md xl:text-lg">
                       {entry.name}
