@@ -27,6 +27,7 @@ export default function LogoutPage() {
           />
           <h1 className="text-2xl font-semibold mb-2">You have signed out</h1>
           <p className="text-gray-600 mb-6">We hope to see you again soon.</p>
+          <p className="text-gray-600 mb-6">Please wait while we take you to the login page</p>
         </div>
       </div>
     );
