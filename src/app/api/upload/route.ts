@@ -1,8 +1,4 @@
 // src/app/api/upload/route.ts
-import { NextApiRequest, NextApiResponse } from 'next';
-import multer from 'multer';
-import { join } from 'path';
-import { promises as fs } from 'fs';
 import { NextRequest, NextResponse } from 'next/server';
 import { S3Client, PutObjectCommand, GetObjectCommand } from "@aws-sdk/client-s3";
 import { TaskCreate } from '@/lib/TaskOperations';
@@ -18,50 +14,11 @@ const s3Client = new S3Client({
   region: 'auto',
 });
 
-// Set up Multer storage
-const storage = multer.diskStorage({
-  destination: async (req, file, cb) => {
-    const uploadDir = join(process.cwd(), 'public/uploads');
-    await fs.mkdir(uploadDir, { recursive: true });
-    cb(null, uploadDir);
-  },
-  filename: (req, file, cb) => {
-    cb(null, `${Date.now()}-${file.originalname}`);
-  }
-});
+export async function GET(req: NextRequest) {
 
-const upload = multer({ storage });
+  return NextResponse.json({ message: "Hey, this seems to work" }, { status: 200 });
 
-// Convert Multer to a Promise to use it with Next.js
-const runMiddleware = (req: NextApiRequest, res: NextApiResponse, fn: Function) => {
-  return new Promise((resolve, reject) => {
-    fn(req, res, (result: any) => {
-      if (result instanceof Error) {
-        return reject(result);
-      }
-      return resolve(result);
-    });
-  });
-};
-
-// export async function GET(req: NextRequest) {
-//   const params = {
-//     Bucket: process.env.CLOUDFLARE_R2_BUCKET_NAME as string,
-//     Key: 'tasks/AI song.mp3',
-//   };
-//   try {
-//     const command = new GetObjectCommand(params);
-//     const data = await s3Client.send(command);
-//     var filename = params.Key.split('/')[1];
-//     const response = new NextResponse(data.Body)
-//     response.headers.set('content-type', data.ContentType);
-//     response.headers.set('content-disposition', `attachment; filename="${filename}"`);
-//     return response;
-
-//   } catch (err) {
-//     return NextResponse.json({ message: err.message }, { status: 500 });
-//   }
-// }
+}
 
 
 // Export a named handler for the POST method

@@ -1,8 +1,4 @@
 // src/app/api/upload/route.ts
-import { NextApiRequest, NextApiResponse } from 'next';
-import multer from 'multer';
-import { join } from 'path';
-import { promises as fs } from 'fs';
 import { NextRequest, NextResponse } from 'next/server';
 import { S3Client, PutObjectCommand, GetObjectCommand } from "@aws-sdk/client-s3";
 // import { TaskCreate } from '@/lib/TaskOperations';
