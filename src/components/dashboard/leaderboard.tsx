@@ -45,13 +45,13 @@ const Leaderboard: React.FC<LeaderBoardInterface> = (domain) => {
           <table className="table-auto w-full">
             <thead>
               <tr>
-                <th className="py-2 px-3 text-left text-sm sm:text-base md:text-md lg:text-lg xl:text-xl">
+                <th className="py-2 px-3 text-left text-sm sm:text-b md:text-sm lg:text-md xl:text-lg">
                   Rank
                 </th>
-                <th className="py-2 px-3 text-left text-sm sm:text-base md:text-md lg:text-lg xl:text-xl">
+                <th className="py-2 px-3 text-left text-sm sm:text-base md:text-sm lg:text-md xl:text-lg">
                   Name
                 </th>
-                <th className="py-2 px-1 text-left text-sm sm:text-base md:text-md lg:text-lg xl:text-xl">
+                <th className="py-2 px-3 text-left text-sm sm:text-base md:text-sm lg:text-md xl:text-lg">
                   Points
                 </th>
               </tr>
@@ -77,13 +77,13 @@ const Leaderboard: React.FC<LeaderBoardInterface> = (domain) => {
 
                 return (
                   <tr key={entry.rank} className={`transition duration-200 ${hoverColor}`}>
-                    <td className="px-4 py-2 text-sm sm:text-base md:text-md lg:text-lg xl:text-xl">
+                    <td className="px-4 py-2 text-sm sm:text-base md:text-sm lg:text-md xl:text-lg">
                       {entry.rank}
                     </td>
-                    <td className="px-4 py-2 text-sm sm:text-base md:text-md lg:text-lg xl:text-xl">
+                    <td className="px-4 py-2 text-sm sm:text-base md:text-sm lg:text-md xl:text-lg">
                       {entry.name}
                     </td>
-                    <td className="px-4 py-2 text-sm sm:text-base md:text-md lg:text-lg xl:text-xl">
+                    <td className="px-4 py-2 text-sm sm:text-base md:text-sm lg:text-md xl:text-lg">
                       {entry.points}
                     </td>
                   </tr>

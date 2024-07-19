@@ -39,33 +39,33 @@ const AdminPage = () => {
           </button>
           {userdat.role === "admin" && (
             <button
-              className="w-full p-8 bg-green-500 text-white rounded-lg hover:bg-green-700 transition duration-300"
+              className="w-full p-8 sm:p-6 md:p-6 bg-green-500 text-white rounded-lg hover:bg-green-700 transition duration-300"
               onClick={() => handleNavigation('/app/administration/createevent')}
             >
               Create Events
             </button>
           )}
           <button
-            className="w-full p-8 bg-red-500 text-white rounded-lg hover:bg-red-700 transition duration-300"
+            className="w-full p-8 sm:p-6 md:p-6 bg-red-500 text-white rounded-lg hover:bg-red-700 transition duration-300"
             onClick={() => handleNavigation('/app/ticket/ticket-table')}
           >
             Review Tickets
           </button>
           <button
-            className="w-full p-8 bg-orange-500 text-white rounded-lg hover:bg-orange-700 transition duration-300"
+            className="w-full p-8 sm:p-6 md:p-6 bg-orange-500 text-white rounded-lg hover:bg-orange-700 transition duration-300"
             onClick={() => window.location.href = '/app/tasks/create'}
           >
             Add New Tasks
           </button>
           <button
-            className="w-full p-8 bg-yellow-500 text-white rounded-lg hover:bg-yellow-700 transition duration-300"
+            className="w-full p-8 sm:p-6 md:p-6 bg-yellow-500 text-white rounded-lg hover:bg-yellow-700 transition duration-300"
             onClick={() => handleNavigation('/app/administration/addtimeline')}
           >
             Add Important Dates to Calendar
           </button>
           {userdat.role === "admin" && (
             <button
-              className="w-full p-8 bg-purple-500 text-white rounded-lg hover:bg-purple-700 transition duration-300"
+              className="w-full p-8 sm:p-4 md:p-6 bg-purple-500 text-white rounded-lg hover:bg-purple-700 transition duration-300"
               onClick={() => handleNavigation('/app/administration/changesemester')}
             >
               Change Semester
@@ -76,9 +76,9 @@ const AdminPage = () => {
       <div className="flex-1 flex items-center justify-center p-4 md:p-0">
         <div className="animation-container text-center">
           <div className="animate-bounce bg-blue-500 p-4 rounded-full text-white mb-4">
-            This
+            This is Admin Page
           </div>
-          <div className="animate-spin bg-green-500 p-4 rounded-full text-white mb-4">
+          {/* <div className="animate-spin bg-green-500 p-4 rounded-full text-white mb-4">
             is
           </div>
           <div className="animate-pulse bg-red-500 p-4 rounded-full text-white mb-4">
@@ -86,7 +86,7 @@ const AdminPage = () => {
           </div>
           <div className="animate-ping bg-yellow-500 p-4 rounded-full text-white">
             page
-          </div>
+          </div> */}
         </div>
       </div>
     </div>
