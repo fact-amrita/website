@@ -50,7 +50,7 @@ export async function demoteUser(email: string) {
 
 export async function updateProfile(factId: string, Name: string, githubURL: string, linkedInURL: string) {
     try {
-        await db.user.update({
+        const output = await db.user.update({
             where: {
                 FactID: factId
             },
@@ -58,6 +58,15 @@ export async function updateProfile(factId: string, Name: string, githubURL: str
                 name: Name,
                 githubURL: githubURL,
                 linkedInURL: linkedInURL
+            }
+        })
+
+        await db.userCredential.update({
+            where: {
+                email: output.email
+            },
+            data: {
+                name: Name
             }
         })
     } catch (e) {

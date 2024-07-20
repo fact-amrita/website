@@ -17,7 +17,7 @@ export const HoverEffect = ({
   const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
 
   return (
-    <div className={cn("grid grid-cols-1 md:grid-cols-12 gap-0 py-10", className)}>
+    <div className={cn("grid grid-cols-1 md:grid-cols-12 gap-0 pb-10", className)}>
       {items.map((item, idx) => (
         <div
           className={cn(

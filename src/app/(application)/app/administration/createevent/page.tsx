@@ -46,7 +46,7 @@ const CreateEventForm: React.FC = () => {
                 selected={visibleFromDate}
                 onChange={(date: Date | null) => setVisibleFromDate(date)}
                 dateFormat="yyyy/MM/dd"
-                className="w-full p-2 bg-gray-200 text-white border border-gray-300 rounded"
+                className="w-full p-2 bg-gray-200 text-black border border-gray-300 rounded"
               />
             </div>
             <div className="flex flex-col">
@@ -56,7 +56,7 @@ const CreateEventForm: React.FC = () => {
                 selected={visibleToDate}
                 onChange={(date: Date | null) => setVisibleToDate(date)}
                 dateFormat="yyyy/MM/dd"
-                className="w-full p-2 bg-gray-200 text-white border border-gray-300 rounded"
+                className="w-full p-2 bg-gray-200 text-black border border-gray-300 rounded"
               />
             </div>
             <div className="flex flex-col">
@@ -65,7 +65,7 @@ const CreateEventForm: React.FC = () => {
                 id="description"
                 value={description}
                 onChange={(e) => setDescription(e.target.value)}
-                className="w-full p-2 h-40 bg-gray-200 text-white border border-gray-300 rounded resize-none"
+                className="w-full p-2 h-40 bg-gray-200 text-black border border-gray-300 rounded resize-none"
               />
             </div>
             <div className="flex flex-col">
@@ -75,7 +75,7 @@ const CreateEventForm: React.FC = () => {
                 type="url"
                 value={link}
                 onChange={(e) => setLink(e.target.value)}
-                className="w-full p-2 bg-gray-200 text-white border border-gray-300 rounded" />
+                className="w-full p-2 bg-gray-200 text-black border border-gray-300 rounded" />
             </div>
             <Button type="submit">Submit</Button>
           </form>

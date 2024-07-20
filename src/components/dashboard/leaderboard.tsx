@@ -82,7 +82,7 @@ const Leaderboard: React.FC<LeaderBoardInterface> = ({ domain }) => {
                 return (
                   <tr key={entry.rank} className={`transition duration-200 ${hoverColor}`}>
                     <td className="px-4 py-2 text-sm sm:text-sm md:text-sm lg:text-sm xl:text-md">
-                      {emoji} {entry.rank}
+                      {(entry.rank < 4) &&<span style={{fontSize:"22px"}}>{emoji}</span>} {(entry.rank > 4) && <span>{entry.rank}</span>}
                     </td>
                     <td className="px-4 py-2 text-sm sm:text-sm md:text-sm lg:text-sm xl:text-md">
                       {entry.name}

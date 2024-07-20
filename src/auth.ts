@@ -70,6 +70,7 @@ export const authOptions = {
                 })
 
                 if (userData) {
+                    token.name = userData.name;
                     token.factId = userData.FactID || "";
                     token.domain = userData.domain || "";
                 }
@@ -86,6 +87,7 @@ export const authOptions = {
             const { session, token } = params;
             session.user.role = token.user;
             if (token.factId) {
+                session.user.name = token.name;
                 session.user.factId = token.factId;
                 session.user.domain = token.domain;
             }
