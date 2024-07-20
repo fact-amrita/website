@@ -62,7 +62,7 @@ const ProfileContent = ({ params }: { params: { id: string } }) => {
   };
 
   return (
-    <div className="h-screen w-screen flex justify-center items-center p-4">
+    <div style={{marginLeft:"-3.8%"}} className="h-screen w-screen flex justify-center items-center p-4">
       <div className="grid grid-cols-12 grid-rows-4 gap-4 h-full w-5/6">
         <div className="bg-gradient-to-t from-red-700 via-black to-blue-700  rounded-3xl flex justify-center items-center col-span-4 row-span-4 p-10 py-5">
           <div className="h-full w-full grid grid-rows-2 gap-4">
@@ -71,7 +71,7 @@ const ProfileContent = ({ params }: { params: { id: string } }) => {
                 <Image src={ProfileData.image} alt='profile image' layout="responsive" width={64} height={64} />
               </div>
               <h3 className="text-white text-xl mt-4">{ProfileData.name}</h3>
-              {(window.localStorage.getItem('factId') == ProfileData.FactID) && (<button onClick={handleEditProfile} className="bg-slate-600 shadow-lg mt-5 rounded-md hover:bg-red-800">Edit My Profile</button>)}
+              {(window.localStorage.getItem('factId') == ProfileData.FactID) && (<button onClick={handleEditProfile} className="bg-slate-600 shadow-lg mt-5 rounded-md hover:bg-red-800 p-1">Edit My Profile</button>)}
             </div>
             <div className="bg-blue-600  h-full w-full flex flex-col rounded-2xl justify-center items-center">
               <h1 className="text-3xl text-black">Work Status</h1>
@@ -115,11 +115,11 @@ const ProfileContent = ({ params }: { params: { id: string } }) => {
         </div>
       </div>
 
-      <div className="grid grid-cols-1 h-full w-1/6 bg-blue-600  rounded-3xl py-5 p-10 ml-4 gap-y-5 mb-8">
+      {/* <div className="grid grid-cols-1 h-full w-1/6 bg-blue-600  rounded-3xl py-5 p-10 ml-4 gap-y-5 mb-8">
         <div className="text-white justify-center items-center rounded-lg p-4">
           Achievement
         </div>
-      </div>
+      </div> */}
     </div>
   );
 }

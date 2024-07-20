@@ -15,6 +15,7 @@ const UserProfileEdit: React.FC = () => {
     Name: '',
     LinkedinProfile: '',
     GithubProfile: '',
+    About: ''
   });
 
   useEffect(() => {
@@ -27,6 +28,7 @@ const UserProfileEdit: React.FC = () => {
             Name: userData.name,
             LinkedinProfile: userData.linkedInURL || '',
             GithubProfile: userData.githubURL || '',
+            About: userData.About || ''
           });
         }
       }
@@ -48,7 +50,7 @@ const UserProfileEdit: React.FC = () => {
     if (!factId) {
       return;
     }
-    const output = await updateProfile(factId, formData.Name, formData.GithubProfile, formData.LinkedinProfile);
+    const output = await updateProfile(factId, formData.Name, formData.GithubProfile, formData.LinkedinProfile, formData.About);
     if (output) {
       MySwal.fire({
         title: "Successful!",
@@ -116,6 +118,16 @@ const UserProfileEdit: React.FC = () => {
               type="text"
               name="GithubProfile"
               value={formData.GithubProfile}
+              onChange={handleChange}
+            />
+          </div>
+          <div className="mb-4">
+            <label className="block text-gray-700">About You</label>
+            <input
+              className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md bg-gray-100"
+              type="text"
+              name="About"
+              value={formData.About}
               onChange={handleChange}
             />
           </div>
