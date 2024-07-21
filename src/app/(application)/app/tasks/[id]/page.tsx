@@ -194,7 +194,7 @@ const TaskPage: React.FC<TaskPageProps> = ({ TaskId }) => {
 
   return (
     <div className="flex h-screen p-0 mx-0 overflow-clip">
-      <div className="w-1/2 h-full bg-gray-800 flex flex-col justify-center items-center p-2">
+      <div style={{ backgroundColor: "rgba(31,41,55,0.6)" }} className="w-1/2 h-full flex flex-col justify-center items-center p-2">
         {timeLeft && (
           <div className="bg-gradient-to-tr from-blue-700 via-black to-red-700 rounded-md shadow-lg p-2 text-white font-mono text-lg mb-5">
             {timeLeft !== null ? (isRunning ? formatTime(timeLeft) : 'Timer Stopped') : 'Loading...'}
@@ -232,7 +232,7 @@ const TaskPage: React.FC<TaskPageProps> = ({ TaskId }) => {
         </div>
       </div>
 
-      <div className="w-1/2 h-full bg-gray-700 flex justify-center items-center">
+      <div style={{ backgroundColor: "rgba(55,65,81,0.6)" }} className="w-1/2 h-full flex justify-center items-center">
         {timeLeft && <FileUpload taskid={TaskId} factid={factId ?? ''} />}
       </div>
     </div>
