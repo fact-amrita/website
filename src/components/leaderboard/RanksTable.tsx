@@ -5,7 +5,7 @@ import { useState, useEffect } from 'react';
 import { getLeaderboard } from '@/lib/leaderboards';
 import { Player } from '@lottiefiles/react-lottie-player'; // import Lottie
 
-const RanksTable = ({ userDomain, presentUser }: { userDomain: string, presentUser: string }) => {
+const RanksTable = ({ activeTab, userDomain, presentUser }: { activeTab: string, userDomain: string, presentUser: string }) => {
   const [leaders, setLeaders] = useState<any[]>([]);
   const [isLoading, setIsLoading] = useState<boolean>(true); // add loading state
   const [currentPage, setCurrentPage] = useState<number>(1); // add current page state
@@ -14,6 +14,7 @@ const RanksTable = ({ userDomain, presentUser }: { userDomain: string, presentUs
   useEffect(() => {
     const fetchLeaderboard = async () => {
       try {
+        console.log(`Fetching data for activeTab: ${activeTab}`); // Log or use the activeTab here if needed
         const data = await getLeaderboard(userDomain);
         setLeaders(data || []);
       } catch (error) {
@@ -23,7 +24,7 @@ const RanksTable = ({ userDomain, presentUser }: { userDomain: string, presentUs
       }
     };
     fetchLeaderboard();
-  }, [userDomain]);
+  }, [userDomain, activeTab]); // Add activeTab to dependencies if needed
 
   const totalPages = Math.ceil(leaders.length / itemsPerPage);
 
