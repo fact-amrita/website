@@ -48,17 +48,33 @@ export async function demoteUser(email: string) {
     })
 }
 
-export async function updateProfile(factId: string, Name: string, githubURL: string, linkedInURL: string, About: string) {
+export async function updateProfile(factId: string, formData: {
+    Name: string;
+    LinkedinProfile: string;
+    GithubProfile: string;
+    About: string;
+    ReactExp: string;
+    NodeExp: string;
+    HTMLCSSExp: string;
+    PythonExp: string;
+    JSExp: string;
+}
+) {
     try {
         const output = await db.user.update({
             where: {
                 FactID: factId
             },
             data: {
-                name: Name,
-                githubURL: githubURL,
-                linkedInURL: linkedInURL,
-                About: About
+                name: formData.Name,
+                githubURL: formData.GithubProfile,
+                linkedInURL: formData.LinkedinProfile,
+                About: formData.About,
+                ReactExp: formData.ReactExp,
+                NodeExp: formData.NodeExp,
+                HTMLCSSExp: formData.HTMLCSSExp,
+                PythonExp: formData.PythonExp,
+                JSExp: formData.JSExp
             }
         })
 
@@ -67,7 +83,7 @@ export async function updateProfile(factId: string, Name: string, githubURL: str
                 email: output.email
             },
             data: {
-                name: Name
+                name: formData.Name
             }
         })
     } catch (e) {

@@ -5,13 +5,6 @@ import Image from "next/image";
 import { FaLinkedinIn, FaGithub } from 'react-icons/fa';
 import { getUserProfile } from "@/lib/UserFetch";
 import { useRouter } from "next/navigation";
-// const skills = [
-//   ['JavaScript', 'Advanced'],
-//   ['React', 'Intermediate'],
-//   ['HTML/CSS', 'Advanced'],
-//   ['Node.js', 'Intermediate'],
-//   ['Python', 'Intermediate']
-// ];
 
 const ProfileContent = ({ params }: { params: { id: string } }) => {
 
@@ -62,7 +55,7 @@ const ProfileContent = ({ params }: { params: { id: string } }) => {
   };
 
   return (
-    <div style={{marginLeft:"-3.8%"}} className="h-screen w-screen flex justify-center items-center p-4">
+    <div style={{ marginLeft: "-3.8%" }} className="h-screen w-screen flex justify-center items-center p-4">
       <div className="grid grid-cols-12 grid-rows-4 gap-4 h-full w-5/6">
         <div className="bg-gradient-to-t from-red-700 via-black to-blue-700  rounded-3xl flex justify-center items-center col-span-4 row-span-4 p-10 py-5">
           <div className="h-full w-full grid grid-rows-2 gap-4">
@@ -104,7 +97,7 @@ const ProfileContent = ({ params }: { params: { id: string } }) => {
           </p>
           <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
             {skills.map((skill, index) => (
-              skill[1] && (
+              (skill[1] && skill[1] != "null") && (
                 <div key={index} className="bg-gradient-to-tr from-blue-500 to-red-500 rounded-lg p-4 shadow-xl text-center">
                   <div className="text-indigo-800 font-bold">{skill[0]}</div>
                   <div className="text-gray-900">{skill[1]}</div>
