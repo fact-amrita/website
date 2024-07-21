@@ -77,7 +77,7 @@ const TaskForm: React.FC = () => {
 
 
   return (
-    <div className='bg-black h-screen flex items-center justify-center pt-8'>
+    <div className='bg-gradient-to-tr from-blue-500 via-green-500 to-red-500 h-screen flex items-center justify-center pt-8'>
       <form onSubmit={handleSubmit(onSubmit)} className='bg-white p-8 rounded shadow-md w-full sm:w-3/4 md:w-2/3 lg:w-1/2 xl:w-2/4'>
         <div className='mb-4'>
           <label htmlFor="taskTitle" className='block text-gray-700'>Task Title</label>

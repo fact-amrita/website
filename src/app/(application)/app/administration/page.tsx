@@ -65,12 +65,17 @@ const AdminPage = () => {
             Add Important Dates to Calendar
           </button>
           {userdat.role === "admin" && (
-            <button
+            <><button
               className="w-full p-8 sm:p-4 md:p-6 bg-purple-500 text-white rounded-lg hover:bg-purple-700 transition duration-300"
               onClick={() => handleNavigation('/app/administration/changesemester')}
             >
               Change Semester
-            </button>
+            </button><button
+              className="w-full p-8 sm:p-4 md:p-6 bg-purple-500 text-white rounded-lg hover:bg-purple-700 transition duration-300"
+              onClick={() => handleNavigation('/app/administration/upgradenewbie')}
+            >
+                Upgrade Newbie
+              </button></>
           )}
         </div>
       </div>
