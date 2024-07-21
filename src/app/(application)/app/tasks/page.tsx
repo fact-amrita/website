@@ -1,4 +1,4 @@
-"use client";
+'use client';
 
 import React, { useState, useEffect } from "react";
 import { TasksGet } from "@/lib/TaskOperations";
@@ -109,23 +109,23 @@ const TaskListPage: React.FC = () => {
     <div className="h-screen bg-gradient-to-r from-blue-500 via-red-500 to-purple-500 p-4 flex flex-col lg:flex-row px-12 md:px-16">
       {userRole === "member" && (
         <>
-          <div className="lg:w-1/2 flex-1 border rounded-lg mb-10 border-gray-300 p-4 bg-slate-600 shadow-md">
-            <h2 className="text-xl font-bold mb-4 text-center text-white bg-blue-600">
+          <div className="lg:w-1/2 flex-1 border rounded-lg mb-10 border-gray-300 p-4 bg-slate-600 bg-opacity-40 shadow-lg mr-2">
+            <h2 className="text-xl sm:text-2xl lg:text-3xl font-bold mb-4 text-center text-white bg-blue-600 rounded-lg p-2 shadow-md">
               Pending Tasks
             </h2>
-            <div className="grid grid-cols-1 lg:grid-cols-3 gap-4">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
               {pendingTasks.map((task) => (
                 <Link key={task.TaskId} href={`/app/tasks/${task.TaskId}`}>
-                  <div className="mb-2 p-4 border border-gray-300 bg-white">
-                    <h3 className="font-bold">{task.task}</h3>
+                  <div className="mb-2 p-4 border border-gray-300 bg-white rounded-lg shadow-md transition-transform transform hover:scale-105 hover:bg-green-100">
+                    <h3 className="font-bold text-lg">{task.task}</h3>
                     <p>Status: {task.status}</p>
                   </div>
                 </Link>
               ))}
               {remainingTasks.map((task) => (
                 <Link key={task.TaskId} href={`/app/tasks/${task.TaskId}`}>
-                  <div className="mb-2 p-4 border border-gray-300 bg-white">
-                    <h3 className="font-bold">{task.task}</h3>
+                  <div className="mb-2 p-4 border border-gray-300 bg-white rounded-lg shadow-md transition-transform transform hover:scale-105 hover:bg-green-100">
+                    <h3 className="font-bold text-lg">{task.task}</h3>
                     <p>Status: {task.status}</p>
                   </div>
                 </Link>
@@ -135,12 +135,12 @@ const TaskListPage: React.FC = () => {
               )}
             </div>
           </div>
-          <div className="lg:w-1/2 flex-1 border rounded-lg border-gray-300 p-4 mb-10 bg-slate-600 shadow-md">
-            <h2 className="text-xl font-bold mb-4 text-center text-white">
+          <div className="lg:w-1/2 flex-1 border rounded-lg border-gray-300 p-4 mb-10 bg-slate-600 bg-opacity-40 shadow-lg">
+            <h2 className="text-xl sm:text-2xl lg:text-3xl font-bold mb-4 text-center text-white">
               Submitted Tasks
             </h2>
             <div className="overflow-x-auto">
-              <table className="min-w-full bg-white">
+              <table className="min-w-full bg-white rounded-lg shadow-md">
                 <thead>
                   <tr className="bg-gray-200">
                     <th className="py-2 px-4 text-left">No.</th>
@@ -152,7 +152,7 @@ const TaskListPage: React.FC = () => {
                 </thead>
                 <tbody>
                   {submittedTasks.map((entry: CompletedTask, index: number) => (
-                    <tr key={index} className="hover:bg-blue-200">
+                    <tr key={index} className="border-b border-gray-300 hover:bg-blue-100 transition-colors">
                       <td className="px-4 py-2">{entry.tasknum}</td>
                       <td className="px-4 py-2">{entry.taskname}</td>
                       <td className="px-4 py-2">{entry.points}</td>
@@ -167,7 +167,8 @@ const TaskListPage: React.FC = () => {
               <p className="text-center text-white">No tasks submitted yet</p>
             )}
           </div>
-        </>)}
+        </>
+      )}
       {(userRole === "moderator" || userRole === "president") && (
         <TaskValidation domain={userDomain || ""} />
       )}
