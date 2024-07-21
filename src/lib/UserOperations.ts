@@ -68,7 +68,12 @@ export async function updateProfile(factId: string, formData: {
                 name: formData.Name,
                 githubURL: formData.GithubProfile,
                 linkedInURL: formData.LinkedinProfile,
-                About: formData.About
+                About: formData.About,
+                ReactExp: formData.ReactExp,
+                NodeExp: formData.NodeExp,
+                HTMLCSSExp: formData.HTMLCSSExp,
+                PythonExp: formData.PythonExp,
+                JSExp: formData.JSExp
             }
         })
 
