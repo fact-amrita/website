@@ -32,7 +32,7 @@ model User {
   role         String
   FactID       String  @unique
   domain       String
-  semester     String?
+  semester     String
   phone        BigInt?
   birthday     String?
   linkedInURL  String?
