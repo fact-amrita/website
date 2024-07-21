@@ -3,7 +3,8 @@
 import Image from 'next/image';
 import { useState, useEffect } from 'react';
 import { getLeaderboard, getYearLeaderboard, getSemesterLeaderboard } from '@/lib/leaderboards';
-import { Player } from '@lottiefiles/react-lottie-player'; // import Lottie
+import { Player } from '@lottiefiles/react-lottie-player'; // import Lottie;
+import Link from 'next/link';
 
 const RanksTable = ({ activeTab, userDomain, presentUser }: { activeTab: string, userDomain: string, presentUser: string }) => {
   const [leaders, setLeaders] = useState<any[]>([]);
@@ -70,22 +71,22 @@ const RanksTable = ({ activeTab, userDomain, presentUser }: { activeTab: string,
           {leaders.length > 0 ? (
             <div className="space-y-3">
               {currentItems.map((leader: any, index: number) => (
-                <div
-                  key={index}
-                  className={`flex items-center justify-between py-2 px-3 ${leader.name === presentUser ? 'bg-green-500' : 'bg-slate-600'} rounded-lg hover:bg-green-600 transition duration-300`}
-                >
-                  <div className="flex items-center space-x-2">
-                    <Image
-                      src={leader.image}
-                      alt={leader.name}
-                      width={30}
-                      height={30}
-                      className="rounded-full"
-                    />
-                    <span className="text-white text-sm md:text-base">{leader.name}</span>
-                  </div>
-                  <span className="text-white text-sm md:text-base">{leader.points} pts</span>
-                </div>
+                  <Link href={`/app/profile/${leader.FactID}`}
+                    key={index}
+                    className={`flex items-center justify-between py-2 px-3 ${leader.name === presentUser ? 'bg-green-500' : 'bg-slate-600'} rounded-lg hover:bg-green-600 transition duration-300`}
+                  >
+                    <div className="flex items-center space-x-2">
+                      <Image
+                        src={leader.image}
+                        alt={leader.name}
+                        width={30}
+                        height={30}
+                        className="rounded-full"
+                      />
+                      <span className="text-white text-sm md:text-base">{leader.name}</span>
+                    </div>
+                    <span className="text-white text-sm md:text-base">{leader.points} pts</span>
+                    </Link>
               ))}
             </div>
           ) : (

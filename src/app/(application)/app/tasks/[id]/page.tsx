@@ -192,7 +192,7 @@ const TaskPage: React.FC<TaskPageProps> = ({ TaskId }) => {
 
   return (
     <div className="flex h-screen p-0 mx-0  overflow-y-auto">
-      <div className="w-1/2 h-full bg-gray-800 flex flex-col justify-center items-center p-2 overflow-y-auto">
+      <div style={{ backgroundColor: "rgba(31,41,55,0.5)" }} className="w-1/2 h-full flex flex-col justify-center items-center p-2 overflow-y-auto">
         {timeLeft && (
           <div className="bg-gradient-to-tr from-blue-700 via-black to-red-700 rounded-md shadow-lg p-2 text-white font-mono text-lg mb-5">
             {timeLeft !== null ? (isRunning ? formatTime(timeLeft) : 'Timer Stopped') : 'Loading...'}
@@ -208,13 +208,6 @@ const TaskPage: React.FC<TaskPageProps> = ({ TaskId }) => {
               <p className="text-green-500 font-semibold text-lg break-words">End Date: <span className="font-normal">{taskData.deadline}</span></p>
             </div>
             <p className="text-green-500 font-semibold text-lg breal-words">Duration: <span className="font-normal">{taskData.duration} Day(s)</span></p>
-            <button
-              className={`bg-gradient-to-tr from-blue-700 via-black to-red-700 text-white font-semibold py-2 px-4 rounded ${isRunning ? 'opacity-50 cursor-not-allowed' : 'hover:bg-blue-600'}`}
-              onClick={isRunning ? stopTimer : startTimer}
-              disabled={isRunning}
-            >
-              {isRunning ? 'Running...' : 'Take Action'}
-            </button>
 
             {(timeLeft && taskData.fileKey) && (
               <button
@@ -231,7 +224,7 @@ const TaskPage: React.FC<TaskPageProps> = ({ TaskId }) => {
         </div>
       </div>
 
-      <div className="w-1/2 h-full bg-gray-700 flex justify-center items-center">
+      <div style={{ backgroundColor: "rgba(55,65,81,0.5)" }} className="w-1/2 h-full flex justify-center items-center">
         {timeLeft && <FileUpload taskid={TaskId} factid={factId ?? ''} />}
       </div>
     </div>
