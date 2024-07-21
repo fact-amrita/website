@@ -1,119 +1,122 @@
 "use client";
 
-import Image from 'next/image';
-import { useState, useEffect } from 'react';
-import { getLeaderboard } from '@/lib/leaderboards';
-import { Player } from '@lottiefiles/react-lottie-player'; // import Lottie
+import React, { useState } from 'react';
 
-const RanksTable = ({ activeTab, userDomain, presentUser }: { activeTab: string, userDomain: string, presentUser: string }) => {
-  const [leaders, setLeaders] = useState<any[]>([]);
-  const [isLoading, setIsLoading] = useState<boolean>(true); // add loading state
-  const [currentPage, setCurrentPage] = useState<number>(1); // add current page state
-  const [itemsPerPage] = useState<number>(5); // set items per page
+interface TableData {
+  number: number;
+  description: string;
+  date: string;
+  time?: string;
+  points: number;
+}
 
-  useEffect(() => {
-    const fetchLeaderboard = async () => {
-      try {
-        console.log(`Fetching data for activeTab: ${activeTab}`); // Log or use the activeTab here if needed
-        const data = await getLeaderboard(userDomain);
-        setLeaders(data || []);
-      } catch (error) {
-        console.error('Error fetching leaderboard data:', error);
-      } finally {
-        setIsLoading(false); // set loading to false once data is fetched
-      }
-    };
+interface Component {
+  LifetimeList: any;
+  YearList: any;
+  SemList: any;
+}
 
-    fetchLeaderboard();
-  }, [userDomain, activeTab]); // Trigger fetch when activeTab changes
+const TabbedComponent: React.FC<Component> = ({ LifetimeList, YearList, SemList }) => {
+  const [activeTab, setActiveTab] = useState<string>('lifetime');
 
-  const totalPages = Math.ceil(leaders.length / itemsPerPage);
+  const lifetimeData: TableData[] = LifetimeList.map((task: any, index: number) => ({
+    number: index + 1,
+    description: task.task,
+    date: task.completeTime,
+    points: task.awarded || 0
+  }));
 
-  const handleClick = (pageNumber: number) => {
-    setCurrentPage(pageNumber);
-  };
+  const semesterData: TableData[] = SemList.map((task: any, index: number) => ({
+    number: index + 1,
+    description: task.task,
+    date: task.completeTime,
+    points: task.awarded || 0
+  }));
 
-  const handleNext = () => {
-    if (currentPage < totalPages) {
-      setCurrentPage(currentPage + 1);
+  const academicYearData: TableData[] = YearList.map((task: any, index: number) => ({
+    number: index + 1,
+    description: task.task,
+    date: task.completeTime,
+    points: task.awarded || 0
+  }));
+
+  const renderTableRows = (data: TableData[]) => {
+    const rows = data.map((row, index) => (
+      <React.Fragment key={index}>
+        <tr>
+          <td className="px-4 py-2 text-black">{row.number}</td>
+          <td className="px-4 py-2 text-black">{row.description}</td>
+          <td className="px-4 py-2 text-black">{new Date(row.date).toLocaleDateString('en-GB').replace(/\//g, '-')}</td>
+          <td className="px-4 py-2 text-black">{row.points}</td>
+        </tr>
+        <tr><td colSpan={4}><hr className="border-gray-300" /></td></tr>
+      </React.Fragment>
+    ));
+
+    // Add empty rows if necessary to reach 5 rows
+    for (let i = rows.length / 2; i < 5; i++) {
+      rows.push(
+        <React.Fragment key={`empty-${i}`}>
+          <tr>
+            <td className="px-4 py-2 text-black">ㅤ</td>
+            <td className="px-4 py-2 text-black">ㅤ</td>
+            <td className="px-4 py-2 text-black">ㅤ</td>
+            <td className="px-4 py-2 text-black">ㅤ</td>
+          </tr>
+          <tr><td colSpan={4}><hr className="border-gray-300" /></td></tr>
+        </React.Fragment>
+      );
     }
-  };
 
-  const handlePrevious = () => {
-    if (currentPage > 1) {
-      setCurrentPage(currentPage - 1);
-    }
+    return rows;
   };
-
-  const currentItems = leaders.slice((currentPage - 1) * itemsPerPage, currentPage * itemsPerPage);
 
   return (
-    <div className="flex flex-col bg-gradient-to-tr from-blue-700 via-black to-red-700 p-4 rounded-lg w-full max-w-md mx-auto h-full min-h-fit overflow-hidden">
-      <h2 className="text-center text-white text-xl md:text-2xl mb-4">Leaderboard</h2>
-      {isLoading ? (
-        <div className="flex justify-center">
-          <Player
-            autoplay
-            loop
-            src="https://lottie.host/4d948af6-47c6-4d38-ba2a-c3ccc40a11da/u8FaXDQiWk.json" // your Lottie animation URL
-            style={{ height: '150px', width: '150px' }}
-          />
+    <div className="p-4 w-full overflow-hidden">
+      <div className="flex justify-between mb-1 w-full">
+        <button
+          onClick={() => setActiveTab('lifetime')}
+          className={`px-4 py-2 border rounded-lg ${activeTab === 'lifetime' ? 'bg-gradient-to-tr from-blue-700 via-black to-red-700 text-white' : 'bg-gray-700 text-white'}`}
+        >
+          Lifetime
+        </button>
+        <button
+          onClick={() => setActiveTab('semester')}
+          className={`px-4 py-2 border rounded-lg ${activeTab === 'semester' ? 'bg-gradient-to-tr from-blue-700 via-black to-red-700 text-white' : 'bg-gray-700 text-white'}`}
+        >
+          Semester
+        </button>
+        <button
+          onClick={() => setActiveTab('academicYear')}
+          className={`px-4 py-2 border rounded-lg ${activeTab === 'academicYear' ? 'bg-gradient-to-tr from-blue-700 via-black to-red-700 text-white' : 'bg-gray-700 text-white'}`}
+        >
+          Academic Year
+        </button>
+      </div>
+      <div className="flex justify-center mb-4 mt-5 mr-10">
+        <h1 className='text-white text-2xl text-center bg-green-500 rounded-lg p-2'>HISTORY</h1>
+      </div>
+      <div className="flex justify-center">
+        <div className="overflow-y-auto w-full h-55 sm:h-45 md:h-50 lg:h-69"> {/* Set height to enable vertical scroll */}
+          <table className="w-full bg-slate-200 border-collapse">
+            <thead>
+              <tr>
+                <th className="px-4 py-2 text-black">Number</th>
+                <th className="px-4 py-2 text-black">Description</th>
+                <th className="px-4 py-2 text-black">Date</th>
+                <th className="px-4 py-2 text-black">Points</th>
+              </tr>
+            </thead>
+            <tbody>
+              {activeTab === 'lifetime' && renderTableRows(lifetimeData)}
+              {activeTab === 'semester' && renderTableRows(semesterData)}
+              {activeTab === 'academicYear' && renderTableRows(academicYearData)}
+            </tbody>
+          </table>
         </div>
-      ) : (
-        <>
-          {leaders.length > 0 ? (
-            <div className="space-y-3">
-              {currentItems.map((leader: any, index: number) => (
-                <div
-                  key={index}
-                  className={`flex items-center justify-between py-2 px-3 ${leader.name === presentUser ? 'bg-green-500' : 'bg-slate-600'} rounded-lg hover:bg-green-600 transition duration-300`}
-                >
-                  <div className="flex items-center space-x-2">
-                    <Image
-                      src={leader.image}
-                      alt={leader.name}
-                      width={30}
-                      height={30}
-                      className="rounded-full"
-                    />
-                    <span className="text-white text-sm md:text-base">{leader.name}</span>
-                  </div>
-                  <span className="text-white text-sm md:text-base">{leader.points} pts</span>
-                </div>
-              ))}
-            </div>
-          ) : (
-            <p className="text-white text-center text-sm md:text-base">No leaders found.</p>
-          )}
-          <div className="flex justify-center mt-4">
-            <button
-              onClick={handlePrevious}
-              className="px-3 py-1 mx-1 bg-gray-700 text-white rounded-lg disabled:opacity-50"
-              disabled={currentPage === 1}
-            >
-              {'<'}
-            </button>
-            {Array.from({ length: totalPages }, (_, index) => (
-              <button
-                key={index + 1}
-                onClick={() => handleClick(index + 1)}
-                className={`px-3 py-1 mx-1 ${currentPage === index + 1 ? 'bg-blue-500' : 'bg-gray-700'} text-white rounded-lg`}
-              >
-                {index + 1}
-              </button>
-            ))}
-            <button
-              onClick={handleNext}
-              className="px-3 py-1 mx-1 bg-gray-700 text-white rounded-lg disabled:opacity-50"
-              disabled={currentPage === totalPages}
-            >
-              {'>'}
-            </button>
-          </div>
-        </>
-      )}
+      </div>
     </div>
   );
 };
 
-export default RanksTable;
+export default TabbedComponent;

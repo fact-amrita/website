@@ -14,7 +14,6 @@ const RanksTable = ({ activeTab, userDomain, presentUser }: { activeTab: string,
   useEffect(() => {
     const fetchLeaderboard = async () => {
       try {
-        console.log(`Fetching data for activeTab: ${activeTab}`); // Log or use the activeTab here if needed
         const data = await getLeaderboard(userDomain);
         setLeaders(data || []);
       } catch (error) {
@@ -23,8 +22,9 @@ const RanksTable = ({ activeTab, userDomain, presentUser }: { activeTab: string,
         setIsLoading(false); // set loading to false once data is fetched
       }
     };
+
     fetchLeaderboard();
-  }, [userDomain, activeTab]); // Add activeTab to dependencies if needed
+  }, [userDomain]); // Only trigger fetch when userDomain changes
 
   const totalPages = Math.ceil(leaders.length / itemsPerPage);
 
@@ -55,7 +55,7 @@ const RanksTable = ({ activeTab, userDomain, presentUser }: { activeTab: string,
             autoplay
             loop
             src="https://lottie.host/4d948af6-47c6-4d38-ba2a-c3ccc40a11da/u8FaXDQiWk.json" // your Lottie animation URL
-            style={{ height: '150px', width: '150px' }}
+            style={{ height: '150px', width: '150px' }} // Adjust size as needed
           />
         </div>
       ) : (
