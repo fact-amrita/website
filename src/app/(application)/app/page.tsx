@@ -165,7 +165,6 @@ const DashboardContent: React.FC = () => {
             announcements.map((announcement) => (
               <div key={announcement.id}>
                 <h2>{announcement.Announcement}</h2>
-                <p>Date: {announcement.Visiblefrom}</p>
               </div>
             ))
           ) : (
@@ -223,9 +222,9 @@ const DashboardContent: React.FC = () => {
       <div className="h-full w-full lg:w-4/5 bg-gradient-to-tr from-blue-700 via-gray-500 to-red-700 flex flex-col justify-center items-center p-4">
         <div className="w-full lg:w-4/5 mb-4 grid grid-cols-2">
           <h1 className="col-span-1 text-xl lg:text-2xl text-left font-bold text-white mb-1 mt-14">Hello, {userdat.name}</h1>
-          <h1 className="col-span-2 text-xl lg:text-2xl text-center font-bold text-white mb-3">Welcome to the FACT Club</h1>
+          <h1 className="col-span-2 text-xl lg:text-2xl text-center font-bold text-white mb-1">Welcome to the FACT Club</h1>
         </div>
-        <div className="w-full lg:w-4/5 flex flex-col justify-center items-center mb-2">
+        <div className="w-full lg:w-4/5 flex flex-col justify-center items-center mb-10">
           <HoverEffect items={items} />
           <Leaderboard domain={userdat.domain} />
         </div>
