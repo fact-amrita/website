@@ -75,3 +75,24 @@ export async function updateProfile(factId: string, Name: string, githubURL: str
     }
     return true;
 }
+
+export async function getNewbieUsers() {
+    const users = await db.userCredential.findMany({
+        where: {
+            role: "newbie"
+        }
+    })
+
+    return users;
+}
+
+export async function makeMember(email: string) {
+    await db.userCredential.update({
+        where: {
+            email: email
+        },
+        data: {
+            role: "member"
+        }
+    })
+}
