@@ -62,10 +62,10 @@ const ProfileContent = ({ params }: { params: { id: string } }) => {
   };
 
   return (
-    <div style={{marginLeft:"-3.8%"}} className="h-screen w-screen flex justify-center items-center p-4">
-      <div className="grid grid-cols-12 grid-rows-4 gap-4 h-full w-5/6">
-        <div className="bg-gradient-to-t from-red-700 via-black to-blue-700  rounded-3xl flex justify-center items-center col-span-4 row-span-4 p-10 py-5">
-          <div className="h-full w-full grid grid-rows-2 gap-4">
+    <div className="h-screen w-full flex justify-center items-center p-5 overflow-clip">
+      <div style={{ marginLeft: "5%" }} className="grid grid-cols-12 grid-rows-4 gap-7 h-full px-4">
+        <div className="bg-gradient-to-t from-red-700 via-black to-blue-700  rounded-3xl flex justify-center items-center col-span-4 row-span-4 p-10">
+          <div className="h-full w-full grid grid-rows-2 gap-7">
             <div className="bg-blue-600  h-full w-full rounded-2xl flex flex-col justify-center items-center">
               <div className="rounded-full overflow-hidden h-16 w-16">
                 <Image src={ProfileData.image} alt='profile image' layout="responsive" width={64} height={64} />
@@ -86,7 +86,7 @@ const ProfileContent = ({ params }: { params: { id: string } }) => {
         </div>
 
         {/* About Section */}
-        <div className="bg-gradient-to-tr from-blue-500 to-red-500 rounded-3xl flex flex-col col-span-8 row-span-2 p-10 py-5 overflow-hidden">
+        <div className=" w-full bg-gradient-to-tr from-blue-500 to-red-500 rounded-3xl flex flex-col col-span-8 row-span-2 p-10 py-5 overflow-hidden">
           <h1 className="text-xl text-white">About</h1>
           <div className="text-white text-lg">
             {ProfileData.About}
@@ -104,7 +104,7 @@ const ProfileContent = ({ params }: { params: { id: string } }) => {
           </p>
           <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
             {skills.map((skill, index) => (
-              skill[1] && (
+              (skill[1] && skill[1] != "null") && (
                 <div key={index} className="bg-gradient-to-tr from-blue-500 to-red-500 rounded-lg p-4 shadow-xl text-center">
                   <div className="text-indigo-800 font-bold">{skill[0]}</div>
                   <div className="text-gray-900">{skill[1]}</div>

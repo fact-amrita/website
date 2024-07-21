@@ -102,7 +102,12 @@ const FileUpload: React.FC<FileUploadProps> = (data) => {
         throw new Error('Upload failed');
       }
 
-      alert((await response.json()).message);
+      // alert((await response.json()).message);
+      MySwal.fire({
+        title: "Operation Successful !",
+        text: "File Uploaded Successfull",
+        icon: "success"
+      });
 
       console.log('File uploaded successfully!');
       window.location.reload();

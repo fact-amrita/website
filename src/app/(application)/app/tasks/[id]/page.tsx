@@ -2,9 +2,9 @@
 
 import React, { useEffect, useState } from 'react';
 import { SessionProvider, useSession } from 'next-auth/react';
-import { TaskStart, TaskGetById } from "@/lib/TaskOperations";
+import { TaskStart, TaskGetById, isTaskPending, isTaskCompleted } from "@/lib/TaskOperations";
 import FileUpload from '@/components/tasks/fileupload';
-import { isTaskPending, isTaskCompleted } from '@/lib/TaskOperations';
+import Link from 'next/link';
 
 type TaskPageProps = {
   TaskId: string;
@@ -120,8 +120,9 @@ const TaskPage: React.FC<TaskPageProps> = ({ TaskId }) => {
 
   if (taskCompleted) {
     return (
-      <div className="flex justify-center items-center h-screen">
+      <div className="flex flex-col justify-center items-center h-screen">
         <div className="text-red-500 text-2xl">This Task has already been submitted</div>
+        <div className="text-red-500 text-xl"><Link href="/app/tasks">Go to <span style={{ textDecoration: "underline" }}>task list</span> to check the task status</Link></div>
       </div>
     );
   }
@@ -200,7 +201,7 @@ const TaskPage: React.FC<TaskPageProps> = ({ TaskId }) => {
         <div className="w-full max-w-md max-h-full bg-gray-900 rounded-lg shadow-lg p-2 border border-gray-700 mb-4 overflow-y-auto
         ">
           <div className="flex flex-col space-y-4">
-            <textarea className="text-green-500 font-semibold text-4xl text-center mb-4 bg-transparent border-none break-words">{taskData.task}</textarea>
+            <p className="text-green-500 font-semibold text-4xl text-center mb-4 bg-transparent border-none break-words">{taskData.task}</p>
             <p className="text-green-500 font-semibold text-lg break-words">Description: <span className="font-normal break-words">{taskData.description}</span></p>
             <p className="text-green-500 font-semibold text-lg break-words">Points: <span className="font-normal">{taskData.points}</span></p>
             <div className='flex space-x-6 mr-0'>
