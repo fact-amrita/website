@@ -27,13 +27,6 @@ const Sidebar: FC<SidebarProps> = ({ children, user }) => {
             className="w-32 transition-all"
             alt="Logo"
           />
-          {/* You can remove the toggle button if the sidebar is always expanded */}
-          {/* <button
-            onClick={() => setExpanded(!expanded)}
-            className="p-1.5 rounded-lg bg-gray-50 hover:bg-gray-100"
-          >
-            {expanded ? <ChevronFirst /> : <ChevronLast />}
-          </button> */}
         </div>
 
         <ul className="flex-1 px-3">{children}</ul>

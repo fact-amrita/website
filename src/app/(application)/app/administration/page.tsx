@@ -72,9 +72,9 @@ const AdminPage = () => {
               Change Semester
             </button><button
               className="w-full p-8 sm:p-4 md:p-6 bg-purple-500 text-white rounded-lg hover:bg-purple-700 transition duration-300"
-              onClick={() => handleNavigation('/app/administration/upgradenewbie')}
+              onClick={() => handleNavigation('/app/administration/newbies')}
             >
-                Upgrade Newbie
+                Check New Users
               </button></>
           )}
         </div>
