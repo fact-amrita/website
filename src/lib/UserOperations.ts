@@ -92,7 +92,7 @@ export async function makeMember(email: string) {
             email: email
         },
         data: {
-            role: "member"
+            role: "onboarding"
         }
     })
 }

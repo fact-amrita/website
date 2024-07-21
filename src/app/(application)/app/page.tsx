@@ -63,8 +63,8 @@ const DashboardContent: React.FC = () => {
       if (userdat.role === "onboarding") {
         toast({
           variant: "success",
-          title: "Onboarding Required",
-          description: "You need to complete the onboarding process.",
+          title: "Congratulations !",
+          description: "You are now one step closer to become a member of the FACT Club.",
           duration: 10000,
           action: (
             <ToastAction altText="Onboarding Page" onClick={() => (window.location.href = "/app/onboarding")}>

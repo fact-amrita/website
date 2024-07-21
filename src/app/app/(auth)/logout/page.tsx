@@ -21,8 +21,7 @@ export default function LogoutPage() {
           <Image 
             src={logo}
             alt="FACT Logo" 
-            width={136} 
-            height={80} 
+            height={90} 
             className="mx-auto mb-4" 
           />
           <h1 className="text-2xl font-semibold mb-2">You have signed out</h1>
