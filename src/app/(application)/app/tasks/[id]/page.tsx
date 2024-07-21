@@ -31,8 +31,6 @@ const TaskPage: React.FC<TaskPageProps> = ({ TaskId }) => {
   const [factId, setFactId] = useState(localStorage.getItem('factId'));
   const [taskCompleted, setTaskCompleted] = useState<boolean>(false);
 
-
-
   useEffect(() => {
     const fetchTaskData = async () => {
       try {
@@ -193,22 +191,23 @@ const TaskPage: React.FC<TaskPageProps> = ({ TaskId }) => {
   }
 
   return (
-    <div className="flex h-screen p-0 mx-0 overflow-clip">
-      <div style={{ backgroundColor: "rgba(31,41,55,0.6)" }} className="w-1/2 h-full flex flex-col justify-center items-center p-2">
+    <div className="flex h-screen p-0 mx-0  overflow-y-auto">
+      <div className="w-1/2 h-full bg-gray-800 flex flex-col justify-center items-center p-2 overflow-y-auto">
         {timeLeft && (
           <div className="bg-gradient-to-tr from-blue-700 via-black to-red-700 rounded-md shadow-lg p-2 text-white font-mono text-lg mb-5">
             {timeLeft !== null ? (isRunning ? formatTime(timeLeft) : 'Timer Stopped') : 'Loading...'}
           </div>)}
-        <div className="w-3/4 h-auto bg-gray-900 rounded-lg shadow-lg p-2 border border-gray-700 mb-4">
+        <div className="w-full max-w-md max-h-full bg-gray-900 rounded-lg shadow-lg p-2 border border-gray-700 mb-4 overflow-y-auto
+        ">
           <div className="flex flex-col space-y-4">
-            <p className="text-green-500 font-semibold text-4xl text-center mb-4">{taskData.task}</p>
-            <p className="text-green-500 font-semibold text-lg">Description: <span className="font-normal">{taskData.description}</span></p>
-            <p className="text-green-500 font-semibold text-lg">Points: <span className="font-normal">{taskData.points}</span></p>
+            <textarea className="text-green-500 font-semibold text-4xl text-center mb-4 bg-transparent border-none break-words">{taskData.task}</textarea>
+            <p className="text-green-500 font-semibold text-lg break-words">Description: <span className="font-normal break-words">{taskData.description}</span></p>
+            <p className="text-green-500 font-semibold text-lg break-words">Points: <span className="font-normal">{taskData.points}</span></p>
             <div className='flex space-x-6 mr-0'>
-              <p className="text-green-500 font-semibold text-lg">Start Date: <span className="font-normal">{taskData.startDate}</span></p>
-              <p className="text-green-500 font-semibold text-lg">End Date: <span className="font-normal">{taskData.deadline}</span></p>
+              <p className="text-green-500 font-semibold text-lg break-words">Start Date: <span className="font-normal">{taskData.startDate}</span></p>
+              <p className="text-green-500 font-semibold text-lg break-words">End Date: <span className="font-normal">{taskData.deadline}</span></p>
             </div>
-            <p className="text-green-500 font-semibold text-lg">Duration: <span className="font-normal">{taskData.duration} Day(s)</span></p>
+            <p className="text-green-500 font-semibold text-lg breal-words">Duration: <span className="font-normal">{taskData.duration} Day(s)</span></p>
             <button
               className={`bg-gradient-to-tr from-blue-700 via-black to-red-700 text-white font-semibold py-2 px-4 rounded ${isRunning ? 'opacity-50 cursor-not-allowed' : 'hover:bg-blue-600'}`}
               onClick={isRunning ? stopTimer : startTimer}
@@ -225,14 +224,14 @@ const TaskPage: React.FC<TaskPageProps> = ({ TaskId }) => {
                 Download File
               </button>
             )}
-            {!timeLeft && (<button onClick={taskStarter} className='text-blue-700'>
+            {!timeLeft && (<button onClick={taskStarter} className='bg-gradient-to-tr from-blue-700 via-black to-red-700 text-white font-semibold py-2 px-4 rounded'>
               Start Task
             </button>)}
           </div>
         </div>
       </div>
 
-      <div style={{ backgroundColor: "rgba(55,65,81,0.6)" }} className="w-1/2 h-full flex justify-center items-center">
+      <div className="w-1/2 h-full bg-gray-700 flex justify-center items-center">
         {timeLeft && <FileUpload taskid={TaskId} factid={factId ?? ''} />}
       </div>
     </div>
