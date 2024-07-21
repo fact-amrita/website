@@ -4,23 +4,14 @@ import { db } from "@/lib/db";
 import { getUserByFactID } from "@/lib/UserFetch";
 
 export async function getLeaderboard(Userdomain: string) {
-    let leaderboard
-    if (Userdomain != "") {
-        leaderboard = await db.points.findMany({
-            where: {
-                domain: Userdomain
-            },
-            orderBy: {
-                points: 'desc'
-            }
-        });
-    } else {
-        leaderboard = await db.points.findMany({
-            orderBy: {
-                points: 'desc'
-            }
-        });
-    }
+    const leaderboard = await db.points.findMany({
+        where: {
+            domain: Userdomain
+        },
+        orderBy: {
+            points: 'desc'
+        }
+    });
 
     interface LeaderboardData {
         position: number;

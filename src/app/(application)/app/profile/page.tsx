@@ -44,7 +44,7 @@ const ProfilePage: React.FC = () => {
           style={{ color: 'white' }}
         />
       </div>
-      <div className="overflow-y-auto" style={{ height: '70vh', marginLeft:"3%" }}>
+      <div className="overflow-y-auto" style={{ height: '70vh' }}>
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 p-4 ml-2">
           {results.map(result => (
             <Link href={`/app/profile/${result.FactID}`} key={result.id}>

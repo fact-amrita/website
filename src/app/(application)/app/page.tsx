@@ -63,8 +63,8 @@ const DashboardContent: React.FC = () => {
       if (userdat.role === "onboarding") {
         toast({
           variant: "success",
-          title: "Congratulations !",
-          description: "You are now one step closer to become a member of the FACT Club.",
+          title: "Onboarding Required",
+          description: "You need to complete the onboarding process.",
           duration: 10000,
           action: (
             <ToastAction altText="Onboarding Page" onClick={() => (window.location.href = "/app/onboarding")}>
@@ -225,7 +225,7 @@ const DashboardContent: React.FC = () => {
           <h1 className="col-span-1 text-xl lg:text-2xl text-left font-bold text-white mb-1 mt-14">Hello, {userdat.name}</h1>
           <h1 className="col-span-2 text-xl lg:text-2xl text-center font-bold text-white mb-3">Welcome to the FACT Club</h1>
         </div>
-        <div className="w-full lg:w-4/5 flex flex-col justify-center items-center">
+        <div className="w-full lg:w-4/5 flex flex-col justify-center items-center mb-2">
           <HoverEffect items={items} />
           <Leaderboard domain={userdat.domain} />
         </div>

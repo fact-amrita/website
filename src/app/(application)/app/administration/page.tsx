@@ -28,9 +28,9 @@ const AdminPage = () => {
 
   return (
     <div className="flex flex-col md:flex-row min-h-screen bg-gray-100 ml-2 md:ml-3">
-      <div className="w-full md:w-1/2 bg-white p-8 shadow-lg rounded-lg" style={{ marginLeft: "5%" }}>
+      <div className="w-full md:w-1/4 bg-white p-8 shadow-lg rounded-lg">
         <h1 className="text-2xl font-bold mb-8 ml-10 text-center">Admin Panel</h1>
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 justify-center items-center">
+        <div className="space-y-4 justify-center items-center ml-5">
           <button
             className="w-full p-6 bg-blue-500 text-white rounded-lg hover:bg-blue-700 transition duration-300"
             onClick={() => handleNavigation('/app/administration/createannouncement')}
@@ -43,6 +43,7 @@ const AdminPage = () => {
           >
             Create Events
           </button>
+
           {userdat.role === "admin" && (
             <button
               className="w-full p-8 sm:p-6 md:p-6 bg-red-500 text-white rounded-lg hover:bg-red-700 transition duration-300"
@@ -64,20 +65,17 @@ const AdminPage = () => {
             Add Important Dates to Calendar
           </button>
           {userdat.role === "admin" && (
-            <>
-              <button
-                className="w-full p-8 sm:p-4 md:p-6 bg-purple-500 text-white rounded-lg hover:bg-purple-700 transition duration-300"
-                onClick={() => handleNavigation('/app/administration/changesemester')}
-              >
-                Change Semester
-              </button>
-              <button
-                className="w-full p-8 sm:p-4 md:p-6 bg-purple-500 text-white rounded-lg hover:bg-purple-700 transition duration-300"
-                onClick={() => handleNavigation('/app/administration/newbies')}
-              >
-                Check new users
-              </button>
-            </>
+            <><button
+              className="w-full p-8 sm:p-4 md:p-6 bg-purple-500 text-white rounded-lg hover:bg-purple-700 transition duration-300"
+              onClick={() => handleNavigation('/app/administration/changesemester')}
+            >
+              Change Semester
+            </button><button
+              className="w-full p-8 sm:p-4 md:p-6 bg-purple-500 text-white rounded-lg hover:bg-purple-700 transition duration-300"
+              onClick={() => handleNavigation('/app/administration/upgradenewbie')}
+            >
+                Upgrade Newbie
+              </button></>
           )}
         </div>
       </div>
@@ -86,10 +84,18 @@ const AdminPage = () => {
           <div className="animate-bounce bg-blue-500 p-4 rounded-full text-white mb-4">
             This is Admin Page
           </div>
+          {/* <div className="animate-spin bg-green-500 p-4 rounded-full text-white mb-4">
+            is
+          </div>
+          <div className="animate-pulse bg-red-500 p-4 rounded-full text-white mb-4">
+            admin
+          </div>
+          <div className="animate-ping bg-yellow-500 p-4 rounded-full text-white">
+            page
+          </div> */}
         </div>
       </div>
     </div>
-
   );
 };
 

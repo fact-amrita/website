@@ -16,10 +16,9 @@ export const HoverEffect = ({
   const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
 
   return (
-    <div className={cn("grid grid-cols-1 md:grid-cols-12 gap-0 pb-3", className)}>
+    <div className={cn("grid grid-cols-1 md:grid-cols-12 gap-0 pb-3 mb-2", className)}>
       {items.map((item, idx) => (
         <div
-          key={idx}
           className={cn(
             "relative group block p-1 h-full w-full",
             `col-span-${item.span}`
@@ -49,7 +48,7 @@ export const HoverEffect = ({
               "rounded-2xl h-full w-full p-4 md:p-3 xl:p-5 overflow-hidden bg-gradient-to-tr from-blue-700 via-black to-red-700 border border-transparent dark:border-white/[0.2] group-hover:border-slate-700 relative z-20",
               className
             )}
-            style={{ height: '250px' }}
+            style={{ height: '250px' }} 
           >
             <div className="relative z-50 h-full overflow-y-auto">
               <div className="p-3">

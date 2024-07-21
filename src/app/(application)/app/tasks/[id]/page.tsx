@@ -193,13 +193,13 @@ const TaskPage: React.FC<TaskPageProps> = ({ TaskId }) => {
   }
 
   return (
-    <div className="flex h-screen p-0 m-10">
-      <div className="w-1/2 h-full bg-gray-800 flex flex-col justify-center items-center p-4">
+    <div className="flex h-screen p-0 mx-0 overflow-clip">
+      <div className="w-1/2 h-full bg-gray-800 flex flex-col justify-center items-center p-2">
         {timeLeft && (
-          <div className="bg-gradient-to-tr from-blue-700 via-black to-red-700 rounded-md shadow-lg p-4 text-white font-mono text-lg mb-5">
+          <div className="bg-gradient-to-tr from-blue-700 via-black to-red-700 rounded-md shadow-lg p-2 text-white font-mono text-lg mb-5">
             {timeLeft !== null ? (isRunning ? formatTime(timeLeft) : 'Timer Stopped') : 'Loading...'}
           </div>)}
-        <div className="w-3/4 h-auto bg-gray-900 rounded-lg shadow-lg p-6 border border-gray-700 mb-4">
+        <div className="w-3/4 h-auto bg-gray-900 rounded-lg shadow-lg p-2 border border-gray-700 mb-4">
           <div className="flex flex-col space-y-4">
             <p className="text-green-500 font-semibold text-4xl text-center mb-4">{taskData.task}</p>
             <p className="text-green-500 font-semibold text-lg">Description: <span className="font-normal">{taskData.description}</span></p>
@@ -219,7 +219,7 @@ const TaskPage: React.FC<TaskPageProps> = ({ TaskId }) => {
 
             {(timeLeft && taskData.fileKey) && (
               <button
-                className="bg-gradient-to-tr from-blue-700 via-black to-red-700 text-white font-semibold py-2 px-4 rounded hover:bg-blue-600"
+                className="bg-gradient-to-tr from-blue-700 via-black to-red-700 text-white font-semibold py-2 px-2 rounded hover:bg-blue-600"
                 onClick={gettingFile}
               >
                 Download File

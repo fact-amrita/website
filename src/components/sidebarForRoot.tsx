@@ -15,9 +15,11 @@ import { roleUpdateCheck } from '@/lib/roleCheck';
 interface Props {
     children: React.ReactNode;
     activeRoute: string;
+    expanded: boolean;
+    setExpanded: (expanded: boolean) => void;
 }
 
-function SidebarForRoot({ children, activeRoute }: Props) {
+function SidebarForRoot({ children, activeRoute, expanded, setExpanded }: Props) {
     const { data: session, status } = useSession();
 
     if (status === 'loading') {
@@ -73,10 +75,10 @@ function SidebarForRoot({ children, activeRoute }: Props) {
     );
 }
 
-export default function SidebarElement({ children, activeRoute }: Props) {
+export default function SidebarElement({ children, activeRoute, expanded, setExpanded }: Props) {
     return (
         <SessionProvider>
-            <SidebarForRoot activeRoute={activeRoute} >
+            <SidebarForRoot activeRoute={activeRoute} expanded={expanded} setExpanded={setExpanded}>
                 {children}
             </SidebarForRoot>
         </SessionProvider>
