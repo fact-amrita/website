@@ -60,7 +60,7 @@ const LeaderboardPage = () => {
       <div className="col-span-3 row-span-1 mr-0 mt-2" >
         <RanksTable userDomain={userdat.domain} presentUser={userdat.name} />
       </div>
-      <div className="col-span-5 row-span-3 ml-20">
+      <div className="col-span-5 row-span-3 ml-20 lg:mt-40 sm:mt-15 md:mt-25">
         <TotalPoints LifeTimepts={totalpoints} SemesterPts={SemPoints} AcademicYearPts={YearPoints} />
       </div>
     </div>

@@ -1,6 +1,6 @@
 "use client"
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { usersFind } from "@/lib/UserFetch";
 import styles from './page.module.css';
 import Image from 'next/image';
@@ -15,56 +15,56 @@ interface Result {
   Title: string | null;
 }
 
-const App: React.FC = () => {
+const ProfilePage: React.FC = () => {
 
   const [results, setResults] = useState<Result[]>([]);
+
+  useEffect(() => {
+    const loadDefaultResults = async () => {
+      const searchResults = await usersFind('');
+      setResults(searchResults);
+    }
+    loadDefaultResults();
+  }, []);
 
   const handleSearch = async (event: React.ChangeEvent<HTMLInputElement>) => {
     const searchResults = await usersFind(event.target.value);
     setResults(searchResults);
   }
 
-  if (!results) {
-    return <p>Loading...</p>;
-  }
-
   return (
-    <div className="container mx-20 mt-8">
-      <h1 className="text-3xl font-bold mb-4 text-white">FACT Profile Search</h1>
-      <div className="mb-4 content-center items-center place-items-center">
+    <div className="container mx-auto mt-8 px-4">
+      <h1 className="text-3xl font-bold mb-4 text-white text-center">FACT Profile Search</h1>
+      <div className="mb-4 flex justify-center">
         <input
           type="text"
           placeholder="Search by name or ID"
           onChange={handleSearch}
-          className={styles.input}
+          className={`${styles.input} w-full max-w-lg p-2`}
           style={{ color: 'white' }}
         />
       </div>
-      <div className="grid grid-cols-4 gap-4 p-4">
-        {results.map(result => (
-          <Link href={`/app/profile/${result.FactID}`}>
-            <div key={result.id} className={`border border-gray-300 p-4 rounded-tr-3xl rounded-bl-3xl bg-white ${result.FactID === window.localStorage.getItem('factId') ? 'shadow-slate-600 shadow-md hover:shadow-yellow-600' : ''}`}>
-              <div className="text-center">
-                <table>
-                  <tr>
-                    <td><Image src={result.image ?? ''} alt={result.name} width={70} height={70} className="w-10 rounded-full mb-2" /></td>
-                    <td style={{ width: "75%" }}>
-                      <div style={{ marginLeft: "20px" }}>
-                        {result.role !== "member" && <div>{result.Title}</div>}
-                        <div>{result.name}</div>
-                        <div>ID: {result.FactID}</div>
-                      </div>
-                    </td>
-                  </tr>
-                </table>
+      <div className="overflow-y-auto" style={{ height: '70vh' }}>
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 p-4 ml-2">
+          {results.map(result => (
+            <Link href={`/app/profile/${result.FactID}`} key={result.id}>
+              <div className={`border border-gray-300 p-3 rounded-tr-3xl rounded-bl-3xl bg-white shadow-xl hover:shadow-2xl transition-shadow duration-300 ${result.FactID === window.localStorage.getItem('factId') ? 'shadow-slate-600 shadow-xl hover:shadow-yellow-600' : ''}`}
+                style={{ width: '100%', height: '150px', display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center' }}>
+                <div className="text-center">
+                  <Image src={result.image ?? ''} alt={result.name} width={70} height={70} className="w-10 rounded-full mb-2" />
+                  <div style={{ marginTop: '10px' }}>
+                    {result.role !== "member" && <div>{result.Title}</div>}
+                    <div>{result.name}</div>
+                    <div>ID: {result.FactID}</div>
+                  </div>
+                </div>
               </div>
-            </div>
-          </Link>
-        ))}
+            </Link>
+          ))}
+        </div>
       </div>
     </div>
   );
 };
 
-export default App;
-
+export default ProfilePage;

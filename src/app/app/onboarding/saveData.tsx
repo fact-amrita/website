@@ -27,7 +27,7 @@ export default async function DataSave(dataGot: any) {
 
     const factID = "FACT_" + DataDict["branch"] + "_" + DataDict["RollNumber"]
 
-    const semester = classifySemester(DataDict["RollNumber"]);
+    const semester = classifySemester(DataDict["RollNumber"].toString());
 
     const IDExisting = await db.user.findUnique({
         where: {

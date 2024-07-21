@@ -110,7 +110,7 @@ const TaskListPage: React.FC = () => {
       {userRole === "member" && (
         <>
           <div className="lg:w-1/2 flex-1 border rounded-lg mb-10 border-gray-300 p-4 bg-slate-600 shadow-md">
-            <h2 className="text-xl font-bold mb-4 text-center text-white">
+            <h2 className="text-xl font-bold mb-4 text-center text-white bg-blue-600">
               Pending Tasks
             </h2>
             <div className="grid grid-cols-1 lg:grid-cols-3 gap-4">
