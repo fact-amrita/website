@@ -51,7 +51,7 @@ export const HoverEffect = ({
             )}
             style={{ height: '250px' }}
           >
-            <div className="relative z-50 h-full overflow-y-auto">
+            <div className="relative z-50 h-full overflow-y-auto scrollbar-thumb-sky-700 scrollbar-track-sky-300">
               <div className="p-3">
                 <h4 className="text-zinc-100 font-bold tracking-wide mt-4">
                   {item.title}

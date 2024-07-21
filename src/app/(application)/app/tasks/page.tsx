@@ -143,7 +143,7 @@ const TaskListPage: React.FC = () => {
             <h2 className="text-xl sm:text-2xl lg:text-3xl font-bold mb-4 bg-blue-800 rounded-lg p-2 shadow-md text-center text-white">
               Submitted Tasks
             </h2>
-            <div className="overflow-x-auto">
+            <div className="overflow-y-auto">
               <table className="min-w-full bg-white rounded-lg shadow-md">
                 <thead>
                   <tr className="bg-gray-200">
