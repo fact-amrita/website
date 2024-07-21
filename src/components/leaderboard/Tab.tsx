@@ -14,10 +14,12 @@ interface Component {
   LifetimeList: any;
   YearList: any;
   SemList: any;
+  activeTab: string;
+  setActiveTab: (tab: string) => void;
 }
 
-const TabbedComponent: React.FC<Component> = ({ LifetimeList, YearList, SemList }) => {
-  const [activeTab, setActiveTab] = useState<string>('lifetime');
+const TabbedComponent: React.FC<Component> = ({ LifetimeList, YearList, SemList, activeTab, setActiveTab }) => {
+  // const [activeTab, setActiveTab] = useState<string>('lifetime');
 
   const lifetimeData: TableData[] = LifetimeList.map((task: any, index: number) => ({
     number: index + 1,

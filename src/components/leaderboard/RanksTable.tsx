@@ -2,7 +2,7 @@
 
 import Image from 'next/image';
 import { useState, useEffect } from 'react';
-import { getLeaderboard } from '@/lib/leaderboards';
+import { getLeaderboard, getYearLeaderboard, getSemesterLeaderboard } from '@/lib/leaderboards';
 import { Player } from '@lottiefiles/react-lottie-player'; // import Lottie
 
 const RanksTable = ({ activeTab, userDomain, presentUser }: { activeTab: string, userDomain: string, presentUser: string }) => {
@@ -14,7 +14,14 @@ const RanksTable = ({ activeTab, userDomain, presentUser }: { activeTab: string,
   useEffect(() => {
     const fetchLeaderboard = async () => {
       try {
-        const data = await getLeaderboard(userDomain);
+        let data;
+        if (activeTab == 'semester') {
+          data = await getSemesterLeaderboard(userDomain, window.localStorage.getItem('factId') || '');
+        } else if (activeTab == 'academicYear') {
+          data = await getYearLeaderboard(userDomain);
+        } else {
+          data = await getLeaderboard(userDomain);
+        }
         setLeaders(data || []);
       } catch (error) {
         console.error('Error fetching leaderboard data:', error);
@@ -24,7 +31,7 @@ const RanksTable = ({ activeTab, userDomain, presentUser }: { activeTab: string,
     };
 
     fetchLeaderboard();
-  }, [userDomain]); // Only trigger fetch when userDomain changes
+  }, [userDomain, activeTab]); // Only trigger fetch when userDomain changes
 
   const totalPages = Math.ceil(leaders.length / itemsPerPage);
 
