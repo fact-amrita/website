@@ -64,10 +64,11 @@ const ProfileContent = ({ params }: { params: { id: string } }) => {
                 <Image src={ProfileData.image} alt='profile image' layout="responsive" width={64} height={64} />
               </div>
               <h3 className="text-white text-xl mt-4">{ProfileData.name}</h3>
+              {ProfileData.Title && (<h3 className="text-white text-xl mt-4">{ProfileData.Title}</h3>)}
               {(window.localStorage.getItem('factId') == ProfileData.FactID) && (<button onClick={handleEditProfile} className="bg-slate-600 shadow-lg mt-5 rounded-md hover:bg-red-800 p-1">Edit My Profile</button>)}
             </div>
             <div className="bg-blue-600  h-full w-full flex flex-col rounded-2xl justify-center items-center">
-              <h1 className="text-3xl text-black">Work Status</h1>
+              <h1 className="text-3xl text-black">Performance</h1>
               <div className="text-black text-2xl mt-10">
                 Points: {ProfileData.points}
               </div>
