@@ -48,7 +48,7 @@ function SidebarForRoot({ children, activeRoute }: Props) {
     }
 
     if (userdat.role === 'member') {
-        sidebarItems.splice(2, 0, { route: '/app/leaderboard', icon: <Image src={LeaderboardIcon} alt="Leaderboard" />, text: 'LeaderBoard', active: false, alert: false });
+        sidebarItems.splice(2, 0, { route: '/app/leaderboard', icon: <Image src={LeaderboardIcon} alt="Leaderboard" />, text: 'Leaderboard', active: false, alert: false });
     }
 
     return (
