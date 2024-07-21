@@ -109,8 +109,8 @@ const TaskListPage: React.FC = () => {
     <div className="h-screen bg-gradient-to-r from-blue-500 via-red-500 to-purple-500 p-4 flex flex-col lg:flex-row px-12 md:px-16">
       {userRole === "member" && (
         <>
-          <div className="lg:w-1/2 flex-1 border rounded-lg mb-10 border-gray-300 p-4 bg-slate-600 bg-opacity-40 shadow-lg mr-2">
-            <h2 className="text-xl sm:text-2xl lg:text-3xl font-bold mb-4 text-center text-white bg-blue-600 rounded-lg p-2 shadow-md">
+          <div style={{backgroundColor:"rgba(71,85,105,0.44)"}} className="lg:w-1/2 flex-1 border rounded-lg mb-10 border-gray-300 p-4 bg-opacity-40 shadow-lg mr-2">
+            <h2 className="text-xl sm:text-2xl lg:text-3xl font-bold mb-4 text-center text-white bg-blue-800 rounded-lg p-2 shadow-md">
               Pending Tasks
             </h2>
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
@@ -135,8 +135,8 @@ const TaskListPage: React.FC = () => {
               )}
             </div>
           </div>
-          <div className="lg:w-1/2 flex-1 border rounded-lg border-gray-300 p-4 mb-10 bg-slate-600 bg-opacity-40 shadow-lg">
-            <h2 className="text-xl sm:text-2xl lg:text-3xl font-bold mb-4 text-center text-white">
+          <div style={{backgroundColor:"rgba(71,85,105,0.44)"}} className="lg:w-1/2 flex-1 border rounded-lg border-gray-300 p-4 mb-10 bg-opacity-40 shadow-lg">
+            <h2 className="text-xl sm:text-2xl lg:text-3xl font-bold mb-4 bg-blue-800 rounded-lg p-2 shadow-md text-center text-white">
               Submitted Tasks
             </h2>
             <div className="overflow-x-auto">

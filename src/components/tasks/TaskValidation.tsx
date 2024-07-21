@@ -84,9 +84,8 @@ const TaskValidation: React.FC<TaskValidationProps> = ({ domain }) => {
     }
   }
 
-
   return (
-    <div className="lg:w-1/2 flex-1 border rounded-lg p-4 bg-slate-600 shadow-md flex">
+    <div style={{backgroundColor:"rgba(71,85,105,0.44)"}} className="lg:w-1/2 flex-1 border rounded-lg p-4 shadow-md flex">
       <div className="w-1/3 border-r p-4">
         <h1 className="text-white text-2xl text-center mb-5">Available Tasks to Evaluate</h1>
         <div className="grid grid-cols-1 gap-4">
@@ -169,7 +168,7 @@ const TaskValidation: React.FC<TaskValidationProps> = ({ domain }) => {
                   </div>
                 </>
               ))) : (
-              <h3 className="text-red-500">Task is already completed</h3>
+              <h3 className="text-red-500">Task is already evaluated</h3>
             )
             }
           </div>

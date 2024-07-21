@@ -174,6 +174,15 @@ export async function TasksSubmitted(taskId: string) {
             taskId: taskId
         }
     });
+    completedTasks = completedTasks.sort((a, b) => {
+        if (a.status === "validating" && b.status !== "validating") {
+            return -1;
+        } else if (a.status !== "validating" && b.status === "validating") {
+            return 1;
+        } else {
+            return 0;
+        }
+    });
     return completedTasks;
 }
 

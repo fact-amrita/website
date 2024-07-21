@@ -13,16 +13,15 @@ export default function RootLayout({
     children: React.ReactNode;
 }>) {
     const currentRoute = usePathname();
-    const [expanded, setExpanded] = useState(false);
 
     const containerStyle = {
-        marginLeft: expanded ? "10.9%" : "10.9%",
+        marginLeft: "10.9%",
         transition: "margin-left 0.1s ease"
     };
 
     return (
         <div className={styles.josefinsans}>
-            <SidebarElement activeRoute={currentRoute} expanded={expanded} setExpanded={setExpanded}>
+            <SidebarElement activeRoute={currentRoute}>
                 <div style={containerStyle}>
                     {children}
                 </div>

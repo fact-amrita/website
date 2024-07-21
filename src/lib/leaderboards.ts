@@ -4,7 +4,6 @@ import { db } from "@/lib/db";
 import { getUserByFactID } from "@/lib/UserFetch";
 
 export async function getLeaderboard(Userdomain: string) {
-    console.log(Userdomain);
     let leaderboard
     if (Userdomain != "") {
         leaderboard = await db.points.findMany({
