@@ -55,7 +55,7 @@ function SidebarForRoot({ children, activeRoute, expanded, setExpanded }: Props)
 
     return (
         <div className="bg-gradient-to-tr from-red-600 via-black to-blue-600 flex h-screen">
-            <Sidebar user={userdat} expanded={expanded} setExpanded={setExpanded}>
+            <Sidebar user={userdat} >
                 {sidebarItems.map((item, index) => (
                     <SidebarItem
                         key={index}

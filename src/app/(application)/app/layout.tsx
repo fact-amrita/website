@@ -16,7 +16,7 @@ export default function RootLayout({
     const [expanded, setExpanded] = useState(false);
 
     const containerStyle = {
-        marginLeft: expanded ? "10.9%" : "3.4%",
+        marginLeft: expanded ? "10.9%" : "10.9%",
         transition: "margin-left 0.1s ease"
     };
 

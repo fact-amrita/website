@@ -1,6 +1,5 @@
 import { cn } from "@/lib/utils";
 import { AnimatePresence, motion } from "framer-motion";
-import Link from "next/link";
 import { useState } from "react";
 
 export const HoverEffect = ({
@@ -17,11 +16,11 @@ export const HoverEffect = ({
   const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
 
   return (
-    <div className={cn("grid grid-cols-1 md:grid-cols-12 gap-0 pb-10", className)}>
+    <div className={cn("grid grid-cols-1 md:grid-cols-12 gap-0 pb-3", className)}>
       {items.map((item, idx) => (
         <div
           className={cn(
-            "relative group block p-4 h-full w-full",
+            "relative group block p-1 h-full w-full",
             `col-span-${item.span}`
           )}
           onMouseEnter={() => setHoveredIndex(idx)}
@@ -46,12 +45,13 @@ export const HoverEffect = ({
           </AnimatePresence>
           <div
             className={cn(
-              "rounded-2xl h-full w-full p-8 md:p-4 xl:p-8 overflow-hidden bg-gradient-to-tr from-blue-700 via-black to-red-700 border border-transparent dark:border-white/[0.2] group-hover:border-slate-700 relative z-20",
+              "rounded-2xl h-full w-full p-4 md:p-3 xl:p-5 overflow-hidden bg-gradient-to-tr from-blue-700 via-black to-red-700 border border-transparent dark:border-white/[0.2] group-hover:border-slate-700 relative z-20",
               className
             )}
+            style={{ height: '250px' }} // Set a fixed height for the box
           >
-            <div className="relative z-50">
-              <div className="p-1">
+            <div className="relative z-50 h-full overflow-y-auto">
+              <div className="p-3">
                 <h4 className="text-zinc-100 font-bold tracking-wide mt-4">
                   {item.title}
                 </h4>
