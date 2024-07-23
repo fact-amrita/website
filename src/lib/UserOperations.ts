@@ -111,3 +111,126 @@ export async function makeMember(email: string) {
         }
     })
 }
+
+export async function AddPoints(factId: string, points: number, reason: string, assigner: string) {
+    const userData = await db.user.findUnique({
+        where: {
+            FactID: factId
+        }
+    });
+    if (!userData) {
+        console.log("User not found")
+        return false
+    }
+    try {
+        await db.pointsHistory.create({
+            data: {
+                FactID: factId,
+                points: points,
+                reason: reason,
+                assigner: assigner,
+                pointsSemester: userData.semester,
+                pointsYear: (new Date().getFullYear()).toString()
+            }
+        })
+
+        await db.points.update({
+            where: {
+                FactID: factId
+            },
+            data: {
+                points: {
+                    increment: points
+                }
+            }
+        })
+        return true
+    } catch (e) {
+        console.log(e)
+        return false
+    }
+}
+
+export async function getUsersPenaltyPoints(factId: string) {
+    const penaltyPoints = await db.pointsHistory.findMany({
+        where: {
+            FactID: factId,
+            points: {
+                lt: 0
+            }
+        }
+    })
+
+    return penaltyPoints;
+}
+
+export async function getUsersPenaltyPointsSemester(factId: string, semester: string) {
+    const penaltyPoints = await db.pointsHistory.findMany({
+        where: {
+            FactID: factId,
+            points: {
+                lt: 0
+            },
+            pointsSemester: semester
+        }
+    })
+
+    return penaltyPoints;
+}
+
+export async function getUsersPenaltyPointsYear(factId: string) {
+    const year = new Date().getFullYear().toString()
+    const penaltyPoints = await db.pointsHistory.findMany({
+        where: {
+            FactID: factId,
+            points: {
+                lt: 0
+            },
+            pointsYear: year
+        }
+    })
+
+    return penaltyPoints;
+}
+
+export async function getUsersBonusPoints(factId: string) {
+    const BonusPoints = await db.pointsHistory.findMany({
+        where: {
+            FactID: factId,
+            points: {
+                gt: 0
+            }
+        }
+    })
+
+    return BonusPoints;
+}
+
+export async function getUsersBonusPointsSemester(factId: string, semester: string) {
+    const BonusPoints = await db.pointsHistory.findMany({
+        where: {
+            FactID: factId,
+            points: {
+                gt: 0
+            },
+            pointsSemester: semester
+        }
+    })
+
+    return BonusPoints;
+}
+
+export async function getUsersBonusPointsYear(factId: string) {
+    const year = new Date().getFullYear().toString()
+    const BonusPoints = await db.pointsHistory.findMany({
+        where: {
+            FactID: factId,
+            points: {
+                gt: 0
+            },
+            pointsYear: year
+        }
+    })
+
+    return BonusPoints;
+}

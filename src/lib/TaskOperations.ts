@@ -264,7 +264,8 @@ export async function AwardMarks(taskId: string, factId: string, points: number)
             status: "completed",
             awarded: points,
             submissionYear: new Date().getFullYear().toString(),
-            submissionSemester: semester
+            submissionSemester: semester,
+            completeTime:new Date().toISOString()
         }
     });
 

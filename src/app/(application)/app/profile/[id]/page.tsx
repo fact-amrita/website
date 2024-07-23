@@ -5,20 +5,18 @@ import Image from "next/image";
 import { FaLinkedinIn, FaGithub } from 'react-icons/fa';
 import { getUserProfile } from "@/lib/UserFetch";
 import { useRouter } from "next/navigation";
-// const skills = [
-//   ['JavaScript', 'Advanced'],
-//   ['React', 'Intermediate'],
-//   ['HTML/CSS', 'Advanced'],
-//   ['Node.js', 'Intermediate'],
-//   ['Python', 'Intermediate']
-// ];
+import { useSession } from "next-auth/react";
+import Swal from 'sweetalert2';
+import { AddPoints } from "@/lib/UserOperations";
 
 const ProfileContent = ({ params }: { params: { id: string } }) => {
+  const { data: session, status } = useSession();
 
   const ProfileId = params.id;
   const router = useRouter();
 
   const [ProfileData, setProfileData] = useState<any>(null);
+  const [bonusPoints, setBonusPoints] = useState<number>(0);
 
   const handleEditProfile = () => {
     router.push('/app/edit_profile');
@@ -61,6 +59,64 @@ const ProfileContent = ({ params }: { params: { id: string } }) => {
     window.open(href, "_blank");
   };
 
+  if (status === "loading") {
+    return <p>Loading...</p>;
+  }
+
+  const userdat = session?.user as { factId: string, name: string; email: string; role: string; image: string; domain: string };
+
+  const handleBonusSubmit = async (factId: string) => {
+    let bonusReason; // Declare bonusReason at the beginning of the function
+
+    if (bonusPoints < 0) {
+      const response = await Swal.fire({
+        title: "Reason please",
+        input: "text",
+        icon: "question",
+        inputLabel: "Enter the reason for the penalty",
+        showCancelButton: true,
+        inputValidator: (value) => {
+          if (!value) {
+            return "You need to write something!";
+          }
+        }
+      });
+      bonusReason = response.value;
+    } else if (bonusPoints > 0) {
+      const response = await Swal.fire({
+        title: "Reason please",
+        input: "text",
+        icon: "info",
+        inputLabel: "Enter the reason for the bonus",
+        showCancelButton: true,
+        inputValidator: (value) => {
+          if (!value) {
+            return "You need to write something!";
+          }
+        }
+      });
+      bonusReason = response.value;
+    } else {
+      return;
+    }
+
+    const response = await AddPoints(ProfileId, bonusPoints, bonusReason, userdat.factId || "Admin");
+
+    if (response) {
+      Swal.fire({
+        title: "Points Updated",
+        icon: "success"
+      }).then(() => {
+        window.location.reload();
+      });
+    } else {
+      Swal.fire({
+        title: "Failed to update points",
+        icon: "error"
+      });
+    }
+  }
+
   return (
     <div className="h-screen w-full flex justify-center items-center p-5 overflow-clip">
       <div style={{ marginLeft: "5%" }} className="grid grid-cols-12 grid-rows-4 gap-7 h-full px-4">
@@ -75,6 +131,22 @@ const ProfileContent = ({ params }: { params: { id: string } }) => {
             </div>
             <div className="bg-blue-600  h-full w-full flex flex-col rounded-2xl justify-center items-center">
               <h1 className="text-3xl text-black">Performance</h1>
+              {(userdat.role == "admin" || userdat.role == "president" || userdat.role == "moderator") && (<div>
+                <label htmlFor="bonusPoints" title={"Enter positive number for bonus and negative number for penalty"}>
+                  Enter bonus/penalty points
+                </label>
+                <div className="flex" style={{ marginBottom: "-30px", marginTop: "15px" }}>
+                  <input
+                    type="number"
+                    id="bonusPoints"
+                    className="border rounded p-2 h-10"
+                    placeholder="Bonus/penalty points"
+                    value={bonusPoints}
+                    onChange={(e) => setBonusPoints(parseInt(e.target.value))}
+                  />
+                  <button onClick={() => { handleBonusSubmit(userdat.factId) }} className="bg-green-500 text-white p-2 rounded mb-4 ml-2">Submit</button>
+                </div>
+              </div>)}
               <div className="text-black text-2xl mt-10">
                 Points: {ProfileData.points}
               </div>

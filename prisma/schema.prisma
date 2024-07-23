@@ -79,6 +79,16 @@ model Points {
   pendingTasks   PendingTask[]
 }
 
+model PointsHistory {
+  id       String @id @default(auto()) @map("_id") @db.ObjectId
+  FactID   String
+  points   Int
+  reason   String
+  assigner String
+  pointsSemester String
+  pointsYear String
+}
+
 model CompletedTask {
   id                 String  @id @default(auto()) @map("_id") @db.ObjectId
   taskId             String
