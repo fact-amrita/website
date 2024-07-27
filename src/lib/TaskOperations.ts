@@ -265,7 +265,7 @@ export async function AwardMarks(taskId: string, factId: string, points: number)
             awarded: points,
             submissionYear: new Date().getFullYear().toString(),
             submissionSemester: semester,
-            completeTime:new Date().toISOString()
+            completeTime: new Date().toISOString()
         }
     });
 
@@ -291,8 +291,13 @@ export async function AwardMarks(taskId: string, factId: string, points: number)
 
 // Leaderboard calls
 
+import { getUsersPenaltyPoints, getUsersPenaltyPointsSemester, getUsersPenaltyPointsYear, getUsersBonusPoints, getUsersBonusPointsSemester, getUsersBonusPointsYear } from "@/lib/UserOperations"
+
 export async function getLifetimePoints(factId: string) {
     const output = await db.completedTask.findMany({ where: { FactID: factId, status: 'completed' } });
+
+    const penaltyPoints = await getUsersPenaltyPoints(factId);
+    const bonusPoints = await getUsersBonusPoints(factId);
 
     var points = 0;
     const list = await Promise.all(output.map(async (task) => {
@@ -303,11 +308,17 @@ export async function getLifetimePoints(factId: string) {
             task: taskData?.task || ""
         }
     }));
+
+    points += bonusPoints;
+    points += penaltyPoints;
     return { list, points };
 }
 
 export async function getYearPoints(factId: string) {
     const output = await db.completedTask.findMany({ where: { FactID: factId, status: 'completed', submissionYear: new Date().getFullYear().toString() } });
+
+    const penaltyPoints= await getUsersPenaltyPointsYear(factId);
+    const bonusPoints = await getUsersBonusPointsYear(factId);
 
     var yearpoints = 0;
     const yearlist = await Promise.all(output.map(async (task) => {
@@ -318,6 +329,10 @@ export async function getYearPoints(factId: string) {
             task: taskData?.task || ""
         }
     }));
+
+    yearpoints += bonusPoints;
+    yearpoints += penaltyPoints;
+
     return { yearlist, yearpoints };
 }
 
@@ -330,6 +345,9 @@ export async function getSemesterPoints(factId: string) {
     const semester = userdata?.semester || "0";
     const output = await db.completedTask.findMany({ where: { FactID: factId, status: 'completed', submissionSemester: semester } });
 
+    const penaltyPoints = await getUsersPenaltyPointsSemester(factId, semester);
+    const bonusPoints = await getUsersBonusPointsSemester(factId, semester);
+
     var sempoints = 0;
     const semlist = await Promise.all(output.map(async (task) => {
         const taskData = await db.tasks.findUnique({ where: { TaskId: task.taskId } });
@@ -339,5 +357,9 @@ export async function getSemesterPoints(factId: string) {
             task: taskData?.task || ""
         }
     }));
+
+    sempoints += bonusPoints;
+    sempoints += penaltyPoints;
+
     return { semlist, sempoints };
 }

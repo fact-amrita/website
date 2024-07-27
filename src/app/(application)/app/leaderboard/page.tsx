@@ -4,6 +4,7 @@ import React, { useEffect, useState } from "react";
 import Tab from "@/components/leaderboard/Tab";
 import RanksTable from "@/components/leaderboard/RanksTable";
 import TotalPoints from "@/components/leaderboard/totalpoints";
+import BonusPenaltyPoints from "@/components/leaderboard/bonuspenaltypoints"
 import { useSession, SessionProvider } from "next-auth/react";
 import { getLifetimePoints, getYearPoints, getSemesterPoints } from "@/lib/TaskOperations";
 
@@ -51,7 +52,7 @@ const LeaderboardPage = () => {
     </div>;
   }
 
-  const userdat = session.user as { name: string; domain: string; };
+  const userdat = session.user as { name: string; domain: string; factId: string };
 
   return (
     <div className="grid grid-cols-8 grid-rows-1 bg-transparent rounded shadow-lg w-full h-full ml-18 ">
@@ -61,7 +62,10 @@ const LeaderboardPage = () => {
       <div className="col-span-3 row-span-1 mr-0 mt-2" >
         <RanksTable userDomain={userdat.domain} presentUser={userdat.name} activeTab={activeTab} />
       </div>
-      <div className="col-span-5 row-span-3 ml-20 lg:mt-40 sm:mt-15 md:mt-25">
+      <div className="col-span-5 row-span-3 ml-20 sm:mt-15 md:mt-25">
+        <BonusPenaltyPoints activeTab={activeTab} factId={userdat.factId} />
+      </div>
+      <div className="col-span-5 row-span-3 ml-20 sm:mt-15 md:mt-25">
         <TotalPoints LifeTimepts={totalpoints} SemesterPts={SemPoints} AcademicYearPts={YearPoints} />
       </div>
     </div>
