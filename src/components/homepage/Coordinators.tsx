@@ -27,6 +27,64 @@ const Coordinators: React.FC = () => {
     document.querySelector(`#${target}`)?.classList.add('active');
   }, []);
 
+  const members = [{
+    "name": "Navaneeth",
+    "title": "President",
+    "year": "4th Year CYS",
+    "imgURL": "https://ik.imagekit.io/factamrita/co-ordinators/Navaneeth_President.png"
+  }, {
+    "name": "Abhiram",
+    "title": "Secretary",
+    "year": "4th Year CSE",
+    "imgURL": "https://ik.imagekit.io/factamrita/co-ordinators/Abhiram%20(Secretary).png"
+  }, {
+    "name": "Moksha",
+    "title": "Vice President",
+    "year": "3rd Year CYS",
+    "imgURL": "https://ik.imagekit.io/factamrita/co-ordinators/Moksha(VP).png"
+  }, {
+    "name": "Fiyan",
+    "title": "Physical Co-Ordinator",
+    "year": "4th Year CYS",
+    "imgURL": "https://ik.imagekit.io/factamrita/co-ordinators/Fiyan%20(Physical%20Forensic%20Coordinator).png"
+  }, {
+    "name": "Melvina",
+    "title": "Digital Co-Ordinator",
+    "year": "4th Year CYS",
+    "imgURL": "https://ik.imagekit.io/factamrita/co-ordinators/Melvina%20Jose%20(Digital%20Forensics%20Coordinator).png"
+  }, {
+    "name": "Sidhanth",
+    "title": "Technical Lead",
+    "year": "4th Year CYS",
+    "imgURL": "https://ik.imagekit.io/factamrita/co-ordinators/Siddhant%20(Technical%20Lead).png"
+  }, {
+    "name": "Krishna Koushik",
+    "title": "Treasurer",
+    "year": "4th Year CCE",
+    "imgURL": "https://ik.imagekit.io/factamrita/co-ordinators/Krishna%20Kaushik%20(Treasurer).png"
+  }, {
+    "name": "Mazar",
+    "title": "Marketing and Content Creation",
+    "year": "4th Year CYS",
+    "imgURL": "https://ik.imagekit.io/factamrita/co-ordinators/mazar(marketing%20and%20content%20creation).png"
+  }, {
+    "name": "Keerthan",
+    "title": "Event Co-Ordinator ",
+    "year": "4th Year AIE",
+    "imgURL": "https://ik.imagekit.io/factamrita/co-ordinators/Keerthan(event%20coordinator).png"
+  }, {
+    "name": "Aravind",
+    "title": "Skill Enhancement Co-Ordinator",
+    "year": "4th Year CYS",
+    "imgURL": "https://ik.imagekit.io/factamrita/co-ordinators/Aravind%20(Skill%20Enhancement%20Coordinator).png"
+  }, {
+    "name": "Sathwika",
+    "title": "Public Relations",
+    "year": "4th Year CYS",
+    "imgURL": "https://ik.imagekit.io/factamrita/co-ordinators/Satwika_marketing.png"
+  }
+  ]
+
   return (
     <section id="coordinators">
       <div className="wrapper">
@@ -35,18 +93,15 @@ const Coordinators: React.FC = () => {
             <Image src={FACTImage} alt="FACT Logo" />
           </div>
           <div style={{ filter: 'drop-shadow(1px 1px 20px rgb(0, 190, 211))' }} className="product-img">
-            <div className="product-img__item" id="img1">
-              <img src="abhi.png" alt="coordinate 1" className="product-img__img" />
-            </div>
-            <div className="product-img__item" id="img2">
-              <img src="https://res.cloudinary.com/muhammederdem/image/upload/q_60/v1536405217/starwars/item-2.webp" alt="coordinate 2" className="product-img__img" />
-            </div>
-            <div className="product-img__item" id="img3">
-              <img src="https://res.cloudinary.com/muhammederdem/image/upload/q_60/v1536405218/starwars/item-3.webp" alt="coordinate 3" className="product-img__img" />
-            </div>
-            <div className="product-img__item" id="img4">
-              <img src="https://res.cloudinary.com/muhammederdem/image/upload/q_60/v1536405215/starwars/item-4.webp" alt="coordinate 4" className="product-img__img" />
-            </div>
+
+            {members.map((member, index) => {
+              return (
+                <div className="product-img__item" id={`img${index + 1}`}>
+                  <img src={member.imgURL} alt={member.name} className="product-img__img" />
+                </div>
+              )
+            })}
+
           </div>
           <div className="product-slider">
             <button className="prev disabled">
@@ -80,46 +135,24 @@ const Coordinators: React.FC = () => {
                 document.querySelector(`#${target}`)?.classList.add('active');
               }}
             >
-              <SwiperSlide className="product-slider__item" data-target="img1">
-                <div className="product-slider__card">
-                  <img src="https://res.cloudinary.com/muhammederdem/image/upload/q_60/v1536405223/starwars/item-4-bg.webp" alt="star wars" className="product-slider__cover" />
-                  <div className="product-slider__content" style={{ height: "23em" }}>
-                    <h2 className="product-slider__title">ABHIRAM</h2>
-                    <h4 className="product-slider__price">ABHIRAM</h4>
-                    <p className="product-slider__price">3RD YR CYS</p>
-                    <div className="product-ctr"></div>
-                  </div>
-                </div>
-              </SwiperSlide>
-              <SwiperSlide className="product-slider__item" data-target="img2">
-                <div className="product-slider__card">
-                  <div className="product-slider__content">
-                    <h2 className="product-slider__title">GAUTAM</h2>
-                    <span className="product-slider__price">3RD YR CYS</span>
-                    <div className="product-ctr"></div>
-                  </div>
-                </div>
-              </SwiperSlide>
-              <SwiperSlide className="product-slider__item" data-target="img3">
-                <div className="product-slider__card">
-                  <div className="product-slider__content">
-                    <h2 className="product-slider__title">RAM</h2>
-                    <h4 className="product-slider__price">ABHIRAM</h4>
-                    <span className="product-slider__price">3RD YR CYS</span>
-                    <div className="product-ctr"></div>
-                  </div>
-                </div>
-              </SwiperSlide>
-              <SwiperSlide className="product-slider__item" data-target="img4">
-                <div className="product-slider__card">
-                  <div className="product-slider__content">
-                    <h2 className="product-slider__title">SRINIVAS</h2>
-                    <h4 className="product-slider__price">ABHIRAM</h4>
-                    <span className="product-slider__price">3RD YR CYS</span>
-                    <div className="product-ctr"></div>
-                  </div>
-                </div>
-              </SwiperSlide>
+
+              {
+                members.map((member, index) => {
+                  return (
+                    <SwiperSlide className="product-slider__item" data-target={`img${index + 1}`}>
+                      <div className="product-slider__card">
+                        <img src="https://res.cloudinary.com/muhammederdem/image/upload/q_60/v1536405223/starwars/item-4-bg.webp" alt="star wars" className="product-slider__cover" />
+                        <div className="product-slider__content" style={{ height: "23em" }}>
+                          <h2 className="product-slider__title">{member.name}</h2>
+                          <h4 className="product-slider__price">{member.title}</h4>
+                          <p className="product-slider__price">{member.year}</p>
+                          <div className="product-ctr"></div>
+                        </div>
+                      </div>
+                    </SwiperSlide>
+                  );
+                })
+              }
             </Swiper>
           </div>
         </div>
