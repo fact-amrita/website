@@ -84,9 +84,10 @@ html {
   width: 45%;
   height: 30%;
   margin-left: 3%;
+  display: inline-block;
+  opacity: 1;
 }
 
-/* FACT Heading */
 
 .factheading {
   text-align: center;
@@ -136,7 +137,7 @@ html {
   width: 80%;
   height: 7%;
   transition: transform 0.3s ease;
-  z-index: 9999;
+  z-index: 100;
 }
 
 .container:hover {
@@ -309,7 +310,7 @@ html {
 /* fact logo */
 .bg-shape img {
   width: 75%;
-  display: block;
+  display: inline-block;
   opacity: 1;
   transform: rotate(-90deg) translateY(-50%);
 }
@@ -317,7 +318,7 @@ html {
 .bg-shape {
   background-image: linear-gradient(-35deg, #cc3843 0%, #cb193f 100%);
   border-radius: 30px;
-  padding: 4% 7%;
+  padding: 10% 2%;
   width: 46%;
   position: relative;
   display: flex;
@@ -326,7 +327,7 @@ html {
 
 @media screen and (max-width: 100%) {
   .bg-shape {
-    width: 45%;
+    width: 42%;
   }
 }
 
@@ -381,18 +382,14 @@ html {
   display: inline-flex;
   border: none;
   width: 35px;
-  /* Set a fixed size */
   height: 35px;
-  /* Set the same fixed size to ensure a perfect circle */
   border-radius: 50%;
-  /* Ensure the element is circular */
   justify-content: center;
   align-items: center;
   font-size: 18px;
   position: absolute;
   top: 50%;
   transform: translateY(-50%);
-  /* Center the element vertically */
   outline: none;
   cursor: pointer;
   padding-bottom: 1%;
@@ -584,10 +581,10 @@ html {
   align-items: center;
   width: 90%;
   transition: all 0.5s;
-  right: 11%;
+  right: 10%;
   overflow: hidden;
   position: relative;
-  border-radius: 30px;
+  border-radius: 10px;
 }
 
 
@@ -602,34 +599,34 @@ html {
   object-fit: cover;
 }
 
+.product-slider__title {
+  margin-top: 150px;
+  margin-left: 150px;
+  font-weight: 900;
+  font-size: 25px;
+  line-height: 1.0em;
+  letter-spacing: 1.0px;
+  opacity: 0;
+  transition: all 0.5s;
+}
+
 .product-slider__content {
   color: #fff;
-  padding-top: 1px;
+  padding-top: 0px;
   position: relative;
   z-index: 2;
   width: 100%;
-  padding-left: 200px;
+  padding-left: 100px;
   padding-right: 90px;
 }
 
-.product-slider__title {
-  margin: 0;
-  margin-bottom: 10px;
-  font-weight: 900;
-  font-size: 25px;
-  line-height: 1.2em;
-  letter-spacing: 1.2px;
-  opacity: 0;
-  transform: translateY(55px);
-  transition: all 0.5s;
-}
-
 .product-slider__price {
-  display: block;
+  display: flex;
   font-size: 20px;
   opacity: 0;
-  transform: translateY(55px);
+  transform: translateY(10px);
   transition: all 0.5s;
+  margin-left: 150px;
 }
 
 .product-slider__fav {

@@ -11,7 +11,7 @@ function Header({ scrollToSection, activeSection }: { scrollToSection: Function,
     <div>
       <div className="container">
         <div className="factlogo">
-          <Image src={FACTImage} alt="factlogo" height={50} width={250} />
+          <Image src={FACTImage} alt="factlogo" height={50} width={250} className='bg-black' />
         </div>
         <div className="menu" style={{ position: "absolute", right: "0" }}>
           <ul className="navigation">
