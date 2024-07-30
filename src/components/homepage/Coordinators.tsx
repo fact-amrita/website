@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useRef } from 'react';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Navigation, EffectFade } from 'swiper/modules';
 import Image from 'next/image';
@@ -7,23 +7,24 @@ import 'swiper/css/bundle';
 import FACTImage from '@/public/images/FACT_white_wbg - Copy.png';
 
 const Coordinators: React.FC = () => {
+  const swiperRef = useRef<any>(null);
+  const prevButtonRef = useRef<HTMLButtonElement>(null);
+  const nextButtonRef = useRef<HTMLButtonElement>(null);
+  const productImgRefs = useRef<HTMLDivElement[]>([]);
+
   const handleSlideChange = (swiper: any) => {
     const index = swiper.activeIndex;
-    const target = (document.querySelectorAll('.product-slider__item')[index] as HTMLElement).dataset.target;
+    const target = productImgRefs.current[index]?.dataset.target;
 
-    document.querySelectorAll('.product-img__item').forEach(item => item.classList.remove('active'));
+    productImgRefs.current.forEach(item => item.classList.remove('active'));
     document.querySelector(`#${target}`)?.classList.add('active');
 
-    document.querySelector('.prev')?.classList.toggle('disabled', swiper.isBeginning);
-    document.querySelector('.next')?.classList.toggle('disabled', swiper.isEnd);
-  };
-
-  const handleFavClick = (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
-    e.currentTarget.querySelector('.heart')?.classList.toggle('is-active');
+    if (prevButtonRef.current) prevButtonRef.current.classList.toggle('disabled', swiper.isBeginning);
+    if (nextButtonRef.current) nextButtonRef.current.classList.toggle('disabled', swiper.isEnd);
   };
 
   useEffect(() => {
-    const firstSlide = document.querySelector('.product-slider__item') as HTMLElement;
+    const firstSlide = productImgRefs.current[0];
     const target = firstSlide?.dataset.target;
     document.querySelector(`#${target}`)?.classList.add('active');
   }, []);
@@ -36,28 +37,28 @@ const Coordinators: React.FC = () => {
             <Image src={FACTImage} alt="FACT Logo" />
           </div>
           <div style={{ filter: 'drop-shadow(1px 1px 20px rgb(0, 190, 211))' }} className="product-img">
-            <div className="product-img__item" id="img1">
+            <div className="product-img__item" id="img1" ref={(el) => { if (el) productImgRefs.current[0] = el; }}>
               <img src="abhi.png" alt="coordinate 1" className="product-img__img" />
             </div>
-            <div className="product-img__item" id="img2">
+            <div className="product-img__item" id="img2" ref={(el) => { if (el) productImgRefs.current[1] = el; }}>
               <img src="https://res.cloudinary.com/muhammederdem/image/upload/q_60/v1536405217/starwars/item-2.webp" alt="coordinate 2" className="product-img__img" />
             </div>
-            <div className="product-img__item" id="img3">
+            <div className="product-img__item" id="img3" ref={(el) => { if (el) productImgRefs.current[2] = el; }}>
               <img src="https://res.cloudinary.com/muhammederdem/image/upload/q_60/v1536405218/starwars/item-3.webp" alt="coordinate 3" className="product-img__img" />
             </div>
-            <div className="product-img__item" id="img4">
+            <div className="product-img__item" id="img4" ref={(el) => { if (el) productImgRefs.current[3] = el; }}>
               <img src="https://res.cloudinary.com/muhammederdem/image/upload/q_60/v1536405215/starwars/item-4.webp" alt="coordinate 4" className="product-img__img" />
             </div>
           </div>
           <div className="product-slider">
-            <button className="prev disabled">
+            <button className="prev disabled" ref={prevButtonRef}>
               <span className="icon">
                 <svg className="icon icon-arrow-right">
                   <use xlinkHref="#icon-arrow-left"></use>
                 </svg>
               </span>
             </button>
-            <button className="next">
+            <button className="next" ref={nextButtonRef}>
               <span className="icon">
                 <svg className="icon icon-arrow-right">
                   <use xlinkHref="#icon-arrow-right"></use>
@@ -70,15 +71,13 @@ const Coordinators: React.FC = () => {
               effect="fade"
               loop={false}
               navigation={{
-                nextEl: '.next',
-                prevEl: '.prev'
+                nextEl: nextButtonRef.current,
+                prevEl: prevButtonRef.current
               }}
               onSlideChange={handleSlideChange}
               onSwiper={(swiper) => {
-                const index = swiper.activeIndex;
-                const target = (document.querySelectorAll('.product-slider__item')[index] as HTMLElement).dataset.target;
-                document.querySelectorAll('.product-img__item').forEach(item => item.classList.remove('active'));
-                document.querySelector(`#${target}`)?.classList.add('active');
+                swiperRef.current = swiper;
+                handleSlideChange(swiper);
               }}
             >
               <SwiperSlide className="product-slider__item" data-target="img1">
