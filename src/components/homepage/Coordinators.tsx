@@ -14,8 +14,8 @@ const Coordinators: React.FC = () => {
     document.querySelectorAll('.product-img__item').forEach(item => item.classList.remove('active'));
     document.querySelector(`#${target}`)?.classList.add('active');
 
-    document.querySelector('.prev')?.classList.toggle('disabled', swiper.isBeginning);
-    document.querySelector('.next')?.classList.toggle('disabled', swiper.isEnd);
+    // document.querySelector('.prev')?.classList.toggle('disabled', swiper.isBeginning);
+    // document.querySelector('.next')?.classList.toggle('disabled', swiper.isEnd);
   };
   const handleFavClick = (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
     e.currentTarget.querySelector('.heart')?.classList.toggle('is-active');
@@ -41,47 +41,82 @@ const Coordinators: React.FC = () => {
     "name": "Moksha",
     "title": "Vice President",
     "year": "3rd Year CYS",
-    "imgURL": "https://ik.imagekit.io/factamrita/co-ordinators/Moksha(VP).png"
+    "imgURL": "https://ik.imagekit.io/factamrita/co-ordinators/Moksha(VP).png",
+    "customStyles": {
+      width: "55%"
+    }
   }, {
     "name": "Fiyan",
     "title": "Physical Co-Ordinator",
     "year": "4th Year CYS",
-    "imgURL": "https://ik.imagekit.io/factamrita/co-ordinators/Fiyan%20(Physical%20Forensic%20Coordinator).png"
+    "imgURL": "https://ik.imagekit.io/factamrita/co-ordinators/Fiyan%20(Physical%20Forensic%20Coordinator).png",
+    "customStyles": {
+      width: "54%"
+    }
   }, {
     "name": "Melvina",
     "title": "Digital Co-Ordinator",
     "year": "4th Year CYS",
-    "imgURL": "https://ik.imagekit.io/factamrita/co-ordinators/Melvina%20Jose%20(Digital%20Forensics%20Coordinator).png"
+    "imgURL": "https://ik.imagekit.io/factamrita/co-ordinators/Melvina%20Jose%20(Digital%20Forensics%20Coordinator).png",
+    "customStyles": {
+      width: "50%"
+    }
   }, {
     "name": "Sidhanth",
     "title": "Technical Lead",
     "year": "4th Year CYS",
-    "imgURL": "https://ik.imagekit.io/factamrita/co-ordinators/Siddhant%20(Technical%20Lead).png"
+    "imgURL": "https://ik.imagekit.io/factamrita/co-ordinators/Siddhant%20(Technical%20Lead).png",
+    "customStyles": {
+      width: "70%",
+      marginBottom: "-5%"
+    }
   }, {
     "name": "Krishna Koushik",
     "title": "Treasurer",
     "year": "4th Year CCE",
-    "imgURL": "https://ik.imagekit.io/factamrita/co-ordinators/Krishna%20Kaushik%20(Treasurer).png"
+    "imgURL": "https://ik.imagekit.io/factamrita/co-ordinators/Krishna%20Kaushik%20(Treasurer).png",
+    "customStyles": {
+      width: "70%",
+      marginBottom: "-2%"
+    }
   }, {
     "name": "Mazar",
     "title": "Marketing and Content Creation",
     "year": "4th Year CYS",
-    "imgURL": "https://ik.imagekit.io/factamrita/co-ordinators/mazar(marketing%20and%20content%20creation).png"
+    "imgURL": "https://ik.imagekit.io/factamrita/co-ordinators/mazar(marketing%20and%20content%20creation).png?updatedAt=1722397506058",
+    "customStyles": {
+      width: "76%",
+      marginLeft: "-60%"
+    }
   }, {
     "name": "Keerthan",
     "title": "Event Co-Ordinator ",
     "year": "4th Year AIE",
-    "imgURL": "https://ik.imagekit.io/factamrita/co-ordinators/Keerthan(event%20coordinator).png"
+    "imgURL": "https://ik.imagekit.io/factamrita/co-ordinators/Keerthan(event%20coordinator).png",
+    "customStyles":{
+      width: "54%",
+
+    }
   }, {
     "name": "Aravind",
     "title": "Skill Enhancement Co-Ordinator",
     "year": "4th Year CYS",
-    "imgURL": "https://ik.imagekit.io/factamrita/co-ordinators/Aravind%20(Skill%20Enhancement%20Coordinator).png"
+    "imgURL": "https://ik.imagekit.io/factamrita/co-ordinators/Aravind%20(Skill%20Enhancement%20Coordinator).png",
+    "customStyles":{
+      width: "80%",
+      marginLeft: "-5%",
+      marginBottom:"7%"
+    }
   }, {
     "name": "Sathwika",
     "title": "Public Relations",
     "year": "4th Year CYS",
-    "imgURL": "https://ik.imagekit.io/factamrita/co-ordinators/Satwika_marketing.png"
+    "imgURL": "https://ik.imagekit.io/factamrita/co-ordinators/Satwika_marketing.png",
+    "customStyles":{
+      width: "50%",
+      marginLeft: "6%",
+      marginBottom:"8%"
+    }
   }
   ]
 
@@ -96,22 +131,22 @@ const Coordinators: React.FC = () => {
 
             {members.map((member, index) => {
               return (
-                <div className="product-img__item" id={`img${index + 1}`}>
-                  <img src={member.imgURL} alt={member.name} className="product-img__img" />
+                <div className="product-img__item" key={index} id={`img${index + 1}`}>
+                  <img src={member.imgURL} alt={member.name} className="product-img__img" style={member.customStyles} />
                 </div>
               )
             })}
 
           </div>
           <div className="product-slider">
-            <button className="prev disabled">
-              <span className="icon">
+            <button className="prev" style={{ backgroundColor: "white" }}>
+              <span className="icon" >
                 <svg className="icon icon-arrow-right">
                   <use xlinkHref="#icon-arrow-left"></use>
                 </svg>
               </span>
             </button>
-            <button className="next">
+            <button className="next" style={{ backgroundColor: "white" }}>
               <span className="icon">
                 <svg className="icon icon-arrow-right">
                   <use xlinkHref="#icon-arrow-right"></use>
@@ -122,7 +157,7 @@ const Coordinators: React.FC = () => {
               modules={[Navigation, EffectFade]}
               spaceBetween={30}
               effect="fade"
-              loop={false}
+              loop={true}
               navigation={{
                 nextEl: '.next',
                 prevEl: '.prev'
@@ -139,7 +174,7 @@ const Coordinators: React.FC = () => {
               {
                 members.map((member, index) => {
                   return (
-                    <SwiperSlide className="product-slider__item" data-target={`img${index + 1}`}>
+                    <SwiperSlide key={index} className="product-slider__item" data-target={`img${index + 1}`}>
                       <div className="product-slider__card">
                         <img src="https://res.cloudinary.com/muhammederdem/image/upload/q_60/v1536405223/starwars/item-4-bg.webp" alt="star wars" className="product-slider__cover" />
                         <div className="product-slider__content" style={{ height: "23em" }}>
