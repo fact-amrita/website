@@ -28,17 +28,17 @@ const Coordinators: React.FC = () => {
   }, []);
 
   const members = [{
-    "name": "Navaneeth",
+    "name": "Navaneeth P",
     "title": "President",
     "year": "4th Year CYS",
     "imgURL": "https://ik.imagekit.io/factamrita/co-ordinators/Navaneeth_President.png"
   }, {
-    "name": "Abhiram",
+    "name": "Abhiram Kotnur",
     "title": "Secretary",
     "year": "4th Year CSE",
     "imgURL": "https://ik.imagekit.io/factamrita/co-ordinators/Abhiram%20(Secretary).png"
   }, {
-    "name": "Moksha",
+    "name": "Mokshagna Bhuvan",
     "title": "Vice President",
     "year": "3rd Year CYS",
     "imgURL": "https://ik.imagekit.io/factamrita/co-ordinators/Moksha(VP).png",
@@ -46,23 +46,23 @@ const Coordinators: React.FC = () => {
       width: "55%"
     }
   }, {
-    "name": "Fiyan",
-    "title": "Physical Co-Ordinator",
+    "name": "Fiyan Mehfil Ayoob",
+    "title": `Physical Forensics Co-Ordinator`,
     "year": "4th Year CYS",
     "imgURL": "https://ik.imagekit.io/factamrita/co-ordinators/Fiyan%20(Physical%20Forensic%20Coordinator).png",
     "customStyles": {
       width: "54%"
     }
   }, {
-    "name": "Melvina",
-    "title": "Digital Co-Ordinator",
+    "name": "Melvina Jose",
+    "title": "Digital Forensics Co-Ordinator",
     "year": "4th Year CYS",
     "imgURL": "https://ik.imagekit.io/factamrita/co-ordinators/Melvina%20Jose%20(Digital%20Forensics%20Coordinator).png",
     "customStyles": {
       width: "50%"
     }
   }, {
-    "name": "Sidhanth",
+    "name": "Siddhant Kundargi",
     "title": "Technical Lead",
     "year": "4th Year CYS",
     "imgURL": "https://ik.imagekit.io/factamrita/co-ordinators/Siddhant%20(Technical%20Lead).png",
@@ -80,42 +80,42 @@ const Coordinators: React.FC = () => {
       marginBottom: "-2%"
     }
   }, {
-    "name": "Mazar",
+    "name": "Mazhar Masood",
     "title": "Marketing and Content Creation",
     "year": "4th Year CYS",
     "imgURL": "https://ik.imagekit.io/factamrita/co-ordinators/mazar(marketing%20and%20content%20creation).png?updatedAt=1722397506058",
     "customStyles": {
       width: "76%",
-      marginLeft: "-60%"
+      marginLeft: "-70%"
     }
   }, {
-    "name": "Keerthan",
+    "name": "Keerthan Reddy",
     "title": "Event Co-Ordinator ",
     "year": "4th Year AIE",
     "imgURL": "https://ik.imagekit.io/factamrita/co-ordinators/Keerthan(event%20coordinator).png",
-    "customStyles":{
+    "customStyles": {
       width: "54%",
 
     }
   }, {
-    "name": "Aravind",
+    "name": "Aravind Mohan",
     "title": "Skill Enhancement Co-Ordinator",
     "year": "4th Year CYS",
     "imgURL": "https://ik.imagekit.io/factamrita/co-ordinators/Aravind%20(Skill%20Enhancement%20Coordinator).png",
-    "customStyles":{
+    "customStyles": {
       width: "80%",
       marginLeft: "-5%",
-      marginBottom:"7%"
+      marginBottom: "7%"
     }
   }, {
-    "name": "Sathwika",
+    "name": "Satwika Matangi",
     "title": "Public Relations",
     "year": "4th Year CYS",
     "imgURL": "https://ik.imagekit.io/factamrita/co-ordinators/Satwika_marketing.png",
-    "customStyles":{
+    "customStyles": {
       width: "50%",
       marginLeft: "6%",
-      marginBottom:"8%"
+      marginBottom: "8%"
     }
   }
   ]
@@ -176,7 +176,7 @@ const Coordinators: React.FC = () => {
                   return (
                     <SwiperSlide key={index} className="product-slider__item" data-target={`img${index + 1}`}>
                       <div className="product-slider__card">
-                        <img src="https://res.cloudinary.com/muhammederdem/image/upload/q_60/v1536405223/starwars/item-4-bg.webp" alt="star wars" className="product-slider__cover" />
+                        <img style={{ filter: "brightness(0.5)" }} src="https://ik.imagekit.io/factamrita/AdobeStock-JZM6gWcb8m.jpg?updatedAt=1722405189234" alt="star wars" className="product-slider__cover" />
                         <div className="product-slider__content" style={{ height: "23em" }}>
                           <h2 className="product-slider__title">{member.name}</h2>
                           <h4 className="product-slider__price">{member.title}</h4>
