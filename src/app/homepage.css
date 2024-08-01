@@ -1207,8 +1207,8 @@ footer .address {
   background: transparent;
   box-shadow: 0px 8px 28px -9px rgb(0, 153, 156);
   position: relative;
-  width: 50%;
-  height: 400px;
+  width: 70%;
+  height: 970px;
   border-radius: 5%;
   overflow: hidden;
 }
@@ -1231,7 +1231,7 @@ footer .address {
   text-align: center;
   font-size: 180%;
   position: absolute;
-  top: 5em;
+  top: 0.3em;
   left: 0;
   right: 0;
   color: rgb(231, 231, 231);
@@ -1240,10 +1240,13 @@ footer .address {
 
 .name {
   font-size: 75%;
-  font-weight: 100;
   position: relative;
-  top: 1em;
+  top: 0.3em;
   text-transform: lowercase;
+  height: 30em;
+  overflow-y: auto;
+  font-weight: 350;
+  font-style: italic;
 }
 
 .wave:nth-child(2),
