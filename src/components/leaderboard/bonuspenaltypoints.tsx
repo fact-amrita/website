@@ -34,7 +34,7 @@ function App({ activeTab, factId }: bonuspenaltypointsProps) {
       setPenaltyPoints(penalty || 0);
     }
     fetchData();
-  }, [activeTab])
+  }, [activeTab, factId])
 
   return (
     <div className="bg-transparent flex flex-col md:flex-row justify-between items-center p-4 space-y-4 md:space-y-0 md:space-x-4 overflow-clip">

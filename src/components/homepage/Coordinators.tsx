@@ -17,7 +17,6 @@ const Coordinators: React.FC = () => {
     // document.querySelector('.prev')?.classList.toggle('disabled', swiper.isBeginning);
     // document.querySelector('.next')?.classList.toggle('disabled', swiper.isEnd);
   };
-
   const handleFavClick = (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
     e.currentTarget.querySelector('.heart')?.classList.toggle('is-active');
   };
@@ -96,6 +95,7 @@ const Coordinators: React.FC = () => {
     "imgURL": "https://ik.imagekit.io/factamrita/co-ordinators/Keerthan(event%20coordinator).png",
     "customStyles": {
       width: "54%",
+
     }
   }, {
     "name": "Aravind Mohan",
@@ -117,7 +117,8 @@ const Coordinators: React.FC = () => {
       marginLeft: "6%",
       marginBottom: "8%"
     }
-  }]
+  }
+  ]
 
   return (
     <section id="coordinators">
@@ -127,17 +128,19 @@ const Coordinators: React.FC = () => {
             <Image src={FACTImage} alt="FACT Logo" />
           </div>
           <div style={{ filter: 'drop-shadow(1px 1px 20px rgb(0, 190, 211))' }} className="product-img">
+
             {members.map((member, index) => {
               return (
                 <div className="product-img__item" key={index} id={`img${index + 1}`}>
-                  <Image src={member.imgURL} alt={member.name} style={member.customStyles} layout="fill" objectFit="cover" />
+                  <img src={member.imgURL} alt={member.name} className="product-img__img" style={member.customStyles} />
                 </div>
               )
             })}
+
           </div>
           <div className="product-slider">
             <button className="prev" style={{ backgroundColor: "white" }}>
-              <span className="icon">
+              <span className="icon" >
                 <svg className="icon icon-arrow-right">
                   <use xlinkHref="#icon-arrow-left"></use>
                 </svg>
@@ -167,12 +170,13 @@ const Coordinators: React.FC = () => {
                 document.querySelector(`#${target}`)?.classList.add('active');
               }}
             >
+
               {
                 members.map((member, index) => {
                   return (
                     <SwiperSlide key={index} className="product-slider__item" data-target={`img${index + 1}`}>
                       <div className="product-slider__card">
-                        <Image style={{ filter: "brightness(0.5)" }} src="https://ik.imagekit.io/factamrita/AdobeStock-JZM6gWcb8m.jpg?updatedAt=1722405189234" alt="star wars" layout="fill" objectFit="cover" className="product-slider__cover" />
+                        <img style={{ filter: "brightness(0.5)" }} src="https://ik.imagekit.io/factamrita/AdobeStock-JZM6gWcb8m.jpg?updatedAt=1722405189234" alt="star wars" className="product-slider__cover" />
                         <div className="product-slider__content" style={{ height: "23em" }}>
                           <h2 className="product-slider__title">{member.name}</h2>
                           <h4 className="product-slider__price">{member.title}</h4>
@@ -190,10 +194,10 @@ const Coordinators: React.FC = () => {
       </div>
       <svg className="">
         <symbol id="icon-arrow-left" viewBox="0 0 32 32">
-          <path d="M0.704 17.696l9.856 9.856 2.944-2.944-7.488-7.488 7.488-7.488-2.944-2.944-9.856 9.856c-0.576 0.576-0.704 1.408-0.352 2.048 0.048 0.048 0.048 0.096 0.096 0.144s0.096 0.048 0.144 0.096c0.64 0.352 1.472 0.224 2.048-0.352z"></path>
+          <path d="M0.704 17.696l9.856 9.856c0.896 0.896 2.432 0.896 3.328 0s0.896-2.432 0-3.328l-5.792-5.856h21.568c1.312 0 2.368-1.056 2.368-2.368s-1.056-2.368-2.368-2.368h-21.568l5.824-5.824c0.896-0.896 0.896-2.432 0-3.328-0.48-0.48-1.088-0.704-1.696-0.704s-1.216 0.224-1.696 0.704l-9.824 9.824c-0.448 0.448-0.704 1.056-0.704 1.696s0.224 1.248 0.704 1.696z"></path>
         </symbol>
         <symbol id="icon-arrow-right" viewBox="0 0 32 32">
-          <path d="M31.296 15.936l-9.856-9.856-2.944 2.944 7.488 7.488-7.488 7.488 2.944 2.944 9.856-9.856c0.576-0.576 0.704-1.408 0.352-2.048-0.048-0.048-0.048-0.096-0.096-0.144s-0.096-0.048-0.144-0.096c-0.64-0.352-1.472-0.224-2.048 0.352z"></path>
+          <path d="M31.296 14.336l-9.888-9.888c-0.896-0.896-2.432-0.896-3.328 0s-0.896 2.432 0 3.328l5.824 5.856h-21.536c-1.312 0-2.368 1.056-2.368 2.368s1.056 2.368 2.368 2.368h21.568l-5.856 5.824c-0.896 0.896-0.896 2.432 0 3.328 0.48 0.48 1.088 0.704 1.696 0.704s1.216-0.224 1.696-0.704l9.824-9.824c0.448-0.448 0.704-1.056 0.704-1.696s-0.224-1.248-0.704-1.664z"></path>
         </symbol>
       </svg>
     </section>

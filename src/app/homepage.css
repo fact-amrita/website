@@ -11,6 +11,13 @@
 }
 
 @font-face {
+  font-family: 'Confidential';
+  src: url('../public/Confidential\ Regular.otf') format('opentype');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
   font-family: "Uni Sans";
   src: url("https://res.cloudinary.com/muhammederdem/raw/upload/v1536168545/unisans-font/UniSansThinCAPS.woff2") format("woff2"),
     url("https://res.cloudinary.com/muhammederdem/raw/upload/v1536168545/unisans-font/UniSansThinCAPS.woff") format("woff"),
@@ -1239,14 +1246,16 @@ footer .address {
 }
 
 .name {
+  /* font-family: "Confidential"; */
   font-size: 75%;
   position: relative;
   top: 0.3em;
-  text-transform: lowercase;
-  height: 30em;
+  /* text-transform: lowercase; */
+  height: 25em;
   overflow-y: auto;
   font-weight: 350;
-  font-style: italic;
+  /* font-style: italic; */
+  letter-spacing:1px;
 }
 
 .wave:nth-child(2),
