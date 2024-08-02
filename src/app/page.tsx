@@ -1,6 +1,6 @@
-"use client"
+"use client";
 
-import React, { useRef, useState, useEffect, useCallback } from 'react';
+import React, { useRef, useState, useEffect, useCallback, useMemo } from 'react';
 import Header from '@/components/homepage/Header';
 import Heading from '@/components/homepage/Heading';
 import About from '@/components/homepage/About';
@@ -10,28 +10,31 @@ import Footer from '@/components/homepage/Footer';
 import './homepage.css';
 
 function App() {
-  const headingRef = useRef(null);
-  const aboutRef = useRef(null);
-  const galleryRef = useRef(null);
-  const coordinatorsRef = useRef(null);
-  const footerRef = useRef(null);
+  const headingRef = useRef<HTMLDivElement>(null);
+  const aboutRef = useRef<HTMLDivElement>(null);
+  const galleryRef = useRef<HTMLDivElement>(null);
+  const coordinatorsRef = useRef<HTMLDivElement>(null);
+  const footerRef = useRef<HTMLDivElement>(null);
 
-  const [activeSection, setActiveSection] = useState('heading');
+  const [activeSection, setActiveSection] = useState<string>('heading');
 
-  const refs: { [key: string]: React.MutableRefObject<HTMLElement | null> } = {
-    heading: headingRef,
-    about: aboutRef,
-    gallery: galleryRef,
-    coordinators: coordinatorsRef,
-    footer: footerRef,
-  };
+  const refs = useMemo<Record<string, React.RefObject<HTMLDivElement>>>(
+    () => ({
+      heading: headingRef,
+      about: aboutRef,
+      gallery: galleryRef,
+      coordinators: coordinatorsRef,
+      footer: footerRef,
+    }),
+    []
+  );
 
   const scrollToSection = (section: string) => {
     setActiveSection(section);
     refs[section]?.current?.scrollIntoView({ behavior: 'smooth' });
   };
 
-  const handleScroll = useCallback((entries: any[]) => {
+  const handleScroll = useCallback((entries: IntersectionObserverEntry[]) => {
     entries.forEach((entry) => {
       if (entry.isIntersecting) {
         setActiveSection(entry.target.id);

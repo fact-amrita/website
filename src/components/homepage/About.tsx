@@ -11,7 +11,7 @@ function About() {
           <div className="name">
             The Forensic Analysis Club and Triage (FACT) at Amrita Vishwa Vidyapeetham 
             is dedicated to preparing students for careers in cyber forensics, ethical 
-            hacking, penetration testing, and forensics science. The club's vision is to 
+            hacking, penetration testing, and forensics science. The club`&apos;`s vision is to 
             develop tools and applications to solve cybercrimes through forensics 
             investigation. Their mission includes promoting advanced security standards 
             and technology adoption, collaborating with forensics experts to create 

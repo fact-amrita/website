@@ -68,7 +68,7 @@ const DashboardContent: React.FC = () => {
           duration: 10000,
           action: (
             <ToastAction altText="Onboarding Page" onClick={() => (window.location.href = "/app/onboarding")}>
-              Let's Go
+              Let`&apos;`s Go
             </ToastAction>
           ),
         });

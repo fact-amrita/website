@@ -135,7 +135,7 @@ const TaskValidation: React.FC<TaskValidationProps> = ({ domain }) => {
         <DrawerContent>
           <DrawerHeader>
             <DrawerTitle>Evaluation</DrawerTitle>
-            <DrawerDescription>Evaluate the selected person's submission.</DrawerDescription>
+            <DrawerDescription>Evaluate the selected person`&apos;`s submission.</DrawerDescription>
           </DrawerHeader>
           <div className="p-4">
             {!isCompleted ? (
