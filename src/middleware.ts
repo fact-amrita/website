@@ -1,3 +1,130 @@
+// import { auth } from "@/auth"
+
+// export default auth((req: any) => {
+//     if (req.auth && req.nextUrl.pathname === "/app/login") {
+//         const url = req.url.replace(req.nextUrl.pathname, "/app")
+//         // deepcode ignore OR: The redirect URL is already mentioned by the previous line and is not changable from the client side
+//         return Response.redirect(url)
+//     }
+
+//     if (req.nextUrl.pathname === "/app/tasks") {
+//         if (!req.auth) {
+//             const url = req.url.replace(req.nextUrl.pathname, "/app/login?error=You should be logged in to access")
+//             return Response.redirect(url)
+//         }
+//         if (req.auth) {
+//             const userdat = req.auth.user as { name: string; email: string; role: string; image: string; factId: string };
+//             if (userdat.role == "newbie" || userdat.role == "onboarding") {
+//                 const url = req.url.replace(req.nextUrl.pathname, "/app?message=Sorry, you can only access this page if you are a member")
+//                 return Response.redirect(url)
+//             }
+//         }
+//     }
+
+//     if (req.nextUrl.pathname === "/app/ticket/ticket-table") {
+//         if (req.auth) {
+//             const userdat = req.auth.user as { name: string; email: string; role: string; image: string; factId: string };
+//             if (userdat.role !== "admin") {
+//                 return Response.redirect(new URL('/404', req.url));
+//             }
+//         } else {
+//             const url = req.url.replace(req.nextUrl.pathname, "/app/login?error=You should be logged in to access")
+//             return Response.redirect
+//         }
+//     }
+
+//     if (req.nextUrl.pathname === "/app/profile/undefined") {
+//         if (req.auth) {
+//             const url = req.url.replace(req.nextUrl.pathname, "/app?message=This user does not exist.")
+//             return Response.redirect(url)
+//         }
+//     }
+
+//     if (req.nextUrl.pathname === "/app/tasks/create") {
+//         if (!req.auth) {
+//             const url = req.url.replace(req.nextUrl.pathname, "/app/login?error=You should be logged in to access")
+//             return Response.redirect(url)
+//         } else {
+//             const userdat = req.auth.user as { name: string; email: string; role: string; image: string; factId: string };
+//             if (userdat.role == "newbie" || userdat.role == "onboarding" || userdat.role == "member") {
+//                 return Response.redirect(new URL('/404', req.url));
+//             }
+//         }
+//     }
+
+//     if (req.nextUrl.pathname === "/app/onboarding") {
+//         if (!req.auth) {
+//             const url = req.url.replace(req.nextUrl.pathname, "/app/login?error=You should be logged in to access")
+//             return Response.redirect(url)
+//         } else if (req.auth && req.auth.user) {
+//             const userdat = req.auth.user as { name: string; email: string; role: string; image: string; factId: string };
+//             if (userdat.role !== "onboarding") {
+//                 const url = req.url.replace(req.nextUrl.pathname, "/app?message=You don't need to onboard again. You are already onboarded.")
+//                 return Response.redirect(url)
+//             }
+//         } else {
+//             return Response.redirect(new URL('/404', req.url));
+//         }
+//     }
+
+//     if (!req.auth && req.nextUrl.pathname === "/app") {
+//         const url = req.url.replace(req.nextUrl.pathname, "/app/login?error=You should be logged in to access")
+//         return Response.redirect(url)
+//     }
+
+//     return;
+// })
+
+
+// // Optimized Middleware
+// // import { auth } from "@/auth"
+
+// // export default auth((req) => {
+// //     const { auth: requestAuth, nextUrl, url } = req;
+// //     const userdat = requestAuth?.user as { name: string; email: string; role: string; image: string; factId: string };
+
+// //     if (url.startsWith("/app")) {
+
+// //         const redirectToLogin = (message: string) => {
+// //             const newUrl = url.replace(nextUrl.pathname, `/app/login?error=${message}`);
+// //             return Response.redirect(newUrl);
+// //         }
+
+// //         const redirectToApp = (message: string) => {
+// //             const newUrl = url.replace(nextUrl.pathname, `/app?message=${message}`);
+// //             return Response.redirect(newUrl);
+// //         }
+
+// //         if (!requestAuth && nextUrl.pathname !== "/app/login") {
+// //             return redirectToLogin("You should be logged in to access");
+// //         }
+
+// //         if (requestAuth) {
+// //             switch (nextUrl.pathname) {
+// //                 case "/app/login":
+// //                     return Response.redirect(url.replace(nextUrl.pathname, "/app"));
+// //                 case "/app/tasks":
+// //                     if (userdat.role === "newbie") {
+// //                         return redirectToApp("Sorry, you can only access this page if you are a member");
+// //                     }
+// //                     break;
+// //                 case "/app/tasks/create":
+// //                     if (["newbie", "onboarding", "member"].includes(userdat.role)) {
+// //                         return Response.redirect(new URL('/404', url));
+// //                     }
+// //                     break;
+// //                 case "/app/onboarding":
+// //                     if (userdat.role !== "onboarding") {
+// //                         return redirectToApp("You don't need to onboard again. You are already onboarded.");
+// //                     }
+// //                     break;
+// //                 default:
+// //                     break;
+// //             }
+// //         }
+// //     }
+// // });
+
 import { auth } from "@/auth"
 
 export default auth((req) => {
@@ -29,7 +156,7 @@ export default auth((req) => {
             }
         } else {
             const url = req.url.replace(req.nextUrl.pathname, "/app/login?error=You should be logged in to access")
-            return Response.redirect
+            return Response.redirect(url);
         }
     }
 
@@ -71,54 +198,12 @@ export default auth((req) => {
         const url = req.url.replace(req.nextUrl.pathname, "/app/login?error=You should be logged in to access")
         return Response.redirect(url)
     }
+
+    if (!req.auth) {
+        if (req.nextUrl.pathname.startsWith("/app")) {
+            // take the user to the login page with the parameter redirect which will store the path name requested
+            const url = req.url.replace(req.nextUrl.pathname, "/app/login?redirect=" + req.nextUrl.pathname)
+            return Response.redirect(url)
+        }
+    }
 })
-
-
-// Optimized Middleware
-// import { auth } from "@/auth"
-
-// export default auth((req) => {
-//     const { auth: requestAuth, nextUrl, url } = req;
-//     const userdat = requestAuth?.user as { name: string; email: string; role: string; image: string; factId: string };
-
-//     if (url.startsWith("/app")) {
-
-//         const redirectToLogin = (message: string) => {
-//             const newUrl = url.replace(nextUrl.pathname, `/app/login?error=${message}`);
-//             return Response.redirect(newUrl);
-//         }
-
-//         const redirectToApp = (message: string) => {
-//             const newUrl = url.replace(nextUrl.pathname, `/app?message=${message}`);
-//             return Response.redirect(newUrl);
-//         }
-
-//         if (!requestAuth && nextUrl.pathname !== "/app/login") {
-//             return redirectToLogin("You should be logged in to access");
-//         }
-
-//         if (requestAuth) {
-//             switch (nextUrl.pathname) {
-//                 case "/app/login":
-//                     return Response.redirect(url.replace(nextUrl.pathname, "/app"));
-//                 case "/app/tasks":
-//                     if (userdat.role === "newbie") {
-//                         return redirectToApp("Sorry, you can only access this page if you are a member");
-//                     }
-//                     break;
-//                 case "/app/tasks/create":
-//                     if (["newbie", "onboarding", "member"].includes(userdat.role)) {
-//                         return Response.redirect(new URL('/404', url));
-//                     }
-//                     break;
-//                 case "/app/onboarding":
-//                     if (userdat.role !== "onboarding") {
-//                         return redirectToApp("You don't need to onboard again. You are already onboarded.");
-//                     }
-//                     break;
-//                 default:
-//                     break;
-//             }
-//         }
-//     }
-// });
