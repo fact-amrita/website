@@ -67,6 +67,7 @@
     "class-variance-authority": "^0.7.0",
     "clsx": "^2.1.1",
     "date-fns": "^3.6.0",
+    "fast-xml-parser": "^4.4.1",
     "formidable": "^3.5.1",
     "framer-motion": "^11.2.6",
     "lucide-react": "^0.381.0",

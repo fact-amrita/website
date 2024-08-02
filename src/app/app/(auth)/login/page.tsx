@@ -1,9 +1,9 @@
 "use client";
 
+import React, { Suspense, useEffect } from 'react';
 import { SignInwithGoogle, SignInwithGithub } from "./functions";
 import { FcGoogle } from "react-icons/fc";
 import { FaGithub } from "react-icons/fa";
-import { useEffect } from "react";
 import Image from "next/image";
 import logo from "@/public/images/logo.png";
 import { Poppins } from "next/font/google";
@@ -11,7 +11,6 @@ import { useToast } from "@/components/ui/use-toast";
 import { Toaster } from "@/components/ui/toaster";
 import { useSearchParams } from 'next/navigation';
 import { BackgroundGradientAnimation } from "@/components/ui/background_animation";
-
 import styles from "./page.module.css";
 
 const font = Poppins({
@@ -19,7 +18,7 @@ const font = Poppins({
   weight: ["600"]
 });
 
-export default function LoginPage() {
+const LoginPage = () => {
   const { toast } = useToast();
   const searchParams = useSearchParams();
 
@@ -92,4 +91,12 @@ export default function LoginPage() {
       <Toaster />
     </main>
   );
-}
+};
+
+const LoginPageWithSuspense = () => (
+  <Suspense fallback={<div>Loading...</div>}>
+    <LoginPage />
+  </Suspense>
+);
+
+export default LoginPageWithSuspense;
