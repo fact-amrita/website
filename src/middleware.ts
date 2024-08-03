@@ -88,4 +88,19 @@ export default auth((req) => {
         url.searchParams.set("error", "You should be logged in to access");
         return Response.redirect(url.toString());
     }
+
+    if (isAuthenticated && requestedPath.startsWith("/app/administration")) {
+        const userdat = req.auth?.user as { name: string; email: string; role: string; image: string; factId: string };
+        if ((userdat.role !== "admin") && (userdat.role !== "president") && (userdat.role !== "moderator")) {
+            return Response.redirect(new URL('/404', req.url));
+        }
+    }
+
+    if (isAuthenticated && requestedPath.startsWith("/app/ticket/ticket-table")) {
+        const userdat = req.auth?.user as { name: string; email: string; role: string; image: string; factId: string };
+        if (userdat.role !== "admin") {
+            return Response.redirect(new URL('/404', req.url));
+        }
+    }
+
 });

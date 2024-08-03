@@ -1,6 +1,7 @@
 import { cn } from "@/lib/utils";
 import { AnimatePresence, motion } from "framer-motion";
 import { useState } from "react";
+import "./hoverEffect.css";
 
 export const HoverEffect = ({
   items,
@@ -46,7 +47,7 @@ export const HoverEffect = ({
           </AnimatePresence>
           <div
             className={cn(
-              "rounded-2xl h-full w-full p-4 md:p-3 xl:p-5 overflow-hidden bg-gradient-to-tr from-blue-700 via-black to-red-700 border border-transparent dark:border-white/[0.2] group-hover:border-slate-700 relative z-20",
+              "timeline-container rounded-2xl h-full w-full p-4 md:p-3 xl:p-5 overflow-hidden bg-gradient-to-tr from-blue-700 via-black to-red-700 border border-transparent dark:border-white/[0.2] group-hover:border-slate-700 relative z-20",
               className
             )}
             style={{ height: '250px' }}

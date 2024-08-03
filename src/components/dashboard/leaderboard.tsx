@@ -57,7 +57,7 @@ const Leaderboard: React.FC<LeaderBoardInterface> = ({ domain }) => {
               </tr>
             </thead>
             <tbody>
-              {entries.map((entry) => {
+              {entries.filter((ar)=>{return entries.indexOf(ar)<10}).map((entry) => {
                 let hoverColor = "";
                 let emoji = "";
 

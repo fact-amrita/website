@@ -199,7 +199,7 @@ const DashboardContent: React.FC = () => {
     {
       title: "Timeline",
       content: (
-        <div className="relative border-l-2 border-gray-300 pl-4">
+        <div className=" relative border-l-2 border-gray-300 pl-4">
           {timelineData.map((item, index) => (
             <div key={index} className="mb-8 ml-4">
               <div className="absolute -left-3 w-6 h-6 bg-blue-600 rounded-full border-2 border-white flex items-center justify-center">
@@ -211,6 +211,7 @@ const DashboardContent: React.FC = () => {
               </div>
             </div>
           ))}
+          
         </div>
       ),
       span: 4,

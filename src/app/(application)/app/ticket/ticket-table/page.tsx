@@ -45,7 +45,7 @@ const TicketTable: React.FC = () => {
   };
 
   return (
-    <div className="p-4 sm:p-6 lg:p-8">
+    <div className="p-4 sm:p-6 lg:p-8" style={{ marginLeft: "20px" }}>
       <h2 className="text-xl sm:text-2xl lg:text-3xl ml-4 sm:ml-8 md:ml-6 font-bold mb-4 text-zinc-50">Ticket List</h2>
       <div className="flex justify-end mb-4">
         <select
@@ -58,7 +58,7 @@ const TicketTable: React.FC = () => {
         </select>
       </div>
       <div className="overflow-x-auto flex justify-center">
-        <table className="max-w-4xl w-full text-xs border-collapse border border-gray-200">
+        <table className="max-w-5xl w-full text-xs border-collapse border border-gray-200" style={{ fontSize: "1em", lineHeight: "2rem" }}>
           <thead className="bg-gray-100">
             <tr>
               <th scope="col" className="px-2 py-1 text-left font-medium text-gray-500 uppercase tracking-wider border-t border-gray-200">Ticket Cleared?</th>
@@ -82,7 +82,7 @@ const TicketTable: React.FC = () => {
 
       {selectedTicket && (
         <div className="fixed inset-0 flex items-center justify-center z-50">
-          <div className="bg-white w-full max-w-md p-6 sm:p-8 rounded-lg shadow-lg relative">
+          <div className="bg-white w-full max-w-md p-6 sm:p-8 rounded-lg shadow-lg relative" style={{ zIndex: "99" }}>
             <h2 className="text-2xl font-bold mb-4">Ticket Details</h2>
             <p><strong>Ticket ID:</strong> {selectedTicket.TicketId}</p>
             <p><strong>Feedback Type:</strong> {selectedTicket.TicketType}</p>

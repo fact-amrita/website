@@ -31,7 +31,7 @@ const TimelineComponent: React.FC = () => {
           key={index}
           date={event.date}
           iconStyle={{ background: 'rgb(33, 150, 243)', color: '#fff' }}
-          icon={<MdOutlineTimeline />} 
+          icon={<MdOutlineTimeline />}
         >
           <h3 className="vertical-timeline-element-title">{event.title}</h3>
         </VerticalTimelineElement>

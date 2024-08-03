@@ -1,6 +1,6 @@
 "use client";
 
-import React, { Suspense, useEffect } from 'react';
+import React, { Suspense, useEffect, useState } from 'react';
 import { SignInwithGoogle, SignInwithGithub } from "./functions";
 import { FcGoogle } from "react-icons/fc";
 import { FaGithub } from "react-icons/fa";
@@ -24,7 +24,8 @@ const LoginPage = () => {
 
   const errorParam = searchParams.get("error");
   const signedOutParam = searchParams.get("signedout");
-  const redirectURL = searchParams.get("redirect") ?? "/app";
+  const [redirectURL, setRedirectURL] = useState("/get");
+  console.log(redirectURL);
 
   useEffect(() => {
     if (errorParam) {
@@ -47,6 +48,7 @@ const LoginPage = () => {
       window.history.replaceState(null, '', newUrl);
     }
     if (searchParams.get("redirect")) {
+      setRedirectURL(searchParams.get("redirect") as string);
       const newUrl = window.location.pathname;
       window.history.replaceState(null, '', newUrl);
     }
