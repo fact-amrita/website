@@ -4,7 +4,7 @@ import { useEffect, useState } from 'react';
 import { Form, useFieldAnswer } from "@quillforms/renderer-core";
 import '@quillforms/renderer-core/build-style/style.css';
 import { registerCoreBlocks } from '@quillforms/react-renderer-utils';
-import DataSave from './saveData'; // Ensure correct import
+import DataSave from './saveData';
 import { SessionProvider, useSession } from 'next-auth/react';
 import { useToast } from "@/components/ui/use-toast";
 import { Toaster } from "@/components/ui/toaster";
@@ -77,6 +77,8 @@ function FormApp() {
                                     { label: "ECE", value: "ECE" },
                                     { label: "CCE", value: "CCE" },
                                     { label: "MEE", value: "MEE" },
+                                    { label: "ARE", value: "ARE" },
+                                    { label: "RAI", value: "RAI" },
                                 ],
                             },
                         },
@@ -91,7 +93,7 @@ function FormApp() {
                                 verticalAlign: false,
                                 setMax: true,
                                 max: 30000,
-                                label: "What is your roll number?",
+                                label: "What is your roll number (Only last 5 digits)?",
                             },
                         },
                         {
@@ -237,7 +239,7 @@ function FormApp() {
                             attributes: {
                                 min: 1000000000,
                                 max: 9999999999,
-                                label: "Where can we contact you ?",
+                                label: "What is your Phone Number ?",
                             },
                         },
                         {

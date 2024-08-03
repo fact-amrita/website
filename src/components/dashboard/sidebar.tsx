@@ -22,11 +22,13 @@ const Sidebar: FC<SidebarProps> = ({ children, user }) => {
     <aside className="fixed left-0 top-0 h-screen w-52 transition-all duration-300 ease-in-out">
       <nav className="h-full flex flex-col bg-white shadow-md rounded-r-lg overflow-hidden">
         <div className="p-2 pb-2 flex justify-between items-center relative">
+          <Link href="/">
           <Image
             src={logo}
             className="w-32 transition-all"
             alt="Logo"
           />
+          </Link>
         </div>
 
         <ul className="flex-1 px-3">{children}</ul>
