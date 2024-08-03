@@ -95,6 +95,14 @@ html {
   opacity: 1;
 }
 
+#heading .factheading {
+  text-align: center; /* Center align the text if needed */
+}
+
+#heading .factheading h1 {
+  margin: 0; /* Remove default margins */
+  line-height: 1.2; /* Adjust line height if needed */
+}
 
 .factheading {
   text-align: center;
@@ -103,7 +111,7 @@ html {
   margin-left: 10%;
   margin-right: 10%;
   padding-right: 9%;
-  padding-top: 3%;
+  padding-top: 0%;
 }
 
 .factheading h1 {
@@ -142,7 +150,7 @@ html {
   transform: translateX(-50%);
   top: 3%;
   width: 80%;
-  height: 7%;
+  height: 55px;
   transition: transform 0.3s ease;
   z-index: 100;
 }
@@ -194,8 +202,8 @@ html {
 .navigation li a .icon {
   position: absolute;
   font-size: 1.3em;
-  width: 45px;
-  height: 45px;
+  width: 50px;
+  height: 50px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -244,7 +252,6 @@ html {
 .navigation li.active a .text {
   opacity: 1;
 }
-
 
 /* slider */
 
