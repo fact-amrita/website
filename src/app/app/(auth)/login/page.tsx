@@ -24,7 +24,7 @@ const LoginPage = () => {
 
   const errorParam = searchParams.get("error");
   const signedOutParam = searchParams.get("signedout");
-  const [redirectURL, setRedirectURL] = useState("/get");
+  const [redirectURL, setRedirectURL] = useState("/app");
   console.log(redirectURL);
 
   useEffect(() => {
