@@ -13,12 +13,6 @@ const Coordinators: React.FC = () => {
 
     document.querySelectorAll('.product-img__item').forEach(item => item.classList.remove('active'));
     document.querySelector(`#${target}`)?.classList.add('active');
-
-    // document.querySelector('.prev')?.classList.toggle('disabled', swiper.isBeginning);
-    // document.querySelector('.next')?.classList.toggle('disabled', swiper.isEnd);
-  };
-  const handleFavClick = (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
-    e.currentTarget.querySelector('.heart')?.classList.toggle('is-active');
   };
 
   useEffect(() => {
@@ -128,19 +122,15 @@ const Coordinators: React.FC = () => {
             <Image src={FACTImage} alt="FACT Logo" />
           </div>
           <div style={{ filter: 'drop-shadow(1px 1px 20px rgb(0, 190, 211))' }} className="product-img">
-
-            {members.map((member, index) => {
-              return (
-                <div className="product-img__item" key={index} id={`img${index + 1}`}>
-                  <img src={member.imgURL} alt={member.name} className="product-img__img" style={member.customStyles} />
-                </div>
-              )
-            })}
-
+            {members.map((member, index) => (
+              <div className="product-img__item" key={index} id={`img${index + 1}`}>
+                <img src={member.imgURL} alt={member.name} className="product-img__img" style={member.customStyles} />
+              </div>
+            ))}
           </div>
           <div className="product-slider">
             <button className="prev" style={{ backgroundColor: "white" }}>
-              <span className="icon" >
+              <span className="icon">
                 <svg className="icon icon-arrow-right">
                   <use xlinkHref="#icon-arrow-left"></use>
                 </svg>
@@ -170,24 +160,19 @@ const Coordinators: React.FC = () => {
                 document.querySelector(`#${target}`)?.classList.add('active');
               }}
             >
-
-              {
-                members.map((member, index) => {
-                  return (
-                    <SwiperSlide key={index} className="product-slider__item" data-target={`img${index + 1}`}>
-                      <div className="product-slider__card">
-                        <img style={{ filter: "brightness(0.5)" }} src="https://ik.imagekit.io/factamrita/AdobeStock-JZM6gWcb8m.jpg?updatedAt=1722405189234" alt="star wars" className="product-slider__cover" />
-                        <div className="product-slider__content" style={{ height: "23em" }}>
-                          <h2 className="product-slider__title">{member.name}</h2>
-                          <h4 className="product-slider__price">{member.title}</h4>
-                          <p className="product-slider__price">{member.year}</p>
-                          <div className="product-ctr"></div>
-                        </div>
-                      </div>
-                    </SwiperSlide>
-                  );
-                })
-              }
+              {members.map((member, index) => (
+                <SwiperSlide key={index} className="product-slider__item" data-target={`img${index + 1}`}>
+                  <div className="product-slider__card">
+                    <img style={{ filter: "brightness(0.5)" }} src="https://ik.imagekit.io/factamrita/AdobeStock-JZM6gWcb8m.jpg?updatedAt=1722405189234" alt="background" className="product-slider__cover" />
+                    <div className="product-slider__content" style={{ height: "23em" }}>
+                      <h2 className="product-slider__title">{member.name}</h2>
+                      <h4 className="product-slider__price">{member.title}</h4>
+                      <p className="product-slider__price">{member.year}</p>
+                      <div className="product-ctr"></div>
+                    </div>
+                  </div>
+                </SwiperSlide>
+              ))}
             </Swiper>
           </div>
         </div>

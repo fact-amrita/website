@@ -1337,7 +1337,7 @@ footer .address {
 /* Large screens */
 @media (min-width: 1200px) {
   .name {
-    font-size: calc(0.8em + 1vw);
+    font-size: calc(0.6em + 1vw);
     height: 30em;
   }
 }
