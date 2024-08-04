@@ -74,13 +74,14 @@ const Coordinators: React.FC = () => {
       marginBottom: "-2%"
     }
   }, {
-    "name": "Mazhar Masood",
+    "name": "Mazhar Mashood",
     "title": "Marketing and Content Creation",
     "year": "4th Year CYS",
-    "imgURL": "https://ik.imagekit.io/factamrita/co-ordinators/mazar(marketing%20and%20content%20creation).png?updatedAt=1722397506058",
+    "imgURL": "https://ik.imagekit.io/factamrita/co-ordinators/Mazhar(marketing%20and%20content%20creation).png?updatedAt=1722762131958",
     "customStyles": {
-      width: "76%",
-      marginLeft: "-70%"
+      width: "59%",
+      marginLeft: "-2%",
+      marginBottom: "1%"
     }
   }, {
     "name": "Keerthan Reddy",
