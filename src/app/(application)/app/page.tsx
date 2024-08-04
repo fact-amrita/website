@@ -211,7 +211,7 @@ const DashboardContent: React.FC = () => {
               </div>
             </div>
           ))}
-          
+
         </div>
       ),
       span: 4,
@@ -236,9 +236,9 @@ const DashboardContent: React.FC = () => {
 };
 
 const DashboardPage = () => (
-  <SessionProvider>
+  // <SessionProvider>
     <DashboardContent />
-  </SessionProvider>
+  // </SessionProvider> 
 );
 
 export default DashboardPage;

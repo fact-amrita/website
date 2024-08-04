@@ -95,8 +95,8 @@ const AdminPage = () => {
 
 export default function AdminPageWithSession() {
   return (
-    <SessionProvider>
+    // <SessionProvider>
       <AdminPage />
-    </SessionProvider>
+    // </SessionProvider>
   );
 }

@@ -234,9 +234,9 @@ const TaskPage: React.FC<TaskPageProps> = ({ TaskId }) => {
 
 const TaskPageWrapper = ({ params }: { params: { id: string } }) => {
   return (
-    <SessionProvider>
+    // <SessionProvider>
       <TaskPage TaskId={params.id} />
-    </SessionProvider>
+    // </SessionProvider>
   );
 };
 

@@ -74,9 +74,9 @@ const LeaderboardPage = () => {
 
 const LeaderboardWrapper = () => {
   return (
-    <SessionProvider>
+    // <SessionProvider>
       <LeaderboardPage />
-    </SessionProvider>
+    // </SessionProvider>
   );
 };
 
