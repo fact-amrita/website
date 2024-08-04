@@ -47,13 +47,7 @@ const ProfileContent = ({ params }: { params: { id: string } }) => {
     );
   }
 
-  const skills = [
-    ['JavaScript', ProfileData.JSExp],
-    ['React', ProfileData.ReactExp],
-    ['HTML/CSS', ProfileData.HTMLCSSExp],
-    ['Node.js', ProfileData.NodeExp],
-    ['Python', ProfileData.PythonExp]
-  ];
+  const skills = ProfileData.Skills;
 
   const handleSocialLinkClick = (href: string) => {
     window.open(href, "_blank");
@@ -179,11 +173,10 @@ const ProfileContent = ({ params }: { params: { id: string } }) => {
             Skills
           </p>
           <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
-            {skills.map((skill, index) => (
-              (skill[1] && skill[1] != "null") && (
+            {skills.map((skill: string, index: React.Key | null | undefined) => (
+              (skill && skill != "null") && (
                 <div key={index} className="bg-gradient-to-tr from-blue-500 to-red-500 rounded-lg p-4 shadow-xl text-center">
-                  <div className="text-indigo-800 font-bold">{skill[0]}</div>
-                  <div className="text-gray-900">{skill[1]}</div>
+                  <div className="text-indigo-800 font-bold">{skill}</div>
                 </div>
               )
             ))}
