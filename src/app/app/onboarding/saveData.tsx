@@ -49,7 +49,7 @@ export default async function DataSave(dataGot: any) {
             linkedInURL: DataDict["LinkedIn"],
             githubURL: DataDict["github"],
             About: DataDict["about"],
-            Skills: DataDict["skills"],
+            Skills: DataDict["skills"].filter((skill: string) => skill !== "None"),
             semester: semester
         }
     })
