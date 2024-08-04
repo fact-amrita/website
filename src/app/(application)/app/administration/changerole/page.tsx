@@ -9,7 +9,7 @@ import withReactContent from 'sweetalert2-react-content'
 const YearSemesterForm: React.FC = () => {
     const MySwal = withReactContent(Swal)
     const [factId, setFactId] = useState<string | ''>('');
-    const [role, setRole] = useState<string | ''>('');
+    const [role, setRole] = useState<string | ''>('member');
 
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
@@ -70,7 +70,7 @@ const YearSemesterForm: React.FC = () => {
                             Role
                         </label>
                         <select className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md bg-gray-100" value={role} onChange={(e) => { setRole(e.target.value) }}>
-                            <option value="member">Member</option>
+                            <option value="member" selected={true}>Member</option>
                             <option value="moderator">Moderator</option>
                             <option value="newbie">Newbie</option>
                         </select>
