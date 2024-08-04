@@ -63,7 +63,7 @@ const ProfilePage: React.FC = () => {
                 <div className="text-center">
                   <Image src={result.image ?? ''} alt={result.name} width={70} height={70} className="w-10 rounded-full mb-2" />
                   <div style={{ marginTop: '10px' }}>
-                    {result.role !== "member" && <div>{result.Title}</div>}
+                    {result.Title && <div>{result.Title}</div>}
                     <div>{result.name}</div>
                     <div>ID: {result.FactID}</div>
                   </div>

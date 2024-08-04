@@ -73,10 +73,26 @@ const AdminPage = () => {
           )}
           {(userdat.role === "admin" || userdat.role == "president") && (
             <button
-              className="w-full p-8 sm:p-4 md:p-6 bg-purple-500 text-white rounded-lg hover:bg-purple-700 transition duration-300"
+              className="w-full p-8 sm:p-4 md:p-6 bg-purple-700 text-white rounded-lg hover:bg-purple-700 transition duration-300"
               onClick={() => handleNavigation('/app/administration/newbies')}
             >
               Check New Users
+            </button>
+          )}
+          {(userdat.role === "admin" || userdat.role == "president") && (
+            <button
+              className="w-full p-8 sm:p-4 md:p-6 bg-violet-600 text-white rounded-lg hover:bg-purple-700 transition duration-300"
+              onClick={() => handleNavigation('/app/administration/changerole')}
+            >
+              Change Role of Member
+            </button>
+          )}
+          {(userdat.role === "admin" || userdat.role == "president") && (
+            <button
+              className="w-full p-8 sm:p-4 md:p-6 bg-sky-800 text-white rounded-lg hover:bg-purple-700 transition duration-300"
+              onClick={() => handleNavigation('/app/administration/changetitle')}
+            >
+              Change Title of Member
             </button>
           )}
         </div>

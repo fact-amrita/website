@@ -48,6 +48,47 @@ export async function demoteUser(email: string) {
     })
 }
 
+export async function assignRole(factId: string, role: string) {
+    try {
+        const output = await db.user.update({
+            where: {
+                FactID: factId
+            },
+            data: {
+                role: role
+            }
+        })
+
+        await db.userCredential.update({
+            where: {
+                email: output.email
+            },
+            data: {
+                role: role
+            }
+        })
+    } catch (e) {
+        return false
+    }
+    return true;
+}
+
+export async function assignTitle(factId: string, title: string) {
+    try {
+        await db.user.update({
+            where: {
+                FactID: factId
+            },
+            data: {
+                Title: title
+            }
+        })
+    } catch (e) {
+        return false
+    }
+    return true;
+}
+
 export async function updateProfile(factId: string, formData: {
     Name: string;
     LinkedinProfile: string;
