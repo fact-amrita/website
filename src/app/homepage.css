@@ -1225,6 +1225,42 @@ footer .address {
   height: 970px;
   border-radius: 5%;
   overflow: hidden;
+  width: calc(80% + 10vw); 
+  height: calc(60vh + 20px); 
+}
+
+/* Large screens */
+@media (min-width: 1200px) {
+  .e-card {
+    width: 70%;
+    height: 970px;
+  }
+}
+
+/* Medium screens */
+@media (max-width: 1199px) and (min-width: 768px) {
+  .e-card {
+    width: 80%;
+    height: 700px;
+  }
+}
+
+/* Small screens */
+@media (max-width: 767px) {
+  .e-card {
+    width: 90%;
+    height: 500px;
+    margin: 50px auto;
+  }
+}
+
+/* Extra small screens */
+@media (max-width: 480px) {
+  .e-card {
+    width: 95%;
+    height: 400px;
+    margin: 30px auto;
+  }
 }
 
 .wave {
@@ -1245,24 +1281,91 @@ footer .address {
   text-align: center;
   font-size: 180%;
   position: absolute;
-  top: 0.3em;
+  top: 0.4em; /* Adjust top for better alignment */
   left: 0;
   right: 0;
   color: rgb(231, 231, 231);
   font-weight: 600;
+  font-size: calc(1.2em + 1vw); /* Responsive font size */
 }
 
+/* Large screens */
+@media (min-width: 1200px) {
+  .infotop {
+    font-size: 150%;
+    top: 0.5em;
+  }
+}
+
+/* Medium screens */
+@media (max-width: 1199px) and (min-width: 768px) {
+  .infotop {
+    font-size: 140%;
+    top: 0.4em;
+  }
+}
+
+/* Small screens */
+@media (max-width: 767px) {
+  .infotop {
+    font-size: 130%;
+    top: 0.3em;
+  }
+}
+
+/* Extra small screens */
+@media (max-width: 480px) {
+  .infotop {
+    font-size: 110%;
+    top: 0.2em;
+  }
+}
+
+
 .name {
-  /* font-family: "Confidential"; */
   font-size: 75%;
   position: relative;
   top: 0.3em;
-  /* text-transform: lowercase; */
   height: 25em;
   overflow-y: auto;
   font-weight: 350;
-  /* font-style: italic; */
-  letter-spacing:1px;
+  letter-spacing: 1px;
+  font-size: calc(0.8em + 1vw); 
+  height: auto; 
+}
+
+/* Large screens */
+@media (min-width: 1200px) {
+  .name {
+    font-size: calc(0.8em + 1vw);
+    height: 30em;
+  }
+}
+
+/* Medium screens */
+@media (max-width: 1199px) and (min-width: 768px) {
+  .name {
+    font-size: calc(0.7em + 0.8vw);
+    height: 20em;
+  }
+}
+
+/* Small screens */
+@media (max-width: 767px) {
+  .name {
+    font-size: calc(0.6em + 0.5vw);
+    height: 15em;
+    top: 0.2em;
+  }
+}
+
+/* Extra small screens */
+@media (max-width: 480px) {
+  .name {
+    font-size: calc(0.8em + 0.4vw);
+    height: auto; /* Allow content to dictate height */
+    top: 0.1em;
+  }
 }
 
 .wave:nth-child(2),
