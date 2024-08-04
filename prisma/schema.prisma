@@ -38,11 +38,6 @@ model User {
   linkedInURL  String?
   githubURL    String?
   About        String?
-  ReactExp     String?
-  NodeExp      String?
-  HTMLCSSExp   String?
-  PythonExp    String?
-  JSExp        String?
   Title        String?
   Skills       String[]
 }
