@@ -123,7 +123,7 @@ function FormApp() {
                             attributes: {
                                 classnames: "first-block",
                                 required: true,
-                                label: "Which skills do you know ?",
+                                label: "Which skills do you know ?\n\nYou can select more options in your profile edit page",
                                 choices: [
                                     { label: "React", value: "React" },
                                     { label: "JavaScript", value: "JavaScript" },
@@ -135,81 +135,6 @@ function FormApp() {
                                 "multiple": true,
                             },
                         },
-                        ...(skills?.includes("React") ? [
-                            {
-                                name: "dropdown",
-                                id: "reactexp",
-                                attributes: {
-                                    label: "How good are you in React ?",
-                                    required: true,
-                                    choices: [
-                                        { label: "Beginner", value: "Beginner" },
-                                        { label: "Intermediate", value: "Intermediate" },
-                                        { label: "Expert", value: "Expert" },
-                                    ],
-                                }
-                            }
-                        ] : []),
-                        ...(skills?.includes("JavaScript") ? [
-                            {
-                                name: "dropdown",
-                                id: "jsexp",
-                                attributes: {
-                                    label: "How good are you in JavaScript ?",
-                                    required: true,
-                                    choices: [
-                                        { label: "Beginner", value: "Beginner" },
-                                        { label: "Intermediate", value: "Intermediate" },
-                                        { label: "Expert", value: "Expert" },
-                                    ],
-                                }
-                            }
-                        ] : []),
-                        ...(skills?.includes("Python") ? [
-                            {
-                                name: "dropdown",
-                                id: "pyexp",
-                                attributes: {
-                                    label: "How good are you in Python ?",
-                                    required: true,
-                                    choices: [
-                                        { label: "Beginner", value: "Beginner" },
-                                        { label: "Intermediate", value: "Intermediate" },
-                                        { label: "Expert", value: "Expert" },
-                                    ],
-                                }
-                            }
-                        ] : []),
-                        ...(skills?.includes("Node.js") ? [
-                            {
-                                name: "dropdown",
-                                id: "njsexp",
-                                attributes: {
-                                    label: "How good are you in Node.js ?",
-                                    required: true,
-                                    choices: [
-                                        { label: "Beginner", value: "Beginner" },
-                                        { label: "Intermediate", value: "Intermediate" },
-                                        { label: "Expert", value: "Expert" },
-                                    ],
-                                }
-                            }
-                        ] : []),
-                        ...(skills?.includes("HTML/CSS") ? [
-                            {
-                                name: "dropdown",
-                                id: "htmlcssexp",
-                                attributes: {
-                                    label: "How good are you in HTML/CSS ?",
-                                    required: true,
-                                    choices: [
-                                        { label: "Beginner", value: "Beginner" },
-                                        { label: "Intermediate", value: "Intermediate" },
-                                        { label: "Expert", value: "Expert" },
-                                    ],
-                                }
-                            }
-                        ] : []),
                         {
                             name: "date",
                             id: "birthdate",

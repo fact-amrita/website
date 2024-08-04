@@ -6,28 +6,21 @@ import { getUserByFactID } from "@/lib/UserFetch";
 import { updateProfile } from "@/lib/UserOperations";
 import Swal from 'sweetalert2';
 import withReactContent from 'sweetalert2-react-content';
-
-// Define a type for the keys of the formData object
-type TechKey = 'ReactExp' | 'NodeExp' | 'HTMLCSSExp' | 'PythonExp' | 'JSExp';
+import { TiDeleteOutline } from "react-icons/ti";
 
 const UserProfileEdit: React.FC = () => {
   const { data: session, status } = useSession();
   const MySwal = withReactContent(Swal);
+  const [skills, setSkills] = useState<string[]>([]);
+  const [newSkill, setNewSkill] = useState('');
 
   const [formData, setFormData] = useState({
     Name: '',
     LinkedinProfile: '',
     GithubProfile: '',
     About: '',
-    ReactExp: '',
-    NodeExp: '',
-    HTMLCSSExp: '',
-    PythonExp: '',
-    JSExp: '',
+    Skills: [] as string[]
   });
-
-  const [selectedTech, setSelectedTech] = useState<TechKey | ''>('');
-  const [selectedExp, setSelectedExp] = useState<string>('');
 
   useEffect(() => {
     const fetchingData = async () => {
@@ -40,12 +33,9 @@ const UserProfileEdit: React.FC = () => {
             LinkedinProfile: userData.linkedInURL || '',
             GithubProfile: userData.githubURL || '',
             About: userData.About || '',
-            ReactExp: userData.ReactExp || '',
-            NodeExp: userData.NodeExp || '',
-            HTMLCSSExp: userData.HTMLCSSExp || '',
-            PythonExp: userData.PythonExp || '',
-            JSExp: userData.JSExp || ''
+            Skills: userData.Skills || []
           });
+          setSkills(userData.Skills);
         }
       }
     };
@@ -60,27 +50,17 @@ const UserProfileEdit: React.FC = () => {
     });
   };
 
-  const handleTechChange = (e: ChangeEvent<HTMLSelectElement>) => {
-    const tech = e.target.value as TechKey;
-    setSelectedTech(tech);
-    setSelectedExp(formData[tech] || '');
-  };
-
-  const handleExpChange = (e: ChangeEvent<HTMLSelectElement>) => {
-    const exp = e.target.value;
-    setSelectedExp(exp);
-    if (selectedTech) {
-      setFormData({ ...formData, [selectedTech]: exp === '' ? null : exp });
-    }
-  };
-
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const factId = window.localStorage.getItem('factId');
+    setFormData({
+      ...formData,
+      Skills: skills
+    })
     if (!factId) {
       return;
     }
-    const output = await updateProfile(factId, formData);
+    const output = await updateProfile(factId, { ...formData, Skills: skills });
     if (output) {
       MySwal.fire({
         title: "Successful!",
@@ -117,14 +97,26 @@ const UserProfileEdit: React.FC = () => {
     );
   }
 
+  const addSkill = () => {
+    if (newSkill.trim() !== '') {
+      setSkills([...skills, newSkill.trim()]);
+      setNewSkill('');
+    }
+  };
+
+  const removeSkill = (index: any) => {
+    const updatedSkills = skills.filter((_, i) => i !== index);
+    setSkills(updatedSkills);
+  };
+
   return (
     <div className='justify-center items-center'>
       <form onSubmit={handleSubmit}>
-        <div className="max-w-4xl mx-auto bg-white p-8 mt-10 shadow-lg rounded-lg flex">
+        <div className="max-w-4xl mx-auto bg-white p-8 mt-10 shadow-lg rounded-lg flex flex-wrap">
           <div className="w-1/2">
             <h2 className="text-2xl font-bold mb-4">Edit User Profile</h2>
 
-            <div className="mb-6">
+            <div className="mb-6 flex flex-wrap">
               <label className="block text-gray-700">Name</label>
               <input
                 className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md bg-gray-100"
@@ -134,7 +126,7 @@ const UserProfileEdit: React.FC = () => {
                 onChange={handleChange}
               />
             </div>
-            <div className="mb-6">
+            <div className="mb-6 flex flex-wrap">
               <label className="block text-gray-700">LinkedIn Profile URL</label>
               <input
                 className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md bg-gray-100"
@@ -144,7 +136,7 @@ const UserProfileEdit: React.FC = () => {
                 onChange={handleChange}
               />
             </div>
-            <div className="mb-6">
+            <div className="mb-6 flex flex-wrap">
               <label className="block text-gray-700">GitHub Profile URL</label>
               <input
                 className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md bg-gray-100"
@@ -154,7 +146,7 @@ const UserProfileEdit: React.FC = () => {
                 onChange={handleChange}
               />
             </div>
-            <div className="mb-6">
+            <div className="mb-6 flex flex-wrap">
               <label className="block text-gray-700">About You</label>
               <textarea
                 className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md bg-gray-100"
@@ -165,36 +157,38 @@ const UserProfileEdit: React.FC = () => {
             </div>
           </div>
           <div className="w-1/2 pl-4">
-          <h2 className="text-2xl font-bold mb-4">Edit Skills</h2>
-            <div className="mb-6">
-              <label className="block text-gray-700">Select Technology</label>
-              <select
-                className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md bg-gray-100"
-                value={selectedTech}
-                onChange={handleTechChange}
-              >
-                <option value="">Select a Technology</option>
-                <option value="ReactExp">React</option>
-                <option value="NodeExp">Node JS</option>
-                <option value="JSExp">JavaScript</option>
-                <option value="HTMLCSSExp">HTML/CSS</option>
-                <option value="PythonExp">Python</option>
-              </select>
-            </div>
+            <h2 className="text-2xl font-bold mb-4">Edit Skills</h2>
+            <div className="mb-6 flex flex-wrap">
 
-            <div className="mb-6">
-              <label className="block text-gray-700">Select Experience Level</label>
-              <select
-                className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md bg-gray-100"
-                value={(selectedExp === null || selectedExp === "null") ? '' : selectedExp} // Set to empty string if null
-                onChange={handleExpChange}
-                disabled={!selectedTech}
-              >
-                <option value="">None</option>
-                <option value="Beginner">Beginner</option>
-                <option value="Intermediate">Intermediate</option>
-                <option value="Expert">Expert</option>
-              </select>
+              <div className="flex items-center mb-4 w-full">
+                <input
+                  type="text"
+                  value={newSkill}
+                  onChange={(e) => { e.preventDefault(); setNewSkill(e.target.value) }}
+                  placeholder="Enter a skill"
+                  className="border p-2 rounded mr-2 flex-grow"
+                />
+                <button
+                  onClick={(e) => { e.preventDefault(); addSkill() }}
+                  className="bg-blue-500 text-white p-2 rounded"
+                >
+                  Add Skill
+                </button>
+              </div>
+              <br />
+              <div className="flex flex-wrap gap-2">
+                {skills.map((skill, index) => (
+                  <div key={index} className="bg-gray-200 p-2 rounded flex items-center">
+                    <span>{skill}</span>
+                    <button
+                      onClick={(e) => { e.preventDefault(); removeSkill(index) }}
+                      className="ml-2 text-red-500"
+                    >
+                      <TiDeleteOutline />
+                    </button>
+                  </div>
+                ))}
+              </div>
             </div>
           </div>
         </div>
@@ -214,7 +208,7 @@ const UserProfileEdit: React.FC = () => {
 export default function UserProfileEditSession() {
   return (
     // <SessionProvider>
-      <UserProfileEdit />
+    <UserProfileEdit />
     // </SessionProvider>
   );
 }

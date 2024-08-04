@@ -24,13 +24,13 @@ model ExistingMembersList {
 }
 
 model User {
-  id           String  @id @default(auto()) @map("_id") @db.ObjectId
+  id           String   @id @default(auto()) @map("_id") @db.ObjectId
   RegisterDate String
-  email        String  @unique
+  email        String   @unique
   image        String?
   name         String
   role         String
-  FactID       String  @unique
+  FactID       String   @unique
   domain       String
   semester     String
   phone        BigInt?
@@ -44,6 +44,7 @@ model User {
   PythonExp    String?
   JSExp        String?
   Title        String?
+  Skills       String[]
 }
 
 model Tasks {
@@ -80,13 +81,13 @@ model Points {
 }
 
 model PointsHistory {
-  id       String @id @default(auto()) @map("_id") @db.ObjectId
-  FactID   String
-  points   Int
-  reason   String
-  assigner String
+  id             String @id @default(auto()) @map("_id") @db.ObjectId
+  FactID         String
+  points         Int
+  reason         String
+  assigner       String
   pointsSemester String
-  pointsYear String
+  pointsYear     String
 }
 
 model CompletedTask {

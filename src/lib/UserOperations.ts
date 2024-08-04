@@ -94,11 +94,7 @@ export async function updateProfile(factId: string, formData: {
     LinkedinProfile: string;
     GithubProfile: string;
     About: string;
-    ReactExp: string;
-    NodeExp: string;
-    HTMLCSSExp: string;
-    PythonExp: string;
-    JSExp: string
+    Skills: string[];
 }) {
     try {
         const output = await db.user.update({
@@ -110,11 +106,7 @@ export async function updateProfile(factId: string, formData: {
                 githubURL: formData.GithubProfile,
                 linkedInURL: formData.LinkedinProfile,
                 About: formData.About,
-                ReactExp: formData.ReactExp,
-                NodeExp: formData.NodeExp,
-                HTMLCSSExp: formData.HTMLCSSExp,
-                PythonExp: formData.PythonExp,
-                JSExp: formData.JSExp
+                Skills: formData.Skills
             }
         })
 

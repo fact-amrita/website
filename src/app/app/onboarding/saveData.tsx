@@ -18,11 +18,7 @@ export default async function DataSave(dataGot: any) {
         "LinkedIn": dataGot["answers"]["linkedIn"]["value"],
         "github": dataGot["answers"]["github"]["value"],
         "about": dataGot["answers"]["about"]["value"],
-        "reactexp": (dataGot["answers"]["reactexp"] && dataGot["answers"]["reactexp"]["value"] !== undefined) ? dataGot["answers"]["reactexp"]["value"] : null,
-        "jsexp": (dataGot["answers"]["jsexp"] && dataGot["answers"]["jsexp"]["value"] !== undefined) ? dataGot["answers"]["jsexp"]["value"] : null,
-        "pyexp": (dataGot["answers"]["pyexp"] && dataGot["answers"]["pyexp"]["value"] !== undefined) ? dataGot["answers"]["pyexp"]["value"] : null,
-        "njsexp": (dataGot["answers"]["njsexp"] && dataGot["answers"]["njsexp"]["value"] !== undefined) ? dataGot["answers"]["njsexp"]["value"] : null,
-        "htmlcssexp": (dataGot["answers"]["htmlcssexp"] && dataGot["answers"]["htmlcssexp"]["value"] !== undefined) ? dataGot["answers"]["htmlcssexp"]["value"] : null,
+        "skills": dataGot["answers"]["skills"]["value"],
     }
 
     const factID = "FACT_" + DataDict["branch"] + "_" + DataDict["RollNumber"]
@@ -53,11 +49,7 @@ export default async function DataSave(dataGot: any) {
             linkedInURL: DataDict["LinkedIn"],
             githubURL: DataDict["github"],
             About: DataDict["about"],
-            ReactExp: DataDict["reactexp"],
-            NodeExp: DataDict["njsexp"],
-            HTMLCSSExp: DataDict["htmlcssexp"],
-            PythonExp: DataDict["pyexp"],
-            JSExp: DataDict["jsexp"],
+            Skills: DataDict["skills"],
             semester: semester
         }
     })
