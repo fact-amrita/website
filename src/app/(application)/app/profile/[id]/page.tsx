@@ -118,19 +118,22 @@ const ProfileContent = ({ params }: { params: { id: string } }) => {
   }
 
   return (
-    <div className="h-screen w-full flex justify-center items-center p-5 overflow-clip">
-      <div style={{ marginLeft: "5%" }} className="grid grid-cols-12 grid-rows-4 gap-7 h-full px-4">
+    <div className="h-screen w-full flex flex-col lg:flex-row justify-center items-center p-5 overflow-clip">
+      <div style={{ marginLeft: "5%" }} className="grid grid-cols-12 grid-rows-4 gap-7 h-full max-w-full px-4">
         <div className="bg-gradient-to-t from-red-700 via-black to-blue-700  rounded-3xl flex justify-center items-center col-span-4 row-span-4 p-10">
           <div className="h-full w-full grid grid-rows-2 gap-7">
-            <div className="bg-blue-600  h-full w-full rounded-2xl flex flex-col justify-center items-center">
+            <div className="bg-gradient-to-tr from-blue-500 to-red-500  h-full w-full rounded-2xl flex flex-col justify-center items-center">
               <div className="rounded-full overflow-hidden h-16 w-16">
                 <Image src={ProfileData.image} alt='profile image' layout="responsive" width={64} height={64} />
               </div>
-              <h3 className="text-white text-xl mt-4">{ProfileData.name}</h3>
+              <h3 className="text-white text-xl mt-4 text-center">{ProfileData.name}</h3>
               {ProfileData.Title && <h3 className="text-white text-base mt-4">{ProfileData.Title}</h3>}
-              {(window.localStorage.getItem('factId') == ProfileData.FactID) && (<button onClick={handleEditProfile} className="bg-slate-600 shadow-lg mt-5 rounded-md hover:bg-red-800 p-1">Edit My Profile</button>)}
+              {(window.localStorage.getItem('factId') == ProfileData.FactID) && (<button onClick={handleEditProfile} className="cursor-pointer transition-all bg-blue-500 text-white px-6 py-2 rounded-lg
+              border-blue-600
+              border-b-[4px] hover:brightness-110 hover:-translate-y-[1px] hover:border-b-[6px]
+              active:border-b-[2px] active:brightness-90 active:translate-y-[2px]">Edit My Profile</button>)}
             </div>
-            <div className="bg-blue-600  h-full w-full flex flex-col rounded-2xl justify-center items-center">
+            <div className="bg-gradient-to-tr from-blue-500 to-red-500  h-full w-full flex flex-col rounded-2xl justify-center items-center">
               <h1 className="text-3xl text-black">Performance</h1>
               {(userdat.role == "admin" || userdat.role == "president" || userdat.role == "moderator") && (<div>
                 <label htmlFor="bonusPoints" title={"Enter positive number for bonus and negative number for penalty"}>

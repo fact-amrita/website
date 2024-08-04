@@ -110,7 +110,7 @@ const TaskListPage: React.FC = () => {
   }, [status, session]);
 
   return (
-    <div className="h-screen bg-gradient-to-r from-blue-500 via-red-500 to-purple-500 p-4 flex flex-col lg:flex-row px-12 md:px-16">
+    <div className="h-screen bg-gradient-to-r from-blue-700 via-black to-red-700 p-4 flex flex-col lg:flex-row px-12 md:px-16">
       {userRole === "member" && (
         <>
           <div style={{ backgroundColor: "rgba(71,85,105,0.44)" }} className="lg:w-1/2 flex-1 border rounded-lg mb-10 border-gray-300 p-4 bg-opacity-40 shadow-lg mr-2">
