@@ -84,13 +84,13 @@ const Coordinators: React.FC = () => {
       marginBottom: "1%"
     }
   }, {
-    "name": "Keerthan Reddy",
+    "name": "Gaurav Kheitan",
     "title": "Event Co-Ordinator ",
-    "year": "4th Year AIE",
-    "imgURL": "https://ik.imagekit.io/factamrita/co-ordinators/Keerthan(event%20coordinator).png",
+    "year": "4th Year CYS",
+    "imgURL": "https://ik.imagekit.io/factamrita/co-ordinators/Gaurav%20Keitan%20(event%20co-ordinator).png?updatedAt=1722923209259",
     "customStyles": {
-      width: "54%",
-
+      width: "57%",
+      marginBottom:"-4%"
     }
   }, {
     "name": "Aravind Mohan",
