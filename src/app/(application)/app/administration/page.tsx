@@ -63,6 +63,12 @@ const AdminPage = () => {
           >
             Add Important Dates to Calendar
           </button>
+          <button
+            className="w-full p-8 sm:p-6 md:p-6 bg-yellow-500 text-white rounded-lg hover:bg-yellow-700 transition duration-300"
+            onClick={() => handleNavigation('/app/administration/addfact')}
+          >
+            Add FACT of the Day
+          </button>
           {userdat.role === "admin" && (
             <button
               className="w-full p-8 sm:p-4 md:p-6 bg-purple-500 text-white rounded-lg hover:bg-purple-700 transition duration-300"

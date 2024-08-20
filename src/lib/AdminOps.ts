@@ -102,3 +102,45 @@ export async function changeSemester(year: string, semester: string) {
 
     return true;
 }
+
+// FACT of the Day updating
+
+export async function getLatestFACT(){
+    const factofTheDays = await db.factofTheDay.findMany();
+    const factofTheDay=factofTheDays.filter((factofTheDay) => {
+        const currentDate = new Date();
+        const factDate = new Date(factofTheDay.Date);
+        return factDate.toDateString() === currentDate.toDateString();
+    })[0];
+    return factofTheDay?.Fact;
+}
+
+export async function getFACTs() {
+    var factofTheDays = await db.factofTheDay.findMany();
+    return factofTheDays;
+}
+
+export async function addToFACT(description: string, date: string, Creator: string) {
+    await db.factofTheDay.create({
+        data: {
+            Fact: description,
+            Date: date,
+            Creator: Creator,
+        },
+    });
+
+    const factofTheDays = await db.factofTheDay.findMany();
+    return factofTheDays;
+}
+
+export async function deleteFACT(id: string) {
+    await db.factofTheDay.delete({
+        where: {
+            id,
+        },
+    });
+
+    const factofTheDays = await db.factofTheDay.findMany();
+    return factofTheDays;
+}
+

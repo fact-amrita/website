@@ -7,7 +7,7 @@ import { useSearchParams } from "next/navigation";
 import Leaderboard from "@/components/dashboard/leaderboard";
 import { Toaster } from "@/components/ui/toaster";
 import { SessionProvider, useSession } from "next-auth/react";
-import { getFact } from "@/lib/getFact";
+import { getLatestFACT } from "@/lib/AdminOps";
 import { getAnnouncements, getEvents, getTimelines } from "@/lib/AdminOps";
 import { HoverEffect } from "@/components/dashboard/HoverEffect";
 import Link from "next/link";
@@ -79,7 +79,7 @@ const DashboardContent: React.FC = () => {
   useEffect(() => {
     const fetchFact = async () => {
       try {
-        const fact = await getFact();
+        const fact = await getLatestFACT();
         setFact(fact || "No entry for today.");
       } catch (error) {
         console.error("Error fetching fact:", error);

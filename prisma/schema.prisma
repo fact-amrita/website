@@ -43,8 +43,8 @@ model User {
 }
 
 model Tasks {
-  id          String  @id @default(auto()) @map("_id") @db.ObjectId
-  TaskId      String  @unique
+  id          String   @id @default(auto()) @map("_id") @db.ObjectId
+  TaskId      String   @unique
   task        String
   fileKey     String?
   description String
@@ -130,4 +130,11 @@ model Events {
   Link        String
   Visiblefrom String
   VisibleTill String
+}
+
+model factofTheDay {
+  id      String  @id @default(auto()) @map("_id") @db.ObjectId
+  Fact    String
+  Date    String
+  Creator String?
 }
