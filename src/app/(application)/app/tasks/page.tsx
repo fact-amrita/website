@@ -6,6 +6,7 @@ import { SessionProvider, useSession } from "next-auth/react";
 import { getUserPendingTasks, getUserCompletedTasks } from "@/lib/UserFetch";
 import Link from "next/link";
 import TaskValidation from "@/components/tasks/TaskValidation";
+import { getUserByFactID } from "@/lib/UserFetch";
 
 interface CompletedTask {
   tasknum: number;
@@ -32,6 +33,20 @@ interface TaskListPage {
   startDate: string;
   deadline: string;
   duration: string;
+}
+
+function getCurrentYear(semester: string) {
+  if (semester == "1" || semester == "2") {
+    return "1st Year";
+  } else if (semester == "3" || semester == "4") {
+    return "2nd Year";
+  } else if (semester == "5" || semester == "6") {
+    return "3rd Year";
+  } else if (semester == "7" || semester == "8") {
+    return "4th Year";
+  } else {
+    return "";
+  }
 }
 
 const TaskListPage: React.FC = () => {
@@ -61,7 +76,13 @@ const TaskListPage: React.FC = () => {
           setuserDomain("");
         }
 
-        const fetchedTaskLists = await TasksGet(UserDat.domain.toLowerCase());
+        const AllTasks = await TasksGet(UserDat.domain.toLowerCase());
+        const user = await getUserByFactID(UserDat.factId);
+        const currentYear = getCurrentYear(user?.semester || "");
+        const fetchedTaskLists = AllTasks.filter((task) => {
+          return task.target.includes(currentYear);
+        });
+        console.log("users tasks",fetchedTaskLists);
         setTaskLists(fetchedTaskLists);
 
         const pendingTasksList = (await getUserPendingTasks(UserDat.factId))[0];
@@ -182,8 +203,6 @@ const TaskListPage: React.FC = () => {
 
 export default function TasksPage() {
   return (
-    // <SessionProvider>
-      <TaskListPage />
-    // </SessionProvider>
+    <TaskListPage />
   );
 }

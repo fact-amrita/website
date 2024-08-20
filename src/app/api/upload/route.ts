@@ -38,6 +38,9 @@ export async function POST(req: NextRequest) {
   const domain = data.get('domain') as string;
   const points = data.get('points') as string;
   const file = data.get('file') as File | null;
+  const targets = data.get('target') as string;
+
+  const targetsArray = targets.split(',');
 
   var key: string | null = null;
 
@@ -63,10 +66,9 @@ export async function POST(req: NextRequest) {
       console.error(err);
     }
     key = params.Key;
-    console.log(key);
   }
 
-  var result = await TaskCreate(taskTitle, description, parseInt(points), domain, startDate, deadline, Duration, creator, key);
+  var result = await TaskCreate(taskTitle, description, parseInt(points), domain, startDate, deadline, Duration, creator, targetsArray, key);
 
   return NextResponse.json({ message: `Task successfully created with ID ${result}` });
   // } else {

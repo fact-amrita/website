@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState, ChangeEvent, FormEvent, useEffect } from 'react';
-import { useSession, SessionProvider } from 'next-auth/react';
+import { useSession } from 'next-auth/react';
 import { getUserByFactID } from "@/lib/UserFetch";
 import { updateProfile } from "@/lib/UserOperations";
 import Swal from 'sweetalert2';
@@ -159,7 +159,6 @@ const UserProfileEdit: React.FC = () => {
           <div className="w-1/2 pl-4">
             <h2 className="text-2xl font-bold mb-4">Edit Skills</h2>
             <div className="mb-6 flex flex-wrap">
-
               <div className="flex items-center mb-4 w-full">
                 <input
                   type="text"

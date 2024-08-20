@@ -145,6 +145,14 @@ export async function makeMember(email: string) {
     })
 }
 
+export async function deleteUser(email: string) {
+    await db.userCredential.delete({
+        where: {
+            email: email
+        }
+    })
+}
+
 export async function AddPoints(factId: string, points: number, reason: string, assigner: string) {
     const userData = await db.user.findUnique({
         where: {

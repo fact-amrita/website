@@ -3,7 +3,7 @@
 import { db } from "@/lib/db";
 import { TaskIdGen } from "@/functions/taskIdgen";
 
-export async function TaskCreate(taskName: string, taskDescription: string, pointsGiven: number, domain: string, taskStartTime: string, taskDeadline: string, duration: string, creator: string, key?: string | null) {
+export async function TaskCreate(taskName: string, taskDescription: string, pointsGiven: number, domain: string, taskStartTime: string, taskDeadline: string, duration: string, creator: string, targets:string[], key?: string | null) {
     let taskId = TaskIdGen();
     let task = await db.tasks.findFirst({
         where: {
@@ -31,7 +31,8 @@ export async function TaskCreate(taskName: string, taskDescription: string, poin
             deadline: taskDeadline,
             duration: duration,
             fileKey: key || null,
-            creator: creator
+            creator: creator,
+            target: targets
         }
     })
 
