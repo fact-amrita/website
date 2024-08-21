@@ -114,9 +114,9 @@ const ProfileContent = ({ params }: { params: { id: string } }) => {
 
   return (
     <div className="h-screen w-full flex flex-col lg:flex-row justify-center items-center p-5 overflow-clip">
-      <div style={{ marginLeft: "5%" }} className="grid grid-cols-12 grid-rows-4 gap-7 h-full max-w-full px-4">
-        <div className="bg-gradient-to-t from-red-700 via-black to-blue-700 rounded-3xl flex justify-center items-center col-span-4 row-span-4 p-10">
-          <div className="h-full w-full grid grid-rows-2 gap-7">
+      <div style={{ marginLeft: "5%" }} className="grid grid-cols-12 grid-rows-7 gap-7 h-full max-w-full px-4">
+        <div className="bg-gradient-to-t from-red-700 via-black to-blue-700 rounded-3xl flex justify-center items-center col-span-4 row-span-7 p-10">
+          <div className="h-full w-screen grid grid-rows-2 gap-7">
             <div className="bg-gradient-to-tr from-blue-500 to-red-500 h-full w-full rounded-2xl flex flex-col justify-center items-center">
               <div className="rounded-full overflow-hidden h-16 w-16">
                 {ProfileData.image ? (
@@ -184,15 +184,22 @@ const ProfileContent = ({ params }: { params: { id: string } }) => {
           </div>
         </div>
 
+        {/* Profile Remarks Section */}
+        <div className="bg-gradient-to-tr from-blue-500 to-red-500 rounded-3xl flex flex-col justify-center items-center col-span-8 row-span-2 p-1 mb-1">
+          <p className="text-white text-xl font-bold mb-1">
+            Profile Remarks
+          </p>
+        </div>
+
         {/* Skills Section */}
-        <div className="bg-gradient-to-tr from-blue-500 to-red-500 rounded-3xl flex flex-col justify-center items-center col-span-8 row-span-2 p-10 py-5 mb-4">
+        <div className="bg-gradient-to-tr from-blue-500 to-red-500 rounded-3xl flex flex-col justify-center items-center col-span-8 row-span-3 p-5 py-5 mb-4">
           <p className="text-white text-xl font-bold mb-4">
             Skills
           </p>
           <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
           {skills.map((skill: string, index: React.Key | null | undefined) => (
               (skill && skill != "None") && (
-                <div key={index} className="bg-gradient-to-tr from-blue-500 to-red-500 rounded-lg p-4 shadow-xl text-center">
+                <div key={index} className="bg-gradient-to-tr from-blue-500 to-red-500 rounded-lg p-10  shadow-xl text-center">
                   <div className="text-indigo-800 font-bold">{skill}</div>
                 </div>
               )
