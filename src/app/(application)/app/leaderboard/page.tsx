@@ -5,6 +5,7 @@ import Tab from "@/components/leaderboard/Tab";
 import RanksTable from "@/components/leaderboard/RanksTable";
 import TotalPoints from "@/components/leaderboard/totalpoints";
 import BonusPenaltyPoints from "@/components/leaderboard/bonuspenaltypoints"
+import TableComponent from '@/components/TableComponent';
 import { useSession, SessionProvider } from "next-auth/react";
 import { getLifetimePoints, getYearPoints, getSemesterPoints } from "@/lib/TaskOperations";
 
@@ -68,16 +69,13 @@ const LeaderboardPage = () => {
       <div className="col-span-5 row-span-3 ml-20 sm:mt-15 md:mt-25">
         <TotalPoints LifeTimepts={totalpoints} SemesterPts={SemPoints} AcademicYearPts={YearPoints} />
       </div>
+      <div>
+        <TableComponent data={[]} />
+      </div>
     </div>
   );
 };
 
-const LeaderboardWrapper = () => {
-  return (
-    // <SessionProvider>
-      <LeaderboardPage />
-    // </SessionProvider>
-  );
-};
 
-export default LeaderboardWrapper;
+
+export default LeaderboardPage;

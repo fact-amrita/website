@@ -8,6 +8,8 @@ import { useRouter } from "next/navigation";
 import { useSession } from "next-auth/react";
 import Swal from 'sweetalert2';
 import { AddPoints } from "@/lib/UserOperations";
+import TableComponent from '@/components/TableComponent';
+
 
 const ProfileContent = ({ params }: { params: { id: string } }) => {
   const { data: session, status } = useSession();
@@ -15,6 +17,13 @@ const ProfileContent = ({ params }: { params: { id: string } }) => {
   const router = useRouter();
   const [ProfileData, setProfileData] = useState<any>(null);
   const [bonusPoints, setBonusPoints] = useState<number>(0);
+
+  const sampleData = [
+    { number: 1, description: 'Task 1', date: '2024-08-01', points: 10 },
+    { number: 2, description: 'Task 2', date: '2024-08-02', points: 20 },
+    // Add more sample data if needed
+  ];
+
 
   const handleEditProfile = () => {
     router.push('/app/edit_profile');
@@ -113,7 +122,7 @@ const ProfileContent = ({ params }: { params: { id: string } }) => {
   }
 
   return (
-    <div className="h-screen w-full flex flex-col lg:flex-row justify-center items-center p-5 overflow-clip">
+    <div className="h-screen w-full flex flex-col lg:flex-row justify-center items-center p-5 overflow-y-auto overflow-x-clip">
       <div style={{ marginLeft: "5%" }} className="grid grid-cols-12 grid-rows-7 gap-7 h-full max-w-full px-4">
         <div className="bg-gradient-to-t from-red-700 via-black to-blue-700 rounded-3xl flex justify-center items-center col-span-4 row-span-7 p-10">
           <div className="h-full w-screen grid grid-rows-2 gap-7">
@@ -169,6 +178,10 @@ const ProfileContent = ({ params }: { params: { id: string } }) => {
           <h1 className="text-xl text-white">About</h1>
           <div className="text-white text-lg">
             {ProfileData.About || "No description available."}
+            <div>
+              {/* Joined Date : To fill this */}
+              {/* Resigned Date : To fill this */}
+            </div>
           </div>
           <div className="flex space-x-4 mt-4">
             {ProfileData.githubURL && (
@@ -207,6 +220,10 @@ const ProfileContent = ({ params }: { params: { id: string } }) => {
           </div>
         </div>
       </div>
+      <div className="p-4">
+        <h1 className="text-2xl mb-4">Table on Another Page</h1>
+        <TableComponent data={sampleData} />
+    </div>
     </div>
   );
 }
