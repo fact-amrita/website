@@ -303,3 +303,19 @@ export async function getUsersBonusPointsYear(factId: string) {
 
     return BonusPoints;
 }
+
+export async function updateProfileRemark(factId: string, remark: string) {
+    try {
+        await db.user.update({
+            where: {
+                FactID: factId
+            },
+            data: {
+                ProfileRemark: remark
+            }
+        })
+    } catch (e) {
+        return false
+    }
+    return true;
+}

@@ -24,22 +24,24 @@ model ExistingMembersList {
 }
 
 model User {
-  id           String   @id @default(auto()) @map("_id") @db.ObjectId
-  RegisterDate String
-  email        String   @unique
-  image        String?
-  name         String
-  role         String
-  FactID       String   @unique
-  domain       String
-  semester     String
-  phone        BigInt?
-  birthday     String?
-  linkedInURL  String?
-  githubURL    String?
-  About        String?
-  Title        String?
-  Skills       String[]
+  id            String   @id @default(auto()) @map("_id") @db.ObjectId
+  RegisterDate  String
+  ResignDate    String?
+  email         String   @unique
+  image         String?
+  name          String
+  role          String
+  FactID        String   @unique
+  domain        String
+  semester      String
+  phone         BigInt?
+  birthday      String?
+  linkedInURL   String?
+  githubURL     String?
+  About         String?
+  Title         String?
+  Skills        String[]
+  ProfileRemark String?
 }
 
 model Tasks {

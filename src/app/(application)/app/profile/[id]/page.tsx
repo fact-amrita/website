@@ -7,7 +7,7 @@ import { getUserProfile } from "@/lib/UserFetch";
 import { useRouter } from "next/navigation";
 import { useSession } from "next-auth/react";
 import Swal from 'sweetalert2';
-import { AddPoints } from "@/lib/UserOperations";
+import { AddPoints, updateProfileRemark } from "@/lib/UserOperations";
 import TableComponent from '@/components/TableComponent';
 
 const ProfileContent = ({ params }: { params: { id: string } }) => {
@@ -122,6 +122,33 @@ const ProfileContent = ({ params }: { params: { id: string } }) => {
     }
   }
 
+  const handleRemarkChange = async () => {
+    const response = await updateProfileRemark(ProfileId, ProfileData.ProfileRemark);
+
+    if (response) {
+      Swal.fire({
+        title: "Remarks Updated",
+        icon: "success"
+      }).then(() => {
+        window.location.reload();
+      });
+    } else {
+      Swal.fire({
+        title: "Failed to update remarks",
+        icon: "error"
+      });
+    }
+  }
+
+  const formatDate = (dateString: string) => {
+    const date = new Date(dateString);
+    return date.toLocaleDateString('en-US', {
+      day: '2-digit',
+      month: 'long',
+      year: 'numeric',
+    });
+  };
+
   return (
     <>
       <div className="h-screen w-full flex flex-col lg:flex-row justify-center items-center p-5 overflow-y-auto overflow-x-clip">
@@ -177,12 +204,13 @@ const ProfileContent = ({ params }: { params: { id: string } }) => {
 
           {/* About Section */}
           <div className="w-full bg-zinc-700 rounded-3xl flex flex-col col-span-8 row-span-2 p-10 py-5 overflow-hidden">
-            <h1 className="text-xl text-white">About</h1>
+            <h1 className="text-xl text-white font-bold">About</h1>
             <div className="text-white text-lg">
               {ProfileData.About || "No description available."}
-              <div>
-                {/* Joined Date : To fill this */}
-                {/* Resigned Date : To fill this */}
+              <div className="text-sm opacity-80">
+                Joined Date : {formatDate(ProfileData.RegisterDate)}
+                {" "}
+                {ProfileData.ResignDate && (<span>Resigned Date : {formatDate(ProfileData.ResignDate)}</span>)}
               </div>
             </div>
             <div className="flex space-x-4 mt-4">
@@ -205,7 +233,17 @@ const ProfileContent = ({ params }: { params: { id: string } }) => {
               Profile Remarks
             </p>
             <p>
-              {/* HELLO DHIVIJIT */}
+              {(userdat.role === "admin" || userdat.role === "president" || userdat.role === "moderator") ? (
+                <span className="w-full h-full">
+                  <textarea
+                    style={{ width: "initial" }}
+                    className="w-full h-24 p-2 rounded-lg border border-gray-300"
+                    value={ProfileData.ProfileRemark}
+                    onChange={(e) => setProfileData({ ...ProfileData, ProfileRemark: e.target.value })}
+                  />
+                  <button onClick={() => { handleRemarkChange() }} className="bg-blue-500 text-white p-2 rounded mb-4 ml-2">Update Remarks</button>
+                </span>
+              ) : <span style={{marginLeft:"0.7em", color:"white"}}>{(ProfileData.ProfileRemark && ProfileData.ProfileRemark != "") ? ProfileData.ProfileRemark : "No remarks available."}</span>}
             </p>
           </div>
 
@@ -216,7 +254,7 @@ const ProfileContent = ({ params }: { params: { id: string } }) => {
               Skills
             </p>
             <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
-            {skills.map((skill: string, index: React.Key | null | undefined) => (
+              {skills.map((skill: string, index: React.Key | null | undefined) => (
                 (skill && (
                   <div key={index} className="bg-black text-white py-2 px-4 rounded-lg shadow-md">
                     {skill}
