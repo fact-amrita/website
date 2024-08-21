@@ -36,7 +36,7 @@ const Leaderboard: React.FC<LeaderBoardInterface> = ({ domain }) => {
   }, [domain]);
 
   return (
-    <div className="fixed top-0 mt-0 right-0 h-full bg-gradient-to-tr from-blue-700 via-black to-red-700 text-white flex justify-center items-center w-full sm:w-2/3 md:w-1/2 lg:w-2/5 xl:w-1/4">
+    <div className="fixed top-0 mt-0 right-0 h-full bg-gray-50 bg-opacity-5 text-white flex justify-center items-center w-full sm:w-2/3 md:w-1/2 lg:w-2/5 xl:w-1/4">
       <div className="p-3 w-full overflow-hidden mb-6">
         <h2 className="text-lg sm:text-lg md:text-xl lg:text-2xl xl:text-3xl font-bold text-center mb-4">
           LEADERBOARD

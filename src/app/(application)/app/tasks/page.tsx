@@ -131,11 +131,11 @@ const TaskListPage: React.FC = () => {
   }, [status, session]);
 
   return (
-    <div className="h-screen bg-gradient-to-r from-blue-700 via-black to-red-700 p-4 flex flex-col lg:flex-row px-12 md:px-16">
+    <div className="h-screen bg-darkcharcoal p-4 flex flex-col lg:flex-row px-12 md:px-16">
       {userRole === "member" && (
         <>
           <div style={{ backgroundColor: "rgba(71,85,105,0.44)" }} className="lg:w-1/2 flex-1 border rounded-lg mb-10 border-gray-300 p-4 bg-opacity-40 shadow-lg mr-2">
-            <h2 className="text-xl sm:text-2xl lg:text-3xl font-bold mb-4 text-center text-white bg-blue-800 rounded-lg p-2 shadow-md">
+            <h2 className="text-xl sm:text-2xl lg:text-3xl font-bold mb-4 text-center text-white bg-blue-400 rounded-lg p-2 shadow-md">
               Pending Tasks
             </h2>
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
@@ -154,14 +154,14 @@ const TaskListPage: React.FC = () => {
                     <p>Status: {task.status}</p>
                   </div>
                 </Link>
-              ))}
+              ))}1
               {(pendingTasks.length + remainingTasks.length) === 0 && (
                 <p className="text-center text-white">No tasks available</p>
               )}
             </div>
           </div>
           <div style={{ backgroundColor: "rgba(71,85,105,0.44)" }} className="lg:w-1/2 flex-1 border rounded-lg border-gray-300 p-4 mb-10 bg-opacity-40 shadow-lg">
-            <h2 className="text-xl sm:text-2xl lg:text-3xl font-bold mb-4 bg-blue-800 rounded-lg p-2 shadow-md text-center text-white">
+            <h2 className="text-xl sm:text-2xl lg:text-3xl font-bold mb-4 bg-blue-400 rounded-lg p-2 shadow-md text-center text-white">
               Submitted Tasks
             </h2>
             <div className="overflow-y-auto">

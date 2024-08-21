@@ -22,7 +22,7 @@ export const HoverEffect = ({
         <div
           key={idx}
           className={cn(
-            "relative group block p-1 h-full w-full",
+            "relative group block p-2 h-full w-full",
             `col-span-${item.span}`
           )}
           onMouseEnter={() => setHoveredIndex(idx)}
@@ -47,17 +47,17 @@ export const HoverEffect = ({
           </AnimatePresence>
           <div
             className={cn(
-              "timeline-container rounded-2xl h-full w-full p-4 md:p-3 xl:p-5 overflow-hidden bg-gradient-to-tr from-blue-700 via-black to-red-700 border border-transparent dark:border-white/[0.2] group-hover:border-slate-700 relative z-20",
+              "timeline-container rounded-2xl h-full w-full p-4 md:p-3 xl:p-5 overflow-hidden bg-zinc-700 border border-transparent dark:border-white/[0.2] group-hover:border-slate-700 relative z-20",
               className
             )}
-            style={{ height: '250px' }}
+            style={{ height: '350px' }}
           >
             <div className="relative z-50 h-full overflow-y-auto scrollbar-thumb-sky-700 scrollbar-track-sky-300">
-              <div className="p-3">
-                <h4 className="text-zinc-100 font-bold tracking-wide mt-4">
+              <div className="p-11 sm:p-3 md:p-5">
+                <h4 className="text-aqua font-bold tracking-wide mt-1 text-3xl">
                   {item.title}
                 </h4>
-                <div className="mt-8 text-zinc-100 tracking-wide leading-relaxed text-sm break-words">
+                <div className="mt-3 tracking-wide leading-relaxed text-sm break-words text-white">
                   {item.content}
                 </div>
               </div>

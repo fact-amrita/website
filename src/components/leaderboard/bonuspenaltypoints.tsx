@@ -38,11 +38,11 @@ function App({ activeTab, factId }: bonuspenaltypointsProps) {
 
   return (
     <div className="bg-transparent flex flex-col md:flex-row justify-between items-center p-4 space-y-4 md:space-y-0 md:space-x-4 overflow-clip">
-      <div className="bg-gradient-to-tl from-blue-700 via-black to-red-700 p-4 text-white rounded-md shadow-none w-full md:w-1/4 h-[8rem] flex flex-col items-center justify-center">
+      <div className="bg-zinc-800 p-4 text-white rounded-md shadow-none w-full md:w-1/4 h-[8rem] flex flex-col items-center justify-center">
         <div className="text-2xl font-bold">{BonusPoints}</div>
         <div className="mt-3 text-center">Bonus Points</div>
       </div>
-      <div className="bg-gradient-to-tl from-blue-700 via-black to-red-700 p-4 text-white rounded-md shadow-none w-full md:w-1/4 h-[8rem] flex flex-col items-center justify-center">
+      <div className="bg-zinc-800 p-4 text-white rounded-md shadow-none w-full md:w-1/4 h-[8rem] flex flex-col items-center justify-center">
         <div className="text-2xl font-bold">{PenaltyPoints * -1}</div>
         <div className="mt-3 text-center">Penalty Points</div>
       </div>

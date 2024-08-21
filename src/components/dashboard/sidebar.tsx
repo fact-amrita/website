@@ -1,9 +1,8 @@
 "use client";
 import React, { ReactNode, FC } from 'react';
-import { ChevronLast, ChevronFirst } from 'lucide-react'; // Fallback icons
 import Image from "next/image";
 import getTitle from "@/functions/titleget";
-import logo from "@/public/images/logo_black.png";
+import logo from "@/public/images/FACT_white_wbg - Copy.png";
 import Link from 'next/link'; 
 
 interface SidebarProps {
@@ -20,12 +19,12 @@ interface SidebarProps {
 const Sidebar: FC<SidebarProps> = ({ children, user }) => {
   return (
     <aside className="fixed left-0 top-0 h-screen w-52 transition-all duration-300 ease-in-out">
-      <nav className="h-full flex flex-col bg-white shadow-md rounded-r-lg overflow-hidden">
-        <div className="p-2 pb-2 flex justify-between items-center relative">
+      <nav className="h-full flex flex-col bg-gray-50 bg-opacity-5 shadow-md rounded-r-lg overflow-hidden">
+        <div className="p-2 pb-2 flex justify-between items-center">
           <Link href="/">
           <Image
             src={logo}
-            className="w-32 transition-all"
+            className="w-32 transition-all justify-center items-center"
             alt="Logo"
           />
           </Link>
@@ -44,15 +43,15 @@ const Sidebar: FC<SidebarProps> = ({ children, user }) => {
                 className="w-10 h-10 rounded-md"
               />
               <div className="flex flex-col justify-center ml-3">
-                <h4 className="font-semibold">{user.name}</h4>
+                <h4 className="font-semibold text-white">{user.name}</h4>
                 {/* <span className="text-xs text-gray-600">{user.email}</span> */}
-                <span className="text-xs text-gray-600">{getTitle(user.role)}</span>
+                <span className="text-xs text-white">{getTitle(user.role)}</span>
               </div>
             </div>
           </Link>
           <Link href="/app/logout">
             <button
-              className="w-full py-2 px-4 rounded-md text-white bg-red-500 hover:bg-red-600 transition-colors"
+              className="w-full py-2 px-4 rounded-md text-black bg-neongreen hover:bg-red-500 transition-colors"
             >
               Logout
             </button>
@@ -73,7 +72,7 @@ interface SidebarItemProps {
 
 const SidebarItem: FC<SidebarItemProps> = ({ icon, text, router, active, alert = false }) => {
   return (
-    <li className={`relative flex items-center py-2 px-2 my-1 font-medium rounded-md cursor-pointer transition-colors group ${active ? 'bg-gradient-to-tr from-indigo-200 to-indigo-100 text-indigo-800' : 'hover:bg-indigo-50 text-gray-600'}`}>
+    <li className={`relative flex items-center py-2 px-2 my-1 font-medium rounded-md cursor-pointer transition-colors group ${active ? 'bg-white bg-opacity-95 text-indigo-800' : 'hover:bg-cream hover:bg-opacity-20 text-white'}`}>
       <Link href={router}>
         <div className="flex items-center w-full">
           {icon}

@@ -55,7 +55,7 @@ const RanksTable = ({ activeTab, userDomain, presentUser }: { activeTab: string,
   const currentItems = leaders.slice((currentPage - 1) * itemsPerPage, currentPage * itemsPerPage);
 
   return (
-    <div className="flex flex-col bg-gradient-to-tr from-blue-700 via-black to-red-700 p-4 rounded-lg w-full max-w-md mx-auto h-full min-h-fit overflow-hidden">
+    <div className="flex flex-col bg-zinc-800 p-4 rounded-lg w-full max-w-md mx-auto h-full min-h-fit overflow-hidden">
       <h2 className="text-center text-white text-xl md:text-2xl mb-4">Leaderboard</h2>
       {isLoading ? (
         <div className="flex justify-center">

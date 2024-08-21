@@ -4,9 +4,9 @@ import React, { useEffect, useState } from "react";
 import Tab from "@/components/leaderboard/Tab";
 import RanksTable from "@/components/leaderboard/RanksTable";
 import TotalPoints from "@/components/leaderboard/totalpoints";
-import BonusPenaltyPoints from "@/components/leaderboard/bonuspenaltypoints"
+import BonusPenaltyPoints from "@/components/leaderboard/bonuspenaltypoints";
 import TableComponent from '@/components/TableComponent';
-import { useSession, SessionProvider } from "next-auth/react";
+import { useSession } from "next-auth/react";
 import { getLifetimePoints, getYearPoints, getSemesterPoints } from "@/lib/TaskOperations";
 
 const LeaderboardPage = () => {
@@ -14,7 +14,7 @@ const LeaderboardPage = () => {
   const [activeTab, setActiveTab] = useState<string>('lifetime');
 
   const [LifetimeList, setLifetimeList] = useState<any>([]);
-  const [totalpoints, setTotalPoints] = useState(0);
+  const [totalPoints, setTotalPoints] = useState(0);
 
   const [YearList, setYearList] = useState<any>([]);
   const [YearPoints, setYearPoints] = useState(0);
@@ -22,60 +22,75 @@ const LeaderboardPage = () => {
   const [SemList, setSemList] = useState<any>([]);
   const [SemPoints, setSemPoints] = useState(0);
 
+  const [loading, setLoading] = useState(true);
+
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const { list, points } = await getLifetimePoints(window.localStorage.getItem('factId') || '');
+        const factId = window.localStorage.getItem('factId') || '';
+        const [{ list, points }, { yearlist, yearpoints }, { semlist, sempoints }] = await Promise.all([
+          getLifetimePoints(factId),
+          getYearPoints(factId),
+          getSemesterPoints(factId),
+        ]);
+
         setLifetimeList(list);
         setTotalPoints(points);
 
-        const { yearlist, yearpoints } = await getYearPoints(window.localStorage.getItem('factId') || '');
         setYearList(yearlist);
         setYearPoints(yearpoints);
 
-        const { semlist, sempoints } = await getSemesterPoints(window.localStorage.getItem('factId') || '');
         setSemList(semlist);
         setSemPoints(sempoints);
       } catch (e) {
         console.error(e);
+      } finally {
+        setLoading(false);
       }
-    }
+    };
+
     fetchData();
   }, []);
 
-  if (status === 'loading') {
+  if (status === 'loading' || loading) {
     return <p>Loading...</p>;
   }
 
   if (!session || !session.user) {
-    return <div className="flex justify-center items-center h-screen">
-      <div className="text-red-500 text-2xl">You need to be logged in to access your profile.</div>
-    </div>;
+    return (
+      <div className="flex justify-center items-center h-screen">
+        <div className="text-red-500 text-2xl">You need to be logged in to access your profile.</div>
+      </div>
+    );
   }
 
   const userdat = session.user as { name: string; domain: string; factId: string };
 
   return (
-    <div className="grid grid-cols-8 grid-rows-1 bg-transparent rounded shadow-lg w-full h-full ml-18 ">
-      <div className="col-span-5 row-span-1 ml-20 mt-1">
-        <Tab LifetimeList={LifetimeList} YearList={YearList} SemList={SemList} activeTab={activeTab} setActiveTab={setActiveTab} />
+    <div className="flex flex-col items-center bg-transparent rounded shadow-lg w-full max-w-7xl p-4 mx-auto overflow-x-hidden">
+      <div className="w-full grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
+        <div className="w-full">
+          <Tab LifetimeList={LifetimeList} YearList={YearList} SemList={SemList} activeTab={activeTab} setActiveTab={setActiveTab} />
+        </div>
+        <div className="w-full">
+          <RanksTable userDomain={userdat.domain} presentUser={userdat.name} activeTab={activeTab} />
+        </div>
       </div>
-      <div style={{marginTop:"4.3rem"}} className="col-span-3 row-span-1 mr-0" >
-        <RanksTable userDomain={userdat.domain} presentUser={userdat.name} activeTab={activeTab} />
+
+      <div className="w-full grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
+        <div className="w-full">
+          <BonusPenaltyPoints activeTab={activeTab} factId={userdat.factId} />
+        </div>
+        <div className="w-full">
+          <TotalPoints LifeTimepts={totalPoints} SemesterPts={SemPoints} AcademicYearPts={YearPoints} />
+        </div>
       </div>
-      <div className="col-span-5 row-span-3 ml-20 sm:mt-15 md:mt-25">
-        <BonusPenaltyPoints activeTab={activeTab} factId={userdat.factId} />
-      </div>
-      <div className="col-span-5 row-span-3 ml-20 sm:mt-15 md:mt-25">
-        <TotalPoints LifeTimepts={totalpoints} SemesterPts={SemPoints} AcademicYearPts={YearPoints} />
-      </div>
-      <div>
+
+      <div className="w-full">
         <TableComponent data={[]} />
       </div>
     </div>
   );
 };
-
-
 
 export default LeaderboardPage;

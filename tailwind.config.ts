@@ -27,6 +27,14 @@ const config: Config = {
           500: '#C0C0C0',
           700: '#A0A0A0',
         },
+        // Custom Colors
+        darkslate: '#011F26',
+        sunyellow: '#F2A71B',
+        darkcharcoal: '#0D1117',
+        cream:'#D1D4C9',
+        aqua: '#02D8E9',
+        neongreen: '#9FEF00',
+        transwhite: '#8C8C8C',
         bronze: {
           500: '#CD7F32',
           700: '#B76F2C',

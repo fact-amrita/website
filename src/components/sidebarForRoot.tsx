@@ -52,7 +52,7 @@ function SidebarForRoot({ children, activeRoute }: Props) {
     }
 
     return (
-        <div className="bg-gradient-to-tr from-red-600 via-black to-blue-600 flex h-screen">
+        <div className="bg-darkcharcoal flex h-screen">
             <Sidebar user={userdat} >
                 {sidebarItems.map((item, index) => (
                     <SidebarItem

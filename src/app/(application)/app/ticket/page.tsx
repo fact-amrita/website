@@ -27,7 +27,7 @@ const TicketForm: React.FC<TicketFormProps> = ({
 
   if (!session || !session.user) {
     return (
-      <div className="flex justify-center items-center h-screen bg-gradient-to-tr from-blue-700 via-black to-red-700">
+      <div className="flex justify-center items-center h-screen bg-darkcharcoal">
         <div className="text-red-500 text-2xl">You need to be logged in to access your profile.</div>
       </div>
     );
@@ -56,12 +56,12 @@ const TicketForm: React.FC<TicketFormProps> = ({
   };
 
   return (
-    <div className="flex justify-center items-center min-h-screen bg-gradient-to-tr from-blue-700 via-black to-red-700 p-4">
+    <div className="flex justify-center items-center min-h-screen bg-darkcharcoal p-4">
       <div className="w-full max-w-md p-6 bg-transparent rounded-lg shadow-xl">
-        <h2 className="text-2xl sm:text-3xl font-bold mb-6 text-center text-blue-500">Submit a Ticket</h2>
+        <h2 className="text-2xl sm:text-3xl font-bold mb-6 text-center text-aqua">Submit a Ticket</h2>
         <form onSubmit={handleSubmit} className="space-y-4">
           <div>
-            <label htmlFor="feedbackType" className="block mb-1 text-blue-300">
+            <label htmlFor="feedbackType" className="block mb-1 text-blue-300 text-xl">
               Type:
             </label>
             <select
@@ -75,7 +75,7 @@ const TicketForm: React.FC<TicketFormProps> = ({
             </select>
           </div>
           <div>
-            <label htmlFor="message" className="block mb-1 text-blue-300">
+            <label htmlFor="message" className="block mb-1 text-blue-300 text-xl">
               Message:
             </label>
             <textarea
@@ -89,7 +89,7 @@ const TicketForm: React.FC<TicketFormProps> = ({
           </div>
           <button
             type="submit"
-            className="w-full py-2 px-4 rounded bg-[#7747FF] text-white hover:bg-white hover:text-[#7747FF] focus:bg-gray-200 focus:text-[#7747FF] transition duration-200"
+            className="w-full py-2 px-4 rounded bg-neongreen text-black hover:bg-red-500  focus:bg-gray-200 focus:text-[#7747FF] transition duration-200"
           >
             Submit
           </button>
@@ -100,10 +100,4 @@ const TicketForm: React.FC<TicketFormProps> = ({
   );
 };
 
-export default function Ticket() {
-  return (
-    // <SessionProvider>
-      <TicketForm />
-    // </SessionProvider>
-  );
-}
+export default TicketForm;

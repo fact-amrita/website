@@ -16,26 +16,26 @@ const TableComponent: React.FC<TableProps> = ({ data }) => {
   const renderTableRows = (data: TableData[]) => {
     const rows = data.map((row, index) => (
       <React.Fragment key={index}>
-        <tr>
-          <td className="px-4 py-2 text-black">{row.number}</td>
-          <td className="px-4 py-2 text-black">{row.description}</td>
-          <td className="px-4 py-2 text-black">{new Date(row.date).toLocaleDateString('en-GB').replace(/\//g, '-')}</td>
-          <td className="px-4 py-2 text-black">{row.points}</td>
+        <tr className="hover:bg-gray-100">
+          <td className="px-2 py-2 text-gray-700 border-b border-gray-300 text-sm">{row.number}</td>
+          <td className="px-2 py-2 text-gray-700 border-b border-gray-300 text-sm">{row.description}</td>
+          <td className="px-2 py-2 text-gray-700 border-b border-gray-300 text-sm">
+            {new Date(row.date).toLocaleDateString('en-GB').replace(/\//g, '-')}
+          </td>
+          <td className="px-2 py-2 text-gray-700 border-b border-gray-300 text-sm">{row.points}</td>
         </tr>
-        <tr><td colSpan={4}><hr className="border-gray-300" /></td></tr>
       </React.Fragment>
     ));
 
     for (let i = rows.length / 2; i < 5; i++) {
       rows.push(
         <React.Fragment key={`empty-${i}`}>
-          <tr>
-            <td className="px-4 py-2 text-black">ㅤ</td>
-            <td className="px-4 py-2 text-black">ㅤ</td>
-            <td className="px-4 py-2 text-black">ㅤ</td>
-            <td className="px-4 py-2 text-black">ㅤ</td>
+          <tr className="hover:bg-gray-100">
+            <td className="px-2 py-2 text-gray-700 border-b border-gray-300 text-sm">ㅤ</td>
+            <td className="px-2 py-2 text-gray-700 border-b border-gray-300 text-sm">ㅤ</td>
+            <td className="px-2 py-2 text-gray-700 border-b border-gray-300 text-sm">ㅤ</td>
+            <td className="px-2 py-2 text-gray-700 border-b border-gray-300 text-sm">ㅤ</td>
           </tr>
-          <tr><td colSpan={4}><hr className="border-gray-300" /></td></tr>
         </React.Fragment>
       );
     }
@@ -44,20 +44,22 @@ const TableComponent: React.FC<TableProps> = ({ data }) => {
   };
 
   return (
-    <div className="overflow-y-auto w-full h-55 sm:h-45 md:h-50 lg:h-69">
-      <table className="w-full bg-slate-200 border-collapse">
-        <thead>
-          <tr>
-            <th className="px-4 py-2 text-black">Number</th>
-            <th className="px-4 py-2 text-black">Description</th>
-            <th className="px-4 py-2 text-black">Date</th>
-            <th className="px-4 py-2 text-black">Points</th>
-          </tr>
-        </thead>
-        <tbody>
-          {renderTableRows(data)}
-        </tbody>
-      </table>
+    <div className="w-full max-w-full bg-gray-50 p-4 rounded-lg shadow-lg">
+      <div className="overflow-x-auto max-h-60">
+        <table className="w-full bg-gray-50 border-collapse text-sm">
+          <thead>
+            <tr className="bg-gray-200">
+              <th className="px-2 py-2 text-gray-800 border-b border-gray-300">Number</th>
+              <th className="px-2 py-2 text-gray-800 border-b border-gray-300">Description</th>
+              <th className="px-2 py-2 text-gray-800 border-b border-gray-300">Date</th>
+              <th className="px-2 py-2 text-gray-800 border-b border-gray-300">Points</th>
+            </tr>
+          </thead>
+          <tbody>
+            {renderTableRows(data)}
+          </tbody>
+        </table>
+      </div>
     </div>
   );
 };

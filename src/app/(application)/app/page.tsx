@@ -154,13 +154,13 @@ const DashboardContent: React.FC = () => {
   const items = [
     {
       title: "Fact for the day",
-      content: <p className="text-2xl text-orange-100">{fact}</p>,
+      content: <p className="text-xl text-white">{fact}</p>,
       span: 4,
     },
     {
       title: "Announcements",
       content: (
-        <div>
+        <div className="text-xl">
           {announcements.length ? (
             announcements.map((announcement) => (
               <div key={announcement.id}>
@@ -177,7 +177,7 @@ const DashboardContent: React.FC = () => {
     {
       title: "Events",
       content: (
-        <div>
+        <div className="text-xl">
           {events.length ? (
             events.map((event) => (
               <div key={event.event}>
@@ -202,12 +202,12 @@ const DashboardContent: React.FC = () => {
         <div className=" relative border-l-2 border-gray-300 pl-4">
           {timelineData.map((item, index) => (
             <div key={index} className="mb-8 ml-4">
-              <div className="absolute -left-3 w-6 h-6 bg-blue-600 rounded-full border-2 border-white flex items-center justify-center">
+              <div className="absolute -left-3 w-6 h-6 bg-sky-700 rounded-full border-2 border-white flex items-center justify-center">
                 <div className="w-3 h-3 bg-white rounded-full"></div>
               </div>
               <div className="pl-6">
-                <p className="text-blue-600 font-semibold">{formatDate(item.date)}</p>
-                <p className="text-blue-600">{item.title}</p>
+                <p className="text-white font-semibold text-xl">{formatDate(item.date)}</p>
+                <p className="text-white text-xl">{item.title}</p>
               </div>
             </div>
           ))}
@@ -220,10 +220,10 @@ const DashboardContent: React.FC = () => {
 
   return (
     <div className="flex flex-col lg:flex-row h-screen p-0 m-0 overflow-clip">
-      <div className="h-full w-full lg:w-4/5 bg-gradient-to-tr from-blue-700 via-gray-500 to-red-700 flex flex-col justify-center items-center p-4">
+      <div className="h-full w-full lg:w-4/5 bg-darkcharcoal bg-opacity-75 flex flex-col justify-center items-center p-4">
         <div className="w-full lg:w-4/5 mb-4 grid grid-cols-2">
-          <h1 className="col-span-1 text-xl lg:text-2xl text-left font-bold text-white mb-1 mt-14">Hello, {userdat.name}</h1>
-          <h1 className="col-span-2 text-xl lg:text-2xl text-center font-bold text-white mb-1">Welcome to the FACT Club</h1>
+          <h1 className="col-span-1 text-2xl lg:text-3xl text-left font-bold  mb-1 mt-14 text-aqua">HELLO,<span className="text-3xl lg:text-5xl">{userdat.name}</span></h1>
+          <h1 className="col-span-2 text-xl lg:text-2xl text-center font-bold text-aqua mb-1">WELCOME TO THE <span className="text-3xl lg:text-5xl">FACT</span> CLUB</h1>
         </div>
         <div className="w-full lg:w-4/5 flex flex-col justify-center items-center mb-10">
           <HoverEffect items={items} />
@@ -235,10 +235,6 @@ const DashboardContent: React.FC = () => {
   );
 };
 
-const DashboardPage = () => (
-  // <SessionProvider>
-    <DashboardContent />
-  // </SessionProvider> 
-);
 
-export default DashboardPage;
+
+export default DashboardContent;

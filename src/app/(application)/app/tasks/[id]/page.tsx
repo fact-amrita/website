@@ -195,7 +195,7 @@ const TaskPage: React.FC<TaskPageProps> = ({ TaskId }) => {
     <div className="flex h-screen p-0 mx-0  overflow-y-auto">
       <div style={{ backgroundColor: "rgba(31,41,55,0.5)" }} className="w-1/2 h-full flex flex-col justify-center items-center p-2 overflow-y-auto">
         {timeLeft && (
-          <div className="bg-gradient-to-tr from-blue-700 via-black to-red-700 rounded-md shadow-lg p-2 text-white font-mono text-lg mb-5">
+          <div className="bg-darkcharcoal rounded-md shadow-lg p-2 text-white font-mono text-lg mb-5">
             {timeLeft !== null ? (isRunning ? formatTime(timeLeft) : 'Timer Stopped') : 'Loading...'}
           </div>)}
         <div className="w-full max-w-md max-h-full bg-gray-900 rounded-lg shadow-lg p-2 border border-gray-700 mb-4 overflow-y-auto
@@ -212,13 +212,13 @@ const TaskPage: React.FC<TaskPageProps> = ({ TaskId }) => {
 
             {(timeLeft && taskData.fileKey) && (
               <button
-                className="bg-gradient-to-tr from-blue-700 via-black to-red-700 text-white font-semibold py-2 px-2 rounded hover:bg-blue-600"
+                className="bg-darkcharcoal text-white font-semibold py-2 px-2 rounded hover:bg-blue-600"
                 onClick={gettingFile}
               >
                 Download File
               </button>
             )}
-            {!timeLeft && (<button onClick={taskStarter} className='bg-gradient-to-tr from-blue-700 via-black to-red-700 text-white font-semibold py-2 px-4 rounded'>
+            {!timeLeft && (<button onClick={taskStarter} className='bg-darkcharcoal text-white font-semibold py-2 px-4 rounded'>
               Start Task
             </button>)}
           </div>
