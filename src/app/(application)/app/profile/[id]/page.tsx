@@ -152,7 +152,7 @@ const ProfileContent = ({ params }: { params: { id: string } }) => {
   return (
     <>
       <div className="h-screen w-full flex flex-col lg:flex-row justify-center items-center p-5 overflow-y-auto overflow-x-clip">
-        <div style={{ marginLeft: "5%" }} className="grid grid-cols-12 grid-rows-7 gap-7 h-full max-w-full px-4">
+        <div style={{ marginLeft: "5%" }} className="grid grid-cols-12 grid-rows-7 gap-2 h-full max-w-full px-4">
           <div className="bg-darkcharcoal rounded-3xl flex justify-center items-center col-span-4 row-span-7 p-10">
             <div className="h-full w-screen grid grid-rows-2 gap-7">
               <div className="bg-zinc-700 h-full w-full rounded-2xl flex flex-col justify-center items-center">
@@ -203,11 +203,11 @@ const ProfileContent = ({ params }: { params: { id: string } }) => {
           </div>
 
           {/* About Section */}
-          <div className="w-full bg-zinc-700 rounded-3xl flex flex-col col-span-8 row-span-2 p-10 py-5 overflow-hidden">
+          <div className="w-full bg-zinc-700 rounded-3xl flex flex-col col-span-8 row-span-2 p-10 py-5 overflow-x-clip overflow-y-auto">
             <h1 className="text-xl text-white font-bold">About</h1>
-            <div className="text-white text-lg">
+            <div className="text-white text-lg xl:text-xl">
               {ProfileData.About || "No description available."}
-              <div className="text-sm opacity-80">
+              <div className="text-md xl:text-lg opacity-80">
                 Joined Date : {formatDate(ProfileData.RegisterDate)}
                 {" "}
                 {ProfileData.ResignDate && (<span>Resigned Date : {formatDate(ProfileData.ResignDate)}</span>)}
@@ -228,7 +228,7 @@ const ProfileContent = ({ params }: { params: { id: string } }) => {
           </div>
 
           {/* Profile Remarks Section */}
-          <div className="bg-zinc-700 rounded-3xl flex flex-col items-start col-span-8 row-span-2 p-1 mb-1">
+          <div className="bg-zinc-700 rounded-3xl flex flex-col items-start col-span-8 row-span-2 p-1 mb-1 overflow-x-clip overflow-y-auto">
             <p className="text-white text-xl font-bold mb-1 mt-4 ml-3 w-full text-left">
               Profile Remarks
             </p>
@@ -247,10 +247,9 @@ const ProfileContent = ({ params }: { params: { id: string } }) => {
             </p>
           </div>
 
-
-          {/* Skills Section */}
-          <div className="bg-zinc-700 rounded-3xl flex flex-col justify-center items-center col-span-8 row-span-3 p-5 py-5 mb-4">
-            <p className="text-white text-xl font-bold mb-4">
+              {/* Skills Section */}
+          <div className="bg-zinc-700 rounded-3xl flex flex-col justify-center items-center col-span-8 row-span-2 mb-4 overflow-x-clip overflow-y-auto">
+            <p className="text-white text-xl font-bold mb-2">
               Skills
             </p>
             <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
@@ -263,9 +262,11 @@ const ProfileContent = ({ params }: { params: { id: string } }) => {
               ))}
             </div>
           </div>
+
+
         </div>
       </div>
-      <div className="w-full max-w-7xl rounded-xl border border-gray-200 shadow-lg bg-white p-4 mb-5 mx-auto flex flex-col items-center">
+      <div className="w-full xl:max-w-7xl md:max-w-3xl rounded-xl border border-gray-200 shadow-lg bg-white p-4 mb-5 mx-auto flex flex-col items-center">
         <TableComponent data={sampleData} />
       </div>
 

@@ -16,13 +16,23 @@ export const HoverEffect = ({
 }) => {
   const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
 
+  // height Calculator
+  
+  function getHeight() {
+    const width = window.innerWidth;
+    if (width >= 1024) return '350px'; 
+    if (width >= 768) return '300px';  
+    if (width >= 640) return '250px';  
+    return '250px'; 
+  }
+
   return (
     <div className={cn("grid grid-cols-1 md:grid-cols-12 gap-0 pb-3", className)}>
       {items.map((item, idx) => (
         <div
           key={idx}
           className={cn(
-            "relative group block p-2 h-full w-full",
+            "relative group block p-2 max-h-full w-full",
             `col-span-${item.span}`
           )}
           onMouseEnter={() => setHoveredIndex(idx)}
@@ -50,9 +60,9 @@ export const HoverEffect = ({
               "timeline-container rounded-2xl h-full w-full p-4 md:p-3 xl:p-5 overflow-hidden bg-zinc-700 border border-transparent dark:border-white/[0.2] group-hover:border-slate-700 relative z-20",
               className
             )}
-            style={{ height: '350px' }}
+            style={{ height: getHeight() }}
           >
-            <div className="relative z-50 h-full overflow-y-auto scrollbar-thumb-sky-700 scrollbar-track-sky-300">
+            <div className="relative z-50 h-full overflow-y-hidden overflow-x-clip scrollbar-thumb-sky-700 scrollbar-track-sky-300">
               <div className="p-11 sm:p-3 md:p-5">
                 <h4 className="text-aqua font-bold tracking-wide mt-1 text-3xl">
                   {item.title}
