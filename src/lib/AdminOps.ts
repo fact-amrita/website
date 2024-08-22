@@ -26,7 +26,11 @@ export async function getAnnouncements() {
 }
 
 export async function getTimelines() {
-    var timelines = await db.timeline.findMany();
+    var timelines = await db.timeline.findMany({
+        orderBy: {
+            Date: 'desc',
+        },
+    });
     return timelines;
 }
 

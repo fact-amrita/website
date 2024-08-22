@@ -199,7 +199,7 @@ const DashboardContent: React.FC = () => {
     {
       title: "Timeline",
       content: (
-        <div className="relative border-l-0 mr-3 border-gray-300 pl-1 h-[300px] overflow-auto">
+        <div className="relative border-l-0 mr-3 border-gray-300 pl-1">
       {timelineData.map((item, index) => (
         <div key={index} className="mb-4 ml-5">
           <div className="absolute -left-0 -right-1 w-6 h-6 bg-sky-700 rounded-full border-2 border-white flex items-center justify-center">
