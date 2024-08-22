@@ -171,7 +171,8 @@ export async function AddPoints(factId: string, points: number, reason: string, 
                 reason: reason,
                 assigner: assigner,
                 pointsSemester: userData.semester,
-                pointsYear: (new Date().getFullYear()).toString()
+                pointsYear: (new Date().getFullYear()).toString(),
+                DateTime: new Date().toISOString()
             }
         })
 
@@ -304,6 +305,86 @@ export async function getUsersBonusPointsYear(factId: string) {
     return BonusPoints;
 }
 
+export async function YearBonusPenaltyList(factId:string){
+    const year = new Date().getFullYear().toString()
+    const BonusPointsList = await db.pointsHistory.findMany({
+        where: {
+            FactID: factId,
+            pointsYear: year
+        },
+        orderBy: {
+            DateTime: "desc"
+        }
+    })
+    
+    var BonusPointsListNew: { number: number; points: number; date: string; description: string; }[] = []
+    var i = 1
+    BonusPointsList.forEach(pointData=>{
+        var point = pointData.points
+        var date = pointData.DateTime
+        var description = pointData.reason
+        BonusPointsListNew.push({number:i,points:point,date:date,description:description})
+        i++
+    });
+
+    return BonusPointsListNew;
+}
+
+export async function SemesterBonusPenaltyList(factId:string){
+
+    const userData= await db.user.findUnique({
+        where: {
+            FactID: factId
+        }
+    });
+
+    const BonusPointsList = await db.pointsHistory.findMany({
+        where: {
+            FactID: factId,
+            pointsSemester: userData?.semester||"1"
+        },
+        orderBy: {
+            DateTime: "desc"
+        }
+    })
+    
+    var BonusPointsListNew: { number: number; points: number; date: string; description: string; }[] = []
+    var i = 1
+    BonusPointsList.forEach(pointData=>{
+        var point = pointData.points
+        var date = pointData.DateTime
+        var description = pointData.reason
+        BonusPointsListNew.push({number:i,points:point,date:date,description:description})
+        i++
+    });
+
+    return BonusPointsListNew;
+}
+
+export async function LifetimeBonusPenaltyList(factId:string){
+    const BonusPointsList = await db.pointsHistory.findMany({
+        where: {
+            FactID: factId
+        },
+        orderBy: {
+            DateTime: "desc"
+        }
+    })
+    
+    var BonusPointsListNew: { number: number; points: number; date: string; description: string; }[] = []
+    var i = 1
+    BonusPointsList.forEach(pointData=>{
+        var point = pointData.points
+        var date = pointData.DateTime
+        var description = pointData.reason
+        BonusPointsListNew.push({number:i,points:point,date:date,description:description})
+        i++
+    });
+    return BonusPointsListNew;
+}
+
+
+
 export async function updateProfileRemark(factId: string, remark: string) {
     try {
         await db.user.update({
@@ -315,6 +396,23 @@ export async function updateProfileRemark(factId: string, remark: string) {
             }
         })
     } catch (e) {
+        return false
+    }
+    return true;
+}
+
+export async function updateRating(factId: string, rating: number) {
+    try {
+        await db.user.update({
+            where: {
+                FactID: factId
+            },
+            data: {
+                ClubRating: rating
+            }
+        })
+    } catch (e) {
+        console.log(e);
         return false
     }
     return true;

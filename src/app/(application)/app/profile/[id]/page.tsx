@@ -7,8 +7,17 @@ import { getUserProfile } from "@/lib/UserFetch";
 import { useRouter } from "next/navigation";
 import { useSession } from "next-auth/react";
 import Swal from 'sweetalert2';
-import { AddPoints, updateProfileRemark } from "@/lib/UserOperations";
+import { AddPoints, updateProfileRemark, updateRating } from "@/lib/UserOperations";
 import TableComponent from '@/components/TableComponent';
+import { getLifetimePoints } from "@/lib/TaskOperations";
+
+interface TableData {
+  number: number;
+  description: string;
+  date: string;
+  time?: string;
+  points: number;
+}
 
 const ProfileContent = ({ params }: { params: { id: string } }) => {
   const { data: session, status } = useSession();
@@ -16,15 +25,8 @@ const ProfileContent = ({ params }: { params: { id: string } }) => {
   const router = useRouter();
   const [ProfileData, setProfileData] = useState<any>(null);
   const [bonusPoints, setBonusPoints] = useState<number>(0);
-
-  const sampleData = [
-    { number: 1, description: 'Task 1', date: '2024-08-01', points: 10 },
-    { number: 2, description: 'Task 2', date: '2024-08-02', points: 20 },
-    { number: 2, description: 'Task 2', date: '2024-08-02', points: 20 },
-    { number: 2, description: 'Task 2', date: '2024-08-02', points: 20 },
-    { number: 2, description: 'Task 2', date: '2024-08-02', points: 20 },
-    // Add more sample data if needed
-  ];
+  const [clubRating, setClubRating] = useState<number>(0);
+  const [taskList, setTaskList] = useState<any>([]);
 
   const handleEditProfile = () => {
     router.push('/app/edit_profile');
@@ -39,12 +41,31 @@ const ProfileContent = ({ params }: { params: { id: string } }) => {
           return;
         }
         setProfileData(data);
+
+        setClubRating(ProfileData.ClubRating);
       } catch (error) {
         console.error('Error fetching task data:', error);
       }
     };
     profileDataGetter();
   }, [ProfileId]);
+
+  useEffect(() => {
+    const fetchTaskData = async () => {
+      const factId = window.localStorage.getItem('factId') || '';
+      const { list, points } = await getLifetimePoints(factId);
+      console.log(list);
+      setTaskList(list);
+    }
+    fetchTaskData();
+  }, []);
+
+  const taskData: TableData[] = taskList.map((task: any, index: number) => ({
+    number: index + 1,
+    description: task.task,
+    date: task.completeTime,
+    points: task.awarded || 0
+  }));
 
   if (!ProfileData) {
     return <p>Loading...</p>;
@@ -140,6 +161,24 @@ const ProfileContent = ({ params }: { params: { id: string } }) => {
     }
   }
 
+  const handleRatingChange = async () => {
+    const response = await updateRating(ProfileId, clubRating);
+
+    if (response) {
+      Swal.fire({
+        title: "Rating Updated",
+        icon: "success"
+      }).then(() => {
+        window.location.reload();
+      });
+    } else {
+      Swal.fire({
+        title: "Failed to update rating",
+        icon: "error"
+      });
+    }
+  }
+
   const formatDate = (dateString: string) => {
     const date = new Date(dateString);
     return date.toLocaleDateString('en-US', {
@@ -198,6 +237,31 @@ const ProfileContent = ({ params }: { params: { id: string } }) => {
                 <div className="text-black text-2xl mt-4">
                   Tasks Done: {ProfileData.TasksCount || 0}
                 </div>
+
+                {(userdat.role === "admin" || userdat.role === "president" || userdat.role === "moderator") ? (
+                  <div>
+                    <label htmlFor="bonusPoints" title={"Enter positive number for bonus and negative number for penalty"}>
+                      Enter user rating (/10)
+                    </label>
+                    <div className="flex" style={{ marginBottom: "-30px", marginTop: "15px" }}>
+                      <input
+                        type="number"
+                        id="bonusPoints"
+                        className="border rounded p-2 h-10"
+                        placeholder="Profile Rating"
+                        value={clubRating}
+                        onChange={(e) => setClubRating(parseInt(e.target.value))}
+                      />
+                      <button onClick={() => { handleRatingChange() }} className="bg-green-500 text-white p-2 rounded mb-4 ml-2">Submit</button>
+                    </div>
+                  </div>
+                ) : (
+                  <>
+                    {ProfileData.ClubRating && (<div className="text-black text-xl mt-2">
+                      Club Rating: {ProfileData.ClubRating || 0}/10
+                    </div>)}
+                  </>
+                )}
               </div>
             </div>
           </div>
@@ -243,11 +307,11 @@ const ProfileContent = ({ params }: { params: { id: string } }) => {
                   />
                   <button onClick={() => { handleRemarkChange() }} className="bg-blue-500 text-white p-2 rounded mb-4 ml-2">Update Remarks</button>
                 </span>
-              ) : <span style={{marginLeft:"0.7em", color:"white"}}>{(ProfileData.ProfileRemark && ProfileData.ProfileRemark != "") ? ProfileData.ProfileRemark : "No remarks available."}</span>}
+              ) : <span style={{ marginLeft: "0.7em", color: "white" }}>{(ProfileData.ProfileRemark && ProfileData.ProfileRemark != "") ? ProfileData.ProfileRemark : "No remarks available."}</span>}
             </p>
           </div>
 
-              {/* Skills Section */}
+          {/* Skills Section */}
           <div className="bg-zinc-700 rounded-3xl flex flex-col justify-center items-center col-span-8 row-span-2 mb-4 overflow-x-clip overflow-y-auto">
             <p className="text-white text-xl font-bold mb-2">
               Skills
@@ -262,16 +326,11 @@ const ProfileContent = ({ params }: { params: { id: string } }) => {
               ))}
             </div>
           </div>
-
-
         </div>
       </div>
       <div className="w-full xl:max-w-7xl md:max-w-3xl rounded-xl border border-gray-200 shadow-lg bg-white p-4 mb-5 mx-auto flex flex-col items-center">
-        <TableComponent data={sampleData} />
+        <TableComponent data={taskData} />
       </div>
-
-
-
     </>
   );
 };

@@ -8,6 +8,7 @@ import BonusPenaltyPoints from "@/components/leaderboard/bonuspenaltypoints";
 import TableComponent from '@/components/TableComponent';
 import { useSession } from "next-auth/react";
 import { getLifetimePoints, getYearPoints, getSemesterPoints } from "@/lib/TaskOperations";
+import { YearBonusPenaltyList, SemesterBonusPenaltyList, LifetimeBonusPenaltyList } from "@/lib/UserOperations";
 
 const LeaderboardPage = () => {
   const { data: session, status } = useSession();
@@ -21,6 +22,11 @@ const LeaderboardPage = () => {
 
   const [SemList, setSemList] = useState<any>([]);
   const [SemPoints, setSemPoints] = useState(0);
+
+  const [SemBonusPenalty, setSemBonusPenalty] = useState<any>([]);
+  const [YearBonusPenalty, setYearBonusPenalty] = useState<any>([]);
+  const [LifetimeBonusPenalty, setLifetimeBonusPenalty] = useState<any>([]);
+  const [ActiveBonusPenalty, setActiveBonusPenalty] = useState<any>([]);
 
   const [loading, setLoading] = useState(true);
 
@@ -51,6 +57,41 @@ const LeaderboardPage = () => {
 
     fetchData();
   }, []);
+
+  useEffect(() => {
+    const fetchBonusPenaltyData = async () => {
+      try {
+        const factId = window.localStorage.getItem('factId') || '';
+
+        const list = await LifetimeBonusPenaltyList(factId);
+        setLifetimeBonusPenalty(list);
+
+        const yearlist = await YearBonusPenaltyList(factId);
+        setYearBonusPenalty(yearlist);
+
+        const semlist = await SemesterBonusPenaltyList(factId);
+        setSemBonusPenalty(semlist);
+
+        setActiveBonusPenalty(list);
+      } catch (e) {
+        console.error(e);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchBonusPenaltyData();
+  }, []);
+
+  useEffect(() => {
+    if (activeTab === 'lifetime') {
+      setActiveBonusPenalty(LifetimeBonusPenalty);
+    } else if (activeTab === 'year') {
+      setActiveBonusPenalty(YearBonusPenalty);
+    } else if (activeTab === 'semester') {
+      setActiveBonusPenalty(SemBonusPenalty);
+    }
+  }, [activeTab]);
 
   if (status === 'loading' || loading) {
     return <p>Loading...</p>;
@@ -87,7 +128,7 @@ const LeaderboardPage = () => {
       </div>
 
       <div className="w-full">
-        <TableComponent data={[]} />
+        <TableComponent data={ActiveBonusPenalty} />
       </div>
     </div>
   );

@@ -42,6 +42,7 @@ model User {
   Title         String?
   Skills        String[]
   ProfileRemark String?
+  ClubRating    Int?
 }
 
 model Tasks {
@@ -86,6 +87,7 @@ model PointsHistory {
   assigner       String
   pointsSemester String
   pointsYear     String
+  DateTime       String
 }
 
 model CompletedTask {

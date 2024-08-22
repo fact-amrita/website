@@ -154,7 +154,7 @@ const TaskListPage: React.FC = () => {
                     <p>Status: {task.status}</p>
                   </div>
                 </Link>
-              ))}1
+              ))}
               {(pendingTasks.length + remainingTasks.length) === 0 && (
                 <p className="text-center text-white">No tasks available</p>
               )}
