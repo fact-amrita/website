@@ -44,7 +44,7 @@ const TableComponent: React.FC<TableProps> = ({ data }) => {
   };
 
   return (
-    <div className="w-full max-w-full bg-gray-50 p-4 rounded-lg shadow-lg">
+    <div className="w-full max-w-3xl bg-gray-50 p-4 rounded-lg shadow-lg">
       <div className="overflow-x-auto max-h-60">
         <table className="w-full bg-gray-50 border-collapse text-sm">
           <thead>

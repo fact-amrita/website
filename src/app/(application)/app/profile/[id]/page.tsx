@@ -328,7 +328,7 @@ const ProfileContent = ({ params }: { params: { id: string } }) => {
           </div>
         </div>
       </div>
-      <div className="w-full xl:max-w-7xl md:max-w-3xl rounded-xl border border-gray-200 shadow-lg bg-white p-4 mb-5 mx-auto flex flex-col items-center">
+      <div className="w-full xl:max-w-5xl md:max-w-lg rounded-xl border border-gray-200 shadow-lg bg-white p-4 mb-5 mx-auto flex flex-col items-center">
         <TableComponent data={taskData} />
       </div>
     </>

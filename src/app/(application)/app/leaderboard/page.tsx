@@ -108,7 +108,7 @@ const LeaderboardPage = () => {
   const userdat = session.user as { name: string; domain: string; factId: string };
 
   return (
-    <div className="flex flex-col items-center bg-transparent rounded shadow-lg w-full max-w-7xl p-4 mx-auto overflow-x-hidden">
+    <div className="flex flex-col items-center bg-transparent rounded shadow-lg w-[90%] h-[90%] max-w-7xl p-4 mx-auto overflow-x-hidden">
       <div className="w-full grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
         <div className="w-full">
           <Tab LifetimeList={LifetimeList} YearList={YearList} SemList={SemList} activeTab={activeTab} setActiveTab={setActiveTab} />
@@ -118,7 +118,7 @@ const LeaderboardPage = () => {
         </div>
       </div>
 
-      <div className="w-full grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
+      <div className="w-full grid grid-cols-1 md:grid-cols-2 gap-2 mb-4">
         <div className="w-full">
           <BonusPenaltyPoints activeTab={activeTab} factId={userdat.factId} />
         </div>
@@ -127,7 +127,7 @@ const LeaderboardPage = () => {
         </div>
       </div>
 
-      <div className="w-full">
+      <div className="mr-5">
         <TableComponent data={ActiveBonusPenalty} />
       </div>
     </div>
