@@ -6,20 +6,12 @@ import { Toaster } from '@/components/ui/toaster';
 import { useToast } from '@/components/ui/use-toast';
 import { createTicket } from '@/lib/Tickets';
 
-interface TicketFormProps {
-  initialFeedbackType?: string;
-  initialMessage?: string;
-}
-
-const TicketForm: React.FC<TicketFormProps> = ({
-  initialFeedbackType = 'Feedback',
-  initialMessage = '',
-}) => {
+const TicketForm: React.FC = () => {
   const { data: session, status } = useSession();
   const { toast } = useToast();
 
-  const [feedbackType, setFeedbackType] = useState(initialFeedbackType);
-  const [message, setMessage] = useState(initialMessage);
+  const [feedbackType, setFeedbackType] = useState('Feedback');
+  const [message, setMessage] = useState('');
 
   if (status === 'loading') {
     return <p>Loading...</p>; // Optional loading state
@@ -51,8 +43,8 @@ const TicketForm: React.FC<TicketFormProps> = ({
       title: 'Success!',
       description: 'Ticket has been created.',
     });
-    setFeedbackType(initialFeedbackType);
-    setMessage(initialMessage);
+    setFeedbackType("Feedback");
+    setMessage("");
   };
 
   return (
