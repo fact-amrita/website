@@ -154,13 +154,13 @@ const DashboardContent: React.FC = () => {
   const items = [
     {
       title: "Fact for the day",
-      content: <p className="text-xl text-white">{fact}</p>,
+      content: <p className="text-xl md:text-lg sm:text-md text-white">{fact}</p>,
       span: 4,
     },
     {
       title: "Announcements",
       content: (
-        <div className="text-xl">
+        <div className="text-xl md:text-lg sm:text-md overflow-auto">
           {announcements.length ? (
             announcements.map((announcement) => (
               <div key={announcement.id}>
@@ -177,7 +177,7 @@ const DashboardContent: React.FC = () => {
     {
       title: "Events",
       content: (
-        <div className="text-xl">
+        <div className="text-xl md:text-lg sm:text-md overflow-auto">
           {events.length ? (
             events.map((event) => (
               <div key={event.event}>
@@ -199,20 +199,19 @@ const DashboardContent: React.FC = () => {
     {
       title: "Timeline",
       content: (
-        <div className=" relative border-l-2 border-gray-300 pl-4">
-          {timelineData.map((item, index) => (
-            <div key={index} className="mb-8 ml-4">
-              <div className="absolute -left-3 w-6 h-6 bg-sky-700 rounded-full border-2 border-white flex items-center justify-center">
-                <div className="w-3 h-3 bg-white rounded-full"></div>
-              </div>
-              <div className="pl-6">
-                <p className="text-white font-semibold text-xl">{formatDate(item.date)}</p>
-                <p className="text-white text-xl">{item.title}</p>
-              </div>
-            </div>
-          ))}
-
+        <div className="relative border-l-2 border-gray-300 pl-1 h-[300px] overflow-y-auto">
+      {timelineData.map((item, index) => (
+        <div key={index} className="mb-4 ml-2">
+          <div className="absolute -left-3 w-6 h-6 bg-sky-700 rounded-full border-2 border-white flex items-center justify-center">
+            <div className="w-3 h-3 bg-white rounded-full"></div>
+          </div>
+          <div className="pl-2">
+            <p className="text-white font-semibold text-xl md:text-lg sm:text-md">{formatDate(item.date)}</p>
+            <p className="text-white text-md md:text-lg sm:text-md">{item.title}</p>
+          </div>
         </div>
+      ))}
+    </div>
       ),
       span: 4,
     },

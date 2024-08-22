@@ -1,7 +1,6 @@
 import { cn } from "@/lib/utils";
 import { AnimatePresence, motion } from "framer-motion";
 import { useState } from "react";
-import "./hoverEffect.css";
 
 export const HoverEffect = ({
   items,
@@ -18,13 +17,6 @@ export const HoverEffect = ({
 
   // height Calculator
   
-  function getHeight() {
-    const width = window.innerWidth;
-    if (width >= 1024) return '350px'; 
-    if (width >= 768) return '300px';  
-    if (width >= 640) return '250px';  
-    return '250px'; 
-  }
 
   return (
     <div className={cn("grid grid-cols-1 md:grid-cols-12 gap-0 pb-3", className)}>
@@ -57,17 +49,17 @@ export const HoverEffect = ({
           </AnimatePresence>
           <div
             className={cn(
-              "timeline-container rounded-2xl h-full w-full p-4 md:p-3 xl:p-5 overflow-hidden bg-zinc-700 border border-transparent dark:border-white/[0.2] group-hover:border-slate-700 relative z-20",
+              "timeline-container rounded-2xl h-full w-full p-2 md:p-1 xl:p-3 overflow-x-hidden overflow-y-auto bg-zinc-700 border border-transparent dark:border-white/[0.2] group-hover:border-slate-700 relative z-20",
               className
             )}
-            style={{ height: getHeight() }}
+            style={{ height: '150px' }}
           >
             <div className="relative z-50 h-full overflow-y-hidden overflow-x-clip scrollbar-thumb-sky-700 scrollbar-track-sky-300">
-              <div className="p-11 sm:p-3 md:p-5">
-                <h4 className="text-aqua font-bold tracking-wide mt-1 text-3xl">
+              <div className="p-5 sm:p-3 md:p-5">
+                <h4 className="text-aqua font-bold tracking-wide mt-1 text-lg md:text-lg xl:text-lg">
                   {item.title}
                 </h4>
-                <div className="mt-3 tracking-wide leading-relaxed text-sm break-words text-white">
+                <div className="mt-3 tracking-wide leading-relaxed text-sm break-words text-white overflow-y-auto">
                   {item.content}
                 </div>
               </div>
