@@ -1,10 +1,22 @@
-import React, { useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Navigation, EffectFade } from 'swiper/modules';
 import Image from 'next/image';
 import 'swiper/css';
 import 'swiper/css/bundle';
 import FACTImage from '@/public/images/FACT_white_wbg - Copy.png';
+
+interface MemberDetails {
+  name: string;
+  title: string;
+  year: string;
+  imgURL: string;
+  customStyles?: {
+    width: string;
+    marginLeft?: string;
+    marginBottom?: string;
+  }
+}
 
 const Coordinators: React.FC = () => {
   const handleSlideChange = (swiper: any) => {
@@ -21,7 +33,111 @@ const Coordinators: React.FC = () => {
     document.querySelector(`#${target}`)?.classList.add('active');
   }, []);
 
-  const members = [{
+  const members23_24 = [{
+    "name": "Abhishek G",
+    "title": "President",
+    "year": "Batch '20 CYS",
+    "imgURL": "https://ik.imagekit.io/factamrita/co-ordinators/2023-2024/Abhishek(President).png?updatedAt=1725297924542",
+    "customStyles": {
+      marginLeft: "-38%",
+      marginBottom: "-5.3%"
+    }
+  }, {
+    "name": "Karun Kumar",
+    "title": "Secretary",
+    "year": "Batch '20 CYS",
+    "imgURL": "https://ik.imagekit.io/factamrita/co-ordinators/2023-2024/Karun(Secretary).png?updatedAt=1725297925680",
+    "customStyles": {
+      marginBotom: "10%",
+      marginLeft: "-25%",
+      width: "62%"
+    }
+  }, {
+    "name": "Navaneeth P",
+    "title": "Vice President",
+    "year": "4th Year CYS",
+    "imgURL": "https://ik.imagekit.io/factamrita/co-ordinators/Navaneeth_President.png",
+    "customStyles": {
+      width: "63%"
+    }
+  }, {
+    "name": "Padmasini A",
+    "title": "Public Relations & Marketing",
+    "year": "Batch '20 CYS",
+    "imgURL": "https://ik.imagekit.io/factamrita/co-ordinators/2023-2024/Padmasini(PR&Marketing).png?updatedAt=1725297929086",
+    "customStyles": {
+      width: "45%",
+      marginLeft: "6%",
+      marginBottom: "-5%"
+    }
+  }, {
+    "name": "Datta Sai",
+    "title": "Technical Lead",
+    "year": "Batch '20 CYS",
+    "imgURL": "https://ik.imagekit.io/factamrita/co-ordinators/2023-2024/Datta%20Sai(Technical%20Lead).png?updatedAt=1725297929741",
+    "customStyles": {
+      width: "55%",
+      marginBottom: "3%"
+    }
+  }, {
+    "name": "Bharadwaj N",
+    "title": "Treasurer",
+    "year": "Batch '20 CYS",
+    "imgURL": "https://ik.imagekit.io/factamrita/co-ordinators/2023-2024/Bharadwaj(Treasurer).png?updatedAt=1725297926450",
+    "customStyles": {
+      width: "55%",
+      marginBottom: "3.8%"
+    }
+  }, {
+    "name": "Kumoulica A",
+    "title": "Event Co-Ordinator ",
+    "year": "Batch '20 CYS",
+    "imgURL": "https://ik.imagekit.io/factamrita/co-ordinators/2023-2024/Kumoulica(Event%20Coordinator).png?updatedAt=1725297925774",
+    "customStyles": {
+      width: "80%",
+      marginBottom: "5%",
+      marginLeft: "-38%"
+    }
+  }, {
+    "name": "Fiyan Mehfil Ayoob",
+    "title": `Physical Forensics Co-Ordinator`,
+    "year": "4th Year CYS",
+    "imgURL": "https://ik.imagekit.io/factamrita/co-ordinators/Fiyan%20(Physical%20Forensic%20Coordinator).png",
+    "customStyles": {
+      width: "54%"
+    }
+  }, {
+    "name": "Melvina Jose",
+    "title": "Digital Forensics Co-Ordinator",
+    "year": "4th Year CYS",
+    "imgURL": "https://ik.imagekit.io/factamrita/co-ordinators/Melvina%20Jose%20(Digital%20Forensics%20Coordinator).png",
+    "customStyles": {
+      width: "50%"
+    }
+  }, {
+    "name": "Aravind Mohan",
+    "title": "Membership Co-Ordinator",
+    "year": "4th Year CYS",
+    "imgURL": "https://ik.imagekit.io/factamrita/co-ordinators/Aravind%20(Skill%20Enhancement%20Coordinator).png",
+    "customStyles": {
+      width: "80%",
+      marginLeft: "-5%",
+      marginBottom: "7%"
+    }
+  }, {
+    "name": "Prithi G",
+    "title": "Skill Enhancement Co-Ordinator",
+    "year": "4th Year CYS",
+    "imgURL": "https://ik.imagekit.io/factamrita/co-ordinators/2023-2024/Prithi(Skill%20enhancement%20Coordinator).png?updatedAt=1725297926999",
+    "customStyles": {
+      width: "45%",
+      marginLeft: "7%",
+      marginBottom: "0%"
+    }
+  }
+  ]
+
+  const members24_25 = [{
     "name": "Navaneeth P",
     "title": "President",
     "year": "4th Year CYS",
@@ -90,7 +206,7 @@ const Coordinators: React.FC = () => {
     "imgURL": "https://ik.imagekit.io/factamrita/co-ordinators/Gaurav%20Keitan%20(event%20co-ordinator).png?updatedAt=1722923209259",
     "customStyles": {
       width: "57%",
-      marginBottom:"-4%"
+      marginBottom: "-4%"
     }
   }, {
     "name": "Aravind Mohan",
@@ -115,15 +231,22 @@ const Coordinators: React.FC = () => {
   }
   ]
 
-  return (
-    <section id="coordinators">
+  const [ActiveMemberDetails, setActiveMemberDetails] = useState<MemberDetails[]>(members24_25 as MemberDetails[]);
+
+
+  return (<>
+    <section id="coordinators" style={{marginTop: "-5%"}}>
+      <div style={{position:"relative", left:"41%", top:"120px", width:"30%", zIndex:"150"}} className="flex">
+        <button className='bg-gradient-to-tr from-blue-600 to-red-600'  onClick={()=>{setActiveMemberDetails(members23_24 as MemberDetails[])}} style={{borderWidth:"2px", borderColor:"black", fontWeight:"600", color:"black",padding:"8px", margin:"8px", borderRadius:"10px"}} >2023-2024</button>
+        <button className='bg-gradient-to-tr from-blue-600 to-red-600' onClick={()=>{setActiveMemberDetails(members24_25 as MemberDetails[])}} style={{borderWidth:"2px", borderColor:"black", fontWeight:"600", color:"black", padding:"8px",margin:"8px", borderRadius:"10px"}} >2024-2025</button>
+      </div>
       <div className="wrapper">
         <div className="content">
           <div className="bg-shape" style={{ top: "97px", position: "absolute", height: "20.6em" }}>
             <Image src={FACTImage} alt="FACT Logo" />
           </div>
           <div style={{ filter: 'drop-shadow(1px 1px 20px rgb(0, 190, 211))' }} className="product-img">
-            {members.map((member, index) => (
+            {ActiveMemberDetails.map((member, index) => (
               <div className="product-img__item" key={index} id={`img${index + 1}`}>
                 <img src={member.imgURL} alt={member.name} className="product-img__img" style={member.customStyles} />
               </div>
@@ -161,7 +284,7 @@ const Coordinators: React.FC = () => {
                 document.querySelector(`#${target}`)?.classList.add('active');
               }}
             >
-              {members.map((member, index) => (
+              {ActiveMemberDetails.map((member, index) => (
                 <SwiperSlide key={index} className="product-slider__item" data-target={`img${index + 1}`}>
                   <div className="product-slider__card">
                     <img style={{ filter: "brightness(0.5)" }} src="https://ik.imagekit.io/factamrita/AdobeStock-JZM6gWcb8m.jpg?updatedAt=1722405189234" alt="background" className="product-slider__cover" />
@@ -187,7 +310,7 @@ const Coordinators: React.FC = () => {
         </symbol>
       </svg>
     </section>
-  );
+  </>);
 };
 
 export default Coordinators;

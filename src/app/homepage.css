@@ -1,5 +1,7 @@
 @import url("https://cdnjs.cloudflare.com/ajax/libs/Swiper/4.3.5/css/swiper.min.css");
 @import url("https://fonts.googleapis.com/css?family=Dosis:400,600,700,800");
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
+
 
 @font-face {
   font-family: "Uni Sans";
@@ -1322,7 +1324,7 @@ footer .address {
 }
 
 
-.name {
+/* .name {
   font-size: 75%;
   position: relative;
   top: 0.3em;
@@ -1330,43 +1332,72 @@ footer .address {
   overflow-y: auto;
   font-weight: 350;
   letter-spacing: 1px;
-  font-size: calc(0.8em + 1vw); 
   height: auto; 
+} */
+
+/* Updated styles for the 'name' class */
+.name {
+  font-family: "Montserrat", sans-serif;
+  font-size: 85%; /* Slightly larger for better readability */
+  position: relative;
+  top: 0.3em;
+  font-weight: 400; /* Increase weight for better legibility */
+  letter-spacing: 0.5px; /* Adjusted for improved appearance */
+  height: auto; 
+  padding: 20px; /* Add padding for breathing space */
+  line-height: 1.6em; /* Adjusted line height for readability */
+  color: #f1f1f1; /* Ensure text color contrasts well with background */
+  text-transform: none; /* Override any text transformation */
+}
+
+
+/* Additional CSS for scrollbar customization (optional) */
+.name::-webkit-scrollbar {
+  width: 8px;
+}
+
+.name::-webkit-scrollbar-thumb {
+  background-color: rgba(255, 255, 255, 0.3); /* Subtle color to match theme */
+  border-radius: 10px;
+}
+
+.name::-webkit-scrollbar-track {
+  background: rgba(0, 0, 0, 0.1); /* Subtle background color for the track */
 }
 
 /* Large screens */
-@media (min-width: 1200px) {
+/* @media (min-width: 1200px) {
   .name {
     font-size: calc(0.6em + 1vw);
     height: 30em;
   }
-}
+} */
 
 /* Medium screens */
-@media (max-width: 1199px) and (min-width: 768px) {
+/* @media (max-width: 1199px) and (min-width: 768px) {
   .name {
     font-size: calc(0.7em + 0.8vw);
     height: 20em;
   }
-}
+} */
 
 /* Small screens */
-@media (max-width: 767px) {
+/* @media (max-width: 767px) {
   .name {
     font-size: calc(0.6em + 0.5vw);
     height: 15em;
     top: 0.2em;
   }
-}
+} */
 
 /* Extra small screens */
-@media (max-width: 480px) {
+/* @media (max-width: 480px) {
   .name {
     font-size: calc(0.8em + 0.4vw);
-    height: auto; /* Allow content to dictate height */
+    height: auto;
     top: 0.1em;
   }
-}
+} */
 
 .wave:nth-child(2),
 .wave:nth-child(3) {

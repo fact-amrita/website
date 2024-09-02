@@ -1,6 +1,5 @@
 import React from 'react';
 
-
 function About() {
   return (
     <section id="about">
@@ -9,11 +8,11 @@ function About() {
         <div className="wave"></div>
         <div className="wave"></div>
         <div className="infotop" style={{ padding: "0px 15px 15px 15px" }}>
-          <br /><span style={{ fontSize: "1.3em" }}>ABOUT<br /></span>
-          <div className="name">
+          <br /><span style={{ fontSize: "1.3em", textTransform: "none" }}>ABOUT<br /></span>
+          <div className="name" style={{ textTransform: "none" }}>
             <h1>Welcome to FACT - Forensic Analysis Club & Triage,</h1>
             <p>
-              a dynamic student organization founded at ACN&apos;23
+              A dynamic student organization founded at ACN&apos;23
               (Amrita Cyber Nation) in the vibrant Amrita Chennai campus. Our inception was inspired by the overwhelming response and enthusiasm witnessed at the FIC (Forensic Investigation Challenge) event during Tantrostav 23.
               This positive reception fueled our drive to create a dedicated platform where students can delve into the fascinating world of forensic analysis and digital triage.
             </p>
