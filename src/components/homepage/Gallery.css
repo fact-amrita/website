@@ -1,0 +1,11 @@
+/* Gallery.css */
+.word {
+    display: block;
+    margin-bottom: 0.1em;
+}
+
+.letter {
+    display: inline-block;
+}
+
+/* Add your existing styles for .letter animations or other required styles */

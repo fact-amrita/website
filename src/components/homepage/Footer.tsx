@@ -16,7 +16,7 @@ function Footer({ scrollToSection }: ScrollToSectionProps) {
             <tr>
               <td style={{ width: "33%" }}>
                 <div className="footerlogo">
-                  <Image width={300} height={250} style={{width:"100%", marginBottom:"8px"}} src={FACTImage} alt="factlogo" />
+                  <Image draggable="false" width={300} height={250} style={{width:"100%", marginBottom:"8px"}} src={FACTImage} alt="factlogo" />
                   <Link href={"/app"}>
                     <button className="btn-23">
                       <span className="text">App</span>

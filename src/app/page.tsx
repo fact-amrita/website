@@ -63,7 +63,7 @@ function App() {
   }, [handleScroll, refs]);
 
   return (
-    <div style={{ fontFamily: '"Uni Sans", sans-serif' }}>
+    <div style={{ fontFamily: '"Uni Sans", sans-serif', userSelect:"none", cursor:"default" }}>
       <Header scrollToSection={scrollToSection} activeSection={activeSection} />
       <div ref={headingRef} id="heading" style={{ paddingTop: '50px' }}>
         <Heading />

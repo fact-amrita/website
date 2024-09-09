@@ -9,10 +9,10 @@ import { HiOutlineAcademicCap } from "react-icons/hi";
 
 function Header({ scrollToSection, activeSection }: { scrollToSection: Function, activeSection: string }) {
   return (
-    <div>
-      <div className="container">
+    <div >
+      <div className="container" style={{ zIndex:"9999" }}>
         <div className="factlogo">
-          <Image src={FACTImage} alt="factlogo" height={50} width={250} className='bg-black' />
+          <Image src={FACTImage} draggable="false" alt="factlogo" height={50} width={250} className='bg-black' />
         </div>
         <div className="menu" style={{ position: "absolute", right: "0" }}>
           <ul className="navigation">

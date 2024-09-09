@@ -1,32 +1,42 @@
 import React, { useEffect, useState } from 'react';
 import anime from 'animejs';
 import Image from "next/image";
-import ForensicImg1 from "@/public/images/forensicimages/forensic_1.jpg";
-import ForensicImg2 from "@/public/images/forensicimages/forensic_2.jpg";
-import ForensicImg3 from "@/public/images/forensicimages/forensic_3.jpg";
 import ForensicImg4 from "@/public/images/forensicimages/forensic_4.jpg";
-import SOSImg1 from "@/public/images/sos/sos_1.jpg";
-import SOSImg2 from "@/public/images/sos/sos_2.jpg";
-
+import "./Gallery.css";
 
 function Gallery() {
   const [current, setCurrent] = useState(0);
   const [isPlaying, setIsPlaying] = useState(false);
 
   useEffect(() => {
+  const wrapText = () => {
     const items = document.querySelectorAll(".galaryslider .item");
+    
     items.forEach((item) => {
       const textWrapper = item.querySelector(".wrap");
-      if (textWrapper) {
-        if (textWrapper.textContent) {
-          textWrapper.innerHTML = textWrapper.textContent.replace(
-            /\S/g,
-            "<span class='letter'>$&</span>"
-          );
-        }
+      
+      if (textWrapper && textWrapper.textContent) {
+        // Split the text by words first
+        textWrapper.innerHTML = textWrapper.textContent
+          .split(" ")
+          .map((word) => {
+            // For each word, split the word into letters and wrap each letter with the 'letter' class
+            const letters = word
+              .split("")
+              .map((letter) => `<span class='letter'>${letter}</span>`)
+              .join(""); // Join the letters back into a word format
+            // Wrap the entire word with the 'word' class
+            return `<span class='word'>${letters}</span>`;
+          })
+          .join(" "); // Join all the words back together
       }
     });
-  }, []);
+  };
+
+  wrapText();
+}, []);
+
+  
 
   const anim = (currentItem: any, newItem: any, callback: any) => {
     const currentImgs = currentItem.querySelectorAll(".img");
@@ -199,6 +209,55 @@ function Gallery() {
     updateSlider(newIndex);
   };
 
+  const galleryItems = [
+    {
+      isActive: true,
+      title: "Club Launch",
+      images: [
+        { src: "https://ik.imagekit.io/factamrita/gallery/Inauguration/_DSC5394.JPG?updatedAt=1725458235816", alt: "Inauguration 1", width: 700, height: 700 },
+        { src: "https://ik.imagekit.io/factamrita/gallery/Inauguration/_DSC5539.JPG?updatedAt=1725458236062", alt: "Inauguration 2", width: 700, height: 700 },
+        { src: "https://ik.imagekit.io/factamrita/gallery/Inauguration/_DSC5350.JPG?updatedAt=1725458235840", alt: "Inauguration 3", width: 700, height: 700 },
+        { src: "https://ik.imagekit.io/factamrita/gallery/Inauguration/_DSC5208%20(1).JPG?updatedAt=1725458236351", alt: "Inauguration 4", width: 700, height: 700 },
+      ],
+    },
+    {
+      title: "Mystery Unveiled",
+      images: [
+        { src: "https://ik.imagekit.io/factamrita/gallery/Mystery%20Unveiled/2Z2A2091.JPG?updatedAt=1725458608672", alt: "Mystery 1", width: 700, height: 700 },
+        { src: "https://ik.imagekit.io/factamrita/gallery/Mystery%20Unveiled/2Z2A2116.JPG?updatedAt=1725458608591", alt: "Mystery 2", width: 700, height: 700 },
+        { src: "https://ik.imagekit.io/factamrita/gallery/Mystery%20Unveiled/2Z2A2117.JPG?updatedAt=1725458608586", alt: "Mystery 3", width: 700, height: 700 },
+        { src: ForensicImg4, alt: "Mystery 4", width: 700, height: 700 },
+      ],
+    },
+    {
+      title: "SOS",
+      images: [
+        { src: "https://ik.imagekit.io/factamrita/gallery/SOS/sos_1.jpg?updatedAt=1725907324866", alt: "Image 1",  height: 700, width: 700 },
+        { src: "https://ik.imagekit.io/factamrita/gallery/SOS/SOS1.jpeg?updatedAt=1725907321476", alt: "Image 2", height: 700, width: 700 },
+        { src: "https://ik.imagekit.io/factamrita/gallery/SOS/SOS2.jpeg?updatedAt=1725907455081", alt: "Image 3", height: 700, width: 700 },
+        { src: "https://ik.imagekit.io/factamrita/gallery/SOS/sos_2.jpg?updatedAt=1725907325218", alt: "Image 4",  height: 700, width: 700 },
+      ],
+    },
+    {
+      title: "Evil unDead",
+      images: [
+        { src: "https://ik.imagekit.io/factamrita/gallery/Evil%20unDead/IMG-20240306-WA0031.jpg?updatedAt=1725902973555", alt: "Image 1", height: 700, width: 700 },
+        { src: "https://ik.imagekit.io/factamrita/gallery/Evil%20unDead/1.png?updatedAt=1725902977602", alt: "Image 2", height: 700, width: 700 },
+        { src: "https://ik.imagekit.io/factamrita/gallery/Evil%20unDead/IMG-20240306-WA0027.jpg?updatedAt=1725902973988", alt: "Image 3", height: 700, width: 700 },
+        { src: "https://ik.imagekit.io/factamrita/gallery/Evil%20unDead/IMG-20240306-WA0000.jpg?updatedAt=1725902974923", alt: "Image 4", height: 700, width: 700 },
+      ],
+    },
+    {
+      title: "Riddle Realm & L.A.W",
+      images: [
+        { src: "https://ik.imagekit.io/factamrita/gallery/RR_LAW/LAW2.jpeg?updatedAt=1725902649990", alt: "Image 1", height: 700, width: 700 },
+        { src: "https://ik.imagekit.io/factamrita/gallery/RR_LAW/LAW1.jpeg?updatedAt=1725902649520", alt: "Image 2", height: 700, width: 700 },
+        { src: "https://ik.imagekit.io/factamrita/gallery/RR_LAW/RR1.jpg?updatedAt=1725902885141", alt: "Image 3", height: 700, width: 700 },
+        { src: "https://ik.imagekit.io/factamrita/gallery/RR_LAW/RR2.jpg?updatedAt=1725902793064", alt: "Image 4", height: 700, width: 700 },
+      ],
+    }
+  ];
+
   return (
     <section id="pics">
       <div className="galaryslider">
@@ -206,33 +265,24 @@ function Gallery() {
           <div className="next" onClick={next} style={{ backgroundColor: 'white' }}></div>
           <div className="prev" onClick={prev} style={{ backgroundColor: 'white' }}></div>
         </div>
-        <div className="item is-active">
-          <div className="matter">
-            <div className="wrap">FORENSIC</div>
-          </div>
-          <div className="imgs">
-            <div className="grid">
-              <div className="img img-1"><Image src={ForensicImg1} alt="Forensic 1" /></div>
-              <div className="img img-2"><Image src={ForensicImg2} alt="Forensic 1" /></div>
-              <div className="img img-3"><Image src={ForensicImg3} alt="Forensic 1" /></div>
-              <div className="img img-4"><Image src={ForensicImg4} alt="Forensic 1" /></div>
+        {galleryItems.map((item, index) => (
+          <div key={index} className={`item ${item.isActive ? 'is-active' : ''}`}>
+            <div className="matter">
+              <div className="wrap">
+                {item.title}
+              </div>
+            </div>
+            <div className="imgs">
+              <div className="grid">
+                {item.images.map((image, imgIndex) => (
+                  <div key={imgIndex} className={`img img-${imgIndex + 1}`}>
+                    <Image {...image} />
+                  </div>
+                ))}
+              </div>
             </div>
           </div>
-        </div>
-        <div className="item">
-          <div className="matter">
-            <div className="wrap">SOS</div>
-          </div>
-          <div className="imgs">
-            <div className="grid">
-              <div className="img img-1"><Image src={SOSImg1} alt="Image 1" /></div>
-              <div className="img img-2"><Image src="https://picsum.photos/seed/f/700/700" alt="Image 2" height={700} width={700} /></div>
-              <div className="img img-3"><Image src="https://picsum.photos/seed/g/700/700" alt="Image 3" height={700} width={700} /></div>
-              <div className="img img-4"><Image src={SOSImg2} alt="Image 4" /></div>
-            </div>
-          </div>
-        </div>
-        {/* Repeat the above div for other items */}
+        ))}
       </div>
     </section>
   );

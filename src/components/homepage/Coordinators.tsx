@@ -5,6 +5,7 @@ import Image from 'next/image';
 import 'swiper/css';
 import 'swiper/css/bundle';
 import FACTImage from '@/public/images/FACT_white_wbg - Copy.png';
+import padmasiniImage from "@/public/images/padmasini.png";
 
 interface MemberDetails {
   name: string;
@@ -35,22 +36,22 @@ const Coordinators: React.FC = () => {
 
   const members23_24 = [{
     "name": "Abhishek G",
-    "title": "President",
+    "title": "Founder & President",
     "year": "Batch '20 CYS",
-    "imgURL": "https://ik.imagekit.io/factamrita/co-ordinators/2023-2024/Abhishek(President).png?updatedAt=1725297924542",
+    "imgURL": "https://ik.imagekit.io/factamrita/co-ordinators/2023-2024/Abhishek(President).png?updatedAt=1725454402624",
     "customStyles": {
-      marginLeft: "-38%",
-      marginBottom: "-5.3%"
+      marginLeft: "-10%",
+      marginBottom: "-11%"
     }
   }, {
     "name": "Karun Kumar",
     "title": "Secretary",
     "year": "Batch '20 CYS",
-    "imgURL": "https://ik.imagekit.io/factamrita/co-ordinators/2023-2024/Karun(Secretary).png?updatedAt=1725297925680",
+    "imgURL": "https://ik.imagekit.io/factamrita/co-ordinators/2023-2024/Karun(Secretary).png?updatedAt=1725456805402",
     "customStyles": {
-      marginBotom: "10%",
-      marginLeft: "-25%",
-      width: "62%"
+      marginBotom: "11%",
+      marginLeft: "3%",
+      width: "46%"
     }
   }, {
     "name": "Navaneeth P",
@@ -64,29 +65,29 @@ const Coordinators: React.FC = () => {
     "name": "Padmasini A",
     "title": "Public Relations & Marketing",
     "year": "Batch '20 CYS",
-    "imgURL": "https://ik.imagekit.io/factamrita/co-ordinators/2023-2024/Padmasini(PR&Marketing).png?updatedAt=1725297929086",
+    "imgURL": "https://ik.imagekit.io/factamrita/co-ordinators/2023-2024/Padmasini(PR&Marketing).png?updatedAt=1725454347894",
     "customStyles": {
-      width: "45%",
-      marginLeft: "6%",
-      marginBottom: "-5%"
+      width: "60%",
+      marginLeft: "0%",
+      marginBottom: "-7.5%"
     }
   }, {
-    "name": "Datta Sai",
+    "name": "Datta Sai Manikanta",
     "title": "Technical Lead",
     "year": "Batch '20 CYS",
-    "imgURL": "https://ik.imagekit.io/factamrita/co-ordinators/2023-2024/Datta%20Sai(Technical%20Lead).png?updatedAt=1725297929741",
+    "imgURL": "https://ik.imagekit.io/factamrita/co-ordinators/2023-2024/Datta%20Sai(Technical%20Lead).png?updatedAt=1725454483882",
     "customStyles": {
       width: "55%",
-      marginBottom: "3%"
+      marginBottom: "-2%"
     }
   }, {
     "name": "Bharadwaj N",
     "title": "Treasurer",
     "year": "Batch '20 CYS",
-    "imgURL": "https://ik.imagekit.io/factamrita/co-ordinators/2023-2024/Bharadwaj(Treasurer).png?updatedAt=1725297926450",
+    "imgURL": "https://ik.imagekit.io/factamrita/co-ordinators/2023-2024/Bharadwaj(Treasurer).png?updatedAt=1725456279636",
     "customStyles": {
       width: "55%",
-      marginBottom: "3.8%"
+      marginBottom: "3.4%"
     }
   }, {
     "name": "Kumoulica A",
@@ -235,15 +236,15 @@ const Coordinators: React.FC = () => {
 
 
   return (<>
-    <section id="coordinators" style={{marginTop: "-5%"}}>
-      <div style={{position:"relative", left:"41%", top:"120px", width:"30%", zIndex:"150"}} className="flex">
-        <button className='bg-gradient-to-tr from-blue-600 to-red-600'  onClick={()=>{setActiveMemberDetails(members23_24 as MemberDetails[])}} style={{borderWidth:"2px", borderColor:"black", fontWeight:"600", color:"black",padding:"8px", margin:"8px", borderRadius:"10px"}} >2023-2024</button>
-        <button className='bg-gradient-to-tr from-blue-600 to-red-600' onClick={()=>{setActiveMemberDetails(members24_25 as MemberDetails[])}} style={{borderWidth:"2px", borderColor:"black", fontWeight:"600", color:"black", padding:"8px",margin:"8px", borderRadius:"10px"}} >2024-2025</button>
+    <section id="coordinators" style={{ marginTop: "-5%" }}>
+      <div style={{ position: "relative", left: "41%", top: "120px", width: "30%", zIndex: "100" }} className="flex">
+        <button className='bg-slate-900 text-white' onClick={() => { setActiveMemberDetails(members23_24 as MemberDetails[]) }} style={{ borderWidth: "2px", borderColor: "black", fontWeight: "600", padding: "8px", margin: "8px", borderRadius: "10px" }} >2023-2024</button>
+        <button className='bg-slate-900 text-white' onClick={() => { setActiveMemberDetails(members24_25 as MemberDetails[]) }} style={{ borderWidth: "2px", borderColor: "black", fontWeight: "600", padding: "8px", margin: "8px", borderRadius: "10px" }} >2024-2025</button>
       </div>
       <div className="wrapper">
         <div className="content">
           <div className="bg-shape" style={{ top: "97px", position: "absolute", height: "20.6em" }}>
-            <Image src={FACTImage} alt="FACT Logo" />
+            <Image src={FACTImage} alt="FACT Logo" draggable="false" />
           </div>
           <div style={{ filter: 'drop-shadow(1px 1px 20px rgb(0, 190, 211))' }} className="product-img">
             {ActiveMemberDetails.map((member, index) => (
