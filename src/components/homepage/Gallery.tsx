@@ -215,8 +215,8 @@ function Gallery() {
       title: "Club Launch",
       images: [
         { src: "https://ik.imagekit.io/factamrita/gallery/Inauguration/_DSC5394.JPG?updatedAt=1725458235816", alt: "Inauguration 1", width: 700, height: 700 },
-        { src: "https://ik.imagekit.io/factamrita/gallery/Inauguration/_DSC5539.JPG?updatedAt=1725458236062", alt: "Inauguration 2", width: 700, height: 700 },
         { src: "https://ik.imagekit.io/factamrita/gallery/Inauguration/_DSC5350.JPG?updatedAt=1725458235840", alt: "Inauguration 3", width: 700, height: 700 },
+        { src: "https://ik.imagekit.io/factamrita/gallery/Inauguration/_DSC5539.JPG?updatedAt=1725907745920", alt: "Inauguration 2", width: 700, height: 700 },
         { src: "https://ik.imagekit.io/factamrita/gallery/Inauguration/_DSC5208%20(1).JPG?updatedAt=1725458236351", alt: "Inauguration 4", width: 700, height: 700 },
       ],
     },
