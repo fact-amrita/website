@@ -9,6 +9,8 @@ import Coordinators from '@/components/homepage/Coordinators';
 import Footer from '@/components/homepage/Footer';
 import './homepage.css';
 
+import MobileOverlay from '@/components/MobileOverlay';
+
 function App() {
   const headingRef = useRef<HTMLDivElement>(null);
   const aboutRef = useRef<HTMLDivElement>(null);
@@ -62,25 +64,52 @@ function App() {
     };
   }, [handleScroll, refs]);
 
-  return (
-    <div style={{ fontFamily: '"Uni Sans", sans-serif', userSelect:"none", cursor:"default" }}>
-      <Header scrollToSection={scrollToSection} activeSection={activeSection} />
-      <div ref={headingRef} id="heading" style={{ paddingTop: '50px' }}>
-        <Heading />
+  // mobile overlay
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    // Function to check if the screen width is less than a certain size (e.g., 768px)
+    const handleResize = () => {
+      if (window.innerWidth < 768) {
+        setIsMobile(true);
+      } else {
+        setIsMobile(false);
+      }
+    };
+
+    // Initial check
+    handleResize();
+
+    // Add event listener to track window resizing
+    window.addEventListener('resize', handleResize);
+
+    // Clean up the event listener when component is unmounted
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
+
+
+  return (<>
+    {isMobile ? <MobileOverlay /> :
+      <div style={{ fontFamily: '"Uni Sans", sans-serif', userSelect: "none", cursor: "default" }}>
+        <Header scrollToSection={scrollToSection} activeSection={activeSection} />
+        <div ref={headingRef} id="heading" style={{ paddingTop: '50px' }}>
+          <Heading />
+        </div>
+        <div ref={aboutRef} id="about" style={{ paddingTop: '50px' }}>
+          <About />
+        </div>
+        <div ref={galleryRef} id="gallery" style={{ paddingTop: '50px' }}>
+          <Gallery />
+        </div>
+        <div ref={coordinatorsRef} id="coordinators" style={{ paddingTop: '50px' }}>
+          <Coordinators />
+        </div>
+        <div ref={footerRef} id="footer" style={{ paddingTop: '50px' }}>
+          <Footer scrollToSection={scrollToSection} />
+        </div>
       </div>
-      <div ref={aboutRef} id="about" style={{ paddingTop: '50px' }}>
-        <About />
-      </div>
-      <div ref={galleryRef} id="gallery" style={{ paddingTop: '50px' }}>
-        <Gallery />
-      </div>
-      <div ref={coordinatorsRef} id="coordinators" style={{ paddingTop: '50px' }}>
-        <Coordinators />
-      </div>
-      <div ref={footerRef} id="footer" style={{ paddingTop: '50px' }}>
-        <Footer scrollToSection={scrollToSection} />
-      </div>
-    </div>
+    }
+  </>
   );
 }
 
