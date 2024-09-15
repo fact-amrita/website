@@ -2,13 +2,17 @@
 
 import React, { useState, useEffect } from "react";
 import Image from "next/image";
-import { FaLinkedinIn, FaGithub } from 'react-icons/fa';
+import { FaLinkedinIn, FaGithub } from "react-icons/fa";
 import { getUserProfile } from "@/lib/UserFetch";
 import { useRouter } from "next/navigation";
 import { useSession } from "next-auth/react";
-import Swal from 'sweetalert2';
-import { AddPoints, updateProfileRemark, updateRating } from "@/lib/UserOperations";
-import TableComponent from '@/components/TableComponent';
+import Swal from "sweetalert2";
+import {
+  AddPoints,
+  updateProfileRemark,
+  updateRating,
+} from "@/lib/UserOperations";
+import TableComponent from "@/components/TableComponent";
 import { getLifetimePoints } from "@/lib/TaskOperations";
 
 interface TableData {
@@ -29,7 +33,7 @@ const ProfileContent = ({ params }: { params: { id: string } }) => {
   const [taskList, setTaskList] = useState<any>([]);
 
   const handleEditProfile = () => {
-    router.push('/app/edit_profile');
+    router.push("/app/edit_profile");
   };
 
   useEffect(() => {
@@ -41,10 +45,9 @@ const ProfileContent = ({ params }: { params: { id: string } }) => {
           return;
         }
         setProfileData(data);
-
         setClubRating(ProfileData.ClubRating);
       } catch (error) {
-        console.error('Error fetching task data:', error);
+        console.error("Error fetching task data:", error);
       }
     };
     profileDataGetter();
@@ -52,11 +55,10 @@ const ProfileContent = ({ params }: { params: { id: string } }) => {
 
   useEffect(() => {
     const fetchTaskData = async () => {
-      const factId = window.localStorage.getItem('factId') || '';
+      const factId = window.localStorage.getItem("factId") || "";
       const { list, points } = await getLifetimePoints(factId);
-      console.log(list);
       setTaskList(list);
-    }
+    };
     fetchTaskData();
   }, []);
 
@@ -64,7 +66,7 @@ const ProfileContent = ({ params }: { params: { id: string } }) => {
     number: index + 1,
     description: task.task,
     date: task.completeTime,
-    points: task.awarded || 0
+    points: task.awarded || 0,
   }));
 
   if (!ProfileData) {
@@ -89,7 +91,14 @@ const ProfileContent = ({ params }: { params: { id: string } }) => {
     return <p>Loading...</p>;
   }
 
-  const userdat = session?.user as { factId: string, name: string; email: string; role: string; image: string; domain: string };
+  const userdat = session?.user as {
+    factId: string;
+    name: string;
+    email: string;
+    role: string;
+    image: string;
+    domain: string;
+  };
 
   const handleBonusSubmit = async (factId: string) => {
     let bonusReason;
@@ -105,7 +114,7 @@ const ProfileContent = ({ params }: { params: { id: string } }) => {
           if (!value) {
             return "You need to write something!";
           }
-        }
+        },
       });
       bonusReason = response.value;
     } else if (bonusPoints > 0) {
@@ -119,29 +128,34 @@ const ProfileContent = ({ params }: { params: { id: string } }) => {
           if (!value) {
             return "You need to write something!";
           }
-        }
+        },
       });
       bonusReason = response.value;
     } else {
       return;
     }
 
-    const response = await AddPoints(ProfileId, bonusPoints, bonusReason, userdat.factId || "Admin");
+    const response = await AddPoints(
+      ProfileId,
+      bonusPoints,
+      bonusReason,
+      userdat.factId || "Admin"
+    );
 
     if (response) {
       Swal.fire({
         title: "Points Updated",
-        icon: "success"
+        icon: "success",
       }).then(() => {
         window.location.reload();
       });
     } else {
       Swal.fire({
         title: "Failed to update points",
-        icon: "error"
+        icon: "error",
       });
     }
-  }
+  };
 
   const handleRemarkChange = async () => {
     const response = await updateProfileRemark(ProfileId, ProfileData.ProfileRemark);
@@ -149,17 +163,17 @@ const ProfileContent = ({ params }: { params: { id: string } }) => {
     if (response) {
       Swal.fire({
         title: "Remarks Updated",
-        icon: "success"
+        icon: "success",
       }).then(() => {
         window.location.reload();
       });
     } else {
       Swal.fire({
         title: "Failed to update remarks",
-        icon: "error"
+        icon: "error",
       });
     }
-  }
+  };
 
   const handleRatingChange = async () => {
     const response = await updateRating(ProfileId, clubRating);
@@ -167,168 +181,170 @@ const ProfileContent = ({ params }: { params: { id: string } }) => {
     if (response) {
       Swal.fire({
         title: "Rating Updated",
-        icon: "success"
+        icon: "success",
       }).then(() => {
         window.location.reload();
       });
     } else {
       Swal.fire({
         title: "Failed to update rating",
-        icon: "error"
+        icon: "error",
       });
     }
-  }
+  };
 
   const formatDate = (dateString: string) => {
     const date = new Date(dateString);
-    return date.toLocaleDateString('en-US', {
-      day: '2-digit',
-      month: 'long',
-      year: 'numeric',
+    return date.toLocaleDateString("en-US", {
+      day: "2-digit",
+      month: "long",
+      year: "numeric",
     });
   };
 
   return (
     <>
-      <div className="h-screen w-full flex flex-col lg:flex-row justify-center items-center p-5 overflow-y-auto overflow-x-clip">
-        <div style={{ marginLeft: "5%" }} className="grid grid-cols-12 grid-rows-7 gap-2 h-full max-w-full px-4">
-          <div className="bg-darkcharcoal rounded-3xl flex justify-center items-center col-span-4 row-span-7 p-10">
-            <div className="h-full w-screen grid grid-rows-2 gap-7">
-              <div className="bg-zinc-700 h-full w-full rounded-2xl flex flex-col justify-center items-center">
-                <div className="rounded-full overflow-hidden h-16 w-16">
-                  {ProfileData.image ? (
-                    <Image src={ProfileData.image} alt='profile image' layout="responsive" width={64} height={64} />
-                  ) : (
-                    <div className="bg-gray-300 h-full w-full flex items-center justify-center text-gray-500">No Image</div>
-                  )}
-                </div>
-                <h3 className="text-white text-xl mt-4 text-center">{ProfileData.name || "No Name Provided"}</h3>
-                {ProfileData.Title && <h3 className="text-white text-base mt-4">{ProfileData.Title}</h3>}
-                {(window.localStorage.getItem('factId') === ProfileData.FactID) && (
-                  <button onClick={handleEditProfile} className="cursor-pointer transition-all bg-blue-500 text-white px-6 py-2 rounded-lg
-                  border-blue-600
-                  border-b-[4px] hover:brightness-110 hover:-translate-y-[1px] hover:border-b-[6px]
-                  active:border-b-[2px] active:brightness-90 active:translate-y-[2px]">Edit My Profile</button>
-                )}
-              </div>
-              <div className="bg-zinc-700 h-full w-full flex flex-col rounded-2xl justify-center items-center">
-                <h1 className="text-3xl text-black">Performance</h1>
-                {(userdat.role === "admin" || userdat.role === "president" || userdat.role === "moderator") && (
-                  <div>
-                    <label htmlFor="bonusPoints" title={"Enter positive number for bonus and negative number for penalty"}>
-                      Enter bonus/penalty points
-                    </label>
-                    <div className="flex" style={{ marginBottom: "-30px", marginTop: "15px" }}>
-                      <input
-                        type="number"
-                        id="bonusPoints"
-                        className="border rounded p-2 h-10"
-                        placeholder="Bonus/penalty points"
-                        value={bonusPoints}
-                        onChange={(e) => setBonusPoints(parseInt(e.target.value))}
-                      />
-                      <button onClick={() => { handleBonusSubmit(userdat.factId) }} className="bg-green-500 text-white p-2 rounded mb-4 ml-2">Submit</button>
-                    </div>
-                  </div>
-                )}
-                <div className="text-black text-2xl mt-10">
-                  Points: {ProfileData.points || 0}
-                </div>
-                <div className="text-black text-2xl mt-4">
-                  Tasks Done: {ProfileData.TasksCount || 0}
-                </div>
-
-                {(userdat.role === "admin" || userdat.role === "president" || userdat.role === "moderator") ? (
-                  <div>
-                    <label htmlFor="bonusPoints" title={"Enter positive number for bonus and negative number for penalty"}>
-                      Enter user rating (/10)
-                    </label>
-                    <div className="flex" style={{ marginBottom: "-30px", marginTop: "15px" }}>
-                      <input
-                        type="number"
-                        id="bonusPoints"
-                        className="border rounded p-2 h-10"
-                        placeholder="Profile Rating"
-                        value={clubRating}
-                        onChange={(e) => setClubRating(parseInt(e.target.value))}
-                      />
-                      <button onClick={() => { handleRatingChange() }} className="bg-green-500 text-white p-2 rounded mb-4 ml-2">Submit</button>
-                    </div>
-                  </div>
+      <div className="min-h-screen w-full flex flex-col lg:flex-row justify-center items-start p-5 space-y-5 lg:space-y-0 lg:space-x-10 overflow-y-auto">
+        <div className="grid grid-cols-12 grid-rows-7 gap-4 max-w-full">
+          {/* Profile Section */}
+          <div className="col-span-12 lg:col-span-4 row-span-7 p-6 bg-darkcharcoal rounded-3xl flex flex-col justify-center items-center space-y-6">
+            <div className="bg-zinc-700 rounded-2xl p-6 flex flex-col items-center space-y-4">
+              <div className="h-16 w-16 rounded-full overflow-hidden">
+                {ProfileData.image ? (
+                  <Image
+                    src={ProfileData.image}
+                    alt="profile image"
+                    layout="responsive"
+                    width={64}
+                    height={64}
+                  />
                 ) : (
-                  <>
-                    {ProfileData.ClubRating && (<div className="text-black text-xl mt-2">
-                      Club Rating: {ProfileData.ClubRating || 0}/10
-                    </div>)}
-                  </>
+                  <div className="bg-gray-300 h-full w-full flex items-center justify-center text-gray-500">
+                    No Image
+                  </div>
                 )}
               </div>
+              <h3 className="text-white text-2xl">{ProfileData.name || "No Name Provided"}</h3>
+              {ProfileData.Title && <h4 className="text-white text-lg">{ProfileData.Title}</h4>}
+              {(window.localStorage.getItem("factId") === ProfileData.FactID) && (
+                <button
+                  onClick={handleEditProfile}
+                  className="mt-4 px-6 py-2 bg-blue-500 text-white rounded-lg transition-transform hover:translate-y-1 active:translate-y-0"
+                >
+                  Edit My Profile
+                </button>
+              )}
+            </div>
+            <div className="bg-zinc-700 p-6 rounded-2xl w-full flex flex-col items-center">
+              <h1 className="text-white text-3xl mb-4">Performance</h1>
+              {["admin", "president", "moderator"].includes(userdat.role) && (
+                <div className="flex flex-col space-y-2">
+                  <label className="text-white text-lg" htmlFor="bonusPoints">
+                    Bonus/Penalty Points
+                  </label>
+                  <input
+                    type="number"
+                    id="bonusPoints"
+                    className="border rounded p-2 h-10"
+                    placeholder="Bonus/penalty points"
+                    value={bonusPoints}
+                    onChange={(e) => setBonusPoints(parseInt(e.target.value))}
+                  />
+                  <button
+                    onClick={() => handleBonusSubmit(userdat.factId)}
+                    className="bg-green-500 text-white px-4 py-2 rounded"
+                  >
+                    Submit
+                  </button>
+                </div>
+              )}
+              <div className="text-white text-xl mb-2">Points: {ProfileData.points || 0}</div>
+              <div className="text-white text-xl mb-2">Tasks Done: {ProfileData.TasksCount || 0}</div>
+              {["admin", "president", "moderator"].includes(userdat.role) ? (
+                <div className="flex flex-col space-y-2">
+                  <label className="text-white text-lg" htmlFor="clubRating">
+                    Profile Rating (out of 10)
+                  </label>
+                  <input
+                    type="number"
+                    className="border rounded p-2 h-10"
+                    placeholder="Profile Rating"
+                    value={clubRating}
+                    onChange={(e) => setClubRating(parseInt(e.target.value))}
+                  />
+                  <button
+                    onClick={handleRatingChange}
+                    className="bg-green-500 text-white px-4 py-2 rounded"
+                  >
+                    Submit
+                  </button>
+                </div>
+              ) : (
+                <div className="text-white text-xl mb-2">Rating: {ProfileData.ClubRating || "N/A"}</div>
+              )}
             </div>
           </div>
 
-          {/* About Section */}
-          <div className="w-full bg-zinc-700 rounded-3xl flex flex-col col-span-8 row-span-2 p-10 py-5 overflow-x-clip overflow-y-auto">
-            <h1 className="text-xl text-white font-bold">About</h1>
-            <div className="text-white text-lg xl:text-xl">
-              {ProfileData.About || "No description available."}
-              <div className="text-md xl:text-lg opacity-80">
+          {/* Right Section */}
+          <div className="col-span-12 lg:col-span-8 row-span-7 p-6 bg-darkcharcoal rounded-3xl space-y-6">
+            <div className="p-6 rounded-3xl bg-zinc-700 space-y-4">
+              <h1 className="text-white text-3xl mb-4">About</h1>
+              <span className="text-white">{ProfileData.About || "No description available."}</span>
+              <div className="text-md xl:text-lg opacity-80 text-white">
                 Joined Date : {formatDate(ProfileData.RegisterDate)}
                 {" "}
                 {ProfileData.ResignDate && (<span>Resigned Date : {formatDate(ProfileData.ResignDate)}</span>)}
               </div>
-            </div>
-            <div className="flex space-x-4 mt-4">
-              {ProfileData.githubURL && (
-                <div className="cursor-pointer text-blue-400 hover:text-blue-600" onClick={() => handleSocialLinkClick(ProfileData.githubURL)}>
-                  <FaGithub />
-                </div>
-              )}
-              {ProfileData.linkedInURL && (
-                <div className="cursor-pointer text-blue-400 hover:text-blue-600" onClick={() => handleSocialLinkClick(ProfileData.linkedInURL)}>
-                  <FaLinkedinIn />
-                </div>
-              )}
-            </div>
-          </div>
-
-          {/* Profile Remarks Section */}
-          <div className="bg-zinc-700 rounded-3xl flex flex-col items-start col-span-8 row-span-2 p-1 mb-1 overflow-x-clip overflow-y-auto">
-            <p className="text-white text-xl font-bold mb-1 mt-4 ml-3 w-full text-left">
-              Profile Remarks
-            </p>
-            <p>
-              {(userdat.role === "admin" || userdat.role === "president" || userdat.role === "moderator") ? (
-                <span className="w-full h-full">
-                  <textarea
-                    style={{ width: "initial" }}
-                    className="w-full h-24 p-2 rounded-lg border border-gray-300"
-                    value={ProfileData.ProfileRemark}
-                    onChange={(e) => setProfileData({ ...ProfileData, ProfileRemark: e.target.value })}
-                  />
-                  <button onClick={() => { handleRemarkChange() }} className="bg-blue-500 text-white p-2 rounded mb-4 ml-2">Update Remarks</button>
-                </span>
-              ) : <span style={{ marginLeft: "0.7em", color: "white" }}>{(ProfileData.ProfileRemark && ProfileData.ProfileRemark != "") ? ProfileData.ProfileRemark : "No remarks available."}</span>}
-            </p>
-          </div>
-
-          {/* Skills Section */}
-          <div className="bg-zinc-700 rounded-3xl flex flex-col justify-center items-center col-span-8 row-span-2 mb-4 overflow-x-clip overflow-y-auto">
-            <p className="text-white text-xl font-bold mb-2">
-              Skills
-            </p>
-            <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
-              {skills.map((skill: string, index: React.Key | null | undefined) => (
-                (skill && (
-                  <div key={index} className="bg-black text-white py-2 px-4 rounded-lg shadow-md">
-                    {skill}
+              <div className="flex space-x-4 mt-4">
+                {ProfileData.githubURL && (
+                  <div className="cursor-pointer text-blue-400 hover:text-blue-600" onClick={() => handleSocialLinkClick(ProfileData.githubURL)}>
+                    <FaGithub />
                   </div>
-                ))
-              ))}
+                )}
+                {ProfileData.linkedInURL && (
+                  <div className="cursor-pointer text-blue-400 hover:text-blue-600" onClick={() => handleSocialLinkClick(ProfileData.linkedInURL)}>
+                    <FaLinkedinIn />
+                  </div>
+                )}
+              </div>
             </div>
+            <div className="p-6 rounded-3xl bg-zinc-700 space-y-4">
+              <h1 className="text-white text-3xl mb-4">Profile Remarks</h1>
+              <div className="flex space-x-4 text-white">
+                <p>
+                  {(userdat.role === "admin" || userdat.role === "president" || userdat.role === "moderator") ? (
+                    <span className="w-full h-full">
+                      <textarea
+                        style={{ width: "initial" }}
+                        className="w-full h-24 p-2 rounded-lg border border-gray-300 text-black"
+                        value={ProfileData.ProfileRemark}
+                        onChange={(e) => setProfileData({ ...ProfileData, ProfileRemark: e.target.value })}
+                      />
+                      <button onClick={() => { handleRemarkChange() }} className="bg-blue-500 text-white p-2 rounded mb-4 ml-2">Update Remarks</button>
+                    </span>
+                  ) : <span style={{ marginLeft: "0.7em", color: "white" }}>{(ProfileData.ProfileRemark && ProfileData.ProfileRemark != "") ? ProfileData.ProfileRemark : "No remarks available."}</span>}
+                </p>
+              </div>
+            </div>
+            {skills?.length > 0 && (
+              <div className="p-6 rounded-3xl bg-zinc-700 space-y-4">
+                <h1 className="text-white text-3xl mb-4">Skills</h1>
+                <div className="flex flex-wrap gap-4">
+                  {skills.map((skill: string, index: number) => (
+                    <span
+                      key={index}
+                      className="bg-gray-600 px-4 py-2 text-white rounded-full text-sm"
+                    >
+                      {skill}
+                    </span>
+                  ))}
+                </div>
+              </div>
+            )}
           </div>
         </div>
       </div>
-      <div className="w-full xl:max-w-5xl md:max-w-lg rounded-xl border border-gray-200 shadow-lg bg-white p-4 mb-5 mx-auto flex flex-col items-center">
+      <div style={{ position: "relative", left: "18%", width:"70%" }}>
         <TableComponent data={taskData} />
       </div>
     </>
