@@ -27,7 +27,7 @@ const AdminPage = () => {
   const userdat = session.user as { name: string; email: string; role: string; image: string; };
 
   return (
-    <div className="flex flex-col md:flex-row min-h-screen bg-gray-100 ml-2 md:ml-3">
+    <div className="flex flex-col md:flex-row min-h-screen bg-gray-100 ml-2 md:ml-3" style={{zIndex:100}}>
       <div className="w-full md:w-1/2 bg-white p-8 shadow-lg rounded-lg" style={{ marginLeft: "5%" }}>
         <h1 className="text-2xl font-bold mb-8 ml-10 text-center">Admin Panel</h1>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4 justify-center items-center">
@@ -99,6 +99,14 @@ const AdminPage = () => {
               onClick={() => handleNavigation('/app/administration/changetitle')}
             >
               Change Title of Member
+            </button>
+          )}
+          {(userdat.role === "admin") && (
+            <button
+              className="w-full p-8 sm:p-4 md:p-6 bg-sky-800 text-white rounded-lg hover:bg-purple-700 transition duration-300"
+              onClick={() => handleNavigation('/app/administration/deleteuser')}
+            >
+              Delete User
             </button>
           )}
         </div>

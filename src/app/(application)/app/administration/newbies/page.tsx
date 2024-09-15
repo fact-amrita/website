@@ -4,10 +4,21 @@ import React, { useState, useEffect } from 'react';
 import { getNewbieUsers, makeMember, deleteUser } from '@/lib/UserOperations';
 import Swal from 'sweetalert2'
 import withReactContent from 'sweetalert2-react-content'
+import {useSession} from 'next-auth/react'
 
 const MemberListPage: React.FC = () => {
+  const { data: session, status } = useSession();
   const [members, setMembers] = useState<{ email: string; name: string }[]>([]);
   const MySwal = withReactContent(Swal)
+
+  const userdat = session?.user as {
+    factId: string;
+    name: string;
+    email: string;
+    role: string;
+    image: string;
+    domain: string;
+};
 
   useEffect(() => {
     const fetchNewbieUsers = async () => {
@@ -30,7 +41,7 @@ const MemberListPage: React.FC = () => {
     });
     if (!isConfirmed) return;
 
-    await makeMember(email);
+    await makeMember(email, userdat.name);
     setMembers((prevMembers) =>
       prevMembers.filter((member) => member.email !== email)
     );
@@ -51,7 +62,7 @@ const MemberListPage: React.FC = () => {
       cancelButtonText: "No, cancel!"
     });
     if (!isConfirmed) return;
-    await deleteUser(email);
+    await deleteUser(email, userdat.name);
     setMembers((prevMembers) =>
       prevMembers.filter((member) => member.email !== email)
     );

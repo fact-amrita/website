@@ -69,6 +69,7 @@
     "fast-xml-parser": "^4.4.1",
     "formidable": "^3.5.1",
     "framer-motion": "^11.2.6",
+    "ldrs": "^1.0.2",
     "lucide-react": "^0.381.0",
     "mime": "^4.0.3",
     "mongodb": "^6.6.2",

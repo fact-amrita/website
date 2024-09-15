@@ -142,3 +142,10 @@ model factofTheDay {
   Date    String
   Creator String?
 }
+
+model Logs {
+  id      String  @id @default(auto()) @map("_id") @db.ObjectId
+  Log     String
+  Date    String
+  Creator String?
+}

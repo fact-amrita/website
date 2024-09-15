@@ -7,5 +7,7 @@ export async function roleUpdateCheck(factId: string, role: string) {
         if (user.role !== role) {
             window.location.href = '/app/logout';
         }
+    }else{
+        window.location.href = '/app/logout';
     }
 }
