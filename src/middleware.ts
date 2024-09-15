@@ -131,4 +131,11 @@ export default auth((req) => {
         }
     }
 
+    if (isAuthenticated && requestedPath.startsWith("/app/administration/deleteuser")) {
+        const userdat = req.auth?.user as { name: string; email: string; role: string; image: string; factId: string };
+        if ((userdat.role !== "admin")) {
+            return Response.redirect(new URL('/404', req.url));
+        }
+    }
+
 });
