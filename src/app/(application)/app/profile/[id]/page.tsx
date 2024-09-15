@@ -53,8 +53,7 @@ const ProfileContent = ({ params }: { params: { id: string } }) => {
 
   useEffect(() => {
     const fetchTaskData = async () => {
-      const factId = window.localStorage.getItem('factId') || '';
-      const { list, points } = await getLifetimePoints(factId);
+      const { list, points } = await getLifetimePoints(ProfileId);
       console.log(list);
       setTaskList(list);
     }
