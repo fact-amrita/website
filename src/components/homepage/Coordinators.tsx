@@ -211,7 +211,7 @@ const Coordinators: React.FC = () => {
     }
   }, {
     "name": "Aravind Mohan",
-    "title": "Skill Enhancement Co-Ordinator",
+    "title": "Skill Enhancementㅤㅤㅤㅤ Co-Ordinator",
     "year": "4th Year CYS",
     "imgURL": "https://ik.imagekit.io/factamrita/co-ordinators/Aravind%20(Skill%20Enhancement%20Coordinator).png",
     "customStyles": {
@@ -221,13 +221,13 @@ const Coordinators: React.FC = () => {
     }
   }, {
     "name": "Satwika Matangi",
-    "title": "Public Relations",
+    "title": "Public Relations &ㅤㅤ Marketing",
     "year": "4th Year CYS",
-    "imgURL": "https://ik.imagekit.io/factamrita/co-ordinators/Satwika_marketing.png",
+    "imgURL": "https://ik.imagekit.io/factamrita/co-ordinators/Satwika_marketing.png?updatedAt=1726580305401",
     "customStyles": {
-      width: "50%",
-      marginLeft: "6%",
-      marginBottom: "8%"
+      width: "55%",
+      marginLeft: "4%",
+      marginBottom: "0%"
     }
   }
   ]
@@ -288,7 +288,7 @@ const Coordinators: React.FC = () => {
               {ActiveMemberDetails.map((member, index) => (
                 <SwiperSlide key={index} className="product-slider__item" data-target={`img${index + 1}`}>
                   <div className="product-slider__card">
-                    <img style={{ filter: "brightness(0.5)" }} src="https://ik.imagekit.io/factamrita/AdobeStock-JZM6gWcb8m.jpg?updatedAt=1722405189234" alt="background" className="product-slider__cover" />
+                    <img style={{ filter: "brightness(0.4)" }} src="https://ik.imagekit.io/factamrita/AdobeStock-JZM6gWcb8m.jpg?updatedAt=1722405189234" alt="background" className="product-slider__cover" />
                     <div className="product-slider__content" style={{ height: "23em" }}>
                       <h2 className="product-slider__title">{member.name}</h2>
                       <h4 className="product-slider__price">{member.title}</h4>
