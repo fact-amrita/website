@@ -211,7 +211,7 @@ const Coordinators: React.FC = () => {
     }
   }, {
     "name": "Aravind Mohan",
-    "title": "Skill Enhancementㅤㅤㅤㅤ Co-Ordinator",
+    "title": "Skill Enhancement Co-Ordinator",
     "year": "4th Year CYS",
     "imgURL": "https://ik.imagekit.io/factamrita/co-ordinators/Aravind%20(Skill%20Enhancement%20Coordinator).png",
     "customStyles": {
@@ -221,7 +221,7 @@ const Coordinators: React.FC = () => {
     }
   }, {
     "name": "Satwika Matangi",
-    "title": "Public Relations &ㅤㅤ Marketing",
+    "title": "Public Relations & Marketing",
     "year": "4th Year CYS",
     "imgURL": "https://ik.imagekit.io/factamrita/co-ordinators/Satwika_marketing.png?updatedAt=1726580305401",
     "customStyles": {
