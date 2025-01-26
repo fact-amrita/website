@@ -5,7 +5,6 @@ import Image from 'next/image';
 import 'swiper/css';
 import 'swiper/css/bundle';
 import FACTImage from '@/public/images/FACT_white_wbg - Copy.png';
-import padmasiniImage from "@/public/images/padmasini.png";
 
 interface MemberDetails {
   name: string;
@@ -152,9 +151,107 @@ const Coordinators: React.FC = () => {
     "name": "Mokshagna Bhuvan",
     "title": "Vice President",
     "year": "3rd Year CYS",
-    "imgURL": "https://ik.imagekit.io/factamrita/co-ordinators/Moksha(VP).png",
+    "imgURL": "https://ik.imagekit.io/factamrita/co-ordinators/Moksha.png?updatedAt=1737869804527",
     "customStyles": {
-      width: "55%"
+      width: "60%"
+    }
+  }, {
+    "name": "Fiyan Mehfil Ayoob",
+    "title": `Physical Forensics Co-Ordinator`,
+    "year": "4th Year CYS",
+    "imgURL": "https://ik.imagekit.io/factamrita/co-ordinators/Fiyan%20(Physical%20Forensic%20Coordinator).png",
+    "customStyles": {
+      width: "54%"
+    }
+  }, {
+    "name": "Melvina Jose",
+    "title": "Digital Forensics Co-Ordinator",
+    "year": "4th Year CYS",
+    "imgURL": "https://ik.imagekit.io/factamrita/co-ordinators/Melvina%20Jose%20(Digital%20Forensics%20Coordinator).png",
+    "customStyles": {
+      width: "50%"
+    }
+  }, {
+    "name": "Siddhant Kundargi",
+    "title": "Technical Lead",
+    "year": "4th Year CYS",
+    "imgURL": "https://ik.imagekit.io/factamrita/co-ordinators/Siddhant%20(Technical%20Lead).png",
+    "customStyles": {
+      width: "70%",
+      marginBottom: "-5%"
+    }
+  }, {
+    "name": "Krishna Koushik",
+    "title": "Treasurer",
+    "year": "4th Year CCE",
+    "imgURL": "https://ik.imagekit.io/factamrita/co-ordinators/Krishna%20Kaushik%20(Treasurer).png",
+    "customStyles": {
+      width: "70%",
+      marginBottom: "-2%"
+    }
+  }, {
+    "name": "Mazhar Mashood",
+    "title": "Marketing and Content Creation",
+    "year": "4th Year CYS",
+    "imgURL": "https://ik.imagekit.io/factamrita/co-ordinators/Mazhar(marketing%20and%20content%20creation).png?updatedAt=1722762131958",
+    "customStyles": {
+      width: "59%",
+      marginLeft: "-2%",
+      marginBottom: "1%"
+    }
+  }, {
+    "name": "Gaurav Kheitan",
+    "title": "Event Co-Ordinator ",
+    "year": "4th Year CYS",
+    "imgURL": "https://ik.imagekit.io/factamrita/co-ordinators/Gaurav%20Keitan%20(event%20co-ordinator).png?updatedAt=1722923209259",
+    "customStyles": {
+      width: "57%",
+      marginBottom: "-4%"
+    }
+  }, {
+    "name": "Aravind Mohan",
+    "title": "Skill Enhancement Co-Ordinator",
+    "year": "4th Year CYS",
+    "imgURL": "https://ik.imagekit.io/factamrita/co-ordinators/Aravind%20(Skill%20Enhancement%20Coordinator).png",
+    "customStyles": {
+      width: "80%",
+      marginLeft: "-5%",
+      marginBottom: "7%"
+    }
+  }, {
+    "name": "Satwika Matangi",
+    "title": "Public Relations & Marketing",
+    "year": "4th Year CYS",
+    "imgURL": "https://ik.imagekit.io/factamrita/co-ordinators/Satwika_marketing.png?updatedAt=1726580305401",
+    "customStyles": {
+      width: "55%",
+      marginLeft: "4%",
+      marginBottom: "0%"
+    }
+  }
+  ]
+
+  const members25_26 = [{
+    "name": "Mokshagna Bhuvan",
+    "title": "President",
+    "year": "3rd Year CYS",
+    "imgURL": "https://ik.imagekit.io/factamrita/co-ordinators/Moksha.png?updatedAt=1737869804527",
+    "customStyles": {
+      width: "60%"
+      }
+    }, 
+      {
+    "name": "Abhiram Kotnur",
+    "title": "Secretary",
+    "year": "4th Year CSE",
+    "imgURL": "https://ik.imagekit.io/factamrita/co-ordinators/Abhiram%20(Secretary).png"
+  }, {
+    "name": "Mokshagna Bhuvan",
+    "title": "Vice President",
+    "year": "3rd Year CYS",
+    "imgURL": "https://ik.imagekit.io/factamrita/co-ordinators/Moksha.png?updatedAt=1737869804527",
+    "customStyles": {
+      width: "60%"
     }
   }, {
     "name": "Fiyan Mehfil Ayoob",
@@ -240,6 +337,7 @@ const Coordinators: React.FC = () => {
       <div style={{ position: "relative", left: "41%", top: "120px", width: "30%", zIndex: "100" }} className="flex">
         <button className='bg-slate-900 text-white' onClick={() => { setActiveMemberDetails(members23_24 as MemberDetails[]) }} style={{ borderWidth: "2px", borderColor: "black", fontWeight: "600", padding: "8px", margin: "8px", borderRadius: "10px" }} >2023-2024</button>
         <button className='bg-slate-900 text-white' onClick={() => { setActiveMemberDetails(members24_25 as MemberDetails[]) }} style={{ borderWidth: "2px", borderColor: "black", fontWeight: "600", padding: "8px", margin: "8px", borderRadius: "10px" }} >2024-2025</button>
+        {/* <button className='bg-slate-900 text-white' onClick={() => { setActiveMemberDetails(members25_26 as MemberDetails[]) }} style={{ borderWidth: "2px", borderColor: "black", fontWeight: "600", padding: "8px", margin: "8px", borderRadius: "10px" }} >2025-2026</button> */}
       </div>
       <div className="wrapper">
         <div className="content">
