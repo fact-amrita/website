@@ -82,7 +82,7 @@ const TaskListPage: React.FC = () => {
         const fetchedTaskLists = AllTasks.filter((task) => {
           return task.target.includes(currentYear);
         });
-        console.log("users tasks",fetchedTaskLists);
+        // console.log("users tasks",fetchedTaskLists);
         setTaskLists(fetchedTaskLists);
 
         const pendingTasksList = (await getUserPendingTasks(UserDat.factId))[0];

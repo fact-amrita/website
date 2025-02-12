@@ -54,7 +54,7 @@ const ProfileContent = ({ params }: { params: { id: string } }) => {
   useEffect(() => {
     const fetchTaskData = async () => {
       const { list, points } = await getLifetimePoints(ProfileId);
-      console.log(list);
+      // console.log(list);
       setTaskList(list);
     }
     fetchTaskData();

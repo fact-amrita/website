@@ -20,7 +20,7 @@ export async function POST(req: NextRequest) {
     const data = await req.formData();
 
     const key = data.get('filekey') as string;
-    console.log(key);
+    // console.log(key);
     
     if (key) {
         const params = {

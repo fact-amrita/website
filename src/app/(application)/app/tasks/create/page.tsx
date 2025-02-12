@@ -69,10 +69,10 @@ const TaskForm: React.FC = () => {
         method: 'POST',
         body: formData,
       });
-      console.log(response);
+      // console.log(response);
       if (response.ok) {
         const data = await response.json();
-        console.log(data);
+        // console.log(data);
         MySwal.fire({
           title: 'Success',
           text: data.message+', Click "Ok" to go back to the Administration page',
