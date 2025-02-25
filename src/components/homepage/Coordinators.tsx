@@ -262,9 +262,11 @@ const Coordinators: React.FC = () => {
     "name": "Lalith M",
     "title": `Physical Forensics Co-Ordinator`,
     "year": "3rd Year CYS",
-    "imgURL": "https://ik.imagekit.io/factamrita/co-ordinators/2025-2026/lalith.png?updatedAt=1740494350529",
+    "imgURL": "https://ik.imagekit.io/factamrita/co-ordinators/2025-2026/lalith.png?updatedAt=1740500497616",
     "customStyles": {
-      width: "63%"
+      width: "43%",
+      marginBottom:"-5%",
+      marginLeft:"7%"
     }
   // }, {
   //   "name": "Dhivyasree",
@@ -328,12 +330,12 @@ const Coordinators: React.FC = () => {
   // }
   ]
 
-  const [ActiveMemberDetails, setActiveMemberDetails] = useState<MemberDetails[]>(members24_25 as MemberDetails[]);
+  const [ActiveMemberDetails, setActiveMemberDetails] = useState<MemberDetails[]>(members25_26 as MemberDetails[]);
 
 
   return (<>
     <section id="coordinators" style={{ marginTop: "-5%" }}>
-      <div style={{ position: "relative", left: "41%", top: "120px", width: "30%", zIndex: "100" }} className="flex">
+      <div style={{ position: "relative", left: "36%", top: "120px", width: "30%", zIndex: "100" }} className="flex">
         <button className='bg-slate-900 text-white' onClick={() => { setActiveMemberDetails(members23_24 as MemberDetails[]) }} style={{ borderWidth: "2px", borderColor: "black", fontWeight: "600", padding: "8px", margin: "8px", borderRadius: "10px" }} >2023-2024</button>
         <button className='bg-slate-900 text-white' onClick={() => { setActiveMemberDetails(members24_25 as MemberDetails[]) }} style={{ borderWidth: "2px", borderColor: "black", fontWeight: "600", padding: "8px", margin: "8px", borderRadius: "10px" }} >2024-2025</button>
         <button className='bg-slate-900 text-white' onClick={() => { setActiveMemberDetails(members25_26 as MemberDetails[]) }} style={{ borderWidth: "2px", borderColor: "black", fontWeight: "600", padding: "8px", margin: "8px", borderRadius: "10px" }} >2025-2026</button>
