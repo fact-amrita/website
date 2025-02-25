@@ -109,7 +109,7 @@ html {
 .factheading {
   text-align: center;
   padding-left: 8%;
-  margin-top: 3%;
+  margin-top: 6%;
   margin-left: 10%;
   margin-right: 10%;
   padding-right: 9%;
@@ -117,12 +117,16 @@ html {
 }
 
 .factheading h1 {
-  font-size: 110px;
+  font-size: clamp(40px, 13vw, 140px); /* Adjust values as needed */
   color: #fff;
   font-weight: 600;
   margin: 0;
-  /* Removes gap between headings */
   transition: 0.5s;
+}
+@media screen and (max-width : 800px) {
+  .factheading{
+    margin-top: 140px;
+  }
 }
 
 .factheading h1:hover .remaining-letters {
@@ -146,7 +150,7 @@ html {
   display: flex;
   align-items: center;
   border-radius: 50px;
-  background: rgb(0, 0, 0);
+  background: hsl(0, 0%, 0%);
   position: fixed;
   left: 50%;
   transform: translateX(-50%);
@@ -164,7 +168,7 @@ html {
 /* menu bar */
 .navigation {
   position: relative;
-  width: 85%;
+  width: 100%;
   border-radius: 25px;
   display: flex;
   justify-content: center;
@@ -223,8 +227,8 @@ html {
 .navigation li a .icon::before {
   content: "";
   position: absolute;
-  inset: 9px;
-  background: #005564;
+  inset: 7px;
+  background: #5a2c01;
   border-radius: 50%;
   transform: scale(0);
   transition: 0.1s;
@@ -233,7 +237,7 @@ html {
 
 .navigation li.active a .icon {
   color: #fff;
-  transform: translateY(-27px);
+  transform: translateY(-30px);
   transition-delay: 0s;
 }
 
@@ -245,8 +249,9 @@ html {
 .navigation li a .text {
   position: absolute;
   font-size: 0.9em;
-  color: #fff;
+  color: #ffffff;
   opacity: 0;
+  font-weight: 900;
   transition: 0s;
   transition-delay: 0s;
 }
@@ -474,41 +479,12 @@ html {
   transform: translateY(-50%);
 }
 
-@media screen and (max-width: 1200px) {
-  .product-slider {
-    width: 80%;
-  }
-}
-
-@media screen and (max-width: 992px) {
-  .product-slider {
-    width: 80%;
-    left: 50%;
-    transform: translateX(-50%);
-    height: auto;
-    position: relative;
-    top: 0;
-    margin-top: 170px;
-    margin-bottom: 100px;
-  }
 
   .product-slider br {
     display: none;
   }
-}
 
-@media screen and (max-width: 767px) {
-  .product-slider {
-    border-radius: 20px;
-  }
-}
 
-@media screen and (max-width: 576px) {
-  .product-slider {
-    width: 85%;
-    margin-top: 130px;
-  }
-}
 
 .product-slider__wrp {
   height: 100%;
@@ -520,11 +496,7 @@ html {
   width: 100%;
 }
 
-@media screen and (max-width: 992px) {
-  .product-slider__item {
-    height: auto;
-  }
-}
+
 
 .product-slider__item.swiper-slide-active .product-slider__content>* {
   opacity: 1;
@@ -776,13 +748,16 @@ img {
 
 /* galary slider */
 
+
+
 .galaryslider {
   height: 80vh;
-  width: 80vw;
-  left: 5%;
+ 
+
   padding-bottom: 4%;
   margin-top: 5.3%;
-  margin-left: 2%;
+  margin-left: auto;
+  margin-right: auto;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -899,6 +874,7 @@ img {
   width: 100%;
   max-width: 600px;
   line-height: 1;
+  font-size: clamp(4rem, 10vw, 6rem);
 }
 
 .galaryslider .item .matter .wrap .letter {
@@ -1215,227 +1191,108 @@ footer .address {
     transform: translateX(var(--end));
   }
 }
-
-
-/* about */
-.e-card {
-  margin: 100px auto;
-  background: transparent;
-  box-shadow: 0px 8px 28px -9px rgb(0, 153, 156);
+/* Center the entire #about section with some horizontal padding */
+#about {
+  display: flex;
+  justify-content: center;
+  padding: 40px 5%; /* Adjust top/bottom & left/right padding as needed */
+  margin-top: 100px;
+}
+@media screen and (max-width : 600px) {
+ #about{
+    margin-top: 40px;
+  }
+}
+/* Constrain the width of the .e-card and center it */
+#about .e-card {
+  width: 100%; /* Set your desired max width */
+  margin: 0 auto;   /* Centers the element horizontally */
   position: relative;
-  width: 70%;
-  height: 970px;
-  border-radius: 5%;
   overflow: hidden;
-  width: calc(80% + 10vw); 
-  height: calc(60vh + 20px); 
+  background: rgba(255, 255, 255, 0.1); /* Glass effect background */
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  backdrop-filter: blur(10px);
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+  border-radius: 15px;
+  padding: 20px;
 }
 
-/* Large screens */
-@media (min-width: 1200px) {
-  .e-card {
-    width: 70%;
-    height: 970px;
-  }
-}
-
-/* Medium screens */
-@media (max-width: 1199px) and (min-width: 768px) {
-  .e-card {
-    width: 80%;
-    height: 700px;
-  }
-}
-
-/* Small screens */
-@media (max-width: 767px) {
-  .e-card {
-    width: 90%;
-    height: 500px;
-    margin: 50px auto;
-  }
-}
-
-/* Extra small screens */
-@media (max-width: 480px) {
-  .e-card {
-    width: 95%;
-    height: 400px;
-    margin: 30px auto;
-  }
-}
-
-.wave {
+/* Wave animation container (stays behind the content) */
+.e-card .wave-container {
   position: absolute;
-  width: 120%;
-  height: 450%;
-  opacity: 0.6;
-  left: 0;
   top: 0;
-  margin-left: -50%;
-  margin-top: -70%;
-  background: linear-gradient(270deg,
-      #003449,
-      #800200);
-}
-
-.infotop {
-  text-align: center;
-  font-size: 180%;
-  position: absolute;
-  top: 0.4em; /* Adjust top for better alignment */
   left: 0;
-  right: 0;
-  color: rgb(231, 231, 231);
-  font-weight: 600;
-  font-size: calc(1.2em + 1vw); /* Responsive font size */
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  overflow: hidden;
+  z-index: 1;
 }
 
-/* Large screens */
-@media (min-width: 1200px) {
-  .infotop {
-    font-size: 150%;
-    top: 0.5em;
-  }
-}
-
-/* Medium screens */
-@media (max-width: 1199px) and (min-width: 768px) {
-  .infotop {
-    font-size: 140%;
-    top: 0.4em;
-  }
-}
-
-/* Small screens */
-@media (max-width: 767px) {
-  .infotop {
-    font-size: 130%;
-    top: 0.3em;
-  }
-}
-
-/* Extra small screens */
-@media (max-width: 480px) {
-  .infotop {
-    font-size: 110%;
-    top: 0.2em;
-  }
-}
-
-
-/* .name {
-  font-size: 75%;
-  position: relative;
-  top: 0.3em;
-  height: 25em;
-  overflow-y: auto;
-  font-weight: 350;
-  letter-spacing: 1px;
-  height: auto; 
-} */
-
-/* Updated styles for the 'name' class */
-.name {
-  font-family: "Montserrat", sans-serif;
-  font-size: 85%; /* Slightly larger for better readability */
-  position: relative;
-  top: 0.3em;
-  font-weight: 400; /* Increase weight for better legibility */
-  letter-spacing: 0.5px; /* Adjusted for improved appearance */
-  height: auto; 
-  padding: 20px; /* Add padding for breathing space */
-  line-height: 1.6em; /* Adjusted line height for readability */
-  color: #f1f1f1; /* Ensure text color contrasts well with background */
-  text-transform: none; /* Override any text transformation */
-}
-
-
-/* Additional CSS for scrollbar customization (optional) */
-.name::-webkit-scrollbar {
-  width: 8px;
-}
-
-.name::-webkit-scrollbar-thumb {
-  background-color: rgba(255, 255, 255, 0.3); /* Subtle color to match theme */
-  border-radius: 10px;
-}
-
-.name::-webkit-scrollbar-track {
-  background: rgba(0, 0, 0, 0.1); /* Subtle background color for the track */
-}
-
-/* Large screens */
-/* @media (min-width: 1200px) {
-  .name {
-    font-size: calc(0.6em + 1vw);
-    height: 30em;
-  }
-} */
-
-/* Medium screens */
-/* @media (max-width: 1199px) and (min-width: 768px) {
-  .name {
-    font-size: calc(0.7em + 0.8vw);
-    height: 20em;
-  }
-} */
-
-/* Small screens */
-/* @media (max-width: 767px) {
-  .name {
-    font-size: calc(0.6em + 0.5vw);
-    height: 15em;
-    top: 0.2em;
-  }
-} */
-
-/* Extra small screens */
-/* @media (max-width: 480px) {
-  .name {
-    font-size: calc(0.8em + 0.4vw);
-    height: auto;
-    top: 0.1em;
-  }
-} */
-
-.wave:nth-child(2),
-.wave:nth-child(3) {
-  top: 210px;
-}
-
-.playing .wave {
-  border-radius: 40%;
-  animation: wave 3000ms infinite linear;
-}
-
-.wave {
+/* Style for each wave element */
+.e-card .wave-container .wave {
+  position: absolute;
+  width: 150%;
+  height: 150%;
+  top: -25%;
+  left: -25%;
+  background: rgba(255, 255, 255, 0.2);
   border-radius: 50%;
-  animation: wave 55s infinite linear;
+  animation: rotateWave 20s linear infinite;
+  transform-origin: center;
 }
 
-.playing .wave:nth-child(2) {
-  animation-duration: 4000ms;
+/* Optional: Different durations & opacities for variation */
+.e-card .wave-container .wave:nth-child(1) {
+  animation-duration: 20s;
+  opacity: 0.2;
 }
 
-.wave:nth-child(2) {
-  animation-duration: 50s;
+.e-card .wave-container .wave:nth-child(2) {
+  animation-duration: 25s;
+  opacity: 0.15;
 }
 
-.playing .wave:nth-child(3) {
-  animation-duration: 5000ms;
+.e-card .wave-container .wave:nth-child(3) {
+  animation-duration: 30s;
+  opacity: 0.1;
 }
 
-.wave:nth-child(3) {
-  animation-duration: 45s;
-}
-
-@keyframes wave {
+/* Keyframes for continuous rotation */
+@keyframes rotateWave {
   0% {
     transform: rotate(0deg);
   }
-
   100% {
     transform: rotate(360deg);
   }
+}
+
+/* Content area – ensure text stays on top */
+.e-card .infotop {
+  position: relative;
+  z-index: 2;
+  color: #fff; /* Adjust color based on your design */
+  text-align: center;
+}
+
+/* Optional: Enhance readability for headings and paragraphs */
+.e-card .infotop h1,
+.e-card .infotop h2 {
+  margin: 0 0 10px;
+  font-weight: bold;
+}
+
+.e-card .infotop p {
+  line-height: 1.6;
+  margin-bottom: 10px;
+  font-size: clamp(18px, 2.5vw, 20px);
+  font-weight: 500;
+  font-family: Montserrat, sans-serif;
+}
+.e-card .infotop h2 {
+ font-size: clamp(17px, 3.5vw, 30px);
+}
+.e-card .infotop h1 {
+ font-size: clamp(25px,3.5vw,40px);
 }

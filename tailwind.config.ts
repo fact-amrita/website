@@ -18,6 +18,9 @@ const config: Config = {
       },
     },
     extend: {
+      screens : {
+        "mobile": { min: "728px" }
+      },
       colors: {
         gold: {
           500: '#FFD700',

@@ -260,7 +260,7 @@ function Gallery() {
 
   return (
     <section id="pics">
-      <div className="galaryslider">
+      <div className="galaryslider mobile:w-[80vw] w-[100vw]">
         <div className="nav">
           <div className="next" onClick={next} style={{ backgroundColor: 'white' }}></div>
           <div className="prev" onClick={prev} style={{ backgroundColor: 'white' }}></div>

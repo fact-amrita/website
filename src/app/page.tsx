@@ -7,6 +7,7 @@ import About from '@/components/homepage/About';
 import Gallery from '@/components/homepage/Gallery';
 import Coordinators from '@/components/homepage/Coordinators';
 import Footer from '@/components/homepage/Footer';
+import Cord from '@/components/homepage/Cord';
 import './homepage.css';
 
 import MobileOverlay from '@/components/MobileOverlay';
@@ -89,7 +90,7 @@ function App() {
 
 
   return (<>
-    {isMobile ? <MobileOverlay /> :
+    {
       <div style={{ fontFamily: '"Uni Sans", sans-serif', userSelect: "none", cursor: "default" }}>
         <Header scrollToSection={scrollToSection} activeSection={activeSection} />
         <div ref={headingRef} id="heading" style={{ paddingTop: '50px' }}>
@@ -101,8 +102,11 @@ function App() {
         <div ref={galleryRef} id="gallery" style={{ paddingTop: '50px' }}>
           <Gallery />
         </div>
-        <div ref={coordinatorsRef} id="coordinators" style={{ paddingTop: '50px' }}>
+        {/* <div ref={coordinatorsRef} id="coordinators" style={{ paddingTop: '50px' }}>
           <Coordinators />
+        </div> */}
+        <div style={{ marginTop: '50px' }} ref={coordinatorsRef} id="coordinators">
+          <Cord />
         </div>
         <div ref={footerRef} id="footer" style={{ paddingTop: '50px' }}>
           <Footer scrollToSection={scrollToSection} />
