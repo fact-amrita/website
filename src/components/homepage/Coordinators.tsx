@@ -243,7 +243,7 @@ const Coordinators: React.FC = () => {
       {
     "name": "Abhishik CH ",
     "title": "Secretary",
-    "year": "2rd year CYS",
+    "year": "3rd year CYS",
     "imgURL": "https://ik.imagekit.io/factamrita/co-ordinators/2025-2026/abhishik.png?updatedAt=1740491827637",
     "customStyles": {
       marginTop : "10%",
@@ -252,7 +252,7 @@ const Coordinators: React.FC = () => {
   }, {
     "name": "Adithi Suresh",
     "title": "Vice President",
-    "year": "2rd year CYS",
+    "year": "2nd year CYS",
     "imgURL": "https://ik.imagekit.io/factamrita/co-ordinators/2025-2026/IMG_3572.PNG?updatedAt=1740403219160",
     "customStyles": {
     width: "50%",
@@ -268,27 +268,27 @@ const Coordinators: React.FC = () => {
       marginBottom:"-5%",
       marginLeft:"7%"
     }
-  // }, {
-  //   "name": "Dhivyasree",
-  //   "title": "Digital Forensics Co-Ordinator",
-  //   "year": "3rd year CSE",
-  //   "imgURL": "https://ik.imagekit.io/factamrita/co-ordinators/Melvina%20Jose%20(Digital%20Forensics%20Coordinator).png",
-  //   "customStyles": {
-  //     width: "50%"
-  //   }
-  // }
+  }, {
+    "name": "Dhivyasree",
+    "title": "Digital Forensics Co-Ordinator",
+    "year": "3rd year CSE",
+    "imgURL": "https://ik.imagekit.io/factamrita/co-ordinators/2025-2026/Dhivyasree.png?updatedAt=1740502538378",
+    "customStyles": {
+      width: "50%",
+      marginBottom:"-1%"
+    }
   }, {
     "name": "Dhivijit K",
     "title": "Technical Lead",
     "year": "3rd Year CYS",
-    "imgURL": "https://ik.imagekit.io/factamrita/co-ordinators/2025-2026/Dhivijit.png?updatedAt=1740491623597",
+    "imgURL": "https://ik.imagekit.io/factamrita/co-ordinators/2025-2026/Dhivijit.png?updatedAt=1740502496178",
     "customStyles": {
-      width: "50%",
-      marginBottom: "-7%"
+      width: "65%",
+      marginBottom: "-5%"
     }
   }, {
     "name": "Kapil Anirudh",
-    "title": "MARKETTING AND MEDIA COORDINATOR",
+    "title": "MARKETING AND MEDIA COORDINATOR",
     "year": "3rd Year CYS",
     "imgURL": "https://ik.imagekit.io/factamrita/co-ordinators/2025-2026/Kapil.png?updatedAt=1740491883397",
     "customStyles": {
