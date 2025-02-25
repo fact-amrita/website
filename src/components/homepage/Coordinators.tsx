@@ -21,16 +21,24 @@ interface MemberDetails {
 const Coordinators: React.FC = () => {
   const handleSlideChange = (swiper: any) => {
     const index = swiper.activeIndex;
-    const target = (document.querySelectorAll('.product-slider__item')[index] as HTMLElement).dataset.target;
-
-    document.querySelectorAll('.product-img__item').forEach(item => item.classList.remove('active'));
-    document.querySelector(`#${target}`)?.classList.add('active');
+    const targetElement = document.querySelectorAll('.product-slider__item')[index] as HTMLElement;
+    if (targetElement) {
+      const target = targetElement.dataset.target;
+      if (target) {
+        document.querySelectorAll('.product-img__item').forEach(item => item.classList.remove('active'));
+        document.querySelector(`#${target}`)?.classList.add('active');
+      }
+    }
   };
 
   useEffect(() => {
     const firstSlide = document.querySelector('.product-slider__item') as HTMLElement;
-    const target = firstSlide?.dataset.target;
-    document.querySelector(`#${target}`)?.classList.add('active');
+    if (firstSlide) {
+      const target = firstSlide.dataset.target;
+      if (target) {
+        document.querySelector(`#${target}`)?.classList.add('active');
+      }
+    }
   }, []);
 
   const members23_24 = [{
@@ -262,11 +270,10 @@ const Coordinators: React.FC = () => {
     "name": "Lalith M",
     "title": `Physical Forensics Co-Ordinator`,
     "year": "3rd Year CYS",
-    "imgURL": "https://ik.imagekit.io/factamrita/co-ordinators/2025-2026/lalith.png?updatedAt=1740500497616",
+    "imgURL": "https://ik.imagekit.io/factamrita/co-ordinators/2025-2026/Lalith1.png?updatedAt=1740506801700",
     "customStyles": {
-      width: "43%",
-      marginBottom:"-5%",
-      marginLeft:"7%"
+      width: "65%",
+      marginBottom: "-11%",
     }
   }, {
     "name": "Dhivyasree",
@@ -287,7 +294,7 @@ const Coordinators: React.FC = () => {
       marginBottom: "-5%"
     }
   }, {
-    "name": "Kapil Anirudh",
+    "name": "Kapil Ch",
     "title": "MARKETING AND MEDIA COORDINATOR",
     "year": "3rd Year CYS",
     "imgURL": "https://ik.imagekit.io/factamrita/co-ordinators/2025-2026/Kapil.png?updatedAt=1740491883397",

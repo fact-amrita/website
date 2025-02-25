@@ -53,7 +53,7 @@ function Footer({ scrollToSection }: ScrollToSectionProps) {
                   <li><a onClick={() => scrollToSection('gallery')}>Gallery</a></li>
                   <li><a onClick={() => scrollToSection('coordinators')}>Members</a></li>
                 </ul>
-                <p>{/*©️*/} 2024 FACT CLUB | All Rights Reserved</p>
+                <p>{/*©️*/} 2025 FACT CLUB | All Rights Reserved</p>
               </td>
               <td style={{ width: "33%" }}>
                 <div className="address">
