@@ -22,13 +22,22 @@ function About() {
   };
 
   return (
-    <section id="about">
+    <section id="about" className='font-courier'>
       <div className="e-card playing">
         {/* Background Animation */}
         <div className="wave-container">
           <div className="wave"></div>
+           <div className="wave"></div>
+          <div className="wave"></div>
+          {/*<div className="wave"></div>
           <div className="wave"></div>
           <div className="wave"></div>
+          <div className="wave"></div>
+          <div className="wave"></div>
+          <div className="wave"></div>
+          <div className="wave"></div>
+          <div className="wave"></div>
+          <div className="wave"></div> */}
         </div>
 
         {/* Content Section */}

@@ -18,6 +18,9 @@ const config: Config = {
       },
     },
     extend: {
+      fontFamily: {
+        courier: ['"Courier Prime"', 'monospace'],
+      },
       screens : {
         "mobile": { min: "728px" }
       },

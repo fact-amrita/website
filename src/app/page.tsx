@@ -9,7 +9,7 @@ import Coordinators from '@/components/homepage/Coordinators';
 import Footer from '@/components/homepage/Footer';
 import Cord from '@/components/homepage/Cord';
 import './homepage.css';
-
+import ContactForm from '@/components/homepage/Contact';
 import MobileOverlay from '@/components/MobileOverlay';
 
 function App() {
@@ -107,6 +107,9 @@ function App() {
         </div> */}
         <div style={{ marginTop: '50px' }} ref={coordinatorsRef} id="coordinators">
           <Cord />
+        </div>
+        <div style={{ marginTop: '50px' }} >
+          <ContactForm/>
         </div>
         <div ref={footerRef} id="footer" style={{ paddingTop: '50px' }}>
           <Footer scrollToSection={scrollToSection} />
