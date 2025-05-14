@@ -2,13 +2,13 @@ export function classifySemester(rollNum: string) {
     const year = rollNum.slice(0, 2);
 
     if (year == "21") {
-        return "7"
+        return "8"
     } else if (year == "22") {
-        return "5"
+        return "6"
     } else if (year == "23") {
-        return "3"
+        return "4"
     } else if (year == "24") {
-        return "1"
+        return "2"
     } else if (year == "25") {
         return "1"
     } else {

@@ -21,16 +21,24 @@ interface MemberDetails {
 const Coordinators: React.FC = () => {
   const handleSlideChange = (swiper: any) => {
     const index = swiper.activeIndex;
-    const target = (document.querySelectorAll('.product-slider__item')[index] as HTMLElement).dataset.target;
-
-    document.querySelectorAll('.product-img__item').forEach(item => item.classList.remove('active'));
-    document.querySelector(`#${target}`)?.classList.add('active');
+    const targetElement = document.querySelectorAll('.product-slider__item')[index] as HTMLElement;
+    if (targetElement) {
+      const target = targetElement.dataset.target;
+      if (target) {
+        document.querySelectorAll('.product-img__item').forEach(item => item.classList.remove('active'));
+        document.querySelector(`#${target}`)?.classList.add('active');
+      }
+    }
   };
 
   useEffect(() => {
     const firstSlide = document.querySelector('.product-slider__item') as HTMLElement;
-    const target = firstSlide?.dataset.target;
-    document.querySelector(`#${target}`)?.classList.add('active');
+    if (firstSlide) {
+      const target = firstSlide.dataset.target;
+      if (target) {
+        document.querySelector(`#${target}`)?.classList.add('active');
+      }
+    }
   }, []);
 
   const members23_24 = [{
@@ -241,103 +249,103 @@ const Coordinators: React.FC = () => {
       }
     }, 
       {
-    "name": "Abhiram Kotnur",
+    "name": "Abhishik CH ",
     "title": "Secretary",
-    "year": "4th Year CSE",
-    "imgURL": "https://ik.imagekit.io/factamrita/co-ordinators/Abhiram%20(Secretary).png"
+    "year": "3rd year CYS",
+    "imgURL": "https://ik.imagekit.io/factamrita/co-ordinators/2025-2026/abhishik.png?updatedAt=1740491827637",
+    "customStyles": {
+      marginTop : "10%",
+
+    }
   }, {
-    "name": "Mokshagna Bhuvan",
+    "name": "Adithi Suresh",
     "title": "Vice President",
-    "year": "3rd Year CYS",
-    "imgURL": "https://ik.imagekit.io/factamrita/co-ordinators/Moksha.png?updatedAt=1737869804527",
+    "year": "2nd year CYS",
+    "imgURL": "https://ik.imagekit.io/factamrita/co-ordinators/2025-2026/IMG_3572.PNG?updatedAt=1740403219160",
     "customStyles": {
-      width: "60%"
+    width: "50%",
+    marginBottom: "28px"
     }
   }, {
-    "name": "Fiyan Mehfil Ayoob",
+    "name": "Lalith M",
     "title": `Physical Forensics Co-Ordinator`,
-    "year": "4th Year CYS",
-    "imgURL": "https://ik.imagekit.io/factamrita/co-ordinators/Fiyan%20(Physical%20Forensic%20Coordinator).png",
+    "year": "3rd Year CYS",
+    "imgURL": "https://ik.imagekit.io/factamrita/co-ordinators/2025-2026/Lalith1.png?updatedAt=1740506801700",
     "customStyles": {
-      width: "54%"
+      width: "65%",
+      marginBottom: "-11%",
     }
   }, {
-    "name": "Melvina Jose",
+    "name": "Dhivyasree",
     "title": "Digital Forensics Co-Ordinator",
-    "year": "4th Year CYS",
-    "imgURL": "https://ik.imagekit.io/factamrita/co-ordinators/Melvina%20Jose%20(Digital%20Forensics%20Coordinator).png",
+    "year": "3rd year CSE",
+    "imgURL": "https://ik.imagekit.io/factamrita/co-ordinators/2025-2026/Dhivyasree.png?updatedAt=1740502538378",
     "customStyles": {
-      width: "50%"
+      width: "50%",
+      marginBottom:"-1%"
     }
   }, {
-    "name": "Siddhant Kundargi",
+    "name": "Dhivijit K",
     "title": "Technical Lead",
-    "year": "4th Year CYS",
-    "imgURL": "https://ik.imagekit.io/factamrita/co-ordinators/Siddhant%20(Technical%20Lead).png",
+    "year": "3rd Year CYS",
+    "imgURL": "https://ik.imagekit.io/factamrita/co-ordinators/2025-2026/Dhivijit.png?updatedAt=1740502496178",
     "customStyles": {
-      width: "70%",
+      width: "65%",
       marginBottom: "-5%"
     }
   }, {
-    "name": "Krishna Koushik",
-    "title": "Treasurer",
-    "year": "4th Year CCE",
-    "imgURL": "https://ik.imagekit.io/factamrita/co-ordinators/Krishna%20Kaushik%20(Treasurer).png",
+    "name": "Kapil Ch",
+    "title": "MARKETING AND MEDIA COORDINATOR",
+    "year": "3rd Year CYS",
+    "imgURL": "https://ik.imagekit.io/factamrita/co-ordinators/2025-2026/Kapil.png?updatedAt=1740491883397",
     "customStyles": {
       width: "70%",
-      marginBottom: "-2%"
+     
     }
   }, {
-    "name": "Mazhar Mashood",
-    "title": "Marketing and Content Creation",
-    "year": "4th Year CYS",
-    "imgURL": "https://ik.imagekit.io/factamrita/co-ordinators/Mazhar(marketing%20and%20content%20creation).png?updatedAt=1722762131958",
+    "name": "Keerthan Reddy P",
+    "title": "Membership coordinator",
+    "year": "3rd Year CYS",
+    "imgURL": "https://ik.imagekit.io/factamrita/co-ordinators/2025-2026/Keerthan1.png?updatedAt=1740491637312",
     "customStyles": {
-      width: "59%",
+      width: "45%",
       marginLeft: "-2%",
       marginBottom: "1%"
     }
-  }, {
-    "name": "Gaurav Kheitan",
-    "title": "Event Co-Ordinator ",
-    "year": "4th Year CYS",
-    "imgURL": "https://ik.imagekit.io/factamrita/co-ordinators/Gaurav%20Keitan%20(event%20co-ordinator).png?updatedAt=1722923209259",
-    "customStyles": {
-      width: "57%",
-      marginBottom: "-4%"
-    }
-  }, {
-    "name": "Aravind Mohan",
-    "title": "Skill Enhancement Co-Ordinator",
-    "year": "4th Year CYS",
-    "imgURL": "https://ik.imagekit.io/factamrita/co-ordinators/Aravind%20(Skill%20Enhancement%20Coordinator).png",
-    "customStyles": {
-      width: "80%",
-      marginLeft: "-5%",
-      marginBottom: "7%"
-    }
-  }, {
-    "name": "Satwika Matangi",
-    "title": "Public Relations & Marketing",
-    "year": "4th Year CYS",
-    "imgURL": "https://ik.imagekit.io/factamrita/co-ordinators/Satwika_marketing.png?updatedAt=1726580305401",
-    "customStyles": {
-      width: "55%",
-      marginLeft: "4%",
-      marginBottom: "0%"
-    }
   }
+  // , {
+  //   "name": "Mounika V ",
+  //   "title": "Skill Enhancement Co-Ordinator",
+  //   "year": "3rd Year AIE",
+  //   "imgURL": "https://ik.imagekit.io/factamrita/co-ordinators/Aravind%20(Skill%20Enhancement%20Coordinator).png",
+  //   "customStyles": {
+  //     width: "80%",
+  //     marginLeft: "-5%",
+  //     marginBottom: "7%"
+  //   }
+  // }
+  // }, {
+  //   "name": "yet to be decided",
+  //   "title": "Public Relations & Marketing",
+  //   "year": "4th Year CYS",
+  //   "imgURL": "https://ik.imagekit.io/factamrita/co-ordinators/Satwika_marketing.png?updatedAt=1726580305401",
+  //   "customStyles": {
+  //     width: "55%",
+  //     marginLeft: "4%",
+  //     marginBottom: "0%"
+  //   }
+  // }
   ]
 
-  const [ActiveMemberDetails, setActiveMemberDetails] = useState<MemberDetails[]>(members24_25 as MemberDetails[]);
+  const [ActiveMemberDetails, setActiveMemberDetails] = useState<MemberDetails[]>(members25_26 as MemberDetails[]);
 
 
   return (<>
     <section id="coordinators" style={{ marginTop: "-5%" }}>
-      <div style={{ position: "relative", left: "41%", top: "120px", width: "30%", zIndex: "100" }} className="flex">
+      <div style={{ position: "relative", left: "36%", top: "120px", width: "30%", zIndex: "100" }} className="flex">
         <button className='bg-slate-900 text-white' onClick={() => { setActiveMemberDetails(members23_24 as MemberDetails[]) }} style={{ borderWidth: "2px", borderColor: "black", fontWeight: "600", padding: "8px", margin: "8px", borderRadius: "10px" }} >2023-2024</button>
         <button className='bg-slate-900 text-white' onClick={() => { setActiveMemberDetails(members24_25 as MemberDetails[]) }} style={{ borderWidth: "2px", borderColor: "black", fontWeight: "600", padding: "8px", margin: "8px", borderRadius: "10px" }} >2024-2025</button>
-        {/* <button className='bg-slate-900 text-white' onClick={() => { setActiveMemberDetails(members25_26 as MemberDetails[]) }} style={{ borderWidth: "2px", borderColor: "black", fontWeight: "600", padding: "8px", margin: "8px", borderRadius: "10px" }} >2025-2026</button> */}
+        <button className='bg-slate-900 text-white' onClick={() => { setActiveMemberDetails(members25_26 as MemberDetails[]) }} style={{ borderWidth: "2px", borderColor: "black", fontWeight: "600", padding: "8px", margin: "8px", borderRadius: "10px" }} >2025-2026</button>
       </div>
       <div className="wrapper">
         <div className="content">
