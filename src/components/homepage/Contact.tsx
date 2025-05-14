@@ -112,7 +112,7 @@ const ContactForm: React.FC = () => {
         type="submit"
         className="w-full bg-[rgb(121,4,3)] text-white font-bold py-2 px-4 rounded hover:bg-[rgb(140,10,5)] transition duration-200"
       >
-        Send Message
+        File a Report
       </button>
     </form>
     </div>
