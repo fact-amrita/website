@@ -242,7 +242,7 @@ const Coordinators: React.FC = () => {
   const members25_26 = [{
     "name": "Mokshagna Bhuvan",
     "title": "President",
-    "year": "3rd Year CYS",
+    "year": "4th Year CYS",
     "imgURL": "https://ik.imagekit.io/factamrita/co-ordinators/Moksha.png?updatedAt=1737869804527",
     "customStyles": {
       width: "60%"
@@ -251,7 +251,7 @@ const Coordinators: React.FC = () => {
       {
     "name": "Abhishik CH ",
     "title": "Secretary",
-    "year": "3rd year CYS",
+    "year": "4th year CYS",
     "imgURL": "https://ik.imagekit.io/factamrita/co-ordinators/2025-2026/abhishik.png?updatedAt=1740491827637",
     "customStyles": {
       marginTop : "10%",
@@ -260,7 +260,7 @@ const Coordinators: React.FC = () => {
   }, {
     "name": "Adithi Suresh",
     "title": "Vice President",
-    "year": "2nd year CYS",
+    "year": "3rd year CYS",
     "imgURL": "https://ik.imagekit.io/factamrita/co-ordinators/2025-2026/IMG_3572.PNG?updatedAt=1740403219160",
     "customStyles": {
     width: "50%",
@@ -269,7 +269,7 @@ const Coordinators: React.FC = () => {
   }, {
     "name": "Lalith M",
     "title": `Physical Forensics Co-Ordinator`,
-    "year": "3rd Year CYS",
+    "year": "4th Year CYS",
     "imgURL": "https://ik.imagekit.io/factamrita/co-ordinators/2025-2026/Lalith1.png?updatedAt=1740506801700",
     "customStyles": {
       width: "65%",
@@ -278,7 +278,7 @@ const Coordinators: React.FC = () => {
   }, {
     "name": "Dhivyasree",
     "title": "Digital Forensics Co-Ordinator",
-    "year": "3rd year CSE",
+    "year": "4th year CSE",
     "imgURL": "https://ik.imagekit.io/factamrita/co-ordinators/2025-2026/Dhivyasree.png?updatedAt=1740502538378",
     "customStyles": {
       width: "50%",
@@ -287,7 +287,7 @@ const Coordinators: React.FC = () => {
   }, {
     "name": "Dhivijit K",
     "title": "Technical Lead",
-    "year": "3rd Year CYS",
+    "year": "4th Year CYS",
     "imgURL": "https://ik.imagekit.io/factamrita/co-ordinators/2025-2026/Dhivijit.png?updatedAt=1740502496178",
     "customStyles": {
       width: "65%",
@@ -296,7 +296,7 @@ const Coordinators: React.FC = () => {
   }, {
     "name": "Kapil Ch",
     "title": "MARKETING AND MEDIA COORDINATOR",
-    "year": "3rd Year CYS",
+    "year": "4th Year CYS",
     "imgURL": "https://ik.imagekit.io/factamrita/co-ordinators/2025-2026/Kapil.png?updatedAt=1740491883397",
     "customStyles": {
       width: "70%",
@@ -305,7 +305,7 @@ const Coordinators: React.FC = () => {
   }, {
     "name": "Keerthan Reddy P",
     "title": "Membership coordinator",
-    "year": "3rd Year CYS",
+    "year": "4th Year CYS",
     "imgURL": "https://ik.imagekit.io/factamrita/co-ordinators/2025-2026/Keerthan1.png?updatedAt=1740491637312",
     "customStyles": {
       width: "45%",
@@ -313,28 +313,6 @@ const Coordinators: React.FC = () => {
       marginBottom: "1%"
     }
   }
-  // , {
-  //   "name": "Mounika V ",
-  //   "title": "Skill Enhancement Co-Ordinator",
-  //   "year": "3rd Year AIE",
-  //   "imgURL": "https://ik.imagekit.io/factamrita/co-ordinators/Aravind%20(Skill%20Enhancement%20Coordinator).png",
-  //   "customStyles": {
-  //     width: "80%",
-  //     marginLeft: "-5%",
-  //     marginBottom: "7%"
-  //   }
-  // }
-  // }, {
-  //   "name": "yet to be decided",
-  //   "title": "Public Relations & Marketing",
-  //   "year": "4th Year CYS",
-  //   "imgURL": "https://ik.imagekit.io/factamrita/co-ordinators/Satwika_marketing.png?updatedAt=1726580305401",
-  //   "customStyles": {
-  //     width: "55%",
-  //     marginLeft: "4%",
-  //     marginBottom: "0%"
-  //   }
-  // }
   ]
 
   const [ActiveMemberDetails, setActiveMemberDetails] = useState<MemberDetails[]>(members25_26 as MemberDetails[]);
