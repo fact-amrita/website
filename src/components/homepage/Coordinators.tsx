@@ -63,7 +63,7 @@ const Coordinators: React.FC = () => {
   }, {
     "name": "Navaneeth P",
     "title": "Vice President",
-    "year": "4th Year CYS",
+    "year": "Batch '21 CYS",
     "imgURL": "https://ik.imagekit.io/factamrita/co-ordinators/Navaneeth_President.png",
     "customStyles": {
       width: "63%"
@@ -109,7 +109,7 @@ const Coordinators: React.FC = () => {
   }, {
     "name": "Fiyan Mehfil Ayoob",
     "title": `Physical Forensics Co-Ordinator`,
-    "year": "4th Year CYS",
+    "year": "Batch '21 CYS",
     "imgURL": "https://ik.imagekit.io/factamrita/co-ordinators/Fiyan%20(Physical%20Forensic%20Coordinator).png",
     "customStyles": {
       width: "54%"
@@ -117,7 +117,7 @@ const Coordinators: React.FC = () => {
   }, {
     "name": "Melvina Jose",
     "title": "Digital Forensics Co-Ordinator",
-    "year": "4th Year CYS",
+    "year": "Batch '21 CYS",
     "imgURL": "https://ik.imagekit.io/factamrita/co-ordinators/Melvina%20Jose%20(Digital%20Forensics%20Coordinator).png",
     "customStyles": {
       width: "50%"
@@ -125,7 +125,7 @@ const Coordinators: React.FC = () => {
   }, {
     "name": "Aravind Mohan",
     "title": "Membership Co-Ordinator",
-    "year": "4th Year CYS",
+    "year": "Batch '21 CYS",
     "imgURL": "https://ik.imagekit.io/factamrita/co-ordinators/Aravind%20(Skill%20Enhancement%20Coordinator).png",
     "customStyles": {
       width: "80%",
@@ -135,7 +135,7 @@ const Coordinators: React.FC = () => {
   }, {
     "name": "Prithi G",
     "title": "Skill Enhancement Co-Ordinator",
-    "year": "4th Year CYS",
+    "year": "Batch '21 CYS",
     "imgURL": "https://ik.imagekit.io/factamrita/co-ordinators/2023-2024/Prithi(Skill%20enhancement%20Coordinator).png?updatedAt=1725297926999",
     "customStyles": {
       width: "45%",
@@ -148,17 +148,17 @@ const Coordinators: React.FC = () => {
   const members24_25 = [{
     "name": "Navaneeth P",
     "title": "President",
-    "year": "4th Year CYS",
+    "year": "Batch '21 CYS",
     "imgURL": "https://ik.imagekit.io/factamrita/co-ordinators/Navaneeth_President.png"
   }, {
     "name": "Abhiram Kotnur",
     "title": "Secretary",
-    "year": "4th Year CSE",
+    "year": "Batch '21 CSE",
     "imgURL": "https://ik.imagekit.io/factamrita/co-ordinators/Abhiram%20(Secretary).png"
   }, {
     "name": "Mokshagna Bhuvan",
     "title": "Vice President",
-    "year": "3rd Year CYS",
+    "year": "4th Year CYS",
     "imgURL": "https://ik.imagekit.io/factamrita/co-ordinators/Moksha.png?updatedAt=1737869804527",
     "customStyles": {
       width: "60%"
@@ -166,7 +166,7 @@ const Coordinators: React.FC = () => {
   }, {
     "name": "Fiyan Mehfil Ayoob",
     "title": `Physical Forensics Co-Ordinator`,
-    "year": "4th Year CYS",
+    "year": "Batch '21 CYS",
     "imgURL": "https://ik.imagekit.io/factamrita/co-ordinators/Fiyan%20(Physical%20Forensic%20Coordinator).png",
     "customStyles": {
       width: "54%"
@@ -174,7 +174,7 @@ const Coordinators: React.FC = () => {
   }, {
     "name": "Melvina Jose",
     "title": "Digital Forensics Co-Ordinator",
-    "year": "4th Year CYS",
+    "year": "Batch '21 CYS",
     "imgURL": "https://ik.imagekit.io/factamrita/co-ordinators/Melvina%20Jose%20(Digital%20Forensics%20Coordinator).png",
     "customStyles": {
       width: "50%"
@@ -182,7 +182,7 @@ const Coordinators: React.FC = () => {
   }, {
     "name": "Siddhant Kundargi",
     "title": "Technical Lead",
-    "year": "4th Year CYS",
+    "year": "Batch '21 CYS",
     "imgURL": "https://ik.imagekit.io/factamrita/co-ordinators/Siddhant%20(Technical%20Lead).png",
     "customStyles": {
       width: "70%",
@@ -191,7 +191,7 @@ const Coordinators: React.FC = () => {
   }, {
     "name": "Krishna Koushik",
     "title": "Treasurer",
-    "year": "4th Year CCE",
+    "year": "Batch '21 CCE",
     "imgURL": "https://ik.imagekit.io/factamrita/co-ordinators/Krishna%20Kaushik%20(Treasurer).png",
     "customStyles": {
       width: "70%",
@@ -200,7 +200,7 @@ const Coordinators: React.FC = () => {
   }, {
     "name": "Mazhar Mashood",
     "title": "Marketing and Content Creation",
-    "year": "4th Year CYS",
+    "year": "Batch '21 CYS",
     "imgURL": "https://ik.imagekit.io/factamrita/co-ordinators/Mazhar(marketing%20and%20content%20creation).png?updatedAt=1722762131958",
     "customStyles": {
       width: "59%",
@@ -210,7 +210,7 @@ const Coordinators: React.FC = () => {
   }, {
     "name": "Gaurav Kheitan",
     "title": "Event Co-Ordinator ",
-    "year": "4th Year CYS",
+    "year": "Batch '21 CYS",
     "imgURL": "https://ik.imagekit.io/factamrita/co-ordinators/Gaurav%20Keitan%20(event%20co-ordinator).png?updatedAt=1722923209259",
     "customStyles": {
       width: "57%",
@@ -219,7 +219,7 @@ const Coordinators: React.FC = () => {
   }, {
     "name": "Aravind Mohan",
     "title": "Skill Enhancement Co-Ordinator",
-    "year": "4th Year CYS",
+    "year": "Batch '21 CYS",
     "imgURL": "https://ik.imagekit.io/factamrita/co-ordinators/Aravind%20(Skill%20Enhancement%20Coordinator).png",
     "customStyles": {
       width: "80%",
@@ -229,7 +229,7 @@ const Coordinators: React.FC = () => {
   }, {
     "name": "Satwika Matangi",
     "title": "Public Relations & Marketing",
-    "year": "4th Year CYS",
+    "year": "Batch '21 CYS",
     "imgURL": "https://ik.imagekit.io/factamrita/co-ordinators/Satwika_marketing.png?updatedAt=1726580305401",
     "customStyles": {
       width: "55%",
