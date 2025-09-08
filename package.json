@@ -86,7 +86,7 @@
     "react-vertical-timeline-component": "^3.6.0",
     "react-widgets": "^5.8.4",
     "styled-components": "^6.1.13",
-    "sweetalert2": "^11.6.13",
+    "sweetalert2": "^11.22.4",
     "sweetalert2-react-content": "^5.0.7",
     "swiper": "^11.1.8",
     "tailwind-merge": "^2.3.0",
