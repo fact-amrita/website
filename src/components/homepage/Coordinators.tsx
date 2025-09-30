@@ -20,7 +20,7 @@ const teamsByYear: Record<string, TeamMember[]> = {
     },
     {
       name: "ADITHI SURESH",
-      role: "President",
+      role: "Vice President",
       img: "https://ik.imagekit.io/factamrita/co-ordinators/2025-2026/IMG_3572.PNG?updatedAt=1740403219160",
     },
     {
